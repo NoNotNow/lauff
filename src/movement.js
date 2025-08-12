@@ -75,6 +75,14 @@ export function free() {
 
 export function go(input) {
   let steps = parseNumber(input);
+  let freeStepsCount = free(); // Get the number of free steps
+
+  // If the requested steps exceed the available free steps,
+  // set steps to one beyond the free count to trigger collision
+  if (steps > freeStepsCount) {
+    steps = freeStepsCount + 1;
+  }
+
   switch (gameState.direction) {
     case 0:
       gameState.position.y -= steps;
