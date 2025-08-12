@@ -11,36 +11,38 @@
     <!-- Setup Mocha -->
     <!-- Load application files (dependencies first) -->
     <script type="module">
-        // Setup Mocha and Chai after they're loaded
-        window.mocha.setup('bdd');
-        window.expect = window.chai.expect;
-        
-        // Import and expose modules for testing
-        import { gameState, resetPosition, withinBounds, setDirection, parseNumber, checkObstacleCollision, checkTargetReached } from '../src/game-state.js';
-        import { startTimer, stopTimer, resetTimer } from '../src/timer.js';
-        import { go, left, right, free } from '../src/movement.js';
-        import { start, stop } from '../src/code-executor.js';
-        
-        // Expose modules globally for tests
-        window.gameState = gameState;
-        window.resetPosition = resetPosition;
-        window.withinBounds = withinBounds;
-        window.setDirection = setDirection;
-        window.parseNumber = parseNumber;
-        window.checkObstacleCollision = checkObstacleCollision;
-        window.checkTargetReached = checkTargetReached;
-        window.startTimer = startTimer;
-        window.stopTimer = stopTimer;
-        window.resetTimer = resetTimer;
-        window.go = go;
-        window.left = left;
-        window.right = right;
-        window.free = free;
-        window.start = start;
-        window.stop = stop;
-        
-        // Load test files after modules are exposed
-        import('./code-executor.test.js').then(() => {
+        document.addEventListener('DOMContentLoaded', async () => {
+            // Setup Mocha and Chai after they're loaded
+            window.mocha.setup('bdd');
+            window.expect = window.chai.expect;
+            
+            // Import and expose modules for testing
+            const gameStateModule = await import('../src/game-state.js');
+            const timerModule = await import('../src/timer.js');
+            const movementModule = await import('../src/movement.js');
+            const codeExecutorModule = await import('../src/code-executor.js');
+            
+            // Expose modules globally for tests
+            window.gameState = gameStateModule.gameState;
+            window.resetPosition = gameStateModule.resetPosition;
+            window.withinBounds = gameStateModule.withinBounds;
+            window.setDirection = gameStateModule.setDirection;
+            window.parseNumber = gameStateModule.parseNumber;
+            window.checkObstacleCollision = gameStateModule.checkObstacleCollision;
+            window.checkTargetReached = gameStateModule.checkTargetReached;
+            window.startTimer = timerModule.startTimer;
+            window.stopTimer = timerModule.stopTimer;
+            window.resetTimer = timerModule.resetTimer;
+            window.go = movementModule.go;
+            window.left = movementModule.left;
+            window.right = movementModule.right;
+            window.free = movementModule.free;
+            window.start = codeExecutorModule.start;
+            window.stop = codeExecutorModule.stop;
+            
+            // Load test files after modules are exposed
+            await import('./code-executor.test.js');
+            
             // Run tests after all modules are loaded
             mocha.run();
         });
