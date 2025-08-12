@@ -8,13 +8,14 @@
     <script src="https://unpkg.com/mocha/mocha.js"></script>
     <script src="https://unpkg.com/chai/chai.js"></script>
     
-    <!-- Setup Mocha and Chai immediately after libraries load -->
+    <!-- Setup Mocha and Chai after DOM is loaded -->
     <script>
-        mocha.setup('bdd');
-        window.expect = chai.expect;
+        document.addEventListener('DOMContentLoaded', function() {
+            mocha.setup('bdd');
+            window.expect = chai.expect;
+        });
     </script>
     
-    <!-- Setup Mocha -->
     <!-- Load application files (dependencies first) -->
     <script type="module">
         document.addEventListener('DOMContentLoaded', async () => {
