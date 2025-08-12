@@ -8,33 +8,113 @@
     <script type="module" src="src/main.js"></script>
   </head>
   <body>
-  <div id="avatar" class="avatar"></div>
-  <div class="stage" id="stage"></div>
-  <div class="displays">
-    <div id="timer" class="timer">123</div>
-  </div>
-  <div class="controls">
-    <textarea id="code" rows="10" class="text">go();</textarea>
-    <div class="buttons">
-      <button class="move" id="goButton">
-        go()
-      </button>
-      <button class="move left" id="leftButton">
-        left()
-      </button>
-      <button class="move right" id="rightButton">
-        right()
-      </button>
-      <button class="start" id="startButton">
-        START
-      </button>
-      <button class="stop" id="stopButton">
-        STOP
-      </button>
-      <button class="save" id="saveButton">
-        SAVE
-      </button>
+    <div class="page-container">
+      <div class="game-container">
+        <div class="stage" id="stage">
+          <canvas id="gridCanvas"></canvas>
+          <div id="avatar" class="avatar">
+            <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+              <!-- Bigger colorful triangle with gradient -->
+              <defs>
+                <linearGradient id="spaceshipGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" style="stop-color:#6366f1;stop-opacity:1" />
+                  <stop offset="50%" style="stop-color:#3b82f6;stop-opacity:1" />
+                  <stop offset="100%" style="stop-color:#1d4ed8;stop-opacity:1" />
+                </linearGradient>
+                <linearGradient id="fireGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+                  <stop offset="0%" style="stop-color:#fbbf24;stop-opacity:1" />
+                  <stop offset="50%" style="stop-color:#f59e0b;stop-opacity:1" />
+                  <stop offset="100%" style="stop-color:#ef4444;stop-opacity:1" />
+                </linearGradient>
+              </defs>
+              <!-- Bigger triangle with colorful gradient -->
+              <polygon class="spaceship-body" points="50,10 15,85 85,85" fill="url(#spaceshipGradient)" stroke="#1e40af" stroke-width="3"/>
+              <!-- Left arm -->
+              <line x1="25" y1="50" x2="5" y2="40" stroke="#3b82f6" stroke-width="4" stroke-linecap="round">
+                <animateTransform attributeName="transform" attributeType="XML" type="rotate" values="0 25 50;15 25 50;-15 25 50;0 25 50" dur="1s" repeatCount="indefinite"/>
+              </line>
+              <!-- Right arm -->
+              <line x1="75" y1="50" x2="95" y2="40" stroke="#3b82f6" stroke-width="4" stroke-linecap="round">
+                <animateTransform attributeName="transform" attributeType="XML" type="rotate" values="0 75 50;-15 75 50;15 75 50;0 75 50" dur="1s" repeatCount="indefinite"/>
+              </line>
+              <!-- Bigger colorful fire at rear middle -->
+              <polygon points="50,85 40,95 60,95" fill="url(#fireGradient)" opacity="0.9">
+                <animate attributeName="opacity" values="0.8;1;0.8" dur="0.3s" repeatCount="indefinite"/>
+              </polygon>
+            </svg>
+          </div>
+        </div>
+        <div class="displays">
+          <div id="timer" class="timer">0.00</div>
+          <div id="errorMessage" class="error-message"></div>
+        </div>
+      </div>
+      <div class="bottom-container">
+        <div class="controls">
+          <div class="textarea-container">
+            <textarea id="code" rows="10" class="text" autocomplete="off" autocapitalize="off" spellcheck="false">go();</textarea>
+            <button class="clear-button" id="clearButton">×</button>
+          </div>
+          <div class="buttons">
+            <button class="move" id="goButton">
+              go()
+            </button>
+            <button class="move left" id="leftButton">
+              left()
+            </button>
+            <button class="move right" id="rightButton">
+              right()
+            </button>
+            <button class="move reset" id="resetButton">
+              reset
+            </button>
+            <button class="start" id="startButton">
+              Start
+            </button>
+            <button class="stop" id="stopButton">
+              Stop
+            </button>
+            <button class="save" id="saveButton">
+              Save
+            </button>
+            <label class="loop-control">
+              <input type="checkbox" id="loopCheckbox">
+              Loop
+            </label>
+          </div>
+        </div>
+        <div class="instructions">
+          <h3>Anleitung</h3>
+          <h4>Befehle:</h4>
+          <ul>
+            <li><code>go()</code> - Bewege dich einen Schritt vorwärts</li>
+            <li><code>go(3)</code> - Bewege dich 3 Schritte vorwärts</li>
+            <li><code>left()</code> - Drehe dich nach links</li>
+            <li><code>right()</code> - Drehe dich nach rechts</li>
+            <li><code>free()</code> - Anzahl freier Felder vor dem Avatar</li>
+            <li><code>random(6)</code> - Zufallszahl zwischen 1 und 6</li>
+            <li><code>free()</code> - Anzahl freier Felder vor dem Avatar</li>
+            <li><code>random(6)</code> - Zufallszahl zwischen 1 und 6</li>
+          </ul>
+          <h4>Ziel:</h4>
+          <p>Erreiche das grüne Ziel, ohne gegen Hindernisse oder Wände zu stoßen!</p>
+          <h4>Beispiel:</h4>
+          <pre><code>go();
+left();
+go(3);
+right();
+go();</code></pre>
+          <h4>Programmieren:</h4>
+          <p>Du kannst auch echtes JavaScript verwenden! Zum Beispiel Schleifen und Bedingungen:</p>
+          <pre><code>for (let i = 0; i < 3; i++) {
+  go();
+}
+
+if (free() > 2) {
+  go(2);
+}</code></pre>
+        </div>
+      </div>
     </div>
-  </div>
-   </body>
+  </body>
 </html>
