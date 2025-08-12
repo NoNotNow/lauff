@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Runner</title>
+    <!-- Mocha CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/mocha/mocha.css">
+</head>
+<body>
+    <div id="mocha"></div>
+    
+    <!-- Mocha and Chai libraries -->
+    <script src="https://unpkg.com/mocha/mocha.js"></script>
+    <script src="https://unpkg.com/chai/chai.js"></script>
+    
+    <!-- Setup Mocha -->
+    <script>
+        mocha.setup('bdd');
+        const expect = chai.expect;
+    </script>
+    
+    <!-- Load application files (dependencies first) -->
+    <script type="module">
+        // Import and expose modules for testing
+        import { gameState, resetPosition, withinBounds, setDirection, parseNumber, checkObstacleCollision, checkTargetReached } from '../src/game-state.js';
+        import { startTimer, stopTimer, resetTimer } from '../src/timer.js';
+        import { go, left, right, free } from '../src/movement.js';
+        import { start, stop } from '../src/code-executor.js';
+        
+        // Expose modules globally for tests
+        window.gameState = gameState;
+        window.resetPosition = resetPosition;
+        window.withinBounds = withinBounds;
+        window.setDirection = setDirection;
+        window.parseNumber = parseNumber;
+        window.checkObstacleCollision = checkObstacleCollision;
+        window.checkTargetReached = checkTargetReached;
+        window.startTimer = startTimer;
+        window.stopTimer = stopTimer;
+        window.resetTimer = resetTimer;
+        window.go = go;
+        window.left = left;
+        window.right = right;
+        window.free = free;
+        window.start = start;
+        window.stop = stop;
+        
+        // Load test files after modules are exposed
+        import('./code-executor.test.js').then(() => {
+            // Run tests after all modules are loaded
+            mocha.run();
+        });
+    </script>
+</body>
+</html>
