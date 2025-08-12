@@ -1,0 +1,138 @@
+/* Game stage and game elements */
+.stage {
+  position: relative;
+  background: linear-gradient(135deg, #ff9a56, #ff6b35, #f7931e);
+  transition-duration: 60ms;
+  border: 0.125em solid black;
+  box-sizing: border-box;
+  flex-shrink: 0;
+}
+
+.stage.loop-active {
+  transition-duration: 10ms;
+}
+
+#gridCanvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.displays {
+  position: relative;
+  flex-shrink: 0;
+}
+
+.timer {
+  font-size: 1.5em;
+  font-family: 'Courier New', monospace;
+  font-weight: bold;
+  color: #ff8c00;
+  background-color: #1a1a1a;
+  border: 0.1875em solid #34495e;
+  border-radius: 15px;
+  padding: 0.5em 0.8em;
+  text-align: center;
+  width: 100%;
+  max-width: 8em;
+  min-width: 6em;
+  box-shadow: 
+    inset 0 2px 5px rgba(0,0,0,0.1),
+    0 4px 8px rgba(0,0,0,0.2);
+  text-shadow: 0 0 10px #ff8c00, 0 0 20px #ff8c00, 0 0 30px #ff8c00;
+  letter-spacing: 0.1em;
+  box-sizing: border-box;
+}
+
+.error-message {
+  color: red;
+  font-weight: bold;
+  font-size: 1.2em;
+  margin-top: 1em;
+  padding: 0.5em;
+  background-color: #ffe6e6;
+  border: 0.125em solid red;
+  border-radius: 0.3em;
+  display: none;
+}
+
+.error-message:not(:empty) {
+  display: block;
+}
+
+.avatar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 2em;
+  height: 2em;
+  transform-origin: center;
+  z-index: 3;
+  transition: all 150ms ease-in-out;
+}
+
+.avatar svg {
+  width: 100%;
+  height: 100%;
+}
+
+.avatar.wall-collision svg .spaceship-body {
+  fill: #ef4444;
+}
+.avatar.wall-collision svg .runner-body {
+  fill: #ef4444;
+}
+.avatar.obstacle-collision svg .spaceship-body {
+  fill: #a855f7;
+}
+.avatar.obstacle-collision svg .runner-body {
+  fill: #a855f7;
+}
+.avatar.target-reached svg .spaceship-body {
+  fill: #fbbf24;
+}
+.avatar.target-reached svg .runner-body {
+  fill: #fbbf24;
+}
+
+.stage.wall-collision {
+  animation: shake 500ms infinite;
+  background-color: red;
+}
+.stage.obstacle-collision {
+  animation: shake 500ms infinite;
+  background: linear-gradient(135deg, #8b5cf6, #a855f7, #9333ea);
+}
+.stage.target-reached {
+  animation: celebrate 2s ease-in-out;
+  background: linear-gradient(135deg, #fbbf24, #f59e0b, #d97706);
+}
+
+.obstacle {
+  position: absolute;
+  width: 1em;
+  height: 1em;
+  background: linear-gradient(135deg, #374151, #1f2937);
+  border: 0.125em solid #000;
+  border-radius: 0.2em;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+  box-sizing: border-box;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.target {
+  position: absolute;
+  width: 3em;
+  height: 3em;
+  background: #22c55e;
+  border: 0.1875em solid #16a34a;
+  border-radius: 50%;
+  box-shadow: 0 0 15px #22c55e, inset 0 0 10px #16a34a;
+  z-index: 10;
+  animation: targetPulse 1.5s infinite;
+}

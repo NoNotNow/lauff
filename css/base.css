@@ -1,0 +1,27 @@
+/* Base styles and typography */
+body{
+  background: linear-gradient(-45deg, #23a6d5, #23d5ab, #4ecdc4);
+  margin: 0;
+  padding: 1em;
+  font-size: min(2vw, 16px);
+  min-height: 100vh;
+}
+
+/* Responsive font sizing for better mobile experience */
+@media (max-width: 768px) {
+  body {
+    font-size: min(3vw, 18px);
+  }
+}
+
+@media (max-width: 480px) {
+  body {
+    font-size: min(3.5vw, 20px);
+  }
+}
+
+.page-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 1em;
+}

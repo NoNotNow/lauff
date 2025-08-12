@@ -1,0 +1,119 @@
+/* Control panel and buttons */
+.controls {
+  flex: 1;
+}
+
+.textarea-container {
+  position: relative;
+  display: inline-block;
+  width: 100%;
+}
+
+.text {
+  resize: vertical;
+  min-width: 300px;
+  min-height: 150px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.clear-button {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  width: 25px;
+  height: 25px;
+  border: 0.0625em solid #ccc;
+  background-color: #f8f8f8;
+  color: #666;
+  border-radius: 3px;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: bold;
+  line-height: 1;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.clear-button:hover {
+  background-color: #e8e8e8;
+  color: #333;
+}
+
+.buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5em;
+  margin-top: 1em;
+  align-items: center;
+}
+
+.loop-control {
+  display: flex;
+  align-items: center;
+  gap: 0.3em;
+  font-size: 0.8em;
+  cursor: pointer;
+  padding: 0.3em 0.5em;
+  border: 0.0625em solid #ddd;
+  background-color: transparent;
+  border-radius: 3px;
+  transition: background-color 0.2s;
+  color: #666;
+}
+
+.loop-control:hover {
+  background-color: #f0f0f0;
+}
+
+.loop-control input[type="checkbox"] {
+  margin: 0;
+  cursor: pointer;
+}
+
+button {
+  padding: 0.5em 1em;
+  border: 0.0625em solid #ccc;
+  background-color: #f8f8f8;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.9em;
+  transition: background-color 0.2s;
+  min-width: 80px;
+  text-align: center;
+}
+
+button:hover {
+  background-color: #e8e8e8;
+}
+
+.start, .stop {
+  background-color: #007bff;
+  color: white;
+  font-weight: bold;
+}
+
+.start:hover, .stop:hover {
+  background-color: #0056b3;
+}
+
+.save {
+  background-color: #28a745;
+  color: white;
+}
+
+.save:hover {
+  background-color: #1e7e34;
+}
+
+.reset {
+  background-color: #dc3545;
+  color: white;
+}
+
+.reset:hover {
+  background-color: #c82333;
+}

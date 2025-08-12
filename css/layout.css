@@ -1,0 +1,33 @@
+/* Layout and responsive design */
+.game-container {
+  display: flex;
+  align-items: flex-start;
+  gap: 1em;
+  margin-bottom: 2em;
+}
+
+/* Stack layout vertically on smaller screens */
+@media (max-width: 768px) {
+  .game-container {
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .displays {
+    order: 2;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .stage {
+    order: 1;
+  }
+}
+
+.bottom-container {
+  display: flex;
+  flex-direction: column;
+  gap: 2em;
+}
