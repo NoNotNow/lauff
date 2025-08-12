@@ -108,12 +108,3 @@ button:hover {
 .save:hover {
   background-color: #1e7e34;
 }
-
-.reset {
-  background-color: #dc3545;
-  color: white;
-}
-
-.reset:hover {
-  background-color: #c82333;
-}
