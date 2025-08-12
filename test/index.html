@@ -9,13 +9,12 @@
     <script src="https://unpkg.com/chai/chai.js"></script>
     
     <!-- Setup Mocha -->
-    <script>
-        mocha.setup('bdd');
-        window.expect = chai.expect;
-    </script>
-    
     <!-- Load application files (dependencies first) -->
     <script type="module">
+        // Setup Mocha and Chai after they're loaded
+        window.mocha.setup('bdd');
+        window.expect = window.chai.expect;
+        
         // Import and expose modules for testing
         import { gameState, resetPosition, withinBounds, setDirection, parseNumber, checkObstacleCollision, checkTargetReached } from '../src/game-state.js';
         import { startTimer, stopTimer, resetTimer } from '../src/timer.js';
