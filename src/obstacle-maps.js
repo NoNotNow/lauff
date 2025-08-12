@@ -35,10 +35,23 @@ export const obstacleMap3 = [
 
 export const obstacleMapEmpty = [];
 
+export const obstacleMapEinfach = [
+  {"x":7,"y":0},{"x":7,"y":1},{"x":7,"y":3},{"x":8,"y":11},{"x":7,"y":2},
+  {"x":8,"y":7},{"x":8,"y":8},{"x":8,"y":10},{"x":8,"y":9},{"x":14,"y":12},
+  {"x":15,"y":12},{"x":17,"y":13},{"x":18,"y":13},{"x":20,"y":12},{"x":21,"y":13},
+  {"x":19,"y":13},{"x":16,"y":12},{"x":8,"y":16},{"x":10,"y":16},{"x":11,"y":16},
+  {"x":12,"y":16},{"x":13,"y":16},{"x":14,"y":16},{"x":15,"y":16},{"x":16,"y":16},
+  {"x":17,"y":16},{"x":18,"y":16},{"x":19,"y":16},{"x":20,"y":16},{"x":3,"y":9},
+  {"x":4,"y":9},{"x":5,"y":9},{"x":6,"y":9},{"x":7,"y":9},{"x":5,"y":12},
+  {"x":5,"y":14},{"x":5,"y":15},{"x":5,"y":17},{"x":5,"y":18},{"x":5,"y":16},
+  {"x":5,"y":19},{"x":5,"y":20},{"x":5,"y":21},{"x":5,"y":13}
+];
+
 export const obstacleMaps = {
   'map1': { name: 'Labyrinth', obstacles: obstacleMap1 },
   'map2': { name: 'Streifen', obstacles: obstacleMap2 },
   'map3': { name: 'Diagonalen', obstacles: obstacleMap3 },
+  'einfach': { name: 'Einfach', obstacles: obstacleMapEinfach },
   'empty': { name: 'Leer', obstacles: obstacleMapEmpty }
 };
 
