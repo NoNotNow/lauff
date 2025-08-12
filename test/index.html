@@ -1,11 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Test Runner</title>
-    <!-- Mocha CSS -->
-    <link rel="stylesheet" href="https://unpkg.com/mocha/mocha.css">
 </head>
 <body>
     <div id="mocha"></div>
@@ -13,6 +7,12 @@
     <!-- Mocha and Chai libraries -->
     <script src="https://unpkg.com/mocha/mocha.js"></script>
     <script src="https://unpkg.com/chai/chai.js"></script>
+    
+    <!-- Setup Mocha -->
+    <script>
+        mocha.setup('bdd');
+        const expect = chai.expect;
+    </script>
     
     <!-- Setup Mocha -->
     <script>
