@@ -25,6 +25,41 @@
 .displays {
   position: relative;
   flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+}
+
+.map-selector {
+  display: flex;
+  align-items: center;
+  gap: 0.5em;
+  font-size: 0.9em;
+}
+
+.map-selector label {
+  font-weight: bold;
+  color: #333;
+}
+
+.map-dropdown {
+  padding: 0.3em 0.5em;
+  border: 0.0625em solid #ccc;
+  border-radius: 4px;
+  background-color: white;
+  font-size: 0.9em;
+  cursor: pointer;
+  min-width: 120px;
+}
+
+.map-dropdown:hover {
+  border-color: #999;
+}
+
+.map-dropdown:focus {
+  outline: none;
+  border-color: #007bff;
+  box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25);
 }
 
 .timer {

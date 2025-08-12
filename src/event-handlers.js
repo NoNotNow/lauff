@@ -5,6 +5,7 @@ import { saveCode } from './save-load.js';
 import { resetPosition } from './game-state.js';
 import { updateView, updateStageView } from './view-renderer.js';
 import { gameState } from './game-state.js';
+import { obstacleMaps } from './obstacle-maps.js';
 
 function handleReset() {
   resetPosition();
@@ -81,6 +82,21 @@ function handleGridClick(event) {
   });
 }
 export function setupEventListeners() {
+function handleMapChange(event) {
+  const selectedMapKey = event.target.value;
+  const selectedMap = obstacleMaps[selectedMapKey];
+  
+  if (selectedMap) {
+    // Update the game state with the new obstacle map
+    gameState.obstacles = [...selectedMap.obstacles];
+    
+    // Reset position and update the view
+    resetPosition();
+    updateView();
+    updateStageView();
+  }
+}
+
   // Set up button event listeners
   document.getElementById("goButton").addEventListener("pointerdown", go);
   document.getElementById("leftButton").addEventListener("pointerdown", left);
@@ -90,6 +106,9 @@ export function setupEventListeners() {
   document.getElementById("stopButton").addEventListener("pointerdown", stop);
   document.getElementById("saveButton").addEventListener("pointerdown", saveCode);
   document.getElementById("clearButton").addEventListener("pointerdown", handleClear);
+  
+  // Set up map selector
+  document.getElementById("mapSelect").addEventListener("change", handleMapChange);
   
   // Set up grid click handler
   const canvas = document.getElementById('gridCanvas');
