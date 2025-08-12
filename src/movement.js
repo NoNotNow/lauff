@@ -1,5 +1,5 @@
 // Movement and direction controls
-import { gameState, setDirection, parseNumber, withinBounds, checkTargetReached, DIRECTIONS } from './game-state.js';
+import { gameState, setDirection, parseNumber, withinBounds, checkTargetReached } from './game-state.js';
 import { handleWallCollision } from './crash-handler.js';
 import { handleObstacleCollision, handleTargetReached } from './crash-handler.js';
 import { checkObstacleCollision } from './game-state.js';
@@ -22,16 +22,16 @@ export function free() {
     let nextY = currentY;
     
     switch (direction) {
-      case DIRECTIONS.NORTH:
+      case 0: // North
         nextY = currentY - 1;
         break;
-      case DIRECTIONS.EAST:
+      case 1: // East
         nextX = currentX + 1;
         break;
-      case DIRECTIONS.SOUTH:
+      case 2: // South
         nextY = currentY + 1;
         break;
-      case DIRECTIONS.WEST:
+      case 3: // West
         nextX = currentX - 1;
         break;
     }
@@ -84,16 +84,16 @@ export function go(input) {
   }
 
   switch (gameState.direction) {
-    case DIRECTIONS.NORTH:
+    case 0:
       gameState.position.y -= steps;
       break;
-    case DIRECTIONS.EAST:
+    case 1:
       gameState.position.x += steps;
       break;
-    case DIRECTIONS.SOUTH:
+    case 2:
       gameState.position.y += steps;
       break;
-    case DIRECTIONS.WEST:
+    case 3:
       gameState.position.x -= steps;
       break;
   }

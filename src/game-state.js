@@ -1,18 +1,10 @@
 // Game state management
 import { defaultObstacleMap } from './obstacle-maps.js';
 
-// Direction constants
-export const DIRECTIONS = {
-  NORTH: 0,
-  EAST: 1,
-  SOUTH: 2,
-  WEST: 3
-};
-
 export const gameState = {
   position: { x: 0, y: 0 },
   stageSize: { x: 20, y: 20 },
-  direction: DIRECTIONS.EAST,
+  direction: 1,
   obstacles: [...defaultObstacleMap],
   target: { x: 18, y: 18 }
 };
@@ -20,7 +12,7 @@ export const gameState = {
 export function resetPosition() {
   gameState.position.x = 0;
   gameState.position.y = 0;
-  gameState.direction = DIRECTIONS.EAST;
+  gameState.direction = 1;
 }
 
 export function withinBounds() {
