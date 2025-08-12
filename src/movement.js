@@ -11,48 +11,66 @@ export function free() {
   const y = gameState.position.y;
   const direction = gameState.direction;
   
-  // Calculate the position one step ahead
-  let nextX = x;
-  let nextY = y;
+  let spaces = 0;
+  let currentX = x;
+  let currentY = y;
   
-  switch (direction) {
-    case 0: // North
-      nextY = y - 1;
-      break;
-    case 1: // East
-      nextX = x + 1;
-      break;
-    case 2: // South
-      nextY = y + 1;
-      break;
-    case 3: // West
-      nextX = x - 1;
-      break;
-  }
-  
-  // Check bounds
-  if (nextX < 0 || nextX > gameState.stageSize.x || nextY < 0 || nextY > gameState.stageSize.y) {
-    return false;
-  }
-  
-  // Check for obstacles
-  const avatarLeft = nextX;
-  const avatarRight = nextX + 2;
-  const avatarTop = nextY;
-  const avatarBottom = nextY + 2;
-  
-  return !gameState.obstacles.some(obstacle => {
-    const obstacleLeft = obstacle.x;
-    const obstacleRight = obstacle.x + 2;
-    const obstacleTop = obstacle.y;
-    const obstacleBottom = obstacle.y + 2;
+  // Keep checking spaces in the current direction until we hit something
+  while (true) {
+    // Calculate the next position
+    let nextX = currentX;
+    let nextY = currentY;
     
-    // Check for overlap in both x and y directions
-    return !(avatarRight <= obstacleLeft || 
-             avatarLeft >= obstacleRight || 
-             avatarBottom <= obstacleTop || 
-             avatarTop >= obstacleBottom);
-  });
+    switch (direction) {
+      case 0: // North
+        nextY = currentY - 1;
+        break;
+      case 1: // East
+        nextX = currentX + 1;
+        break;
+      case 2: // South
+        nextY = currentY + 1;
+        break;
+      case 3: // West
+        nextX = currentX - 1;
+        break;
+    }
+    
+    // Check bounds
+    if (nextX < 0 || nextX > gameState.stageSize.x || nextY < 0 || nextY > gameState.stageSize.y) {
+      break;
+    }
+    
+    // Check for obstacles
+    const avatarLeft = nextX;
+    const avatarRight = nextX + 2;
+    const avatarTop = nextY;
+    const avatarBottom = nextY + 2;
+    
+    const hasObstacle = gameState.obstacles.some(obstacle => {
+      const obstacleLeft = obstacle.x;
+      const obstacleRight = obstacle.x + 1;
+      const obstacleTop = obstacle.y;
+      const obstacleBottom = obstacle.y + 1;
+      
+      // Check for overlap in both x and y directions
+      return !(avatarRight <= obstacleLeft || 
+               avatarLeft >= obstacleRight || 
+               avatarBottom <= obstacleTop || 
+               avatarTop >= obstacleBottom);
+    });
+    
+    if (hasObstacle) {
+      break;
+    }
+    
+    // This space is free, count it and move to the next position
+    spaces++;
+    currentX = nextX;
+    currentY = nextY;
+  }
+  
+  return spaces;
 }
 
 export function go(input) {
