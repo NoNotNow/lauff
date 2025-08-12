@@ -2,6 +2,7 @@
 import { go, left, right } from './movement.js';
 import { start, stop } from './code-executor.js';
 import { saveCode } from './save-load.js';
+import { loadCode } from './save-load.js';
 import { resetPosition } from './game-state.js';
 import { updateView, updateStageView } from './view-renderer.js';
 import { gameState } from './game-state.js';
@@ -94,6 +95,9 @@ function handleMapChange(event) {
     resetPosition();
     updateView();
     updateStageView();
+    
+    // Load the saved code for this map
+    loadCode(selectedMapKey);
   }
 }
 

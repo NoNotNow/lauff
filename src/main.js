@@ -21,6 +21,12 @@ function main() {
   loadCode();
   console.log("Code loaded");
   
+  // Load code for the initially selected map
+  const mapSelect = document.getElementById("mapSelect");
+  if (mapSelect && mapSelect.value) {
+    loadCode(mapSelect.value);
+  }
+  
   // Redraw grid on window resize with debouncing
   let resizeTimeout;
   window.addEventListener('resize', () => {
