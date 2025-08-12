@@ -8,14 +8,16 @@
     <script src="https://unpkg.com/mocha/mocha.js"></script>
     <script src="https://unpkg.com/chai/chai.js"></script>
     
+    <!-- Setup Mocha and Chai immediately after libraries load -->
+    <script>
+        mocha.setup('bdd');
+        window.expect = chai.expect;
+    </script>
+    
     <!-- Setup Mocha -->
     <!-- Load application files (dependencies first) -->
     <script type="module">
         document.addEventListener('DOMContentLoaded', async () => {
-            // Setup Mocha and Chai after they're loaded
-            window.mocha.setup('bdd');
-            window.expect = window.chai.expect;
-            
             // Import and expose modules for testing
             const gameStateModule = await import('../src/game-state.js');
             const timerModule = await import('../src/timer.js');
