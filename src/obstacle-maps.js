@@ -26,13 +26,6 @@ export const obstacleMap2 = [
   {"x":2,"y":15},{"x":3,"y":15},{"x":4,"y":15},{"x":5,"y":15},{"x":6,"y":15}
 ];
 
-export const obstacleMap3 = [
-  {"x":1,"y":1},{"x":2,"y":2},{"x":3,"y":3},{"x":4,"y":4},{"x":5,"y":5},
-  {"x":15,"y":1},{"x":14,"y":2},{"x":13,"y":3},{"x":12,"y":4},{"x":11,"y":5},
-  {"x":1,"y":15},{"x":2,"y":14},{"x":3,"y":13},{"x":4,"y":12},{"x":5,"y":11},
-  {"x":15,"y":15},{"x":14,"y":14},{"x":13,"y":13},{"x":12,"y":12},{"x":11,"y":11}
-];
-
 export const obstacleMapEmpty = [];
 
 export const obstacleMapFiguren = [
@@ -125,7 +118,6 @@ export const obstacleMapEinfach = [
 export const obstacleMaps = {
   'map1': { name: 'Labyrinth', obstacles: obstacleMap1 },
   'map2': { name: 'Streifen', obstacles: obstacleMap2 },
-  'map3': { name: 'Diagonalen', obstacles: obstacleMap3 },
   'einfach': { name: 'Einfach', obstacles: obstacleMapEinfach },
   'empty': { name: 'Leer', obstacles: obstacleMapEmpty },
   'figuren': { name: 'Figuren', obstacles: obstacleMapFiguren },
