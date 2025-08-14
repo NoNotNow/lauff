@@ -169,6 +169,7 @@ export const obstacleMaps = {
   'schwer': { name: 'Schwer', obstacles: obstacleMapSchwer }
   'mittel': { name: 'Mittel', obstacles: obstacleMapMittel },
   'josie': { name: 'von Josie', obstacles: obstacleMapJosie }
+}
 
 // Default obstacle map
 export const defaultObstacleMap = obstacleMap1;
