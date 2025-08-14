@@ -1,8 +1,10 @@
 // Timer functionality
 let startTime = null;
 let timerInterval = null;
+let running = false;
 
 export function startTimer() {
+  running = true;
   startTime = Date.now();
   updateTimerDisplay();
   
@@ -12,6 +14,7 @@ export function startTimer() {
 }
 
 export function stopTimer() {
+  running = false;
   if (timerInterval) {
     clearInterval(timerInterval);
     timerInterval = null;
@@ -28,7 +31,7 @@ export function resetTimer() {
 }
 
 function updateTimerDisplay() {
-  if (startTime === null) return;
+  if (!running || startTime === null) return;
   
   const elapsed = (Date.now() - startTime) / 1000; // Convert to seconds
   const timerElement = document.getElementById('timer');
