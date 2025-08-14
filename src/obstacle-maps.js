@@ -167,7 +167,6 @@ export const obstacleMaps = {
   'cool': { name: 'Cool', obstacles: obstacleMapCool },
   'loch': { name: 'Loch', obstacles: obstacleMapLoch },
   'schwer': { name: 'Schwer', obstacles: obstacleMapSchwer },
-  'mittel': { name: 'Mittel', obstacles: obstacleMapMittel },
   'josie': { name: 'von Josie', obstacles: obstacleMapJosie }
 }
 
