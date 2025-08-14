@@ -4,7 +4,12 @@
     <title>Home</title>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
-    <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="css/base.css" />
+    <link rel="stylesheet" href="css/layout.css" />
+    <link rel="stylesheet" href="css/instructions.css" />
+    <link rel="stylesheet" href="css/stage.css" />
+    <link rel="stylesheet" href="css/controls.css" />
+    <link rel="stylesheet" href="css/animations.css" />
     <script type="module" src="src/main.js"></script>
   </head>
   <body>
@@ -45,6 +50,20 @@
           </div>
         </div>
         <div class="displays">
+          <div class="map-selector">
+            <label for="mapSelect">Karte:</label>
+            <select id="mapSelect" class="map-dropdown">
+              <option value="map1">Labyrinth</option>
+              <option value="map2">Streifen</option>
+              <option value="einfach">Einfach</option>
+              <option value="empty">Leer</option>
+              <option value="figuren">Figuren</option>
+              <option value="cool">Cool</option>
+              <option value="loch">Loch</option>
+              <option value="schwer">Schwer</option>
+              <option value="josie">von Josie</option>
+            </select>
+          </div>
           <div id="timer" class="timer">0.00</div>
           <div id="errorMessage" class="error-message"></div>
         </div>

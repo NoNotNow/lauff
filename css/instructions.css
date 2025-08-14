@@ -1,0 +1,51 @@
+/* Instructions panel styles */
+.instructions {
+  flex: 1;
+  background-color: #f8f9fa;
+  padding: 1.5em;
+  border-radius: 0.5em;
+  border: 2px solid #dee2e6;
+  font-family: Arial, sans-serif;
+}
+
+.instructions h3 {
+  margin-top: 0;
+  color: #495057;
+  font-size: 1.5em;
+}
+
+.instructions h4 {
+  color: #6c757d;
+  margin-top: 1.5em;
+  margin-bottom: 0.5em;
+}
+
+.instructions ul {
+  margin: 0.5em 0;
+  padding-left: 1.5em;
+}
+
+.instructions li {
+  margin-bottom: 0.3em;
+}
+
+.instructions code {
+  background-color: #e9ecef;
+  padding: 0.2em 0.4em;
+  border-radius: 0.3em;
+  font-family: 'Courier New', monospace;
+  font-size: 0.9em;
+}
+
+.instructions pre {
+  background-color: #e9ecef;
+  padding: 1em;
+  border-radius: 0.3em;
+  overflow-x: auto;
+  margin: 0.5em 0;
+}
+
+.instructions pre code {
+  background-color: transparent;
+  padding: 0;
+}

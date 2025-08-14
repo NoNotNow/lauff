@@ -1,0 +1,69 @@
+/* Animations and keyframes */
+@keyframes celebrate {
+  0% {
+    transform: scale(1);
+  }
+  25% {
+    transform: scale(1.05);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+  75% {
+    transform: scale(1.05);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+@keyframes targetPulse {
+  0% {
+    transform: scale(1);
+    box-shadow: 0 0 15px #22c55e, inset 0 0 10px #16a34a;
+  }
+  50% {
+    transform: scale(1.1);
+    box-shadow: 0 0 25px #22c55e, inset 0 0 15px #16a34a;
+  }
+  100% {
+    transform: scale(1);
+    box-shadow: 0 0 15px #22c55e, inset 0 0 10px #16a34a;
+  }
+}
+
+@keyframes shake {
+  0% {
+    transform: translate(0, 0);
+  }
+  10% {
+    transform: translate(-10em, -5em);
+  }
+  20% {
+    transform: translate(10em, 5em);
+  }
+  30% {
+    transform: translate(-10em, -5em);
+  }
+  40% {
+    transform: translate(10em, 5em);
+  }
+  50% {
+    transform: translate(-10em, -5em);
+  }
+  60% {
+    transform: translate(10em, 5em);
+  }
+  70% {
+    transform: translate(-10em, -5em);
+  }
+  80% {
+    transform: translate(10em, 5em);
+  }
+  90% {
+    transform: translate(-10em, -5em);
+  }
+  100% {
+    transform: translate(0, 0);
+  }
+}
