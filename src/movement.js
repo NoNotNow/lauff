@@ -4,6 +4,7 @@ import { handleWallCollision } from './crash-handler.js';
 import { handleObstacleCollision, handleTargetReached } from './crash-handler.js';
 import { checkObstacleCollision } from './game-state.js';
 import { updateView } from './view-renderer.js';
+import { Direction, getDirectionName } from './direction.js';
 
 // Check if the avatar can move forward without hitting an obstacle
 export function free() {
@@ -71,6 +72,11 @@ export function free() {
   }
   
   return spaces;
+}
+
+// Get the current direction as a string
+export function getDirection() {
+  return getDirectionName(gameState.direction);
 }
 
 export function go(input) {
