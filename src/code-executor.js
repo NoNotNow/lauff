@@ -51,7 +51,7 @@ async function movementDelay() {
 
 // Explicit wrapped functions
 async function wrappedGo(input) {
-  go(input);
+  await go(input);
   await movementDelay();
 }
 
