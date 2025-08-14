@@ -78,8 +78,8 @@ export async function go(input) {
   let steps = parseNumber(input);
   let freeStepsCount = free(); // Get the number of free steps
 
-  // Play beep sound with frequency based on steps
-  await beep(440 * steps);
+  // Play beep sound with frequency based on steps (don't wait for completion)
+  beep(440 * steps);
 
   // If the requested steps exceed the available free steps,
   // set steps to one beyond the free count to trigger collision
