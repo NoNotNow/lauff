@@ -138,6 +138,26 @@ export const obstacleMapEinfach = [
   {"x":5,"y":19},{"x":5,"y":20},{"x":5,"y":21},{"x":5,"y":13}
 ];
 
+export const obstacleMapJosie = [
+  {"x":3,"y":0},{"x":3,"y":1},{"x":3,"y":2},{"x":3,"y":3},{"x":3,"y":9},
+  {"x":5,"y":9},{"x":7,"y":9},{"x":12,"y":0},{"x":12,"y":1},{"x":12,"y":2},
+  {"x":12,"y":3},{"x":12,"y":4},{"x":12,"y":5},{"x":12,"y":6},{"x":12,"y":7},
+  {"x":12,"y":9},{"x":12,"y":11},{"x":12,"y":13},{"x":12,"y":15},{"x":10,"y":15},
+  {"x":11,"y":15},{"x":9,"y":15},{"x":8,"y":15},{"x":7,"y":15},{"x":6,"y":15},
+  {"x":5,"y":15},{"x":12,"y":16},{"x":12,"y":17},{"x":16,"y":3},{"x":17,"y":3},
+  {"x":18,"y":3},{"x":17,"y":5},{"x":17,"y":7},{"x":17,"y":9},{"x":17,"y":11},
+  {"x":17,"y":13},{"x":17,"y":16},{"x":3,"y":4},{"x":12,"y":8},{"x":12,"y":10},
+  {"x":12,"y":14},{"x":12,"y":12},{"x":8,"y":4},{"x":17,"y":18},{"x":17,"y":20},
+  {"x":13,"y":0},{"x":14,"y":0},{"x":15,"y":0},{"x":15,"y":3},{"x":20,"y":0},
+  {"x":21,"y":0},{"x":21,"y":1},{"x":8,"y":0},{"x":10,"y":0},{"x":9,"y":0},
+  {"x":10,"y":1},{"x":10,"y":2},{"x":10,"y":3},{"x":9,"y":4},{"x":8,"y":3},
+  {"x":8,"y":2},{"x":10,"y":4},{"x":4,"y":19},{"x":4,"y":20},{"x":5,"y":21},
+  {"x":6,"y":21},{"x":7,"y":20},{"x":7,"y":19},{"x":5,"y":18},{"x":6,"y":18},
+  {"x":18,"y":5},{"x":17,"y":6},{"x":18,"y":7},{"x":19,"y":7},{"x":19,"y":8},
+  {"x":19,"y":9},{"x":19,"y":10},{"x":17,"y":10},{"x":18,"y":10},{"x":1,"y":21},
+  {"x":1,"y":9}
+];
+
 export const obstacleMaps = {
   'map1': { name: 'Labyrinth', obstacles: obstacleMap1 },
   'map2': { name: 'Streifen', obstacles: obstacleMap2 },
@@ -147,7 +167,8 @@ export const obstacleMaps = {
   'cool': { name: 'Cool', obstacles: obstacleMapCool },
   'loch': { name: 'Loch', obstacles: obstacleMapLoch },
   'schwer': { name: 'Schwer', obstacles: obstacleMapSchwer }
-};
+  'mittel': { name: 'Mittel', obstacles: obstacleMapMittel },
+  'josie': { name: 'von Josie', obstacles: obstacleMapJosie }
 
 // Default obstacle map
 export const defaultObstacleMap = obstacleMap1;
