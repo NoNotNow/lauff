@@ -89,7 +89,7 @@ function parseUserCode(code) {
   try {
     // Create an async function from the transformed code
     const AsyncFunction = Object.getPrototypeOf(async function(){}).constructor;
-    const userFunction = new AsyncFunction('go', 'left', 'right', 'free', 'random', 'getDirection', `
+    const userFunction = new AsyncFunction('go', 'left', 'right', 'free', 'random', `
       // User's transformed code with movement functions available as parameters
       ${transformedCode}
     `);
@@ -106,7 +106,7 @@ async function executeUntilStopped(userFunction) {
 
   do {
     try {
-      await userFunction(wrappedGo, wrappedLeft, wrappedRight, free, random, getDirection);
+      await userFunction(wrappedGo, wrappedLeft, wrappedRight, free, random);
       // Small delay at the end of each execution cycle
       if (shouldLoop) {
         await delay(20);
