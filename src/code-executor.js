@@ -1,5 +1,5 @@
 // Code execution and program control
-import { go, left, right, free } from './movement.js';
+import { go, left, right, free, getNextRight, getNextLeft} from './movement.js';
 import { startTimer, stopTimer, resetTimer } from './timer.js';
 
 // Random number generator function
@@ -89,7 +89,9 @@ function parseUserCode(code) {
   try {
     // Create an async function from the transformed code
     const AsyncFunction = Object.getPrototypeOf(async function(){}).constructor;
-    const userFunction = new AsyncFunction('go', 'left', 'right', 'free', 'random', `
+    const userFunction = new AsyncFunction('go', 'left', 'right', 'free', 'random', 
+                                           'getNextRight', 'getNextLeft',
+                                           `
       // User's transformed code with movement functions available as parameters
       ${transformedCode}
     `);
@@ -106,7 +108,8 @@ async function executeUntilStopped(userFunction) {
 
   do {
     try {
-      await userFunction(wrappedGo, wrappedLeft, wrappedRight, free, random);
+      await userFunction(wrappedGo, wrappedLeft, wrappedRight, 
+                         free, random, getNextRight, getNextLeft);
       // Small delay at the end of each execution cycle
       if (shouldLoop) {
         await delay(20);

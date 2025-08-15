@@ -1,52 +1,77 @@
 // Movement and direction controls
-import { gameState, setDirection, parseNumber, withinBounds, checkTargetReached } from './game-state.js';
+import { gameState, setDirection, getDirection, parseNumber, withinBounds, checkTargetReached } from './game-state.js';
 import { handleWallCollision } from './crash-handler.js';
 import { handleObstacleCollision, handleTargetReached } from './crash-handler.js';
 import { checkObstacleCollision } from './game-state.js';
 import { updateView } from './view-renderer.js';
 import { beep } from './audio-player.js';
 
-// Check if the avatar can move forward without hitting an obstacle
-export function free() {
-  const x = gameState.position.x;
-  const y = gameState.position.y;
-  const direction = gameState.direction;
+// Calculate new coordinates by moving from a starting position by a number of steps in a given direction
+function moveBy(startCoordinates, steps, direction) {
+  const result = {
+    x: startCoordinates.x,
+    y: startCoordinates.y
+  };
+  
+  switch (direction) {
+    case 0: // North
+      result.y -= steps;
+      break;
+    case 1: // East
+      result.x += steps;
+      break;
+    case 2: // South
+      result.y += steps;
+      break;
+    case 3: // West
+      result.x -= steps;
+      break;
+  }
+  
+  return result;
+}
+
+export function getNextRight(){return getNextTurn(1);}
+export function getNextLeft(){return getNextTurn(-1);}
+
+function getNextTurn(directionOffset){
+  let startFree=free(directionOffset);
+  let currentFree;
+  let pos = gameState.position;
+  for(let n=1; n<free();n++){
+    pos=moveBy(pos, 1, getDirection());
+    currentFree = free(directionOffset, pos.x, pos.y);
+    if(currentFree>startFree) return n;//check free to the side return n when > startFree
+  }
+  return 0;
+}
+// Check how many steps the avatar can move from a pint to a direction without hitting an obstacle
+export function free(directionOffset, inX, inY) {
+  // Initialize starting position using coordinate object
+  let currentPos = {
+    x: (typeof inX === 'number') ? inX : gameState.position.x,
+    y: (typeof inY === 'number') ? inY : gameState.position.y
+  };
+  
+  const direction = getDirection(directionOffset);
   
   let spaces = 0;
-  let currentX = x;
-  let currentY = y;
   
   // Keep checking spaces in the current direction until we hit something
   while (true) {
-    // Calculate the next position
-    let nextX = currentX;
-    let nextY = currentY;
-    
-    switch (direction) {
-      case 0: // North
-        nextY = currentY - 1;
-        break;
-      case 1: // East
-        nextX = currentX + 1;
-        break;
-      case 2: // South
-        nextY = currentY + 1;
-        break;
-      case 3: // West
-        nextX = currentX - 1;
-        break;
-    }
+    // Calculate the next position using moveBy function
+    const nextPos = moveBy(currentPos, 1, direction);
     
     // Check bounds
-    if (nextX < 0 || nextX > gameState.stageSize.x || nextY < 0 || nextY > gameState.stageSize.y) {
+    if (nextPos.x < 0 || nextPos.x > gameState.stageSize.x || nextPos.y < 0 || nextPos.y > gameState.stageSize.y) {
       break;
     }
     
     // Check for obstacles
-    const avatarLeft = nextX;
-    const avatarRight = nextX + 2;
-    const avatarTop = nextY;
-    const avatarBottom = nextY + 2;
+    const avatarLeft = nextPos.x;
+    const avatarRight = nextPos.x + 2;
+    const avatarTop = nextPos.y;
+    const avatarBottom = nextPos.y + 2;
     
     const hasObstacle = gameState.obstacles.some(obstacle => {
       const obstacleLeft = obstacle.x;
@@ -67,8 +92,7 @@ export function free() {
     
     // This space is free, count it and move to the next position
     spaces++;
-    currentX = nextX;
-    currentY = nextY;
+    currentPos = nextPos;
   }
   
   return spaces;
