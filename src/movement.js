@@ -26,38 +26,40 @@ export function free(directionOffset, inX, inY) {
   const direction = getDirection(directionOffset);
   
   let spaces = 0;
-  let currentPos = { x: x, y: y };
+  let currentX = x;
+  let currentY = y;
   
   // Keep checking spaces in the current direction until we hit something
   while (true) {
     // Calculate the next position
-    let nextPos = { x: currentPos.x, y: currentPos.y };
+    let nextX = currentX;
+    let nextY = currentY;
     
     switch (direction) {
       case 0: // North
-        nextPos.y = currentPos.y - 1;
+        nextY = currentY - 1;
         break;
       case 1: // East
-        nextPos.x = currentPos.x + 1;
+        nextX = currentX + 1;
         break;
       case 2: // South
-        nextPos.y = currentPos.y + 1;
+        nextY = currentY + 1;
         break;
       case 3: // West
-        nextPos.x = currentPos.x - 1;
+        nextX = currentX - 1;
         break;
     }
     
     // Check bounds
-    if (nextPos.x < 0 || nextPos.x > gameState.stageSize.x || nextPos.y < 0 || nextPos.y > gameState.stageSize.y) {
+    if (nextX < 0 || nextX > gameState.stageSize.x || nextY < 0 || nextY > gameState.stageSize.y) {
       break;
     }
     
     // Check for obstacles
-    const avatarLeft = nextPos.x;
-    const avatarRight = nextPos.x + 2;
-    const avatarTop = nextPos.y;
-    const avatarBottom = nextPos.y + 2;
+    const avatarLeft = nextX;
+    const avatarRight = nextX + 2;
+    const avatarTop = nextY;
+    const avatarBottom = nextY + 2;
     
     const hasObstacle = gameState.obstacles.some(obstacle => {
       const obstacleLeft = obstacle.x;
@@ -78,7 +80,8 @@ export function free(directionOffset, inX, inY) {
     
     // This space is free, count it and move to the next position
     spaces++;
-    currentPos = nextPos;
+    currentX = nextX;
+    currentY = nextY;
   }
   
   return spaces;
