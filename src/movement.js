@@ -34,7 +34,7 @@ function moveBy(startCoordinates, steps, direction) {
 export function getNextRight(){return getNextTurn(1);}
 export function getNextLeft(){return getNextTurn(-1);}
 
-function getNextTurn(directioOffset){
+function getNextTurn(directionOffset){
   let startFree=free(directionOffset);
   let currentFree;
   let pos = gameState.position;
