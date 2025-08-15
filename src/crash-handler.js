@@ -3,10 +3,18 @@ import { gameState, resetPosition } from './game-state.js';
 import { updateView } from './view-renderer.js';
 import { stop } from './code-executor.js';
 import { stopTimer, resetTimer } from './timer.js';
+import { playCrashSound, playVictorySound } from './audio-player.js';
 
 export function handleWallCollision() {
   let stage = document.getElementById("stage");
   let avatar = document.getElementById("avatar");
+  
+  // Play crash sound if sound is enabled
+  const soundCheckbox = document.getElementById('soundCheckbox');
+  const soundEnabled = soundCheckbox ? soundCheckbox.checked : true;
+  if (soundEnabled) {
+    playCrashSound();
+  }
   
   avatar.classList.add("wall-collision");
   stage.classList.add("wall-collision");
@@ -28,6 +36,13 @@ export function handleObstacleCollision() {
   let stage = document.getElementById("stage");
   let avatar = document.getElementById("avatar");
   
+  // Play crash sound if sound is enabled
+  const soundCheckbox = document.getElementById('soundCheckbox');
+  const soundEnabled = soundCheckbox ? soundCheckbox.checked : true;
+  if (soundEnabled) {
+    playCrashSound();
+  }
+  
   avatar.classList.add("obstacle-collision");
   stage.classList.add("obstacle-collision");
   
@@ -47,6 +62,13 @@ export function handleObstacleCollision() {
 export function handleTargetReached() {
   let stage = document.getElementById("stage");
   let avatar = document.getElementById("avatar");
+  
+  // Play victory sound if sound is enabled
+  const soundCheckbox = document.getElementById('soundCheckbox');
+  const soundEnabled = soundCheckbox ? soundCheckbox.checked : true;
+  if (soundEnabled) {
+    playVictorySound();
+  }
   
   avatar.classList.add("target-reached");
   stage.classList.add("target-reached");

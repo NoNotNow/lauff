@@ -4,6 +4,7 @@ import { handleWallCollision } from './crash-handler.js';
 import { handleObstacleCollision, handleTargetReached } from './crash-handler.js';
 import { checkObstacleCollision } from './game-state.js';
 import { updateView } from './view-renderer.js';
+import { beep } from './audio-player.js';
 
 // Check if the avatar can move forward without hitting an obstacle
 export function free() {
@@ -73,9 +74,17 @@ export function free() {
   return spaces;
 }
 
-export function go(input) {
+export async function go(input) {
   let steps = parseNumber(input);
   let freeStepsCount = free(); // Get the number of free steps
+
+  // Play beep sound with frequency based on steps if sound is enabled
+  const soundCheckbox = document.getElementById('soundCheckbox');
+  const soundEnabled = soundCheckbox ? soundCheckbox.checked : true;
+  
+  if (soundEnabled) {
+    beep(440 * steps);
+  }
 
   // If the requested steps exceed the available free steps,
   // set steps to one beyond the free count to trigger collision
