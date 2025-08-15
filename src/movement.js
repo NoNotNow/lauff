@@ -6,6 +6,31 @@ import { checkObstacleCollision } from './game-state.js';
 import { updateView } from './view-renderer.js';
 import { beep } from './audio-player.js';
 
+// Calculate new coordinates by moving from a starting position by a number of steps in a given direction
+function moveBy(startCoordinates, steps, direction) {
+  const result = {
+    x: startCoordinates.x,
+    y: startCoordinates.y
+  };
+  
+  switch (direction) {
+    case 0: // North
+      result.y -= steps;
+      break;
+    case 1: // East
+      result.x += steps;
+      break;
+    case 2: // South
+      result.y += steps;
+      break;
+    case 3: // West
+      result.x -= steps;
+      break;
+  }
+  
+  return result;
+}
+
 export function nextRight(){
   let startFreeRight=free(1);
   for(let n=1; n<free();n++){
@@ -28,26 +53,8 @@ export function free(directionOffset, inX, inY) {
   
   // Keep checking spaces in the current direction until we hit something
   while (true) {
-    // Calculate the next position using coordinate object
-    let nextPos = {
-      x: currentPos.x,
-      y: currentPos.y
-    };
-    
-    switch (direction) {
-      case 0: // North
-        nextPos.y = currentPos.y - 1;
-        break;
-      case 1: // East
-        nextPos.x = currentPos.x + 1;
-        break;
-      case 2: // South
-        nextPos.y = currentPos.y + 1;
-        break;
-      case 3: // West
-        nextPos.x = currentPos.x - 1;
-        break;
-    }
+    // Calculate the next position using moveBy function
+    const nextPos = moveBy(currentPos, 1, direction);
     
     // Check bounds
     if (nextPos.x < 0 || nextPos.x > gameState.stageSize.x || nextPos.y < 0 || nextPos.y > gameState.stageSize.y) {
