@@ -16,10 +16,9 @@ export function nextRight(){
 
 // Check how many steps the avatar can move from a pint to a direction without hitting an obstacle
 export function free(directionOffset, inX, inY) {
-  // todo verify input 
   let x = inX;
   let y = inY;
-  if(inX===null || inY === null){
+  if(typeof inX!=='number' || typeof inY!== 'number'){
     x = gameState.position.x;
     y = gameState.position.y;
   }
