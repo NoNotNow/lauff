@@ -1,16 +1,23 @@
 // Movement and direction controls
-import { gameState, setDirection, parseNumber, withinBounds, checkTargetReached } from './game-state.js';
+import { gameState, setDirection, getDirection, parseNumber, withinBounds, checkTargetReached } from './game-state.js';
 import { handleWallCollision } from './crash-handler.js';
 import { handleObstacleCollision, handleTargetReached } from './crash-handler.js';
 import { checkObstacleCollision } from './game-state.js';
 import { updateView } from './view-renderer.js';
 import { beep } from './audio-player.js';
 
-// Check if the avatar can move forward without hitting an obstacle
-export function free() {
-  const x = gameState.position.x;
-  const y = gameState.position.y;
-  const direction = gameState.direction;
+
+
+// Check how many steps the avatar can move from a pint to a direction without hitting an obstacle
+export function free(inX, inY, directionOffset) {
+  // todo verify input 
+  let x = inX;
+  let y = inY;
+  if(inX===null || inY === null){
+    x = gameState.position.x;
+    y = gameState.position.y;
+  }
+  const direction = getDirection(directionOffset);
   
   let spaces = 0;
   let currentX = x;
