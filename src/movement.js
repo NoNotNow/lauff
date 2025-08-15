@@ -31,8 +31,8 @@ function moveBy(startCoordinates, steps, direction) {
   return result;
 }
 
-export function getNextRight(){retuen getNextTurn(1);}
-export function getNextLeft(){retuen getNextTurn(-1);}
+export function getNextRight(){return getNextTurn(1);}
+export function getNextLeft(){return getNextTurn(-1);}
 
 function getNextTurn(directioOffset){
   let startFree=free(directionOffset);
