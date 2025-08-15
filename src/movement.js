@@ -16,49 +16,49 @@ export function nextRight(){
 
 // Check how many steps the avatar can move from a pint to a direction without hitting an obstacle
 export function free(directionOffset, inX, inY) {
-  let x = inX;
-  let y = inY;
-  if(typeof inX!=='number' || typeof inY!== 'number'){
-    x = gameState.position.x;
-    y = gameState.position.y;
-  }
+  // Initialize starting position using coordinate object
+  let currentPos = {
+    x: (typeof inX === 'number') ? inX : gameState.position.x,
+    y: (typeof inY === 'number') ? inY : gameState.position.y
+  };
+  
   const direction = getDirection(directionOffset);
   
   let spaces = 0;
-  let currentX = x;
-  let currentY = y;
   
   // Keep checking spaces in the current direction until we hit something
   while (true) {
-    // Calculate the next position
-    let nextX = currentX;
-    let nextY = currentY;
+    // Calculate the next position using coordinate object
+    let nextPos = {
+      x: currentPos.x,
+      y: currentPos.y
+    };
     
     switch (direction) {
       case 0: // North
-        nextY = currentY - 1;
+        nextPos.y = currentPos.y - 1;
         break;
       case 1: // East
-        nextX = currentX + 1;
+        nextPos.x = currentPos.x + 1;
         break;
       case 2: // South
-        nextY = currentY + 1;
+        nextPos.y = currentPos.y + 1;
         break;
       case 3: // West
-        nextX = currentX - 1;
+        nextPos.x = currentPos.x - 1;
         break;
     }
     
     // Check bounds
-    if (nextX < 0 || nextX > gameState.stageSize.x || nextY < 0 || nextY > gameState.stageSize.y) {
+    if (nextPos.x < 0 || nextPos.x > gameState.stageSize.x || nextPos.y < 0 || nextPos.y > gameState.stageSize.y) {
       break;
     }
     
     // Check for obstacles
-    const avatarLeft = nextX;
-    const avatarRight = nextX + 2;
-    const avatarTop = nextY;
-    const avatarBottom = nextY + 2;
+    const avatarLeft = nextPos.x;
+    const avatarRight = nextPos.x + 2;
+    const avatarTop = nextPos.y;
+    const avatarBottom = nextPos.y + 2;
     
     const hasObstacle = gameState.obstacles.some(obstacle => {
       const obstacleLeft = obstacle.x;
@@ -79,8 +79,7 @@ export function free(directionOffset, inX, inY) {
     
     // This space is free, count it and move to the next position
     spaces++;
-    currentX = nextX;
-    currentY = nextY;
+    currentPos = nextPos;
   }
   
   return spaces;
