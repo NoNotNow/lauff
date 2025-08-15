@@ -31,14 +31,17 @@ function moveBy(startCoordinates, steps, direction) {
   return result;
 }
 
-export function nextRight(){
+export function getNextRight(){
   let startFreeRight=free(1);
+  let currentFreeRight;
+  let pos = gameState.position.;
   for(let n=1; n<free();n++){
-    //todo get Position and add one in the direction 
-    //check free to the right return n when > startFreeRight
+    pos=moveBy(pos, 1, getDirection());
+    currentFreeRight = free(1);
+    if(currentFreeRight>startFreeRight) return n;//check free to the right return n when > startFreeRight
   }
+  return 0;
 }
-
 // Check how many steps the avatar can move from a pint to a direction without hitting an obstacle
 export function free(directionOffset, inX, inY) {
   // Initialize starting position using coordinate object
