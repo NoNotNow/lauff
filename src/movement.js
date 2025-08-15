@@ -34,7 +34,7 @@ function moveBy(startCoordinates, steps, direction) {
 export function getNextRight(){
   let startFreeRight=free(1);
   let currentFreeRight;
-  let pos = gameState.position.;
+  let pos = gameState.position;
   for(let n=1; n<free();n++){
     pos=moveBy(pos, 1, getDirection());
     currentFreeRight = free(1);
