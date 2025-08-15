@@ -25,6 +25,13 @@ export function setDirection(v) {
   gameState.direction = v % 4;
   if (gameState.direction < 0) gameState.direction += 4;
 }
+//gets the current direction altered by input
+export function getDirection(v){
+  let result = gameState.direction + parseNumber(v)
+  result = result % 4;
+  if (result < 0) result += 4;
+  return result; 
+}
 
 export function parseNumber(input) {
   let steps = 1;
