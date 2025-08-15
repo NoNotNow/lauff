@@ -31,14 +31,17 @@ function moveBy(startCoordinates, steps, direction) {
   return result;
 }
 
-export function getNextRight(){
-  let startFreeRight=free(1);
-  let currentFreeRight;
+export function getNextRight(){retuen getNextTurn(1);}
+export function getNextLeft(){retuen getNextTurn(-1);}
+
+function getNextTurn(directioOffset){
+  let startFree=free(directionOffset);
+  let currentFree;
   let pos = gameState.position;
   for(let n=1; n<free();n++){
     pos=moveBy(pos, 1, getDirection());
-    currentFreeRight = free(1, pos.x, pos.y);
-    if(currentFreeRight>startFreeRight) return n;//check free to the right return n when > startFreeRight
+    currentFree = free(directionOffset, pos.x, pos.y);
+    if(currentFree>startFree) return n;//check free to the side return n when > startFree
   }
   return 0;
 }
