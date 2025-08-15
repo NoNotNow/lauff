@@ -37,7 +37,7 @@ export function getNextRight(){
   let pos = gameState.position;
   for(let n=1; n<free();n++){
     pos=moveBy(pos, 1, getDirection());
-    currentFreeRight = free(1);
+    currentFreeRight = free(1, pos.x, pos.y);
     if(currentFreeRight>startFreeRight) return n;//check free to the right return n when > startFreeRight
   }
   return 0;
