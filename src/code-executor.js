@@ -106,7 +106,7 @@ async function executeUntilStopped(userFunction) {
 
   do {
     try {
-      await userFunction(wrappedGo, wrappedLeft, wrappedRight, free, random);
+      await userFunction(wrappedGo, wrappedLeft, wrappedRight, free, random, getNextRight);
       // Small delay at the end of each execution cycle
       if (shouldLoop) {
         await delay(20);
