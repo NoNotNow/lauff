@@ -245,6 +245,8 @@ export const obstacleMapFalten = [
   {"x":18,"y":19}
 ];
 
+export const obstacleMapJosie2 = [{"x":12,"y":10},{"x":4,"y":17},{"x":7,"y":7},{"x":15,"y":6},{"x":9,"y":14},{"x":8,"y":11},{"x":9,"y":6},{"x":18,"y":14},{"x":14,"y":19},{"x":1,"y":12},{"x":5,"y":3},{"x":20,"y":3},{"x":15,"y":15},{"x":11,"y":18},{"x":8,"y":20},{"x":15,"y":13},{"x":3,"y":8},{"x":13,"y":2},{"x":2,"y":20},{"x":18,"y":9},{"x":8,"y":2},{"x":18,"y":5},{"x":3,"y":4},{"x":20,"y":12},{"x":21,"y":7},{"x":4,"y":12},{"x":6,"y":16},{"x":1,"y":16},{"x":12,"y":6},{"x":0,"y":6}];
+
 export const obstacleMaps = {
   'map1': { name: 'Labyrinth', obstacles: obstacleMap1 },
   'map2': { name: 'Streifen', obstacles: obstacleMap2 },
@@ -257,8 +259,11 @@ export const obstacleMaps = {
   'josie': { name: 'von Josie', obstacles: obstacleMapJosie },
   'mittel': { name: 'Mittel', obstacles: obstacleMapMittel },
   'extrem': { name: 'Extrem', obstacles: obstacleMapExtrem },
-  'falten': { name: 'Falten', obstacles: obstacleMapFalten }
+  'falten': { name: 'Falten', obstacles: obstacleMapFalten },
+  'josie2': {name : 'Josie2', obstacles: obstacleMapJosie2 }
 }
+
+
 
 // Default obstacle map
 export const defaultObstacleMap = obstacleMap1;
