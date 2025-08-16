@@ -259,7 +259,8 @@ export const obstacleMaps = {
   'josie': { name: 'von Josie', obstacles: obstacleMapJosie },
   'mittel': { name: 'Mittel', obstacles: obstacleMapMittel },
   'extrem': { name: 'Extrem', obstacles: obstacleMapExtrem },
-  'falten': { name: 'Falten', obstacles: obstacleMapFalten }
+  'falten': { name: 'Falten', obstacles: obstacleMapFalten },
+  'josie2': {name : 'Josie2', obstacles: obstacleMapJosie2 }
 }
 
 
