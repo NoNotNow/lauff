@@ -245,6 +245,8 @@ export const obstacleMapFalten = [
   {"x":18,"y":19}
 ];
 
+export obstacleMapJosie2 = 
+
 export const obstacleMaps = {
   'map1': { name: 'Labyrinth', obstacles: obstacleMap1 },
   'map2': { name: 'Streifen', obstacles: obstacleMap2 },
@@ -259,6 +261,8 @@ export const obstacleMaps = {
   'extrem': { name: 'Extrem', obstacles: obstacleMapExtrem },
   'falten': { name: 'Falten', obstacles: obstacleMapFalten }
 }
+
+
 
 // Default obstacle map
 export const defaultObstacleMap = obstacleMap1;
