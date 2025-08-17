@@ -10,10 +10,11 @@ export function startTimer() {
   
   timerInterval = setInterval(() => {
     updateTimerDisplay();
-  }, 10); // Update every 10ms for smooth display
+  }, 250);
 }
 
 export function stopTimer() {
+  updateTimerDisplay(); //end time should be exact 
   running = false;
   if (timerInterval) {
     clearInterval(timerInterval);
