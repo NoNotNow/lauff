@@ -25,3 +25,42 @@ body{
   margin: 0 auto;
   padding: 1em;
 }
+
+.site-header {
+  text-align: center;
+  margin-bottom: 2em;
+}
+
+.site-logo {
+  max-width: min(300px, 80vw);
+  height: auto;
+  display: block;
+  margin: 0 auto;
+  filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.2));
+  transition: transform 0.3s ease;
+}
+
+.site-logo:hover {
+  transform: scale(1.05);
+}
+
+/* Responsive logo sizing */
+@media (max-width: 768px) {
+  .site-logo {
+    max-width: min(250px, 70vw);
+  }
+  
+  .site-header {
+    margin-bottom: 1.5em;
+  }
+}
+
+@media (max-width: 480px) {
+  .site-logo {
+    max-width: min(200px, 60vw);
+  }
+  
+  .site-header {
+    margin-bottom: 1em;
+  }
+}
