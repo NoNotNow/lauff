@@ -56,6 +56,6 @@
     
     <!-- LAUFF - Neon Blue Gaming Schrift mit Glow -->
     <text x="200" y="60" font-family="Impact, Arial Black, sans-serif" font-size="56" font-weight="900" fill="none" stroke="#00ffff" stroke-width="3" filter="url(#neonGlow)">LAUFF</text>
-    <text x="200" y="85" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#00ffff" filter="url(#neonGlow)">🚀 WELTRAUM ABENTEUER 🌟</text>
+    <text x="200" y="85" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#00ffff" filter="url(#neonGlow)">FINDE DEINEN WEG 🌟</text>
   </g>
 </svg>
