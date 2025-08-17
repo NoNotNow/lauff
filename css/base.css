@@ -32,7 +32,8 @@ body{
 }
 
 .site-logo {
-  max-width: min(300px, 80vw);
+  width: 100%;
+  max-width: 100%;
   height: auto;
   display: block;
   margin: 0 auto;
@@ -47,7 +48,7 @@ body{
 /* Responsive logo sizing */
 @media (max-width: 768px) {
   .site-logo {
-    max-width: min(250px, 70vw);
+    width: 100%;
   }
   
   .site-header {
@@ -57,7 +58,7 @@ body{
 
 @media (max-width: 480px) {
   .site-logo {
-    max-width: min(200px, 60vw);
+    width: 100%;
   }
   
   .site-header {
