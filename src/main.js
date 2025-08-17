@@ -2,9 +2,14 @@
 import { updateStageView, updateView, drawGrid } from './view-renderer.js';
 import { setupEventListeners } from './event-handlers.js';
 import { loadCode } from './save-load.js';
+import { applyRandomBackground } from './background-manager.js';
 
 function main() {
   console.log("Main function called");
+  
+  // Apply random background on load
+  applyRandomBackground();
+  
   setupEventListeners();
   console.log("Event listeners set up");
   updateStageView();
