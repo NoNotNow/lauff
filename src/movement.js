@@ -38,10 +38,10 @@ function getNextTurn(directionOffset){
   let startFree=free(directionOffset);
   let currentFree;
   let pos = gameState.position;
-  for(let n=1; n<free();n++){
+  for(let n=0; n<free();n++){
     pos=moveBy(pos, 1, getDirection());
     currentFree = free(directionOffset, pos.x, pos.y);
-    if(currentFree>startFree) return n;//check free to the side return n when > startFree
+    if(currentFree>startFree) return n+1;//check free to the side return n when > startFree
   }
   return 0;
 }
