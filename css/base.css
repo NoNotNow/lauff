@@ -23,7 +23,8 @@ body{
 .page-container {
   max-width: 1200px;
   margin: 0 auto;
-  padding: 1em;
+  margin-top: 0;
+  padding: 1em; padding-top: 0;
 }
 
 .site-header {
