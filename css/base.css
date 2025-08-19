@@ -35,9 +35,8 @@ body{
 }
 
 .site-logo {
-  width: 100%;
-  max-width: 100%;
-  height: auto;
+  width: auto;
+  height: 3em;
   display: block;
   margin: 0 auto;
   filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.2));
