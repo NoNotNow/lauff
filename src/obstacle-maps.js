@@ -266,6 +266,5 @@ export const obstacleMaps = {
 
 
 
-//
-Default obstacle map
+//Default obstacle map
 export const defaultObstacleMap = obstacleMap1;
