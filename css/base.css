@@ -23,8 +23,8 @@ body{
 .page-container {
   max-width: 1200px;
   margin: 0 auto;
-  margin-top: 0;
-  padding: 1em; padding-top: 0;
+  padding: 1em;
+
 }
 
 .site-header {
@@ -40,6 +40,8 @@ body{
   margin: 0 auto;
   filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.2));
   transition: transform 0.3s ease;
+  padding-top: 0;
+  margin-top: 0;
 }
 
 .site-logo:hover {
