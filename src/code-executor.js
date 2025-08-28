@@ -148,6 +148,14 @@ export async function start() {
     startTimer();
     console.log("Starting execution...");
     
+    // Add visual feedback for fast speeds
+    const speedSelect = document.getElementById('speedSelect');
+    const speed = speedSelect ? speedSelect.value : 'normal';
+    const stage = document.getElementById('stage');
+    if (stage && (speed === 'fast' || speed === 'superfast')) {
+      stage.classList.add('loop-active');
+    }
+    
     // Execute user function repeatedly until stopped
     await executeUntilStopped(userFunction);
     
