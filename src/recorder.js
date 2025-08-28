@@ -65,10 +65,17 @@ export function handleRecordedCommand(command) {
       codeTextarea.value = lines.join('\n');
       console.log(`Commands cancelled out: ${lastLine} + ${commandText} = (removed)`);
     } else {
+    if (consolidated === '') {
+      // Commands cancelled out completely, remove the last line
+      lines.pop();
+      codeTextarea.value = lines.join('\n');
+      console.log(`Commands cancelled out: ${lastLine} + ${commandText} = (removed)`);
+    } else {
       // Consolidation successful, replace the last line
       lines[lines.length - 1] = consolidated;
       codeTextarea.value = lines.join('\n');
       console.log(`Consolidated commands: ${lastLine} + ${commandText} = ${consolidated}`);
+    }
     }
   } else {
     // No consolidation possible, add as new line
