@@ -40,6 +40,21 @@ function handleKeydown(event) {
   }
 }
 
+function handleGoButton() {
+  handleRecordedCommand('go');
+  go();
+}
+
+function handleLeftButton() {
+  handleRecordedCommand('left');
+  left();
+}
+
+function handleRightButton() {
+  handleRecordedCommand('right');
+  right();
+}
+
 function handleReset() {
   resetPosition();
   updateView();
@@ -134,9 +149,9 @@ function handleMapChange(event) {
 }
 
   // Set up button event listeners
-  document.getElementById("goButton").addEventListener("pointerdown", go);
-  document.getElementById("leftButton").addEventListener("pointerdown", left);
-  document.getElementById("rightButton").addEventListener("pointerdown", right);
+  document.getElementById("goButton").addEventListener("pointerdown", handleGoButton);
+  document.getElementById("leftButton").addEventListener("pointerdown", handleLeftButton);
+  document.getElementById("rightButton").addEventListener("pointerdown", handleRightButton);
   document.getElementById("resetButton").addEventListener("pointerdown", handleReset);
   document.getElementById("startButton").addEventListener("pointerdown", start);
   document.getElementById("stopButton").addEventListener("pointerdown", stop);
