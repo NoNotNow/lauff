@@ -7,6 +7,7 @@ import { resetPosition } from './game-state.js';
 import { updateView, updateStageView } from './view-renderer.js';
 import { gameState } from './game-state.js';
 import { obstacleMaps } from './obstacle-maps.js';
+import { handleRecordedCommand } from './recorder.js';
 
 function handleKeydown(event) {
   // Check if textarea has focus - if so, don't handle keyboard shortcuts
@@ -19,14 +20,17 @@ function handleKeydown(event) {
   switch (event.key) {
     case 'ArrowUp':
       event.preventDefault();
+      handleRecordedCommand('go');
       go();
       break;
     case 'ArrowLeft':
       event.preventDefault();
+      handleRecordedCommand('left');
       left();
       break;
     case 'ArrowRight':
       event.preventDefault();
+      handleRecordedCommand('right');
       right();
       break;
     case 'ArrowDown':

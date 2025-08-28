@@ -108,3 +108,21 @@ button:hover {
 .save:hover {
   background-color: #1e7e34;
 }
+
+.record {
+  background-color: #6c757d;
+  color: white;
+}
+
+.record:hover {
+  background-color: #5a6268;
+}
+
+.record.record-on {
+  background-color: #dc3545;
+  color: white;
+}
+
+.record.record-on:hover {
+  background-color: #c82333;
+}
