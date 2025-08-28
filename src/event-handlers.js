@@ -8,6 +8,34 @@ import { updateView, updateStageView } from './view-renderer.js';
 import { gameState } from './game-state.js';
 import { obstacleMaps } from './obstacle-maps.js';
 
+function handleKeydown(event) {
+  // Check if textarea has focus - if so, don't handle keyboard shortcuts
+  const codeTextarea = document.getElementById('code');
+  if (codeTextarea && document.activeElement === codeTextarea) {
+    return;
+  }
+  
+  // Handle arrow key events
+  switch (event.key) {
+    case 'ArrowUp':
+      event.preventDefault();
+      go();
+      break;
+    case 'ArrowLeft':
+      event.preventDefault();
+      left();
+      break;
+    case 'ArrowRight':
+      event.preventDefault();
+      right();
+      break;
+    case 'ArrowDown':
+      // Optional: could be used for going backwards or other functionality
+      event.preventDefault();
+      break;
+  }
+}
+
 function handleReset() {
   resetPosition();
   updateView();
@@ -119,4 +147,7 @@ function handleMapChange(event) {
   if (canvas) {
     canvas.addEventListener('click', handleGridClick);
   }
+  
+  // Set up keyboard event handlers
+  document.addEventListener('keydown', handleKeydown);
 }
