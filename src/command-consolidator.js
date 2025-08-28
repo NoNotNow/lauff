@@ -27,11 +27,36 @@ export function consolidate(prev, newCommand) {
       return false;
     }
     
-    // Consolidate commands by summing their parameters
-    const consolidatedParam = prevParsed.param + newParsed.param;
+    let consolidatedParam;
+    let consolidatedName;
+    
+    if (prevParsed.name === newParsed.name) {
+      // Same commands: add parameters
+      consolidatedParam = prevParsed.param + newParsed.param;
+      consolidatedName = prevParsed.name;
+    } else if (areOppositeCommands(prevParsed.name, newParsed.name)) {
+      // Opposite commands: subtract parameters
+      const netParam = prevParsed.param - newParsed.param;
+      
+      if (netParam === 0) {
+        // Commands cancel out completely
+        return '';
+      } else if (netParam > 0) {
+        // Previous command wins
+        consolidatedParam = netParam;
+        consolidatedName = prevParsed.name;
+      } else {
+        // New command wins
+        consolidatedParam = Math.abs(netParam);
+        consolidatedName = newParsed.name;
+      }
+    } else {
+      // Should not reach here due to canConsolidate check
+      return false;
+    }
     
     // Return consolidated command string
-    return `${prevParsed.name}(${consolidatedParam});`;
+    return `${consolidatedName}(${consolidatedParam});`;
     
   } catch (error) {
     console.warn('Command consolidation error:', error);
@@ -66,16 +91,28 @@ function parseCommand(commandStr) {
 
 // Check if two command types can be consolidated
 function canConsolidate(commandName1, commandName2) {
-  // Commands must be the same type
-  if (commandName1 !== commandName2) {
-    return false;
-  }
-  
   // Define consolidatable command types
   const consolidatableCommands = ['go', 'left', 'right'];
   
-  return consolidatableCommands.includes(commandName1);
+  // Both commands must be consolidatable types
+  if (!consolidatableCommands.includes(commandName1) || !consolidatableCommands.includes(commandName2)) {
+    return false;
+  }
+  
+  // Same commands can be consolidated (additive)
+  if (commandName1 === commandName2) {
+    return true;
+  }
+  
+  // Opposite turning commands can be consolidated (cancellation)
+  const oppositeCommands = ['left', 'right'];
+  return oppositeCommands.includes(commandName1) && oppositeCommands.includes(commandName2);
+}
+
+// Check if two commands are opposites that cancel each other
+function areOppositeCommands(commandName1, commandName2) {
+  return (commandName1 === 'left' && commandName2 === 'right') ||
+         (commandName1 === 'right' && commandName2 === 'left');
 }
 
 // Export for testing purposes
-export { parseCommand, canConsolidate };
