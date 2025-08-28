@@ -36,7 +36,7 @@ body{
 
 .site-logo {
   width: auto;
-  height: 7em;
+  height: 12em;
   display: block;
   margin: 0 auto;
   filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.2));
@@ -52,6 +52,7 @@ body{
 /* Responsive logo sizing */
 @media (max-width: 768px) {
   .site-logo {
+    height: 8em;
     width: 100%;
   }
   
@@ -62,6 +63,7 @@ body{
 
 @media (max-width: 480px) {
   .site-logo {
+    height: 6em;
     width: 100%;
   }
   
