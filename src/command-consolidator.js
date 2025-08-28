@@ -56,7 +56,9 @@ export function consolidate(prev, newCommand) {
     }
     
     // Return consolidated command string
-    return `${consolidatedName}(${consolidatedParam});`;
+    // Format parameter: omit (1) and just use () for single steps
+    const paramStr = consolidatedParam === 1 ? '' : consolidatedParam;
+    return `${consolidatedName}(${paramStr});`;
     
   } catch (error) {
     console.warn('Command consolidation error:', error);
