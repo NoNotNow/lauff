@@ -13,7 +13,8 @@ function random(x) {
 // Global execution state
 let isRunning = false;
 let currentDelay = null;
-
+let movementDelayTime = 300;
+export function setMovementDelay(input){ movementDelayTime = input;}
 // Non-blocking delay function
 function delay(ms = 300) {
   return new Promise((resolve, reject) => {
@@ -46,7 +47,7 @@ async function movementDelay() {
   const loopCheckbox = document.getElementById('loopCheckbox');
   const shouldLoop = loopCheckbox ? loopCheckbox.checked : true;
   const delayTime = shouldLoop ? 60 : 300;
-  await delay(delayTime);
+  await delay(movementDelayTime);
 }
 
 // Explicit wrapped functions
@@ -132,6 +133,7 @@ function showLineIndicator(lineNumber) {
 }
 
 export async function start() {
+  parseMovementDelay();
   if (isRunning) {
     stop();
     return;
@@ -194,4 +196,14 @@ export function stop() {
     currentDelay.cancel();
   }
   console.log("Execution stopped");
+}
+
+export function parseMovementDelay(){
+  let option= document.getElementById('speedSelect');
+  let avatar= document.getElementById('avatar');
+  let divisor = (option.selectedIndex +1);
+  divisor=divisor*divisor;
+  let result = 1000/divisor;
+  avatar.classList.toggle('fast', result < 100);
+ setMovementDelay(result);
 }

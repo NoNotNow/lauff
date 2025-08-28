@@ -110,6 +110,10 @@
   transition: all 150ms ease-in-out;
 }
 
+.avatar.fast{
+  transition: all 60ms;
+}
+
 .avatar svg {
   width: 100%;
   height: 100%;
