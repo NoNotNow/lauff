@@ -1,4 +1,6 @@
 // Recorder functionality for capturing keyboard commands
+import { consolidate } from './command-consolidator.js';
+
 let isRecording = false;
 let recordButton = null;
 let codeTextarea = null;
@@ -43,21 +45,35 @@ export function handleRecordedCommand(command) {
   // Get current textarea content
   let currentCode = codeTextarea.value;
   
-  // Add command with proper formatting
+  // Prepare the new command text
   const commandText = `${command}();`;
   
-  // If textarea is empty or ends with whitespace, add command directly
-  // Otherwise add a newline first
+  // Try to consolidate with the last line if possible
+  const lines = currentCode.split('\n');
+  const lastLine = lines[lines.length - 1];
+  
+  // Attempt consolidation with the last line
+  const consolidated = consolidate(lastLine, commandText);
+  
   if (currentCode.trim() === '') {
+    // Textarea is empty, add command directly
     codeTextarea.value = commandText;
-  } else if (currentCode.endsWith('\n')) {
-    codeTextarea.value = currentCode + commandText;
+  } else if (consolidated) {
+    // Consolidation successful, replace the last line
+    lines[lines.length - 1] = consolidated;
+    codeTextarea.value = lines.join('\n');
+    console.log(`Consolidated commands: ${lastLine} + ${commandText} = ${consolidated}`);
   } else {
-    codeTextarea.value = currentCode + '\n' + commandText;
+    // No consolidation possible, add as new line
+    if (currentCode.endsWith('\n')) {
+      codeTextarea.value = currentCode + commandText;
+    } else {
+      codeTextarea.value = currentCode + '\n' + commandText;
+    }
   }
   
   // Scroll to bottom of textarea to show new command
   codeTextarea.scrollTop = codeTextarea.scrollHeight;
   
-  console.log(`Recorded command: ${commandText}`);
+  console.log(`Recorded command: ${commandText}${consolidated ? ' (consolidated)' : ''}`);
 }
