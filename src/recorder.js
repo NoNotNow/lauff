@@ -55,17 +55,13 @@ export function handleRecordedCommand(command) {
   // Attempt consolidation with the last line
   const consolidated = consolidate(lastLine, commandText);
   
+  console.log('Consolidation result:', JSON.stringify(consolidated), 'Type:', typeof consolidated);
+  
   if (currentCode.trim() === '') {
     // Textarea is empty, add command directly
     codeTextarea.value = commandText;
-  } else if (consolidated) {
-    if (consolidated === '') {
-      // Commands cancelled out completely, remove the last line
-      lines.pop();
-      codeTextarea.value = lines.join('\n');
-      console.log(`Commands cancelled out: ${lastLine} + ${commandText} = (removed)`);
-    } else {
-    if (consolidated === '') {
+  } else if (consolidated !== false) {
+    if (consolidated === '' || consolidated.trim() === '') {
       // Commands cancelled out completely, remove the last line
       lines.pop();
       codeTextarea.value = lines.join('\n');
@@ -75,7 +71,6 @@ export function handleRecordedCommand(command) {
       lines[lines.length - 1] = consolidated;
       codeTextarea.value = lines.join('\n');
       console.log(`Consolidated commands: ${lastLine} + ${commandText} = ${consolidated}`);
-    }
     }
   } else {
     // No consolidation possible, add as new line
