@@ -19,31 +19,14 @@ function main() {
   console.log("Stage view updated");
   updateView();
   console.log("View updated");
-  
-  // Draw grid after a short delay to ensure stage is rendered
-  setTimeout(() => {
-    drawGrid();
-    console.log("Grid drawn");
-  }, 100);
-  
-  loadCode();
-  console.log("Code loaded");
+  drawGrid();
+ 
   
   // Load code for the initially selected map
   const mapSelect = document.getElementById("mapSelect");
   if (mapSelect && mapSelect.value) {
     loadCode(mapSelect.value);
   }
-  
-  // Redraw grid on window resize with debouncing
-  let resizeTimeout;
-  window.addEventListener('resize', () => {
-    clearTimeout(resizeTimeout);
-    resizeTimeout = setTimeout(() => {
-      drawGrid();
-      console.log("Grid redrawn after resize");
-    }, 100);
-  });
 }
 
 // Wait for DOM to be fully loaded before initializing

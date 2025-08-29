@@ -15,7 +15,7 @@ function handleKeydown(event) {
   if (codeTextarea && document.activeElement === codeTextarea) {
     return;
   }
-  
+
   // Handle arrow key events
   switch (event.key) {
     case 'ArrowUp':
@@ -58,13 +58,13 @@ function handleRightButton() {
 function handleReset() {
   resetPosition();
   updateView();
-  
+
   // Clear the code textarea and reset to default
   const codeTextarea = document.getElementById('codeTextarea');
   if (codeTextarea) {
     codeTextarea.value = 'go();';
   }
-  
+
   // Remove saved code from localStorage
   localStorage.removeItem('savedCode');
 }
@@ -74,7 +74,7 @@ function handleClear() {
   if (codeTextarea) {
     codeTextarea.value = '';
   }
-  
+
   // Clear error message
   const errorMessage = document.getElementById('errorMessage');
   if (errorMessage) {
@@ -85,31 +85,31 @@ function handleClear() {
 function handleGridClick(event) {
   const canvas = document.getElementById('gridCanvas');
   const stage = document.getElementById('stage');
-  
+
   if (!canvas || !stage) return;
-  
+
   const rect = canvas.getBoundingClientRect();
   const x = event.clientX - rect.left;
   const y = event.clientY - rect.top;
-  
+
   // Calculate grid size in pixels (1em)
   const fontSize = parseFloat(getComputedStyle(document.body).fontSize);
   const gridSize = fontSize;
-  
+
   // Convert pixel coordinates to grid coordinates
   const gridX = Math.floor(x / gridSize);
   const gridY = Math.floor(y / gridSize);
-  
+
   // Check if click is within reasonable grid bounds (be generous)
-  if (gridX < 0 || gridX > gameState.stageSize.x+1 || gridY < 0 || gridY > gameState.stageSize.y+1) {
+  if (gridX < 0 || gridX > gameState.stageSize.x + 1 || gridY < 0 || gridY > gameState.stageSize.y + 1) {
     return;
   }
-  
+
   // Check if there's already an obstacle at this position
   const existingObstacleIndex = gameState.obstacles.findIndex(
     obstacle => obstacle.x === gridX && obstacle.y === gridY
   );
-  
+
   if (existingObstacleIndex !== -1) {
     // Remove existing obstacle
     gameState.obstacles.splice(existingObstacleIndex, 1);
@@ -117,10 +117,10 @@ function handleGridClick(event) {
     // Add new obstacle
     gameState.obstacles.push({ x: gridX, y: gridY });
   }
-  
+
   // Update the stage view to reflect changes
   updateStageView();
-  
+
   // Copy obstacle map to clipboard as JSON
   const obstacleJson = JSON.stringify(gameState.obstacles);
   navigator.clipboard.writeText(obstacleJson).then(() => {
@@ -130,23 +130,23 @@ function handleGridClick(event) {
   });
 }
 export function setupEventListeners() {
-function handleMapChange(event) {
-  const selectedMapKey = event.target.value;
-  const selectedMap = obstacleMaps[selectedMapKey];
-  
-  if (selectedMap) {
-    // Update the game state with the new obstacle map
-    gameState.obstacles = [...selectedMap.obstacles];
-    
-    // Reset position and update the view
-    resetPosition();
-    updateView();
-    updateStageView();
-    
-    // Load the saved code for this map
-    loadCode(selectedMapKey);
+  function handleMapChange(event) {
+    const selectedMapKey = event.target.value;
+    const selectedMap = obstacleMaps[selectedMapKey];
+
+    if (selectedMap) {
+      // Update the game state with the new obstacle map
+      gameState.obstacles = [...selectedMap.obstacles];
+
+      // Reset position and update the view
+      resetPosition();
+      updateView();
+      updateStageView();
+
+      // Load the saved code for this map
+      loadCode(selectedMapKey);
+    }
   }
-}
 
   // Set up button event listeners
   document.getElementById("goButton").addEventListener("pointerdown", handleGoButton);
@@ -157,16 +157,26 @@ function handleMapChange(event) {
   document.getElementById("stopButton").addEventListener("pointerdown", stop);
   document.getElementById("saveButton").addEventListener("pointerdown", saveCode);
   document.getElementById("clearButton").addEventListener("pointerdown", handleClear);
-  
+
   // Set up map selector
   document.getElementById("mapSelect").addEventListener("change", handleMapChange);
-  
+
   // Set up grid click handler
   const canvas = document.getElementById('gridCanvas');
   if (canvas) {
     canvas.addEventListener('click', handleGridClick);
   }
-  
+
   // Set up keyboard event handlers
   document.addEventListener('keydown', handleKeydown);
+
+  // Redraw grid on window resize with debouncing
+  let resizeTimeout;
+  window.addEventListener('resize', () => {
+    clearTimeout(resizeTimeout);
+    resizeTimeout = setTimeout(() => {
+      drawGrid();
+      console.log("Grid redrawn after resize");
+    }, 100);
+  });
 }
