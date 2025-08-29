@@ -101,7 +101,7 @@ function handleGridClick(event) {
   const gridY = Math.floor(y / gridSize);
   
   // Check if click is within reasonable grid bounds (be generous)
-  if (gridX < 0 || gridX > 25 || gridY < 0 || gridY > 25) {
+  if (gridX < 0 || gridX > gameState.stageSize.x+1 || gridY < 0 || gridY > gameState.stageSize.y+1) {
     return;
   }
   
