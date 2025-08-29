@@ -201,9 +201,7 @@ export function stop() {
 export function parseMovementDelay(){
   let option= document.getElementById('speedSelect');
   let avatar= document.getElementById('avatar');
-  let divisor = (option.selectedIndex +1);
-  divisor=divisor*divisor;
-  let result = 1000/divisor;
+  let result = option.value;
   avatar.classList.toggle('fast', result < 100);
  setMovementDelay(result);
 }

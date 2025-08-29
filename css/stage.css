@@ -111,7 +111,7 @@
 }
 
 .avatar.fast{
-  transition: all 60ms;
+  transition: all 30ms;
 }
 
 .avatar svg {
@@ -174,5 +174,5 @@
   border-radius: 50%;
   box-shadow: 0 0 15px #22c55e, inset 0 0 10px #16a34a;
   z-index: 10;
-  animation: targetPulse 1.5s infinite;
+  /* animation: targetPulse 1.5s infinite; */
 }
