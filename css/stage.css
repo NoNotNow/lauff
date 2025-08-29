@@ -106,7 +106,7 @@
   width: 2em;
   height: 2em;
   transform-origin: center;
-  z-index: 3;
+  z-index: 10;
   transition: all 150ms ease-in-out;
 }
 
@@ -167,12 +167,11 @@
 
 .target {
   position: absolute;
-  width: 3em;
-  height: 3em;
-  background: #22c55e;
-  border: 0.1875em solid #16a34a;
+  width: 2em;
+  height: 2em;
   border-radius: 50%;
-  box-shadow: 0 0 15px #22c55e, inset 0 0 10px #16a34a;
-  z-index: 10;
-  /* animation: targetPulse 1.5s infinite; */
+  z-index: 3;
+}
+.target span{
+  font-size: 2em;
 }
