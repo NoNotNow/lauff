@@ -3,7 +3,7 @@
   position: relative;
   background: linear-gradient(135deg, #ff9a56, #ff6b35, #f7931e);
   transition-duration: 60ms;
-  border: 0.125em solid black;
+  outline: 0.125em solid black;
   flex-shrink: 0;
 }
 
