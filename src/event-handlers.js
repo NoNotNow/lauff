@@ -7,6 +7,53 @@ import { resetPosition } from './game-state.js';
 import { updateView, updateStageView } from './view-renderer.js';
 import { gameState } from './game-state.js';
 import { obstacleMaps } from './obstacle-maps.js';
+import { handleRecordedCommand } from './recorder.js';
+
+function handleKeydown(event) {
+  // Check if textarea has focus - if so, don't handle keyboard shortcuts
+  const codeTextarea = document.getElementById('code');
+  if (codeTextarea && document.activeElement === codeTextarea) {
+    return;
+  }
+  
+  // Handle arrow key events
+  switch (event.key) {
+    case 'ArrowUp':
+      event.preventDefault();
+      handleRecordedCommand('go');
+      go();
+      break;
+    case 'ArrowLeft':
+      event.preventDefault();
+      handleRecordedCommand('left');
+      left();
+      break;
+    case 'ArrowRight':
+      event.preventDefault();
+      handleRecordedCommand('right');
+      right();
+      break;
+    case 'ArrowDown':
+      // Optional: could be used for going backwards or other functionality
+      event.preventDefault();
+      break;
+  }
+}
+
+function handleGoButton() {
+  handleRecordedCommand('go');
+  go();
+}
+
+function handleLeftButton() {
+  handleRecordedCommand('left');
+  left();
+}
+
+function handleRightButton() {
+  handleRecordedCommand('right');
+  right();
+}
 
 function handleReset() {
   resetPosition();
@@ -102,9 +149,9 @@ function handleMapChange(event) {
 }
 
   // Set up button event listeners
-  document.getElementById("goButton").addEventListener("pointerdown", go);
-  document.getElementById("leftButton").addEventListener("pointerdown", left);
-  document.getElementById("rightButton").addEventListener("pointerdown", right);
+  document.getElementById("goButton").addEventListener("pointerdown", handleGoButton);
+  document.getElementById("leftButton").addEventListener("pointerdown", handleLeftButton);
+  document.getElementById("rightButton").addEventListener("pointerdown", handleRightButton);
   document.getElementById("resetButton").addEventListener("pointerdown", handleReset);
   document.getElementById("startButton").addEventListener("pointerdown", start);
   document.getElementById("stopButton").addEventListener("pointerdown", stop);
@@ -119,4 +166,7 @@ function handleMapChange(event) {
   if (canvas) {
     canvas.addEventListener('click', handleGridClick);
   }
+  
+  // Set up keyboard event handlers
+  document.addEventListener('keydown', handleKeydown);
 }

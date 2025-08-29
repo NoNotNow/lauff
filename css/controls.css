@@ -74,6 +74,38 @@
   cursor: pointer;
 }
 
+.speed-selector {
+  display: flex;
+  align-items: center;
+  gap: 0.5em;
+  font-size: 0.9em;
+}
+
+.speed-selector label {
+  font-weight: bold;
+  color: #333;
+}
+
+.speed-dropdown {
+  padding: 0.3em 0.5em;
+  border: 0.0625em solid #ccc;
+  border-radius: 4px;
+  background-color: white;
+  font-size: 0.9em;
+  cursor: pointer;
+  min-width: 120px;
+}
+
+.speed-dropdown:hover {
+  border-color: #999;
+}
+
+.speed-dropdown:focus {
+  outline: none;
+  border-color: #007bff;
+  box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25);
+}
+
 button {
   padding: 0.5em 1em;
   border: 0.0625em solid #ccc;
@@ -107,4 +139,22 @@ button:hover {
 
 .save:hover {
   background-color: #1e7e34;
+}
+
+.record {
+  background-color: #6c757d;
+  color: white;
+}
+
+.record:hover {
+  background-color: #5a6268;
+}
+
+.record.record-on {
+  background-color: #dc3545;
+  color: white;
+}
+
+.record.record-on:hover {
+  background-color: #c82333;
 }

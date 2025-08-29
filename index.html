@@ -1,5 +1,3 @@
-
-
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -23,7 +21,7 @@
       <div class="game-container">
         <div class="stage" id="stage">
           <canvas id="gridCanvas"></canvas>
-          <div id="avatar" class="avatar">
+          <div id="avatar" class="avatar fast">
             <img src="assets/spaceship-avatar.svg" alt="Spaceship Avatar" width="100%" height="100%">
           </div>
         </div>
@@ -79,6 +77,9 @@
             <button class="save" id="saveButton">
               Save
             </button>
+            <button class="record" id="recordButton">
+              Record
+            </button>
             <label class="loop-control">
               <input type="checkbox" id="loopCheckbox">
               Loop
@@ -87,6 +88,15 @@
               <input type="checkbox" id="soundCheckbox" checked>
               Sound
             </label>
+            <div class="speed-selector">
+              <label for="speedSelect">Geschwindigkeit:</label>
+              <select id="speedSelect" class="speed-dropdown">
+                <option value="slow">Langsam</option>
+                <option value="normal" selected>Normal</option>
+                <option value="fast">Schnell</option>
+                <option value="superfast">Super Schnell</option>
+              </select>
+            </div>
           </div>
         </div>
         <div class="instructions">
