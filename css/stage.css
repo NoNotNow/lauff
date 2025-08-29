@@ -4,7 +4,6 @@
   background: linear-gradient(135deg, #ff9a56, #ff6b35, #f7931e);
   transition-duration: 60ms;
   border: 0.125em solid black;
-  box-sizing: border-box;
   flex-shrink: 0;
 }
 
