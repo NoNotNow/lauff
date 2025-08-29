@@ -4,10 +4,11 @@ import { start, stop } from './code-executor.js';
 import { saveCode } from './save-load.js';
 import { loadCode } from './save-load.js';
 import { resetPosition } from './game-state.js';
-import { updateView, updateStageView } from './view-renderer.js';
+import { updateView, updateStageView, drawGrid } from './view-renderer.js';
 import { gameState } from './game-state.js';
 import { obstacleMaps } from './obstacle-maps.js';
 import { handleRecordedCommand } from './recorder.js';
+
 
 function handleKeydown(event) {
   // Check if textarea has focus - if so, don't handle keyboard shortcuts
