@@ -169,9 +169,11 @@
   position: absolute;
   width: 2em;
   height: 2em;
-  border-radius: 50%;
   z-index: 3;
 }
 .target span{
-  font-size: 2em;
+  position: relative;
+  top:-.1em;
+  left:-.1em;
+  font-size: 1.6em;
 }

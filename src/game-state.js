@@ -6,7 +6,7 @@ export const gameState = {
   stageSize: { x: 20, y: 20 },
   direction: 1,
   obstacles: [...defaultObstacleMap],
-  target: { x: 19, y: 19 }
+  target: { x: 20, y: 20 }
 };
 
 export function resetPosition() {
@@ -64,9 +64,9 @@ export function checkObstacleCollision() {
 
 export function checkTargetReached() {
   const avatarLeft = gameState.position.x;
-  const avatarRight = gameState.position.x + 1;
+  const avatarRight = gameState.position.x + 2;
   const avatarTop = gameState.position.y;
-  const avatarBottom = gameState.position.y + 1;
+  const avatarBottom = gameState.position.y + 2;
   
   const targetLeft = gameState.target.x;
   const targetRight = gameState.target.x + 2;
