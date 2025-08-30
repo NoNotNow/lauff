@@ -1,6 +1,7 @@
 // Code execution and program control
-import { go, left, right, free, getNextRight, getNextLeft} from './movement.js';
+import { go, left, right, free, getNextRight, getNextLeft } from './movement.js';
 import { startTimer, stopTimer, resetTimer } from './timer.js';
+import { countStatements } from './code-analyser.js';
 
 // Random number generator function
 function random(x) {
@@ -14,7 +15,7 @@ function random(x) {
 let isRunning = false;
 let currentDelay = null;
 let movementDelayTime = 300;
-export function setMovementDelay(input){ movementDelayTime = input;}
+export function setMovementDelay(input) { movementDelayTime = input; }
 // Non-blocking delay function
 function delay(ms = 300) {
   return new Promise((resolve, reject) => {
@@ -22,7 +23,7 @@ function delay(ms = 300) {
       reject(new Error("Execution stopped"));
       return;
     }
-    
+
     const timeoutId = setTimeout(() => {
       currentDelay = null;
       if (isRunning) {
@@ -31,7 +32,7 @@ function delay(ms = 300) {
         reject(new Error("Execution stopped"));
       }
     }, ms);
-    
+
     currentDelay = {
       cancel: () => {
         clearTimeout(timeoutId);
@@ -73,7 +74,7 @@ function transformCode(code) {
     .replace(/\bgo\(/g, 'await go(')
     .replace(/\bleft\(/g, 'await left(')
     .replace(/\bright\(/g, 'await right(');
-  
+
   return transformedCode;
 }
 
@@ -86,13 +87,13 @@ function parseUserCode(code) {
   // Transform the user's code to use wrapped functions
   const transformedCode = transformCode(code);
   console.log("Transformed code:", transformedCode);
-  
+
   try {
     // Create an async function from the transformed code
-    const AsyncFunction = Object.getPrototypeOf(async function(){}).constructor;
-    const userFunction = new AsyncFunction('go', 'left', 'right', 'free', 'random', 
-                                           'getNextRight', 'getNextLeft',
-                                           `
+    const AsyncFunction = Object.getPrototypeOf(async function () { }).constructor;
+    const userFunction = new AsyncFunction('go', 'left', 'right', 'free', 'random',
+      'getNextRight', 'getNextLeft',
+      `
       // User's transformed code with movement functions available as parameters
       ${transformedCode}
     `);
@@ -109,8 +110,8 @@ async function executeUntilStopped(userFunction) {
 
   do {
     try {
-      await userFunction(wrappedGo, wrappedLeft, wrappedRight, 
-                         free, random, getNextRight, getNextLeft);
+      await userFunction(wrappedGo, wrappedLeft, wrappedRight,
+        free, random, getNextRight, getNextLeft);
       // Small delay at the end of each execution cycle
       if (shouldLoop) {
         await delay(20);
@@ -133,6 +134,7 @@ function showLineIndicator(lineNumber) {
 }
 
 export async function start() {
+  doCodeAnalysisAndStats();
   parseMovementDelay();
   if (isRunning) {
     stop();
@@ -145,11 +147,11 @@ export async function start() {
   try {
     // Parse the user's code
     const userFunction = parseUserCode(code);
-    
+
     isRunning = true;
     startTimer();
     console.log("Starting execution...");
-    
+
     // Add visual feedback for fast speeds
     const speedSelect = document.getElementById('speedSelect');
     const speed = speedSelect ? speedSelect.value : 'normal';
@@ -157,10 +159,10 @@ export async function start() {
     if (stage && (speed === 'fast' || speed === 'superfast')) {
       stage.classList.add('loop-active');
     }
-    
+
     // Execute user function repeatedly until stopped
     await executeUntilStopped(userFunction);
-    
+
     console.log("Continuous execution completed");
   } catch (error) {
     if (error.message === "Execution stopped") {
@@ -182,13 +184,13 @@ export function stop() {
   isRunning = false;
   stopTimer();
   stopTimer();
-  
+
   // Remove loop-active class when stopping
   const stage = document.getElementById('stage');
   if (stage) {
     stage.classList.remove('loop-active');
   }
-  
+
   // Clear error messages when stopping
   const errorMessage = document.getElementById('errorMessage');
   errorMessage.textContent = '';
@@ -198,10 +200,17 @@ export function stop() {
   console.log("Execution stopped");
 }
 
-export function parseMovementDelay(){
-  let option= document.getElementById('speedSelect');
-  let avatar= document.getElementById('avatar');
+export function parseMovementDelay() {
+  let option = document.getElementById('speedSelect');
+  let avatar = document.getElementById('avatar');
   let result = option.value;
   avatar.classList.toggle('fast', result < 100);
- setMovementDelay(result);
+  setMovementDelay(result);
+}
+
+function doCodeAnalysisAndStats() {
+  let code = document.getElementById("code").value;
+  let result = countStatements(code);
+  
+  console.log("Code Analysis Result:", result);
 }
