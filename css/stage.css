@@ -137,6 +137,12 @@
 .avatar.target-reached svg .runner-body {
   fill: #fbbf24;
 }
+/*start an animation where the spaceship gets much bigger and rotates*/
+.avatar.target-reached {
+  transition: all 2s ease-in-out;
+  width: 30em;
+  height: 30em;
+}
 
 .stage.wall-collision {
   animation: shake 500ms infinite;

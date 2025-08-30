@@ -211,6 +211,20 @@ export function parseMovementDelay() {
 function doCodeAnalysisAndStats() {
   let code = document.getElementById("code").value;
   let result = countStatements(code);
-  
   console.log("Code Analysis Result:", result);
+
+  // Show number of function calls below the stopwatch
+  const statementCountDiv = document.getElementById('statementCount');
+  if (statementCountDiv) {
+    if (result.success) {
+      // Try to extract the number from the details string
+      const match = result.details.match(/Anzahl Statements: (\d+)/);
+      const count = match ? match[1] : '?';
+      statementCountDiv.textContent = `Anzahl Funktionsaufrufe: ${count}`;
+      statementCountDiv.style.display = 'block';
+    } else {
+      statementCountDiv.textContent = '';
+      statementCountDiv.style.display = 'none';
+    }
+  }
 }

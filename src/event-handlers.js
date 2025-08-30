@@ -171,6 +171,10 @@ export function setupEventListeners() {
   // Set up keyboard event handlers
   document.addEventListener('keydown', handleKeydown);
 
+  document.getElementById('code').addEventListener('input', () => {
+    document.getElementById('statementCount').textContent = '';
+  });
+
   // Redraw grid on window resize with debouncing
   let resizeTimeout;
   window.addEventListener('resize', () => {
