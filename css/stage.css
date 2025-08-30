@@ -181,14 +181,7 @@
     opacity: 1;
     filter: hue-rotate(120deg);
   }
-  66% {
-    opacity: 0;
-    filter: hue-rotate(180deg);
-  }
-  68% {
-    opacity: 1;
-    filter: hue-rotate(240deg);
-  }
+
   70% {
     opacity: 0;
     filter: hue-rotate(300deg);
@@ -197,14 +190,7 @@
     opacity: 1;
     filter: hue-rotate(360deg);
   }
-  74% {
-    opacity: 0;
-    filter: hue-rotate(180deg);
-  }
-  76% {
-    opacity: 1;
-    filter: hue-rotate(90deg);
-  }
+
   78% {
     opacity: 0;
     filter: hue-rotate(270deg);
@@ -213,38 +199,17 @@
     opacity: 1;
     filter: hue-rotate(0deg);
   }
-  82% {
-    opacity: 0;
-    filter: hue-rotate(60deg);
-  }
-  84% {
-    opacity: 1;
-    filter: hue-rotate(120deg);
-  }
+
   86% {
     opacity: 0;
     filter: hue-rotate(180deg);
   }
-  88% {
-    opacity: 1;
-    filter: hue-rotate(240deg);
-  }
-  90% {
-    opacity: 0;
-    filter: hue-rotate(300deg);
-  }
+
   92% {
     opacity: 1;
     filter: hue-rotate(360deg);
   }
-  94% {
-    opacity: 0;
-    filter: hue-rotate(180deg);
-  }
-  96% {
-    opacity: 1;
-    filter: hue-rotate(90deg);
-  }
+
   98% {
     opacity: 0;
     filter: hue-rotate(270deg);
