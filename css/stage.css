@@ -5,6 +5,7 @@
   transition-duration: 60ms;
   outline: 0.125em solid black;
   flex-shrink: 0;
+  z-index: 1001;
 }
 
 .stage.loop-active {
@@ -139,9 +140,119 @@
 }
 /*start an animation where the spaceship gets much bigger and rotates*/
 .avatar.target-reached {
-  transition: all 2s ease-in-out;
-  width: 30em;
-  height: 30em;
+  animation: avatar-target-reached-blink-hue 3s cubic-bezier(0.7, 0, 1, 1) forwards;
+  transition-duration: 300ms;
+}
+
+@keyframes avatar-target-reached-blink-hue {
+  0% {
+    opacity: 1;
+    filter: hue-rotate(0deg);
+  }
+  10% {
+    opacity: 0.2;
+    filter: hue-rotate(90deg);
+  }
+  20% {
+    opacity: 1;
+    filter: hue-rotate(180deg);
+  }
+  30% {
+    opacity: 0.2;
+    filter: hue-rotate(270deg);
+  }
+  40% {
+    opacity: 1;
+    filter: hue-rotate(360deg);
+  }
+  50% {
+    opacity: 0.2;
+    filter: hue-rotate(180deg);
+  }
+  60% {
+    opacity: 1;
+    filter: hue-rotate(0deg);
+  }
+  62% {
+    opacity: 0;
+    filter: hue-rotate(60deg);
+  }
+  64% {
+    opacity: 1;
+    filter: hue-rotate(120deg);
+  }
+  66% {
+    opacity: 0;
+    filter: hue-rotate(180deg);
+  }
+  68% {
+    opacity: 1;
+    filter: hue-rotate(240deg);
+  }
+  70% {
+    opacity: 0;
+    filter: hue-rotate(300deg);
+  }
+  72% {
+    opacity: 1;
+    filter: hue-rotate(360deg);
+  }
+  74% {
+    opacity: 0;
+    filter: hue-rotate(180deg);
+  }
+  76% {
+    opacity: 1;
+    filter: hue-rotate(90deg);
+  }
+  78% {
+    opacity: 0;
+    filter: hue-rotate(270deg);
+  }
+  80% {
+    opacity: 1;
+    filter: hue-rotate(0deg);
+  }
+  82% {
+    opacity: 0;
+    filter: hue-rotate(60deg);
+  }
+  84% {
+    opacity: 1;
+    filter: hue-rotate(120deg);
+  }
+  86% {
+    opacity: 0;
+    filter: hue-rotate(180deg);
+  }
+  88% {
+    opacity: 1;
+    filter: hue-rotate(240deg);
+  }
+  90% {
+    opacity: 0;
+    filter: hue-rotate(300deg);
+  }
+  92% {
+    opacity: 1;
+    filter: hue-rotate(360deg);
+  }
+  94% {
+    opacity: 0;
+    filter: hue-rotate(180deg);
+  }
+  96% {
+    opacity: 1;
+    filter: hue-rotate(90deg);
+  }
+  98% {
+    opacity: 0;
+    filter: hue-rotate(270deg);
+  }
+  100% {
+    opacity: 0;
+    filter: hue-rotate(360deg);
+  }
 }
 
 .stage.wall-collision {
