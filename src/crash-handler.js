@@ -75,13 +75,13 @@ export function handleTargetReached() {
     avatar.classList.add("target-reached");
     stage.classList.add("target-reached");
     requestAnimationFrame(() => {
-      avatar.style.transform = `translate(${gameState.position.x}em, ${gameState.position.y}em) rotate(${gameState.direction * 90 * 4}deg) scale(8)`;
+      avatar.style.transform = `translate(${gameState.position.x}em, ${gameState.position.y}em) rotate(${gameState.direction * 90*4}deg) scale(8)`;
       setTimeout(() => {
-        avatar.style.transform = `translate(${0}em, ${gameState.position.y}em) rotate(${gameState.direction * 90 * 2}deg) scale(8)`;
+        avatar.style.transform = `translate(${0}em, ${gameState.position.y}em) rotate(${gameState.direction * 90 * 3}deg) scale(8)`;
         setTimeout(() => {
           avatar.style.transform = `translate(${gameState.stageSize.x}em, ${0}em) rotate(${gameState.direction * 90 * 2}deg) scale(8)`;
           setTimeout(() => {
-            avatar.style.transform = `translate(${gameState.stageSize.x/2}em, ${gameState.stageSize.y/2}em) rotate(${gameState.direction * 90 * 2}deg) scale(8)`;
+            avatar.style.transform = `translate(${gameState.stageSize.x/2}em, ${gameState.stageSize.y/2}em) rotate(${0}deg) scale(8)`;
           }, 300);
 
         }, 300);

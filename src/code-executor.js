@@ -2,6 +2,7 @@
 import { go, left, right, free, getNextRight, getNextLeft } from './movement.js';
 import { startTimer, stopTimer, resetTimer } from './timer.js';
 import { countStatements } from './code-analyser.js';
+import { applyRandomBackground } from './background-manager.js';
 
 // Random number generator function
 function random(x) {
@@ -134,6 +135,7 @@ function showLineIndicator(lineNumber) {
 }
 
 export async function start() {
+  applyRandomBackground();
   doCodeAnalysisAndStats();
   parseMovementDelay();
   if (isRunning) {
