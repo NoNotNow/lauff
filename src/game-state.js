@@ -2,6 +2,8 @@
 import { defaultObstacleMap } from './obstacle-maps.js';
 
 export const gameState = {
+  startPosition: { x: 0, y: 0 },
+  startDirection: 1,
   position: { x: 0, y: 0 },
   stageSize: { x: 20, y: 20 },
   direction: 1,
@@ -9,10 +11,22 @@ export const gameState = {
   target: { x: 20, y: 20 }
 };
 
+export function loadGameState(map) {
+  gameState.startPosition.x = map.startPosition.x;
+  gameState.startPosition.y = map.startPosition.y;
+  gameState.startDirection = map.startDirection ?? 1;
+  gameState.obstacles = map.obstacles;
+  gameState.target = map.targetPosition;
+  gameState.stageSize = map.stageSize;
+}
+
 export function resetPosition() {
-  gameState.position.x = 0;
-  gameState.position.y = 0;
-  gameState.direction = 1;
+  console.log("Resetting position");
+  gameState.position.x = gameState.startPosition.x ?? 0;
+  gameState.position.y = gameState.startPosition.y ?? 0;
+  let direction = 1;
+  if (gameState.startDirection !== undefined) {direction = gameState.startDirection;}
+  gameState.direction = direction;
 }
 
 export function withinBounds() {

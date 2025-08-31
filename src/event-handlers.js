@@ -3,7 +3,7 @@ import { go, left, right } from './movement.js';
 import { start, stop } from './code-executor.js';
 import { saveCode } from './save-load.js';
 import { loadCode } from './save-load.js';
-import { resetPosition } from './game-state.js';
+import { loadGameState, resetPosition } from './game-state.js';
 import { updateView, updateStageView, drawGrid } from './view-renderer.js';
 import { gameState } from './game-state.js';
 import { obstacleMaps } from './obstacle-maps.js';
@@ -134,19 +134,12 @@ export function setupEventListeners() {
   function handleMapChange(event) {
     const selectedMapKey = event.target.value;
     const selectedMap = obstacleMaps[selectedMapKey];
-
-    if (selectedMap) {
-      // Update the game state with the new obstacle map
-      gameState.obstacles = [...selectedMap.obstacles];
-
-      // Reset position and update the view
-      resetPosition();
-      updateView();
-      updateStageView();
-
-      // Load the saved code for this map
-      loadCode(selectedMapKey);
-    }
+    loadGameState(selectedMap);
+    updateView();
+    resetPosition();
+    updateView();
+    updateStageView();
+    loadCode(selectedMapKey);
   }
 
   // Set up button event listeners
