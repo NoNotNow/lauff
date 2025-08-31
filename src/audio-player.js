@@ -85,6 +85,20 @@ export async function playCrashSound() {
 
 // Play a victory sound (ascending melody)
 export async function playVictorySound() {
+    // Create a simple impulse response for reverb
+    function createImpulseResponse(context, duration = 1.5, decay = 2) {
+      const rate = context.sampleRate;
+      const length = rate * duration;
+      const impulse = context.createBuffer(2, length, rate);
+      for (let i = 0; i < 2; i++) {
+        const channel = impulse.getChannelData(i);
+        for (let j = 0; j < length; j++) {
+          channel[j] = (Math.random() * 2 - 1) * Math.pow(1 - j / length, decay);
+        }
+      }
+      return impulse;
+    }
+
   
   try {
     const context = getAudioContext();
@@ -108,9 +122,9 @@ export async function playVictorySound() {
   const vibrato = context.createOscillator();
   const vibratoGain = context.createGain();
   vibrato.type = 'sine';
-  vibrato.frequency.setValueAtTime(6, context.currentTime + 1.1); // 6 Hz vibrato
+  vibrato.frequency.setValueAtTime(1.5, context.currentTime + 1.1); 
   vibratoGain.gain.setValueAtTime(0, context.currentTime + 1.1);
-  vibratoGain.gain.linearRampToValueAtTime(4, context.currentTime + 1.3); // fade in vibrato, less deep
+  vibratoGain.gain.linearRampToValueAtTime(2, context.currentTime + 1.3); // fade in vibrato, less deep
   vibratoGain.gain.linearRampToValueAtTime(4, context.currentTime + 2.8);
   vibratoGain.gain.linearRampToValueAtTime(0, context.currentTime + 3.0); // fade out vibrato
   vibrato.connect(vibratoGain);
@@ -124,8 +138,22 @@ export async function playVictorySound() {
   gainNode.gain.linearRampToValueAtTime(0.18, context.currentTime + 1.1); // hold steady until vibrato starts
   gainNode.gain.linearRampToValueAtTime(0.01, context.currentTime + 3.0); // fade out evenly during vibrato
 
+  // Add reverb (convolver)
+  const convolver = context.createConvolver();
+  convolver.buffer = createImpulseResponse(context, 1.5, 2);
+  // Create gain nodes for wet (reverb) and dry (direct) mix
+  const wetGain = context.createGain();
+  const dryGain = context.createGain();
+  wetGain.gain.value = 0.3; // 30% reverb
+  dryGain.gain.value = 0.7; // 70% direct
   oscillator.connect(gainNode);
-  gainNode.connect(context.destination);
+  // Dry path
+  gainNode.connect(dryGain);
+  dryGain.connect(context.destination);
+  // Wet path (reverb)
+  gainNode.connect(convolver);
+  convolver.connect(wetGain);
+  wetGain.connect(context.destination);
 
   oscillator.start(context.currentTime);
   vibrato.start(context.currentTime + 1.1);
