@@ -85,40 +85,52 @@ export async function playCrashSound() {
 
 // Play a victory sound (ascending melody)
 export async function playVictorySound() {
+  
   try {
     const context = getAudioContext();
-    
     if (context.state === 'suspended') {
       await context.resume();
     }
-    
-    // Play a sequence of ascending notes
-    const notes = [523, 659, 784, 1047]; // C5, E5, G5, C6
-    const noteDuration = 0.2;
-    
-    for (let i = 0; i < notes.length; i++) {
-      const oscillator = context.createOscillator();
-      const gainNode = context.createGain();
-      
-      // Configure oscillator
-      oscillator.type = 'sine';
-      oscillator.frequency.setValueAtTime(notes[i], context.currentTime);
-      
-      // Configure gain with envelope
-      const startTime = context.currentTime + (i * noteDuration);
-      gainNode.gain.setValueAtTime(0, startTime);
-      gainNode.gain.linearRampToValueAtTime(0.15, startTime + 0.05);
-      gainNode.gain.exponentialRampToValueAtTime(0.01, startTime + noteDuration);
-      
-      // Connect nodes
-      oscillator.connect(gainNode);
-      gainNode.connect(context.destination);
-      
-      // Play the note
-      oscillator.start(startTime);
-      oscillator.stop(startTime + noteDuration);
-    }
-    
+    let startPitch = 40;
+    let endPitch = 300;
+    const oscillator = context.createOscillator();
+    const gainNode = context.createGain();
+  // Spaceship start: rising frequency, triangle wave for a smooth sci-fi sound
+  oscillator.type = 'triangle';
+  // Start slow, then accelerate pitch rise, then hold
+
+  oscillator.frequency.setValueAtTime(startPitch, context.currentTime);
+  oscillator.frequency.linearRampToValueAtTime(120, context.currentTime + 0.5); // slow start
+  oscillator.frequency.exponentialRampToValueAtTime(endPitch, context.currentTime + 1.1); // accelerate
+  oscillator.frequency.setValueAtTime(endPitch, context.currentTime + 1.1); // start hold
+
+  // Add vibrato as soon as plateau is reached, less deep
+  const vibrato = context.createOscillator();
+  const vibratoGain = context.createGain();
+  vibrato.type = 'sine';
+  vibrato.frequency.setValueAtTime(6, context.currentTime + 1.1); // 6 Hz vibrato
+  vibratoGain.gain.setValueAtTime(0, context.currentTime + 1.1);
+  vibratoGain.gain.linearRampToValueAtTime(4, context.currentTime + 1.3); // fade in vibrato, less deep
+  vibratoGain.gain.linearRampToValueAtTime(4, context.currentTime + 2.8);
+  vibratoGain.gain.linearRampToValueAtTime(0, context.currentTime + 3.0); // fade out vibrato
+  vibrato.connect(vibratoGain);
+  vibratoGain.connect(oscillator.frequency);
+
+  oscillator.frequency.setValueAtTime(endPitch, context.currentTime + 3.0); // hold pitch with vibrato
+
+  // Gain: fade in and out, much longer duration
+  gainNode.gain.setValueAtTime(0.01, context.currentTime);
+  gainNode.gain.linearRampToValueAtTime(0.18, context.currentTime + 0.12);
+  gainNode.gain.linearRampToValueAtTime(0.18, context.currentTime + 1.1); // hold steady until vibrato starts
+  gainNode.gain.linearRampToValueAtTime(0.01, context.currentTime + 3.0); // fade out evenly during vibrato
+
+  oscillator.connect(gainNode);
+  gainNode.connect(context.destination);
+
+  oscillator.start(context.currentTime);
+  vibrato.start(context.currentTime + 1.1);
+  oscillator.stop(context.currentTime + 3.0);
+  vibrato.stop(context.currentTime + 3.0);
   } catch (error) {
     console.warn('Victory sound playback failed:', error);
   }
