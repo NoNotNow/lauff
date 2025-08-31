@@ -1,3 +1,14 @@
+// Utility to fill the mapSelect dropdown dynamically
+export function fillMapSelectDropdown(selectElement) {
+  if (!selectElement) return;
+  selectElement.innerHTML = '';
+  Object.entries(obstacleMaps).forEach(([key, value]) => {
+    const option = document.createElement('option');
+    option.value = key;
+    option.textContent = value.name || key;
+    selectElement.appendChild(option);
+  });
+}
 // Obstacle map configurations
 export const obstacleMap1 = [
   {"x":3,"y":2},{"x":4,"y":11},{"x":3,"y":14},{"x":3,"y":7},{"x":3,"y":8},
@@ -303,7 +314,7 @@ export const obstacleMapViJos = [{"x":8,"y":0},{"x":8,"y":3},{"x":5,"y":5},
   {"x":21,"y":5},{"x":20,"y":6},{"x":19,"y":6},{"x":18,"y":6},{"x":17,"y":5},
   {"x":17,"y":4},{"x":16,"y":12},{"x":15,"y":16},{"x":16,"y":20},{"x":18,"y":15},
   {"x":19,"y":18},{"x":20,"y":13},{"x":16,"y":16},{"x":21,"y":15}];
-  
+
 export const obstacleMaps = {
   'map1': { name: 'Labyrinth', obstacles: obstacleMap1 },
   'map2': { name: 'Streifen', obstacles: obstacleMap2 },
