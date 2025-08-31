@@ -1,4 +1,4 @@
-<svg viewBox="100 50 400 220" xmlns="http://www.w3.org/2000/svg">
+<svg viewBox="120 50 280 220" xmlns="http://www.w3.org/2000/svg">
   <defs>
     <!-- Original Gradients -->
     <linearGradient id="spaceshipGradient" x1="0%" y1="0%" x2="100%" y2="100%">
@@ -27,17 +27,6 @@
 
   <!-- Action Gaming Style mit Version 3 Schriftzug auf Deutsch -->
   <g transform="translate(50, 50)">
-    
-    <!-- Energie-Feld um die Rakete -->
-    <circle cx="75" cy="50" r="80" fill="url(#energyField)" opacity="0.4"/>
-    
-    <!-- Bewegungsspuren -->
-    <g opacity="0.6">
-      <ellipse cx="10" cy="45" rx="15" ry="3" fill="#4a90e2" opacity="0.3"/>
-      <ellipse cx="-5" cy="50" rx="20" ry="4" fill="#4a90e2" opacity="0.2"/>
-      <ellipse cx="-25" cy="55" rx="25" ry="5" fill="#4a90e2" opacity="0.1"/>
-    </g>
-    
     <!-- Deine originale Rakete (groß und prominent) -->
     <g transform="translate(25, 0) scale(3)">
       <!-- Spaceship body -->

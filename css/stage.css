@@ -3,9 +3,21 @@
   position: relative;
   background: linear-gradient(135deg, #ff9a56, #ff6b35, #f7931e);
   transition-duration: 60ms;
-  border: 0.125em solid black;
-  box-sizing: border-box;
+  outline: 0.125em solid black;
   flex-shrink: 0;
+  z-index: 1001;
+}
+
+.stage .stage-background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-position: center;
+  opacity: 1; /* Adjust opacity for a subtle effect */
+  z-index: 0; /* Ensure it's behind other elements */
 }
 
 .stage.loop-active {
@@ -106,12 +118,12 @@
   width: 2em;
   height: 2em;
   transform-origin: center;
-  z-index: 3;
+  z-index: 10;
   transition: all 150ms ease-in-out;
 }
 
 .avatar.fast{
-  transition: all 60ms;
+  transition: all 30ms;
 }
 
 .avatar svg {
@@ -137,6 +149,87 @@
 }
 .avatar.target-reached svg .runner-body {
   fill: #fbbf24;
+}
+/*start an animation where the spaceship gets much bigger and rotates*/
+.avatar.target-reached {
+  animation: avatar-target-reached-blink-hue 3s cubic-bezier(0.7, 0, 1, 1) forwards;
+  transition-duration: 300ms;
+}
+
+@keyframes avatar-target-reached-blink-hue {
+  0% {
+    opacity: 1;
+    filter: hue-rotate(0deg);
+  }
+  10% {
+    opacity: 0.2;
+    filter: hue-rotate(90deg);
+  }
+  20% {
+    opacity: 1;
+    filter: hue-rotate(180deg);
+  }
+  30% {
+    opacity: 0.2;
+    filter: hue-rotate(270deg);
+  }
+  40% {
+    opacity: 1;
+    filter: hue-rotate(360deg);
+  }
+  50% {
+    opacity: 0.2;
+    filter: hue-rotate(180deg);
+  }
+  60% {
+    opacity: 1;
+    filter: hue-rotate(0deg);
+  }
+  62% {
+    opacity: 0;
+    filter: hue-rotate(60deg);
+  }
+  64% {
+    opacity: 1;
+    filter: hue-rotate(120deg);
+  }
+
+  70% {
+    opacity: 0;
+    filter: hue-rotate(300deg);
+  }
+  72% {
+    opacity: 1;
+    filter: hue-rotate(360deg);
+  }
+
+  78% {
+    opacity: 0;
+    filter: hue-rotate(270deg);
+  }
+  80% {
+    opacity: 1;
+    filter: hue-rotate(0deg);
+  }
+
+  86% {
+    opacity: 0;
+    filter: hue-rotate(180deg);
+  }
+
+  92% {
+    opacity: 1;
+    filter: hue-rotate(360deg);
+  }
+
+  98% {
+    opacity: 0;
+    filter: hue-rotate(270deg);
+  }
+  100% {
+    opacity: 0;
+    filter: hue-rotate(360deg);
+  }
 }
 
 .stage.wall-collision {
@@ -167,12 +260,17 @@
 
 .target {
   position: absolute;
-  width: 3em;
-  height: 3em;
-  background: #22c55e;
-  border: 0.1875em solid #16a34a;
-  border-radius: 50%;
-  box-shadow: 0 0 15px #22c55e, inset 0 0 10px #16a34a;
-  z-index: 10;
-  animation: targetPulse 1.5s infinite;
+  width: 2em;
+  height: 2em;
+  z-index: 3;
+  background-image: url('../assets/target.svg');
+  background-size: contain;
+  /*drop shadow*/
+  filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3));
+}
+.target span{
+  position: relative;
+  top:-.1em;
+  left:-.1em;
+  font-size: 1.6em;
 }

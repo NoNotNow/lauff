@@ -1,0 +1,57 @@
+<svg width="200" height="200" viewBox="25 17 150 140" xmlns="http://www.w3.org/2000/svg">
+    <!-- Soft glow behind the star -->
+    <ellipse cx="100" cy="95" rx="60" ry="55" fill="url(#glowGradient)" opacity="0.5" />
+    <defs>
+        <radialGradient id="glowGradient" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#fffbe6" stop-opacity="0.8"/>
+      <stop offset="60%" stop-color="#ffe066" stop-opacity="0.4"/>
+      <stop offset="100%" stop-color="#ffd700" stop-opacity="0"/>
+    </radialGradient>
+    </defs>
+    <!-- Rotated blue star behind -->
+        <polygon points="100,20 120,70 170,70 130,105 145,155 100,125 55,155 70,105 30,70 80,70"
+                         fill="#3b82f6" stroke="#2563eb" stroke-width="6"
+                         opacity="0.7"
+                         transform="rotate(20 100 95)"/>
+    <!-- Main star -->
+            <polygon points="100,20 120,70 170,70 130,105 145,155 100,125 55,155 70,105 30,70 80,70" 
+                             fill="#FFD700" 
+                             stroke="#7c4700" 
+                             stroke-width="6"/>
+    <!-- Radiating darker lines on top -->
+        <g stroke="#444" stroke-width="4" stroke-linecap="round" opacity="0.45">
+        <!-- Center to top -->
+        <line x1="100" y1="95" x2="100" y2="20" />
+        <!-- Center to bottom -->
+        <line x1="100" y1="95" x2="100" y2="155" />
+        <!-- Center to left -->
+        <line x1="100" y1="95" x2="30" y2="70" />
+        <!-- Center to right -->
+        <line x1="100" y1="95" x2="170" y2="70" />
+        <!-- Center to top-right -->
+        <line x1="100" y1="95" x2="145" y2="45" />
+        <!-- Center to bottom-right -->
+        <line x1="100" y1="95" x2="145" y2="145" />
+        <!-- Center to bottom-left -->
+        <line x1="100" y1="95" x2="55" y2="145" />
+        <!-- Center to top-left -->
+        <line x1="100" y1="95" x2="55" y2="45" />
+        </g>
+        <!-- Lens flare: vertical and horizontal lines with center opacity and edge transparency -->
+        <defs>
+            <linearGradient id="flare-vert" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stop-color="white" stop-opacity="0"/>
+                <stop offset="50%" stop-color="white" stop-opacity="1"/>
+                <stop offset="100%" stop-color="white" stop-opacity="0"/>
+            </linearGradient>
+            <linearGradient id="flare-horiz" x1="0" y1="0" x2="1" y2="0">
+                <stop offset="0%" stop-color="white" stop-opacity="0"/>
+                <stop offset="50%" stop-color="white" stop-opacity="1"/>
+                <stop offset="100%" stop-color="white" stop-opacity="0"/>
+            </linearGradient>
+        </defs>
+                <!-- Vertical lens flare -->
+                <rect x="94" y="17" width="12" height="140" fill="url(#flare-vert)" pointer-events="none" />
+                <!-- Horizontal lens flare -->
+                <rect x="27" y="89" width="146" height="12" fill="url(#flare-horiz)" pointer-events="none" />
+</svg>

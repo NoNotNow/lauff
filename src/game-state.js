@@ -6,7 +6,7 @@ export const gameState = {
   stageSize: { x: 20, y: 20 },
   direction: 1,
   obstacles: [...defaultObstacleMap],
-  target: { x: 18, y: 18 }
+  target: { x: 20, y: 20 }
 };
 
 export function resetPosition() {
@@ -69,9 +69,9 @@ export function checkTargetReached() {
   const avatarBottom = gameState.position.y + 2;
   
   const targetLeft = gameState.target.x;
-  const targetRight = gameState.target.x + 3;
+  const targetRight = gameState.target.x + 2;
   const targetTop = gameState.target.y;
-  const targetBottom = gameState.target.y + 3;
+  const targetBottom = gameState.target.y + 2;
   
   // Check for overlap in both x and y directions
   return !(avatarRight <= targetLeft || 
