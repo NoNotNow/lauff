@@ -6,6 +6,7 @@
   border-radius: 0.5em;
   border: 2px solid #dee2e6;
   font-family: Arial, sans-serif;
+  z-index: 1;
 }
 
 .instructions h3 {

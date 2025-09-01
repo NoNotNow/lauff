@@ -44,6 +44,11 @@ export function applyRandomBackground() {
   console.log('Applied background:', randomBackground);
 }
 
+export function applyNightModeBackground() {
+  document.body.style.background = 'linear-gradient(-45deg, #1e1e1e, #2e2e2e, #3e3e3e)';
+  console.log('Applied night mode background');
+}
+
 // Function to get all available backgrounds (for potential future use)
 export function getAllBackgrounds() {
   return [...backgroundPresets];

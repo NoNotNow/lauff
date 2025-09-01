@@ -6,17 +6,17 @@ import { loadCode } from './save-load.js';
 import { applyRandomBackground } from './background-manager.js';
 import { initRecorder } from './recorder.js';
 import { fillMapSelectDropdown } from './obstacle-maps.js';
+import { designs } from './designs.js';
 
 
 function main() {
   console.log("Main function called");
-
+  designs.init();
   // Dynamically populate mapSelect using function from obstacle-maps.js
   const mapSelect = document.getElementById("mapSelect");
   fillMapSelectDropdown(mapSelect);
 
   // Apply random background on load
-  applyRandomBackground();
 
   initRecorder();
   console.log("Recorder initialized");
