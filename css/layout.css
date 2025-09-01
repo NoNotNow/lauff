@@ -9,6 +9,9 @@
   gap: 1em;
   margin-bottom: 2em;
 }
+.stage{
+  font-size: 1.5em;
+}
 
 /* Stack layout vertically on smaller screens */
 @media (max-width: 768px) {
@@ -28,6 +31,7 @@
   
   .stage {
     order: 1;
+    font-size: 1em;;
   }
 }
 

@@ -94,7 +94,7 @@ function handleGridClick(event) {
   const y = event.clientY - rect.top;
 
   // Calculate grid size in pixels (1em)
-  const fontSize = parseFloat(getComputedStyle(document.body).fontSize);
+  const fontSize = parseFloat(getComputedStyle(stage).fontSize);
   const gridSize = fontSize;
 
   // Convert pixel coordinates to grid coordinates

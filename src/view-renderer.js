@@ -66,7 +66,7 @@ export function drawGrid() {
   console.log('Canvas size set to:', canvas.width, 'x', canvas.height, 'with pixel ratio:', pixelRatio);
   
   // Calculate grid size in pixels (1em)
-  const fontSize = parseFloat(getComputedStyle(document.body).fontSize);
+  const fontSize = parseFloat(getComputedStyle(stage).fontSize);
   const gridSize = fontSize;
   
   console.log('Grid size (1em):', gridSize, 'px');

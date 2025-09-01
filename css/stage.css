@@ -19,12 +19,9 @@
   opacity: 1; /* Adjust opacity for a subtle effect */
   z-index: 0; /* Ensure it's behind other elements */
 }
+
 .night .stage-background{
   background-image: url('../assets/stars.svg');
-}
-
-.stage.loop-active {
-  transition-duration: 10ms;
 }
 
 #gridCanvas {
@@ -55,6 +52,10 @@
 .map-selector label {
   font-weight: bold;
   color: #333;
+}
+
+.night .map-selector label{
+  color: white;
 }
 
 .map-dropdown {

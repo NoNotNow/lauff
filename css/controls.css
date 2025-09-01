@@ -12,8 +12,16 @@
 }
 
 .night .code{
-  background-color: rgba(255, 255, 255, 0.1);
+  background-color: rgba(0, 0, 0, 0.8);
   color: white;
+}
+
+.code{
+  background-color: white;
+  color: black;
+  /* make resizable vertically*/
+  resize: vertical;
+  width: 100%;
 }
 
 .text {
@@ -58,7 +66,7 @@
   align-items: center;
 }
 
-.loop-control {
+.checkbox-control {
   display: flex;
   align-items: center;
   gap: 0.3em;
@@ -69,16 +77,10 @@
   background-color: transparent;
   border-radius: 3px;
   transition: background-color 0.2s;
-  color: #666;
+  color: #818181;
 }
-
-.loop-control:hover {
-  background-color: #f0f0f0;
-}
-
-.loop-control input[type="checkbox"] {
-  margin: 0;
-  cursor: pointer;
+.night .checkbox-control {
+  color: white;
 }
 
 .speed-selector {
@@ -91,6 +93,9 @@
 .speed-selector label {
   font-weight: bold;
   color: #333;
+}
+.night .speed-selector label{
+  color: white;
 }
 
 .speed-dropdown {
@@ -123,6 +128,14 @@ button {
   transition: background-color 0.2s;
   min-width: 80px;
   text-align: center;
+}
+
+.statement-count{
+  font-weight: bold;
+  color: #000000;
+}
+.night .statement-count{
+  color: white;
 }
 
 button:hover {
