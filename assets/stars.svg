@@ -1,0 +1,152 @@
+<svg width="800" height="600" viewBox="0 0 800 600" xmlns="http://www.w3.org/2000/svg" style="background-color: black;">
+  <!-- Große Sterne mit Lens Flare -->
+  <g>
+    <circle cx="100" cy="150" r="3" fill="white" />
+    <!-- Lens Flare -->
+    <g stroke="white" stroke-width="0.7">
+      <line x1="97" y1="150" x2="103" y2="150" />
+      <line x1="100" y1="147" x2="100" y2="153" />
+    </g>
+  </g>
+  <g>
+    <circle cx="300" cy="100" r="4" fill="white" />
+    <g stroke="white" stroke-width="1">
+      <line x1="295" y1="100" x2="305" y2="100" />
+      <line x1="300" y1="95" x2="300" y2="105" />
+    </g>
+  </g>
+  <g>
+    <circle cx="500" cy="200" r="3.5" fill="white" />
+    <g stroke="white" stroke-width="0.8">
+      <line x1="496.5" y1="200" x2="503.5" y2="200" />
+      <line x1="500" y1="196.5" x2="500" y2="203.5" />
+    </g>
+  </g>
+  <g>
+    <circle cx="700" cy="150" r="4.5" fill="white" />
+    <g stroke="white" stroke-width="1.2">
+      <line x1="695.5" y1="150" x2="704.5" y2="150" />
+      <line x1="700" y1="145.5" x2="700" y2="154.5" />
+    </g>
+  </g>
+  <g>
+    <circle cx="200" cy="400" r="3" fill="white" />
+    <g stroke="white" stroke-width="0.7">
+      <line x1="197" y1="400" x2="203" y2="400" />
+      <line x1="200" y1="397" x2="200" y2="403" />
+    </g>
+  </g>
+  <g>
+    <circle cx="600" cy="500" r="3.5" fill="white" />
+    <g stroke="white" stroke-width="0.8">
+      <line x1="596.5" y1="500" x2="603.5" y2="500" />
+      <line x1="600" y1="496.5" x2="600" y2="503.5" />
+    </g>
+  </g>
+  <g>
+    <circle cx="400" cy="300" r="4" fill="white" />
+    <g stroke="white" stroke-width="1">
+      <line x1="395" y1="300" x2="405" y2="300" />
+      <line x1="400" y1="295" x2="400" y2="305" />
+    </g>
+  </g>
+
+  <!-- Viele kleine ferne Sterne -->
+  <circle cx="50" cy="100" r="1" fill="white" />
+  <circle cx="150" cy="300" r="1.5" fill="white" />
+  <circle cx="250" cy="200" r="1" fill="white" />
+  <circle cx="350" cy="450" r="1.5" fill="white" />
+  <circle cx="450" cy="100" r="1" fill="white" />
+  <circle cx="550" cy="300" r="1.5" fill="white" />
+  <circle cx="650" cy="200" r="1" fill="white" />
+  <circle cx="750" cy="400" r="1.5" fill="white" />
+  <circle cx="120" cy="500" r="1" fill="white" />
+  <circle cx="220" cy="550" r="1.5" fill="white" />
+  <circle cx="320" cy="50" r="1" fill="white" />
+  <circle cx="420" cy="400" r="1.5" fill="white" />
+  <circle cx="520" cy="550" r="1" fill="white" />
+  <circle cx="620" cy="150" r="1.5" fill="white" />
+  <circle cx="720" cy="350" r="1" fill="white" />
+  <!-- Zusätzliche kleine Sterne -->
+  <circle cx="80" cy="80" r="0.8" fill="white" />
+  <circle cx="180" cy="120" r="0.7" fill="white" />
+  <circle cx="210" cy="250" r="0.9" fill="white" />
+  <circle cx="270" cy="180" r="0.8" fill="white" />
+  <circle cx="330" cy="220" r="0.7" fill="white" />
+  <circle cx="370" cy="320" r="0.8" fill="white" />
+  <circle cx="390" cy="100" r="0.7" fill="white" />
+  <circle cx="410" cy="180" r="0.8" fill="white" />
+  <circle cx="470" cy="250" r="0.7" fill="white" />
+  <circle cx="510" cy="120" r="0.8" fill="white" />
+  <circle cx="570" cy="80" r="0.7" fill="white" />
+  <circle cx="590" cy="220" r="0.8" fill="white" />
+  <circle cx="630" cy="320" r="0.7" fill="white" />
+  <circle cx="670" cy="180" r="0.8" fill="white" />
+  <circle cx="710" cy="100" r="0.7" fill="white" />
+  <circle cx="770" cy="220" r="0.8" fill="white" />
+  <circle cx="60" cy="300" r="0.7" fill="white" />
+  <circle cx="140" cy="420" r="0.8" fill="white" />
+  <circle cx="200" cy="480" r="0.7" fill="white" />
+  <circle cx="260" cy="520" r="0.8" fill="white" />
+  <circle cx="340" cy="540" r="0.7" fill="white" />
+  <circle cx="380" cy="480" r="0.8" fill="white" />
+  <circle cx="460" cy="520" r="0.7" fill="white" />
+  <circle cx="540" cy="540" r="0.8" fill="white" />
+  <circle cx="580" cy="480" r="0.7" fill="white" />
+  <circle cx="660" cy="520" r="0.8" fill="white" />
+  <circle cx="740" cy="540" r="0.7" fill="white" />
+  <!-- Noch mehr kleine Sterne -->
+  <circle cx="100" cy="50" r="0.6" fill="white" />
+  <circle cx="200" cy="70" r="0.6" fill="white" />
+  <circle cx="300" cy="90" r="0.6" fill="white" />
+  <circle cx="400" cy="110" r="0.6" fill="white" />
+  <circle cx="500" cy="130" r="0.6" fill="white" />
+  <circle cx="600" cy="150" r="0.6" fill="white" />
+  <circle cx="700" cy="170" r="0.6" fill="white" />
+  <circle cx="150" cy="550" r="0.6" fill="white" />
+  <circle cx="250" cy="570" r="0.6" fill="white" />
+  <circle cx="350" cy="590" r="0.6" fill="white" />
+  <circle cx="450" cy="570" r="0.6" fill="white" />
+  <circle cx="550" cy="590" r="0.6" fill="white" />
+  <circle cx="650" cy="570" r="0.6" fill="white" />
+  <circle cx="750" cy="590" r="0.6" fill="white" />
+
+  <!-- Faint far galaxy (background) -->
+  <g>
+    <ellipse cx="650" cy="100" rx="60" ry="18" fill="url(#galaxyGradient)" opacity="0.18" filter="url(#galaxyBlur)" />
+    <ellipse cx="650" cy="100" rx="30" ry="9" fill="url(#galaxyCore)" opacity="0.25" filter="url(#galaxyBlur)" />
+  </g>
+  <defs>
+    <radialGradient id="galaxyGradient" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#fff" stop-opacity="0.7" />
+      <stop offset="60%" stop-color="#b3c6ff" stop-opacity="0.3" />
+      <stop offset="100%" stop-color="#000" stop-opacity="0" />
+    </radialGradient>
+    <radialGradient id="galaxyCore" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#fff" stop-opacity="0.9" />
+      <stop offset="100%" stop-color="#b3c6ff" stop-opacity="0.1" />
+    </radialGradient>
+    <filter id="galaxyBlur">
+      <feGaussianBlur stdDeviation="3" />
+    </filter>
+  </defs>
+  <!-- Funkelnde Sterne (mit Strahlen) -->
+  <g transform="translate(200, 100)">
+    <circle r="2" fill="white" />
+    <path d="M0,-8 L1,-4 L0,0 L1,4 L0,8 L-1,4 L0,0 L-1,-4 Z" fill="white" />
+    <!-- Lens Flare -->
+    <g stroke="white" stroke-width="0.7">
+      <line x1="-6" y1="0" x2="6" y2="0" />
+      <line x1="0" y1="-6" x2="0" y2="6" />
+    </g>
+  </g>
+  <g transform="translate(600, 300)">
+    <circle r="2.5" fill="white" />
+    <path d="M0,-10 L1.5,-5 L0,0 L1.5,5 L0,10 L-1.5,5 L0,0 L-1.5,-5 Z" fill="white" />
+    <!-- Lens Flare -->
+    <g stroke="white" stroke-width="0.9">
+      <line x1="-8" y1="0" x2="8" y2="0" />
+      <line x1="0" y1="-8" x2="0" y2="8" />
+    </g>
+  </g>
+</svg>
