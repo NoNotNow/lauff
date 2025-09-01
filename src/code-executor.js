@@ -106,26 +106,17 @@ function parseUserCode(code) {
 
 // Execute user function repeatedly until stopped
 async function executeUntilStopped(userFunction) {
-  const loopCheckbox = document.getElementById('loopCheckbox');
-  const shouldLoop = loopCheckbox ? loopCheckbox.checked : true;
-
-  do {
-    try {
-      await userFunction(wrappedGo, wrappedLeft, wrappedRight,
-        free, random, getNextRight, getNextLeft);
-      // Small delay at the end of each execution cycle
-      if (shouldLoop) {
-        await delay(20);
-      }
-    } catch (error) {
-      if (error.message === "Execution stopped") {
-        throw error; // Re-throw to be caught by start()
-      } else {
-        console.error("Runtime error:", error);
-        throw error;
-      }
+  try {
+    await userFunction(wrappedGo, wrappedLeft, wrappedRight,
+      free, random, getNextRight, getNextLeft);
+  } catch (error) {
+    if (error.message === "Execution stopped") {
+      throw error; // Re-throw to be caught by start()
+    } else {
+      console.error("Runtime error:", error);
+      throw error;
     }
-  } while (shouldLoop && isRunning);
+  }
 }
 
 function showLineIndicator(lineNumber) {
