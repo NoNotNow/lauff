@@ -1,7 +1,7 @@
 // Code execution and program control
 import { go, left, right, free, getNextRight, getNextLeft } from './movement.js';
 import { startTimer, stopTimer, resetTimer } from './timer.js';
-import { countStatements } from './code-analyser.js';
+import { analyseSyntaxError, countStatements } from './code-analyser.js';
 import { applyRandomBackground } from './background-manager.js';
 
 // Random number generator function
@@ -100,6 +100,10 @@ function parseUserCode(code) {
     `);
     return userFunction;
   } catch (error) {
+    let result=analyseSyntaxError(code); // Log detailed syntax error
+    if (result && !result.success) {
+      throw new Error(`Syntax error at line ${result.line}, column ${result.column}: ${result.error}`);
+    }
     throw new Error("Syntax error: " + error.message);
   }
 }
@@ -119,13 +123,8 @@ async function executeUntilStopped(userFunction) {
   }
 }
 
-function showLineIndicator(lineNumber) {
-  const indicator = document.getElementById('line-indicator');
-  indicator.textContent = `Executing Line: ${lineNumber}`;
-  indicator.style.display = 'block';
-}
-
 export async function start() {
+  removeErrorMessage();
   applyRandomBackground();
   doCodeAnalysisAndStats();
   parseMovementDelay();
@@ -185,12 +184,16 @@ export function stop() {
   }
 
   // Clear error messages when stopping
-  const errorMessage = document.getElementById('errorMessage');
-  errorMessage.textContent = '';
+  removeErrorMessage();
   if (currentDelay) {
     currentDelay.cancel();
   }
   console.log("Execution stopped");
+}
+
+function removeErrorMessage() {
+  const errorMessage = document.getElementById('errorMessage');
+  errorMessage.textContent = '';  
 }
 
 export function parseMovementDelay() {

@@ -103,3 +103,24 @@ export function countStatements(code) {
         };
     }
 }
+
+/**
+ * Analysiert den Code auf Syntaxfehler und gibt ggf. Zeile und Spalte zurück.
+ * @param {string} code
+ * @returns {{ success: boolean, error?: string, line?: number, column?: number }}
+ */
+export function analyseSyntaxError(code) {
+    try {
+        // @ts-ignore
+        esprima.parseScript(code, { tolerant: false, loc: true });
+        return { success: true };
+    } catch (error) {
+        // Esprima-Fehler enthalten Zeile und Spalte
+        return {
+            success: false,
+            error: error.description || error.message,
+            line: error.lineNumber,
+            column: error.column
+        };
+    }
+}
