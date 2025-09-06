@@ -26,9 +26,10 @@ body{
   right: 0;
   bottom: 0;
 
-  background: rgba(0, 0, 0, 0.5);
+  background: rgba(7, 0, 22, 0.8);
   z-index: 0;
   display: none;
+  mix-blend-mode:darken;
 }
 .night .body-overlay {
   display: block;
@@ -58,6 +59,11 @@ body{
   padding-top: 0;
   margin-top: 0;
 }
+
+.night .site-logo {
+  filter: drop-shadow(0 .5em 1em rgba(172, 60, 216, 0.7));
+}
+
 
 .site-logo:hover {
   transform: scale(1.05);

@@ -14,6 +14,7 @@
 .night .code{
   background-color: rgba(0, 0, 0, 0.8);
   color: white;
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
 }
 
 .code{
@@ -64,6 +65,10 @@
   gap: 0.5em;
   margin-top: 1em;
   align-items: center;
+}
+
+.night .buttons {
+    filter: drop-shadow(0 .1em .5em rgba(255, 255, 255, 0.3));
 }
 
 .checkbox-control {

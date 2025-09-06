@@ -7,7 +7,7 @@ export const designs = {
     },
     decideMode: function () {
         const hour = new Date().getHours();
-        this.isNightMode = hour < 6 || hour > 18;
+        this.isNightMode = hour < 9 || hour > 16;
         console.log("Design mode set to:", this.isNightMode ? "Night" : "Day");
         if (this.isNightMode) {
             applyNightModeBackground();
