@@ -1,8 +1,25 @@
 {
   "scripts": {
-    "start": "servor --reload"
+    "start": "servor --reload",
+    "test": "node --test src/tests/*.js"  
+    
   },
   "dependencies": {
     "servor": "^4.0.2"
-  }
+  },
+  "name": "lauff",
+  "description": "**Live Demo:** https://nonotnow.github.io/lauff/",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/NoNotNow/lauff.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/NoNotNow/lauff/issues"
+  },
+  "homepage": "https://github.com/NoNotNow/lauff#readme"
 }

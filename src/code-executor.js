@@ -3,6 +3,7 @@ import { go, left, right, free, getNextRight, getNextLeft } from './movement.js'
 import { startTimer, stopTimer, resetTimer } from './timer.js';
 import { analyseSyntaxError, countStatements } from './code-analyser.js';
 import { applyRandomBackground } from './background-manager.js';
+import { localizeUserCodeError } from './localizer.js';
 
 // Random number generator function
 function random(x) {
@@ -102,7 +103,7 @@ function parseUserCode(code) {
   } catch (error) {
     let result=analyseSyntaxError(code); // Log detailed syntax error
     if (result && !result.success) {
-      throw new Error(`Syntax error at line ${result.line}, column ${result.column}: ${result.error}`);
+      throw new Error(localizeUserCodeError(result));
     }
     throw new Error("Syntax error: " + error.message);
   }

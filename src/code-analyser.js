@@ -13,6 +13,11 @@
  * @property {string} error
  */
 
+export function calculateTotal(items) {
+    return items.reduce((sum, item) => sum + item.price, 0);
+}
+
+
 /**
  * Zählt Funktionsaufrufe im gegebenen JavaScript-Code und zeigt Details an.
  * @param {string} code - Der zu analysierende JavaScript-Code.

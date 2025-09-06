@@ -8,7 +8,6 @@ import { initRecorder } from './recorder.js';
 import { fillMapSelectDropdown } from './obstacle-maps.js';
 import { designs } from './designs.js';
 
-
 function main() {
   console.log("Main function called");
   designs.init();
