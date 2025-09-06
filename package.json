@@ -1,10 +1,11 @@
 {
+  "type": "module",
   "scripts": {
     "start": "servor --reload",
-    "test": "node --test src/tests/*.js"  
-    
+    "test": "node --test src/tests/*.js"
   },
   "dependencies": {
+    "esprima": "^4.0.1",
     "servor": "^4.0.2"
   },
   "name": "lauff",

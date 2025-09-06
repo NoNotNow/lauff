@@ -1,3 +1,12 @@
+// Unexpected token )
+// Unexpected token .
+// Unexpected end of input
+// Unexpected identifier
+// Unexpected token if
+// Unexpected number
+// Unexpected token *
+// Unexpected number
+
 // Error message templates for supported languages
 const errorMessages = {
 	de: {
@@ -5,17 +14,44 @@ const errorMessages = {
 		default: "Unbekannter Fehler: {error}",
 		errorExplanations: {
             'Unexpected token {token}': `Ein unerwartetes Zeichen wurde gefunden: {token}\nGehört dieses Zeichen hier hin, oder hast du dich vertan?`,
+			'Unexpected end of input': 'Der Code endet unerwartet. Fehlt vielleicht eine schließende Klammer, ein Anführungszeichen oder ein Semikolon?',
+			'Unexpected identifier': 'Ein Bezeichner (z.B. Variablenname) wurde an einer unerwarteten Stelle gefunden. Vielleicht fehlt ein Operator oder ein Komma?',
+			'Unexpected number': 'Eine Zahl wurde an einer unerwarteten Stelle gefunden. Vielleicht fehlt ein Operator?',
+			'Unexpected token if': 'Das Wort "if" wurde an einer unerwarteten Stelle gefunden. Vielleicht fehlt eine öffnende Klammer oder ein Operator?',
+			'Unexpected token else': 'Das Wort "else" wurde an einer unerwarteten Stelle gefunden. Vielleicht fehlt eine öffnende Klammer oder ein Operator?',
+			'Unexpected token var': 'Das Wort "var" wurde an einer unerwarteten Stelle gefunden. Vielleicht fehlt eine öffnende Klammer oder ein Operator?',
 		}
 	},
 	en: {
 		syntax: "Syntax error at line {line}, column {column}: {error}",
-		default: "Unknown error: {error}"
-	}
+		default: "Unknown error: {error}",
+		errorExplanations: {
+			'Unexpected token {token}': `An unexpected character was found: {token}\nDoes this character belong here, or did you make a mistake?`,
+			'Unexpected end of input': 'The code ends unexpectedly. Maybe a closing bracket, quotation mark, or semicolon is missing?',
+			'Unexpected identifier': 'An identifier (e.g. variable name) was found in an unexpected place. Maybe an operator or comma is missing?',
+			'Unexpected number': 'A number was found in an unexpected place. Maybe an operator is missing?',
+			'Unexpected token if': 'The word "if" was found in an unexpected place. Maybe an opening bracket or operator is missing?',
+			'Unexpected token else': 'The word "else" was found in an unexpected place. Maybe an opening bracket or operator is missing?',
+			'Unexpected token var': 'The word "var" was found in an unexpected place. Maybe an opening bracket or operator is missing?',
+		}
+	},
+	en: {
+		syntax: "Syntax error at line {line}, column {column}: {error}",
+		default: "Unknown error: {error}",
+		errorExplanations: {
+			'Unexpected token {token}': `An unexpected character was found: {token}\nDoes this character belong here, or did you make a mistake?`,
+			'Unexpected end of input': 'The code ends unexpectedly. Maybe a closing bracket, quotation mark, or semicolon is missing?',
+			'Unexpected identifier': 'An identifier (e.g. variable name) was found in an unexpected place. Maybe an operator or comma is missing?',
+			'Unexpected number': 'A number was found in an unexpected place. Maybe an operator is missing?',
+			'Unexpected token if': 'The word "if" was found in an unexpected place. Maybe an opening bracket or operator is missing?',
+			'Unexpected token else': 'The word "else" was found in an unexpected place. Maybe an opening bracket or operator is missing?',
+			'Unexpected token var': 'The word "var" was found in an unexpected place. Maybe an opening bracket or operator is missing?',
+		}
+	},
 };
 
 /**
  * Returns the current locale (default: 'de').
- * You can expand this to use browser or app settings.
  */
 function getCurrentLocale() {
 	// Example: use browser language if available, fallback to 'de'
@@ -51,7 +87,7 @@ export function localizeUserCodeError(result, lang) {
 	// Replace placeholders
 	let msg = template.replace('{line}', result.line ?? '?')
 		.replace('{column}', result.column ?? '?')
-		.replace('{error}', getErrorExplanation(result.error ?? ''));
+		.replace('{error}', getErrorExplanation(result.error ?? '', locale));
 	return msg;
 }
 
@@ -62,20 +98,23 @@ export function localizeUserCodeError(result, lang) {
  * @returns {string|null}
  */
 export function getErrorExplanation(errorMsg, locale = 'de') {
-    const explanations = errorMessages[locale]?.errorExplanations || {};
-    for (const patternKey in explanations) {
-        // Pattern-Key z.B. 'Unexpected-token{token}'
-        // Umwandlung in Regex: 'Unexpected-token{token}' => /Unexpected token (\S+)/
-        const regexStr = patternKey.replace(/\{(\w+)\}/g, (_, name) => `(?<${name}>\\S+)`).replace(/-/g, ' ');
-        const regex = new RegExp('^' + regexStr + '$');
-        const match = errorMsg.match(regex);
-        if (match && match.groups) {
-            let explanation = explanations[patternKey];
-            // Ersetze alle {name} Platzhalter im Value
-            for (const [name, value] of Object.entries(match.groups)) {
-                explanation = explanation.replace(`{${name}}`, value);            }
-            return explanation;
-        }
-    }
-    return errorMsg
+	const explanations = errorMessages[locale]?.errorExplanations || {};
+	for (const patternKey in explanations) {
+		// Pattern-Key z.B. 'Unexpected-token{token}'
+		// Umwandlung in Regex: 'Unexpected-token{token}' => /Unexpected token (\S+)/
+		const regexStr = patternKey.replace(/\{(\w+)\}/g, (_, name) => `(?<${name}>\\S+)`).replace(/-/g, ' ');
+		const regex = new RegExp('^' + regexStr + '$');
+		const match = errorMsg.match(regex);
+		if (match) {
+			let explanation = explanations[patternKey];
+			// If there are groups, replace placeholders
+			if (match.groups) {
+				for (const [name, value] of Object.entries(match.groups)) {
+					explanation = explanation.replace(`{${name}}`, value);
+				}
+			}
+			return explanation;
+		}
+	}
+	return errorMsg;
 }
