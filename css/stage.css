@@ -96,7 +96,10 @@
   box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25);
 }
 
+
+
 .timer {
+  position: relative;
   font-size: 1.5em;
   font-family: 'Courier New', monospace;
   font-weight: bold;
@@ -115,6 +118,18 @@
   text-shadow: 0 0 10px #ff8c00, 0 0 20px #ff8c00, 0 0 30px #ff8c00;
   letter-spacing: 0.1em;
   box-sizing: border-box;
+}
+
+.night .timer::after{
+  content: "";
+  position: absolute;
+  top: -0.3em;
+  left: -0.3em;
+  width: calc(100% + 0.6em);
+  height: calc(100% + 0.6em);
+  border-radius: 15px;
+  box-shadow: 0 0 1em 0.3em rgba(254, 255, 219, 0.164);
+  pointer-events: none;
 }
 /* should not get infinitely wide on large screens */
 .error-message {
@@ -149,6 +164,9 @@
   transform-origin: center;
   z-index: 10;
   transition: all 150ms ease-in-out;
+}
+.night .avatar {
+  filter: drop-shadow(0 .1em .3em rgba(255, 227, 208, .6));
 }
 
 .avatar.fast{
@@ -302,6 +320,10 @@
   /*drop shadow*/
   filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3));
 }
+
+.night .target {
+  filter: drop-shadow(0 .2em 2em rgba(253, 237, 13, 0.8));
+} 
 .target span{
   position: relative;
   top:-.1em;

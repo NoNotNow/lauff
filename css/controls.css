@@ -14,7 +14,7 @@
 .night .code{
   background-color: rgba(0, 0, 0, 0.8);
   color: white;
-  box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+  box-shadow: 0 0 7em rgba(0, 26, 255, 0.5);
 }
 
 .code{
@@ -141,6 +141,7 @@ button {
 }
 .night .statement-count{
   color: white;
+  text-shadow: 0 0 1em rgba(142, 154, 255, 0.5);
 }
 
 button:hover {
