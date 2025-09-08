@@ -128,7 +128,7 @@
   width: calc(100% + 0.6em);
   height: calc(100% + 0.6em);
   border-radius: 15px;
-  box-shadow: 0 0 1em 0.3em rgba(254, 255, 219, 0.164);
+  box-shadow: 0 0 1em 0.3em rgba(254, 255, 219, 0.048);
   pointer-events: none;
 }
 /* should not get infinitely wide on large screens */

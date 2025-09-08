@@ -4,6 +4,7 @@ export const designs = {
     init: function () {
         console.log("Designs initialized");
         this.decideMode();
+        document.body.style.display = 'block';
     },
     decideMode: function () {
         const hour = new Date().getHours();

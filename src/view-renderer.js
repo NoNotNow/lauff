@@ -77,7 +77,7 @@ export function drawGrid() {
   
   // Set line style
   if(designs.isNightMode){
-    ctx.strokeStyle = 'rgba(9, 243, 107, 0.14)';
+    ctx.strokeStyle = 'rgba(243, 208, 9, 0.12)';
   }else{
     ctx.strokeStyle = 'rgba(0, 0, 0, 0.3)';
   }

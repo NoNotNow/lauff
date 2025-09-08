@@ -1,10 +1,11 @@
 /* Base styles and typography */
 body{
-  background: linear-gradient(-45deg, #23a6d5, #23d5ab, #4ecdc4);
+  background: black;
   margin: 0;
   padding: 1em;
   font-size: min(2vw, 16px);
   min-height: 100vh;
+  display: none;;
 }
 
 /* Responsive font sizing for better mobile experience */
