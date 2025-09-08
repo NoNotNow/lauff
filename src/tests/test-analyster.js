@@ -62,6 +62,7 @@ describe('code-analyser', () => {
 			'let arr = [1, 2 3];', // Missing comma in array literal
 			'let x = 5 + * 3;', // Incorrect use of operator
 			'let x 5;', // Missing assignment operator
+			'go();6k }', // Invalid token
 		];
 		codes.forEach(code => {
 			const result = analyseSyntaxError(code);

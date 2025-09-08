@@ -19,6 +19,7 @@ const errorMessages = {
 			'Unexpected token if': 'Das Wort "if" wurde an einer unerwarteten Stelle gefunden. Vielleicht fehlt eine öffnende Klammer oder ein Operator?',
 			'Unexpected token else': 'Das Wort "else" wurde an einer unerwarteten Stelle gefunden. Vielleicht fehlt eine öffnende Klammer oder ein Operator?',
 			'Unexpected token var': 'Das Wort "var" wurde an einer unerwarteten Stelle gefunden. Vielleicht fehlt eine öffnende Klammer oder ein Operator?',
+			'Unexpected token ILLEGAL': 'Ein illegales Zeichen wurde gefunden. Dies kann durch einen Syntaxfehler oder ein nicht unterstütztes Zeichen verursacht werden.',
             'Unexpected token {token}': `Ein unerwartetes Zeichen wurde gefunden: {token}\nGehört dieses Zeichen hier hin, oder hast du dich vertan?`,
 		}
 	},
@@ -33,6 +34,7 @@ const errorMessages = {
 			'Unexpected token if': 'The word "if" was found in an unexpected place. Maybe an opening bracket or operator is missing?',
 			'Unexpected token else': 'The word "else" was found in an unexpected place. Maybe an opening bracket or operator is missing?',
 			'Unexpected token var': 'The word "var" was found in an unexpected place. Maybe an opening bracket or operator is missing?',
+			'Unexpected token ILLEGAL': 'An illegal token was found. This may be due to a syntax error or unsupported character.'
 		}
 	},
 	en: {
@@ -46,6 +48,7 @@ const errorMessages = {
 			'Unexpected token if': 'The word "if" was found in an unexpected place. Maybe an opening bracket or operator is missing?',
 			'Unexpected token else': 'The word "else" was found in an unexpected place. Maybe an opening bracket or operator is missing?',
 			'Unexpected token var': 'The word "var" was found in an unexpected place. Maybe an opening bracket or operator is missing?',
+			'Unexpected token ILLEGAL': 'An illegal token was found. This may be due to a syntax error or unsupported character.'
 		}
 	},
 };

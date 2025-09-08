@@ -3,6 +3,7 @@ import { go, left, right, free, getNextRight, getNextLeft } from './movement.js'
 import { startTimer, stopTimer, resetTimer } from './timer.js';
 import { analyseSyntaxError, countStatements } from './code-analyser.js';
 import { localizeUserCodeError } from './localizer.js';
+import { editor } from './code-editor.js';
 
 // Random number generator function
 function random(x) {
@@ -132,8 +133,7 @@ export async function start() {
     return;
   }
 
-  let textbox = document.getElementById("code");
-  let code = textbox.value;
+  let code = editor.getCode();
 
   try {
     // Parse the user's code
@@ -204,7 +204,7 @@ export function parseMovementDelay() {
 }
 
 function doCodeAnalysisAndStats() {
-  let code = document.getElementById("code").value;
+  let code = editor.getCode();
   let result = countStatements(code);
   console.log("Code Analysis Result:", result);
 

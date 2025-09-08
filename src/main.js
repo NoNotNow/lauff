@@ -3,10 +3,10 @@
 import { updateStageView, updateView, drawGrid } from './view-renderer.js';
 import { setupEventListeners } from './event-handlers.js';
 import { loadCode } from './save-load.js';
-import { applyRandomBackground } from './background-manager.js';
 import { initRecorder } from './recorder.js';
 import { fillMapSelectDropdown } from './obstacle-maps.js';
 import { designs } from './designs.js';
+import {editor } from './code-editor.js';
 
 function main() {
   console.log("Main function called");
@@ -26,6 +26,7 @@ function main() {
   updateView();
   console.log("View updated");
   drawGrid();
+  editor.init(designs.isNightMode);
 
   // Load code for the initially selected map
   if (mapSelect && mapSelect.value) {

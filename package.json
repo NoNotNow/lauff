@@ -5,6 +5,7 @@
     "test": "node --test src/tests/*.js"
   },
   "dependencies": {
+    "codemirror": "^6.0.2",
     "esprima": "^4.0.1",
     "servor": "^4.0.2"
   },
