@@ -11,7 +11,7 @@
 const errorMessages = {
 	de: {
 		syntax: "Syntaxfehler in Zeile {line}, Spalte {column}: {error}",
-		default: "Unbekannter Fehler: {error}",
+		default: "Ein Fehler ist aufgetreten: {error}",
 		errorExplanations: {
 			'Unexpected end of input': 'Der Code endet unerwartet. Fehlt vielleicht eine schließende Klammer, ein Anführungszeichen oder ein Semikolon?',
 			'Unexpected identifier': 'Ein Bezeichner (z.B. Variablenname) wurde an einer unerwarteten Stelle gefunden. Vielleicht fehlt ein Operator oder ein Komma?',
@@ -21,6 +21,7 @@ const errorMessages = {
 			'Unexpected token var': 'Das Wort "var" wurde an einer unerwarteten Stelle gefunden. Vielleicht fehlt eine öffnende Klammer oder ein Operator?',
 			'Unexpected token ILLEGAL': 'Ein illegales Zeichen wurde gefunden. Dies kann durch einen Syntaxfehler oder ein nicht unterstütztes Zeichen verursacht werden.',
             'Unexpected token {token}': `Ein unerwartetes Zeichen wurde gefunden: {token}\nGehört dieses Zeichen hier hin, oder hast du dich vertan?`,
+			'{token} is not defined': `Die Variable oder Funktion {token} ist nicht definiert.\nHast du sie vorher deklariert oder richtig geschrieben?`
 		}
 	},
 	en: {
@@ -34,21 +35,8 @@ const errorMessages = {
 			'Unexpected token if': 'The word "if" was found in an unexpected place. Maybe an opening bracket or operator is missing?',
 			'Unexpected token else': 'The word "else" was found in an unexpected place. Maybe an opening bracket or operator is missing?',
 			'Unexpected token var': 'The word "var" was found in an unexpected place. Maybe an opening bracket or operator is missing?',
-			'Unexpected token ILLEGAL': 'An illegal token was found. This may be due to a syntax error or unsupported character.'
-		}
-	},
-	en: {
-		syntax: "Syntax error at line {line}, column {column}: {error}",
-		default: "Unknown error: {error}",
-		errorExplanations: {
-			'Unexpected token {token}': `An unexpected character was found: {token}\nDoes this character belong here, or did you make a mistake?`,
-			'Unexpected end of input': 'The code ends unexpectedly. Maybe a closing bracket, quotation mark, or semicolon is missing?',
-			'Unexpected identifier': 'An identifier (e.g. variable name) was found in an unexpected place. Maybe an operator or comma is missing?',
-			'Unexpected number': 'A number was found in an unexpected place. Maybe an operator is missing?',
-			'Unexpected token if': 'The word "if" was found in an unexpected place. Maybe an opening bracket or operator is missing?',
-			'Unexpected token else': 'The word "else" was found in an unexpected place. Maybe an opening bracket or operator is missing?',
-			'Unexpected token var': 'The word "var" was found in an unexpected place. Maybe an opening bracket or operator is missing?',
-			'Unexpected token ILLEGAL': 'An illegal token was found. This may be due to a syntax error or unsupported character.'
+			'Unexpected token ILLEGAL': 'An illegal token was found. This may be due to a syntax error or unsupported character.',
+			'{token} is not defined': `The variable or function {token} is not defined.\nDid you declare it beforehand or spell it correctly?`
 		}
 	},
 };

@@ -124,3 +124,14 @@ export function analyseSyntaxError(code) {
         };
     }
 }
+
+/** Analysiert einen Laufzeitfehler und gibt eine strukturierte Fehlermeldung zurück.
+ * @param {Error} error
+ * @returns {{ success: boolean, error: string }}
+ */
+export function analyseRuntimeError(error) {
+    return {
+        success: false,
+        error: error.message
+    };
+}

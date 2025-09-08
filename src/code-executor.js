@@ -1,7 +1,7 @@
 // Code execution and program control
 import { go, left, right, free, getNextRight, getNextLeft } from './movement.js';
 import { startTimer, stopTimer, resetTimer } from './timer.js';
-import { analyseSyntaxError, countStatements } from './code-analyser.js';
+import { analyseRuntimeError, analyseSyntaxError, countStatements } from './code-analyser.js';
 import { localizeUserCodeError } from './localizer.js';
 import { editor } from './code-editor.js';
 
@@ -162,7 +162,7 @@ export async function start() {
     } else {
       console.error("Runtime error in user code:", error);
       const errorMessage = document.getElementById('errorMessage');
-      errorMessage.textContent = error.message;
+      errorMessage.textContent = localizeUserCodeError(analyseRuntimeError(error));
       stopTimer();
       resetTimer();
     }
