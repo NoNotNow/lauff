@@ -13,13 +13,13 @@ const errorMessages = {
 		syntax: "Syntaxfehler in Zeile {line}, Spalte {column}: {error}",
 		default: "Unbekannter Fehler: {error}",
 		errorExplanations: {
-            'Unexpected token {token}': `Ein unerwartetes Zeichen wurde gefunden: {token}\nGehört dieses Zeichen hier hin, oder hast du dich vertan?`,
 			'Unexpected end of input': 'Der Code endet unerwartet. Fehlt vielleicht eine schließende Klammer, ein Anführungszeichen oder ein Semikolon?',
 			'Unexpected identifier': 'Ein Bezeichner (z.B. Variablenname) wurde an einer unerwarteten Stelle gefunden. Vielleicht fehlt ein Operator oder ein Komma?',
 			'Unexpected number': 'Eine Zahl wurde an einer unerwarteten Stelle gefunden. Vielleicht fehlt ein Operator?',
 			'Unexpected token if': 'Das Wort "if" wurde an einer unerwarteten Stelle gefunden. Vielleicht fehlt eine öffnende Klammer oder ein Operator?',
 			'Unexpected token else': 'Das Wort "else" wurde an einer unerwarteten Stelle gefunden. Vielleicht fehlt eine öffnende Klammer oder ein Operator?',
 			'Unexpected token var': 'Das Wort "var" wurde an einer unerwarteten Stelle gefunden. Vielleicht fehlt eine öffnende Klammer oder ein Operator?',
+            'Unexpected token {token}': `Ein unerwartetes Zeichen wurde gefunden: {token}\nGehört dieses Zeichen hier hin, oder hast du dich vertan?`,
 		}
 	},
 	en: {
@@ -54,6 +54,7 @@ const errorMessages = {
  * Returns the current locale (default: 'de').
  */
 function getCurrentLocale() {
+	return 'de'; //todo later: have user choose language
 	// Example: use browser language if available, fallback to 'de'
 	if (typeof navigator !== 'undefined' && navigator.language) {
 		if (navigator.language.startsWith('de')) return 'de';

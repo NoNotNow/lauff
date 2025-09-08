@@ -2,7 +2,6 @@
 import { go, left, right, free, getNextRight, getNextLeft } from './movement.js';
 import { startTimer, stopTimer, resetTimer } from './timer.js';
 import { analyseSyntaxError, countStatements } from './code-analyser.js';
-import { applyRandomBackground } from './background-manager.js';
 import { localizeUserCodeError } from './localizer.js';
 
 // Random number generator function
@@ -126,7 +125,6 @@ async function executeUntilStopped(userFunction) {
 
 export async function start() {
   removeErrorMessage();
-  applyRandomBackground();
   doCodeAnalysisAndStats();
   parseMovementDelay();
   if (isRunning) {

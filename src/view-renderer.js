@@ -1,5 +1,6 @@
 // View rendering and DOM updates
 import { gameState } from './game-state.js';
+import { designs } from './designs.js';
 
 export function updateView() {
   let avatar = document.getElementById("avatar");
@@ -75,7 +76,11 @@ export function drawGrid() {
   ctx.clearRect(0, 0, rect.width, rect.height);
   
   // Set line style
-  ctx.strokeStyle = 'rgba(0, 0, 0, 0.3)';
+  if(designs.isNightMode){
+    ctx.strokeStyle = 'rgba(9, 243, 107, 0.14)';
+  }else{
+    ctx.strokeStyle = 'rgba(0, 0, 0, 0.3)';
+  }
   ctx.lineWidth = 0.5;
   
   let lineCount = 0;

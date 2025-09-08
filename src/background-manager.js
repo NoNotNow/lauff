@@ -1,12 +1,12 @@
 // Background gradient presets and management
 const backgroundPresets = [
   // Original-style backgrounds (ocean/teal themes)
-  'linear-gradient(-45deg, #23a6d5, #23d5ab, #4ecdc4)',
-  'linear-gradient(-45deg, #1e90ff, #00ced1, #48d1cc)',
-  'linear-gradient(-45deg, #20b2aa, #40e0d0, #5f9ea0)',
-  'linear-gradient(-45deg, #4682b4, #87ceeb, #b0e0e6)',
-  'linear-gradient(-45deg, #008b8b, #20b2aa, #66cdaa)',
-  
+  'linear-gradient(-45deg, #1e3c72, #2a5298, #4facfe)',
+  'linear-gradient(-45deg, #134e5e, #71b280, #b2fefa)',
+  'linear-gradient(-45deg, #0f2027, #203a43, #2c5364)',
+  'linear-gradient(-45deg, #004e92, #000428, #004e92)',
+
+
   // Warm sunset themes
   'linear-gradient(-45deg, #ff6b6b, #ffa726, #ffcc02)',
   'linear-gradient(-45deg, #ff8a65, #ffab40, #ffd54f)',
@@ -49,17 +49,3 @@ export function applyNightModeBackground() {
   console.log('Applied night mode background');
 }
 
-// Function to get all available backgrounds (for potential future use)
-export function getAllBackgrounds() {
-  return [...backgroundPresets];
-}
-
-// Function to apply a specific background by index
-export function applyBackgroundByIndex(index) {
-  if (index >= 0 && index < backgroundPresets.length) {
-    document.body.style.background = backgroundPresets[index];
-    console.log('Applied background by index:', index, backgroundPresets[index]);
-  } else {
-    console.warn('Invalid background index:', index);
-  }
-}
