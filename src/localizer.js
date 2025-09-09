@@ -1,11 +1,3 @@
-// Unexpected token )
-// Unexpected token .
-// Unexpected end of input
-// Unexpected identifier
-// Unexpected token if
-// Unexpected number
-// Unexpected token *
-// Unexpected number
 
 // Error message templates for supported languages
 const errorMessages = {
