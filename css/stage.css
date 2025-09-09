@@ -303,6 +303,7 @@
   box-sizing: border-box;
   z-index: 2;
   pointer-events: none;
+  transition-duration: 600ms;
 }
 
 .night .obstacle {
@@ -319,6 +320,20 @@
   background-size: contain;
   /*drop shadow*/
   filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3));
+  transition-duration: 500ms;
+}
+
+@keyframes slow-rotate {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.stage.running .target {
+  animation: slow-rotate 120s linear infinite;
 }
 
 .night .target {

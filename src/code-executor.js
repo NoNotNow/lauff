@@ -138,16 +138,17 @@ export async function start() {
   try {
     // Parse the user's code
     const userFunction = parseUserCode(code);
-
-    isRunning = true;
-    startTimer();
-    console.log("Starting execution...");
-
-    // Add visual feedback for fast speeds
     const speedSelect = document.getElementById('speedSelect');
     const speed = speedSelect ? speedSelect.value : 'normal';
     const stage = document.getElementById('stage');
-    if (stage && (speed === 'fast' || speed === 'superfast')) {
+ 
+    isRunning = true;
+    startTimer();
+    stage.classList.add('running');
+    console.log("Starting execution...");
+
+    // Add visual feedback for fast speeds
+     if (stage && (speed === 'fast' || speed === 'superfast')) {
       stage.classList.add('loop-active');
     }
 
@@ -168,6 +169,7 @@ export async function start() {
     }
   } finally {
     isRunning = false;
+    stage.classList.remove('running');
   }
 }
 
