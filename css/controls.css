@@ -11,19 +11,7 @@
   z-index: 1;
 }
 
-.night .code{
-  background-color: rgba(0, 0, 0, 0.8);
-  color: white;
-  box-shadow: 0 0 7em rgba(0, 26, 255, 0.5);
-}
 
-.code{
-  background-color: white;
-  color: black;
-  /* make resizable vertically*/
-  resize: vertical;
-  width: 100%;
-}
 
 .text {
   resize: vertical;

@@ -26,8 +26,10 @@ export const editor = {
             lineNumbers: true,
             mode: "javascript",
             theme: isNightMode ? "lauff-dark" : "default",
+            
 
         });
+        this.instance.setSize("100%", "8em");
     },
 
     /**

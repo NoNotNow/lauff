@@ -1,0 +1,23 @@
+.night .code{
+  background-color: rgba(0, 0, 0, 0.8);
+  color: white;
+  box-shadow: 0 0 7em rgba(0, 26, 255, 0.5);
+}
+
+.night .CodeMirror {
+  box-shadow: 0 0 7em rgba(0, 26, 255, 0.2);
+
+}
+
+.code{
+  background-color: white;
+  color: black;
+  width: 100%;
+}
+
+
+.CodeMirror {
+      resize: vertical;
+      /* overflow: auto !important; */
+}      
+.CodeMirror { height: 100%; }
