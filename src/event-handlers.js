@@ -139,7 +139,6 @@ export function setupEventListeners() {
   document.getElementById("rightButton").addEventListener("pointerdown", handleRightButton);
   document.getElementById("resetButton").addEventListener("pointerdown", handleReset);
   document.getElementById("startButton").addEventListener("pointerdown", start);
-  document.getElementById("stopButton").addEventListener("pointerdown", stop);
   document.getElementById("saveButton").addEventListener("pointerdown", saveCode);
   document.getElementById("clearButton").addEventListener("pointerdown", handleClear);
 

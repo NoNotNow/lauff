@@ -355,8 +355,7 @@
     transform: rotate(360deg);
   }
 }
-
-.stage.running .target {
+.running .stage .target {
   animation: slow-rotate 120s linear infinite;
 }
 

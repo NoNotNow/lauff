@@ -101,7 +101,7 @@ function parseUserCode(code) {
     `);
     return userFunction;
   } catch (error) {
-    let result=analyseSyntaxError(code); // Log detailed syntax error
+    let result = analyseSyntaxError(code); // Log detailed syntax error
     if (result && !result.success) {
       throw new Error(localizeUserCodeError(result));
     }
@@ -141,16 +141,12 @@ export async function start() {
     const speedSelect = document.getElementById('speedSelect');
     const speed = speedSelect ? speedSelect.value : 'normal';
     const stage = document.getElementById('stage');
- 
+
     isRunning = true;
     startTimer();
-    stage.classList.add('running');
+    window.document.body.classList.add('running');
     console.log("Starting execution...");
 
-    // Add visual feedback for fast speeds
-     if (stage && (speed === 'fast' || speed === 'superfast')) {
-      stage.classList.add('loop-active');
-    }
 
     // Execute user function repeatedly until stopped
     await executeUntilStopped(userFunction);
@@ -159,17 +155,17 @@ export async function start() {
   } catch (error) {
     if (error.message === "Execution stopped") {
       console.log("Program stopped by user.");
-      stopTimer();
     } else {
       console.error("Runtime error in user code:", error);
       const errorMessage = document.getElementById('errorMessage');
       errorMessage.textContent = localizeUserCodeError(analyseRuntimeError(error));
-      stopTimer();
       resetTimer();
     }
   } finally {
+    stopTimer();
     isRunning = false;
-    stage.classList.remove('running');
+    document.body.classList.remove('running');
+
   }
 }
 
@@ -194,7 +190,7 @@ export function stop() {
 
 function removeErrorMessage() {
   const errorMessage = document.getElementById('errorMessage');
-  errorMessage.textContent = '';  
+  errorMessage.textContent = '';
 }
 
 export function parseMovementDelay() {

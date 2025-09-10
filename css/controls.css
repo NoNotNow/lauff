@@ -104,10 +104,33 @@ button:hover {
   background-color: #e8e8e8;
 }
 
-.start, .stop {
+
+
+.start {
   background-color: #007bff;
   color: white;
-  font-weight: bold;
+  border: none;
+  padding: 0;
+  margin: 0;
+  height: 2em;
+}
+.running button.start {
+  background-color: #a85b5b;
+}
+.start span{
+  font-size: 1em; 
+  padding: 0; 
+  margin: 0;
+}
+.start .stop-text {
+  font-size: 1em;
+  display: none;
+}
+.running .start .start-text {
+  display: none;
+}
+.running .start .stop-text {
+  display: inline;
 }
 
 .start:hover, .stop:hover {
