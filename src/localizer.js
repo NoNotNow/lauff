@@ -13,7 +13,8 @@ const errorMessages = {
 			'Unexpected token var': 'Das Wort "var" wurde an einer unerwarteten Stelle gefunden. Vielleicht fehlt eine öffnende Klammer oder ein Operator?',
 			'Unexpected token ILLEGAL': 'Ein illegales Zeichen wurde gefunden. Dies kann durch einen Syntaxfehler oder ein nicht unterstütztes Zeichen verursacht werden.',
             'Unexpected token {token}': `Ein unerwartetes Zeichen wurde gefunden: {token}\nGehört dieses Zeichen hier hin, oder hast du dich vertan?`,
-			'{token} is not defined': `Die Variable oder Funktion {token} ist nicht definiert.\nHast du sie vorher deklariert oder richtig geschrieben?`
+			'{token} is not defined': `Die Variable oder Funktion {token} ist nicht definiert.\nHast du sie vorher deklariert oder richtig geschrieben?`,
+			'No code to execute': 'Der Code kann nicht ausgeführt werden, da er leer ist.',
 		}
 	},
 	en: {

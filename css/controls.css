@@ -4,23 +4,6 @@
   z-index: 2;
 }
 
-.textarea-container {
-  position: relative;
-  display: inline-block;
-  width: 100%;
-  z-index: 1;
-}
-
-
-
-.text {
-  resize: vertical;
-  min-width: 300px;
-  min-height: 150px;
-  width: 100%;
-  box-sizing: border-box;
-}
-
 
 .buttons {
   display: flex;
@@ -55,8 +38,13 @@
 .night .checkbox-control {
   color: white;
 }
-
-.speed-selector {
+.selectors-container{
+  display: flex;
+  gap: 1em;
+  flex-wrap: wrap;
+}
+  
+.speed-selector { 
   display: flex;
   align-items: center;
   gap: 0.5em;

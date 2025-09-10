@@ -15,6 +15,10 @@
   width: 100%;
 }
 
+.editor-container{
+  position: relative;
+}
+
 
 .CodeMirror {
       resize: vertical;
@@ -40,7 +44,7 @@
   align-items: center;
   justify-content: center;
   text-align: center;
-  z-index: 6;
+  z-index: 6000;
 }
 
 .clear-button:hover {

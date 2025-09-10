@@ -7,11 +7,13 @@
   flex-shrink: 0;
   z-index: 1001;
 }
+
 /*give a glow to the stage outline in night mode*/
 /* Use a pseudo-element for multiply blend box-shadow effect */
 .night .stage {
   position: relative;
 }
+
 .night .stage::after {
   content: "";
   position: absolute;
@@ -34,11 +36,13 @@
   height: 100%;
   background-size: cover;
   background-position: center;
-  opacity: 1; /* Adjust opacity for a subtle effect */
-  z-index: 0; /* Ensure it's behind other elements */
+  opacity: 1;
+  /* Adjust opacity for a subtle effect */
+  z-index: 0;
+  /* Ensure it's behind other elements */
 }
 
-.night .stage-background{
+.night .stage-background {
   background-image: url('../assets/stars.svg');
 }
 
@@ -72,7 +76,7 @@
   color: #333;
 }
 
-.night .map-selector label{
+.night .map-selector label {
   color: white;
 }
 
@@ -100,27 +104,27 @@
 
 .timer {
   position: relative;
-  font-size: 1.5em;
+  font-size: 1.3em;
   font-family: 'Courier New', monospace;
   font-weight: bold;
   color: #ff8c00;
   background-color: #1a1a1a;
   border: 0.1875em solid #34495e;
   border-radius: 15px;
-  padding: 0.5em 0.8em;
+  padding: 0.4em 0.6em;
   text-align: center;
   width: 100%;
   max-width: 8em;
   min-width: 6em;
-  box-shadow: 
-    inset 0 2px 5px rgba(0,0,0,0.1),
-    0 4px 8px rgba(0,0,0,0.2);
+  box-shadow:
+    inset 0 2px 5px rgba(0, 0, 0, 0.1),
+    0 4px 8px rgba(0, 0, 0, 0.2);
   text-shadow: 0 0 10px #ff8c00, 0 0 20px #ff8c00, 0 0 30px #ff8c00;
   letter-spacing: 0.1em;
   box-sizing: border-box;
 }
 
-.night .timer::after{
+.night .timer::after {
   content: "";
   position: absolute;
   top: -0.3em;
@@ -131,24 +135,23 @@
   box-shadow: 0 0 1em 0.3em rgba(254, 255, 219, 0.048);
   pointer-events: none;
 }
+
 /* should not get infinitely wide on large screens */
 .error-message {
   color: red;
   font-weight: bold;
   font-size: 1.2em;
-  margin-top: 1em;
   padding: 0.5em;
   background-color: #ffe6e6;
   border: 0.125em solid red;
   border-radius: 0.3em;
   display: none;
   text-align: center;
-  max-width: 25em; /* Or a specific pixel value if needed */
-        overflow-wrap: break-word;
-              word-break: break-all;
-              width: 100%;
-
-
+  max-width: 25em;
+  /* Or a specific pixel value if needed */
+  overflow-wrap: break-word;
+  /* word-break: break-all; */
+  width: 100%;
 }
 
 .error-message:not(:empty) {
@@ -165,11 +168,12 @@
   z-index: 10;
   transition: all 150ms ease-in-out;
 }
+
 .night .avatar {
   filter: drop-shadow(0 .1em .3em rgba(255, 227, 208, .6));
 }
 
-.avatar.fast{
+.avatar.fast {
   transition: all 30ms;
 }
 
@@ -182,21 +186,27 @@
 .avatar.wall-collision svg .spaceship-body {
   fill: #ef4444;
 }
+
 .avatar.wall-collision svg .runner-body {
   fill: #ef4444;
 }
+
 .avatar.obstacle-collision svg .spaceship-body {
   fill: #a855f7;
 }
+
 .avatar.obstacle-collision svg .runner-body {
   fill: #a855f7;
 }
+
 .avatar.target-reached svg .spaceship-body {
   fill: #fbbf24;
 }
+
 .avatar.target-reached svg .runner-body {
   fill: #fbbf24;
 }
+
 /*start an animation where the spaceship gets much bigger and rotates*/
 .avatar.target-reached {
   animation: avatar-target-reached-blink-hue 3s cubic-bezier(0.7, 0, 1, 1) forwards;
@@ -208,34 +218,42 @@
     opacity: 1;
     filter: hue-rotate(0deg);
   }
+
   10% {
     opacity: 0.2;
     filter: hue-rotate(90deg);
   }
+
   20% {
     opacity: 1;
     filter: hue-rotate(180deg);
   }
+
   30% {
     opacity: 0.2;
     filter: hue-rotate(270deg);
   }
+
   40% {
     opacity: 1;
     filter: hue-rotate(360deg);
   }
+
   50% {
     opacity: 0.2;
     filter: hue-rotate(180deg);
   }
+
   60% {
     opacity: 1;
     filter: hue-rotate(0deg);
   }
+
   62% {
     opacity: 0;
     filter: hue-rotate(60deg);
   }
+
   64% {
     opacity: 1;
     filter: hue-rotate(120deg);
@@ -245,6 +263,7 @@
     opacity: 0;
     filter: hue-rotate(300deg);
   }
+
   72% {
     opacity: 1;
     filter: hue-rotate(360deg);
@@ -254,6 +273,7 @@
     opacity: 0;
     filter: hue-rotate(270deg);
   }
+
   80% {
     opacity: 1;
     filter: hue-rotate(0deg);
@@ -273,6 +293,7 @@
     opacity: 0;
     filter: hue-rotate(270deg);
   }
+
   100% {
     opacity: 0;
     filter: hue-rotate(360deg);
@@ -283,10 +304,12 @@
   animation: shake 500ms infinite;
   background-color: red;
 }
+
 .stage.obstacle-collision {
   animation: shake 500ms infinite;
   background: linear-gradient(135deg, #8b5cf6, #a855f7, #9333ea);
 }
+
 .stage.target-reached {
   animation: celebrate 2s ease-in-out;
   background: linear-gradient(135deg, #fbbf24, #f59e0b, #d97706);
@@ -299,7 +322,7 @@
   background: linear-gradient(135deg, #374151, #1f2937);
   border: 0.125em solid #000;
   border-radius: 0.2em;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
   box-sizing: border-box;
   z-index: 2;
   pointer-events: none;
@@ -319,7 +342,7 @@
   background-image: url('../assets/target.svg');
   background-size: contain;
   /*drop shadow*/
-  filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3));
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
   transition-duration: 500ms;
 }
 
@@ -327,6 +350,7 @@
   0% {
     transform: rotate(0deg);
   }
+
   100% {
     transform: rotate(360deg);
   }
@@ -338,10 +362,11 @@
 
 .night .target {
   filter: drop-shadow(0 .2em 2em rgba(253, 237, 13, 0.8));
-} 
-.target span{
+}
+
+.target span {
   position: relative;
-  top:-.1em;
-  left:-.1em;
+  top: -.1em;
+  left: -.1em;
   font-size: 1.6em;
 }

@@ -46,7 +46,7 @@
         <div id="errorMessage" class="error-message"></div>
       </div>
     </div>
-    <div class="textarea-container">
+    <div class="editor-container">
       <textarea class="code" id="code" rows="10" autocomplete="off" autocapitalize="off"
         spellcheck="false">go();</textarea>
       <div class="clear-button" id="clearButton">X</div>
@@ -87,7 +87,11 @@
             Sound
           </label>
 
-          <div class="selectors">
+          <div class="selectors-container">
+            <div class="map-selector">
+              <label for="mapSelect">Karte:</label>
+              <select id="mapSelect" class="map-dropdown"></select>
+            </div>
             <div class="speed-selector">
               <label for="speedSelect">Geschwindigkeit:</label>
               <select id="speedSelect" class="speed-dropdown">
@@ -97,10 +101,7 @@
                 <option value="10">Super Schnell</option>
               </select>
             </div>
-            <div class="map-selector">
-              <label for="mapSelect">Karte:</label>
-              <select id="mapSelect" class="map-dropdown"></select>
-            </div>
+
           </div>
         </div>
       </div>
