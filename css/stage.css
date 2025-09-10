@@ -138,9 +138,10 @@
 
 /* should not get infinitely wide on large screens */
 .error-message {
+  font-family: 'Courier New', Courier, monospace;
   color: red;
   font-weight: bold;
-  font-size: 1.2em;
+  font-size: 1em;
   padding: 0.5em;
   background-color: #ffe6e6;
   border: 0.125em solid red;
