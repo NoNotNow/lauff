@@ -1,11 +1,12 @@
 /* Base styles and typography */
-body{
+body {
   background: black;
   margin: 0;
   padding: 1em;
   font-size: min(2vw, 16px);
   min-height: 100vh;
-  display: none;;
+  display: none;
+  ;
 }
 
 /* Responsive font sizing for better mobile experience */
@@ -20,6 +21,7 @@ body{
     font-size: min(3.5vw, 20px);
   }
 }
+
 .body-overlay {
   position: fixed;
   top: 0;
@@ -30,8 +32,9 @@ body{
   background: rgba(7, 0, 22, 0.8);
   z-index: 0;
   display: none;
-  mix-blend-mode:darken;
+  mix-blend-mode: darken;
 }
+
 .night .body-overlay {
   display: block;
 }
@@ -52,14 +55,21 @@ body{
 
 .site-logo {
   width: auto;
-  height: 12em;
+  height: 8em;
   display: block;
   margin: 0 auto;
   filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.2));
   transition: transform 0.3s ease;
   padding-top: 0;
   margin-top: 0;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+      background-image: url('../assets/logo-desktop.svg');
+
 }
+
+
 
 .night .site-logo {
   filter: drop-shadow(0 .5em 1em rgba(172, 60, 216, 0.7));
@@ -73,12 +83,13 @@ body{
 /* Responsive logo sizing */
 @media (max-width: 768px) {
   .site-logo {
-    height: 8em;
+    height: 3em;
     width: 100%;
+    background-image: url('../assets/logo-desktop.svg');
   }
-  
+
   .site-header {
-    margin-bottom: 1.5em;
+    margin-bottom: .5em;
   }
 }
 
@@ -86,8 +97,10 @@ body{
   .site-logo {
     height: 6em;
     width: 100%;
+    background-image: url('../assets/logo.svg');
+
   }
-  
+
   .site-header {
     margin-bottom: 1em;
   }
