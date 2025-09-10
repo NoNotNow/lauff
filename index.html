@@ -40,32 +40,32 @@
         <div id="target" class="target"></div>
       </div>
       <div class="displays">
-        <div class="map-selector">
-          <label for="mapSelect">Karte:</label>
-          <select id="mapSelect" class="map-dropdown"></select>
-        </div>
+
         <div id="timer" class="timer">0.00</div>
         <div id="statementCount" class="statement-count"></div>
         <div id="errorMessage" class="error-message"></div>
       </div>
     </div>
+    <div class="textarea-container">
+      <textarea class="code" id="code" rows="10" autocomplete="off" autocapitalize="off"
+        spellcheck="false">go();</textarea>
+      <div class="clear-button" id="clearButton">X</div>
+    </div>
     <div class="bottom-container">
       <div class="controls">
-        <div class="textarea-container">
-          <textarea class="code" id="code" rows="10" autocomplete="off" autocapitalize="off"
-            spellcheck="false">go();</textarea>
-          <div class="clear-button" id="clearButton">X</div>
-        </div>
+
         <div class="buttons">
-          <button class="move" id="goButton">
-            go()
-          </button>
-          <button class="move left" id="leftButton">
-            left()
-          </button>
-          <button class="move right" id="rightButton">
-            right()
-          </button>
+          <div class="movement">
+            <button class="move" id="goButton">
+              go()
+            </button>
+            <button class="move left" id="leftButton">
+              left()
+            </button>
+            <button class="move right" id="rightButton">
+              right()
+            </button>
+          </div>
           <button class="move reset" id="resetButton">
             reset
           </button>
@@ -86,14 +86,21 @@
             <input type="checkbox" id="soundCheckbox" checked>
             Sound
           </label>
-          <div class="speed-selector">
-            <label for="speedSelect">Geschwindigkeit:</label>
-            <select id="speedSelect" class="speed-dropdown">
-              <option value="500">Langsam</option>
-              <option value="200" selected>Normal</option>
-              <option value="100">Schnell</option>
-              <option value="10">Super Schnell</option>
-            </select>
+
+          <div class="selectors">
+            <div class="speed-selector">
+              <label for="speedSelect">Geschwindigkeit:</label>
+              <select id="speedSelect" class="speed-dropdown">
+                <option value="500">Langsam</option>
+                <option value="200" selected>Normal</option>
+                <option value="100">Schnell</option>
+                <option value="10">Super Schnell</option>
+              </select>
+            </div>
+            <div class="map-selector">
+              <label for="mapSelect">Karte:</label>
+              <select id="mapSelect" class="map-dropdown"></select>
+            </div>
           </div>
         </div>
       </div>

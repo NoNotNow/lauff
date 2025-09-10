@@ -30,6 +30,11 @@
   align-items: center;
 }
 
+.buttons .movement{
+  display: flex;
+  gap: 0.5em;
+}
+
 .night .buttons {
     filter: drop-shadow(0 .1em .5em rgba(255, 255, 255, 0.3));
 }
