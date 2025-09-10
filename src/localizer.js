@@ -3,7 +3,7 @@
 const errorMessages = {
 	de: {
 		syntax: "Syntaxfehler in Zeile {line}, Spalte {column}: {error}",
-		default: "Ein Fehler ist aufgetreten: {error}",
+		default: "{error}",
 		errorExplanations: {
 			'Unexpected end of input': 'Der Code endet unerwartet. Fehlt vielleicht eine schließende Klammer, ein Anführungszeichen oder ein Semikolon?',
 			'Unexpected identifier': 'Ein Bezeichner (z.B. Variablenname) wurde an einer unerwarteten Stelle gefunden. Vielleicht fehlt ein Operator oder ein Komma?',
@@ -15,6 +15,7 @@ const errorMessages = {
             'Unexpected token {token}': `Ein unerwartetes Zeichen wurde gefunden: {token}\nGehört dieses Zeichen hier hin, oder hast du dich vertan?`,
 			'{token} is not defined': `Die Variable oder Funktion {token} ist nicht definiert.\nHast du sie vorher deklariert oder richtig geschrieben?`,
 			'No code to execute': 'Der Code kann nicht ausgeführt werden, da er leer ist.',
+			'Invalid left-hand side in assignment': 'Der linke Teil einer Zuweisung ist ungültig. Überprüfe, ob du eine Variable korrekt zuweist.',
 		}
 	},
 	en: {

@@ -16,20 +16,30 @@
  * }}
  */
 export const editor = {
+    
     /**
      * Initializes the CodeMirror editor instance.
      * @returns {void}
      */
     init: function (isNightMode) {
+
+        const textAreaElement = document.getElementById("code");
         /** @type {EditorInstance} */
-        this.instance = CodeMirror.fromTextArea(document.getElementById("code"), {
+        this.instance = CodeMirror.fromTextArea(textAreaElement, {
             lineNumbers: true,
             mode: "javascript",
             theme: isNightMode ? "lauff-dark" : "default",
             
 
         });
-        this.instance.setSize("100%", "8em");
+        /*set dependent on viewport size to 8em or 100% of parent container*/
+        const setEditorSize = () => {
+            const computedStyle = getComputedStyle(textAreaElement.parentElement);
+            console.warn(computedStyle.height);
+            const height = window.innerHeight < 1000 ? "8em" : computedStyle.height
+            this.instance.setSize("100%", height);
+        };
+        setEditorSize();
     },
 
     /**
