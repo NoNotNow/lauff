@@ -21,7 +21,7 @@
 
 
 .CodeMirror {
-      resize: vertical;
+      resize: both;
       /* overflow: auto !important; */
 }      
 .CodeMirror { height: 100%; }

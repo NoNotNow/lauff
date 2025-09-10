@@ -36,10 +36,11 @@ export const editor = {
         const setEditorSize = () => {
             const computedStyle = getComputedStyle(textAreaElement.parentElement);
             console.warn(computedStyle.height);
-            const height = window.innerHeight < 1000 ? "8em" : computedStyle.height
+            const height = window.document.body.innerHeight < 1000 ? "5em" : computedStyle.height
             this.instance.setSize("100%", height);
         };
         setEditorSize();
+        window.addEventListener("resize", setEditorSize);
     },
 
     /**

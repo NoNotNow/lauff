@@ -22,22 +22,28 @@
   .game-code-container {
     display: flex;
     flex-direction: row;
-    gap: 1em;
+    gap: 4%;
+  }
+
+  .game-container {
   }
 
   .editor-container {
-    position:relative;
+    position: relative;
     min-width: 20%;
-    max-width: 30%;
     order: 1;
     min-height: 100%;
     margin-bottom: 1em;
     z-index: 1100;
+ }
+
+  .displays {
+    order: 2;
+    max-width: 10em;
+
   }
 
 }
-
-
 
 /* Stack layout vertically on smaller screens */
 @media (max-width: 768px) {
