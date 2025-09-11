@@ -105,14 +105,19 @@ button:hover {
 }
 
 
-
-.start {
-  background-color: #007bff;
+.game-controls button{
+  background-color: #00884f;
   color: white;
   border: none;
   padding: 0;
   margin: 0;
-  height: 2em;
+  height: 3em;
+  border-radius: 50%;
+  width: 3em;
+  min-width: 2em;
+}
+button.start {
+
 }
 .running button.start {
   background-color: #a85b5b;

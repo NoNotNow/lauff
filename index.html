@@ -41,9 +41,14 @@
           <div id="target" class="target"></div>
         </div>
         <div class="displays">
-          <button class="start" id="startButton">
-            <span class="start-text">▶</span><span class="stop-text">Stop</span>
-          </button>
+          <div class="game-controls">
+            <button class="start" id="startButton">
+              <span class="start-text">▶</span><span class="stop-text">Stop</span>
+            </button>
+            <button class="reset" id="resetButton">
+              &#8617;
+            </button>
+          </div>
           <div id="timer" class="timer">0.00</div>
           <div id="statementCount" class="statement-count"></div>
           <div id="errorMessage" class="error-message"></div>
@@ -70,9 +75,7 @@
               right()
             </button>
           </div>
-          <button class="reset" id="resetButton">
-            reset
-          </button>
+
 
           <button class="save" id="saveButton">
             Save
