@@ -109,9 +109,8 @@ button:hover {
 
 .game-controls {
   display: flex;
-  gap: 0.5em;
+  gap: 1em;
   align-items: center;
-  margin-bottom: 0.5em;
   flex-wrap: wrap;
   flex-direction: column;
 }
