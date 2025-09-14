@@ -42,12 +42,31 @@
         </div>
         <div class="displays">
           <div class="game-controls">
-            <button class="start" id="startButton">
-              <span class="start-text">▶</span><span class="stop-text">Stop</span>
-            </button>
-            <button class="reset" id="resetButton">
-              &#8617;
-            </button>
+            <div class="selectors-container">
+              <div class="map-selector">
+                <select id="mapSelect" class="dropdown">
+                  <option value="" selected>Map 1</option>
+                </select>
+              </div>
+              <div class="speed-selector">
+                <select id="speedSelect" class="dropdown">
+                  <option value="500">Langsam</option>
+                  <option value="200" selected>Normal</option>
+                  <option value="100">Schnell</option>
+                  <option value="10">Super Schnell</option>
+                </select>
+              </div>
+
+            </div>
+            <div class="game-buttons">
+              <button class="start" id="startButton">
+                <span class="start-text">▶</span><span class="stop-text">Stop</span>
+              </button>
+              <button class="reset" id="resetButton">
+                &#8617;
+              </button>
+            </div>
+
           </div>
           <div id="timer" class="timer">0.00</div>
           <div id="statementCount" class="statement-count"></div>
@@ -55,9 +74,11 @@
         </div>
       </div>
       <div class="editor-container">
-        <textarea class="code" id="code" rows="10" autocomplete="off" autocapitalize="off"
-          spellcheck="false">go();</textarea>
-        <div class="clear-button" id="clearButton">X</div>
+        <div class="editor-wrapper">
+          <textarea class="code" id="code" rows="10" autocomplete="off" autocapitalize="off"
+            spellcheck="false">go();</textarea>
+          <div class="clear-button" id="clearButton">X</div>
+        </div>
       </div>
     </div>
     <div class="bottom-container">
@@ -89,22 +110,7 @@
             Sound
           </label>
 
-          <div class="selectors-container">
-            <div class="map-selector">
-              <label for="mapSelect">Karte:</label>
-              <select id="mapSelect" class="map-dropdown"></select>
-            </div>
-            <div class="speed-selector">
-              <label for="speedSelect">Geschwindigkeit:</label>
-              <select id="speedSelect" class="speed-dropdown">
-                <option value="500">Langsam</option>
-                <option value="200" selected>Normal</option>
-                <option value="100">Schnell</option>
-                <option value="10">Super Schnell</option>
-              </select>
-            </div>
 
-          </div>
         </div>
       </div>
       <div class="instructions">

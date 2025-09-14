@@ -14,7 +14,9 @@
   color: black;
   width: 100%;
 }
-
+.editor-wrapper{
+  position: relative;
+}
 .editor-container{
   position: relative;
 }
@@ -23,6 +25,8 @@
 .CodeMirror {
       resize: both;
       /* overflow: auto !important; */
+      min-width: 20em;
+      max-width: 100%;
 }      
 .CodeMirror { height: 100%; }
 .clear-button {

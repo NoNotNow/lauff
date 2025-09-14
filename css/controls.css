@@ -42,7 +42,19 @@
   display: flex;
   gap: 1em;
   flex-wrap: wrap;
+  align-items: center;
 }
+
+.selectors-container select{
+  width: 8em;
+}
+
+.night .selectors-container select{
+  background-color: #333;
+  color: white;
+}
+
+
   
 .speed-selector { 
   display: flex;
@@ -51,29 +63,20 @@
   font-size: 0.9em;
 }
 
-.speed-selector label {
-  font-weight: bold;
-  color: #333;
-}
-.night .speed-selector label{
-  color: white;
-}
-
-.speed-dropdown {
+.dropdown {
   padding: 0.3em 0.5em;
   border: 0.0625em solid #ccc;
   border-radius: 4px;
   background-color: white;
   font-size: 0.9em;
   cursor: pointer;
-  min-width: 120px;
 }
 
-.speed-dropdown:hover {
+.dropdown:hover {
   border-color: #999;
 }
 
-.speed-dropdown:focus {
+.dropdown:focus {
   outline: none;
   border-color: #007bff;
   box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25);
@@ -104,6 +107,14 @@ button:hover {
   background-color: #e8e8e8;
 }
 
+.game-controls {
+  display: flex;
+  gap: 0.5em;
+  align-items: center;
+  margin-bottom: 0.5em;
+  flex-wrap: wrap;
+  flex-direction: column;
+}
 
 .game-controls button{
   background-color: #00884f;
@@ -115,9 +126,6 @@ button:hover {
   border-radius: 50%;
   width: 3em;
   min-width: 2em;
-}
-button.start {
-
 }
 .running button.start {
   background-color: #a85b5b;

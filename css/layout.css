@@ -25,8 +25,7 @@
     gap: 4%;
   }
 
-  .game-container {
-  }
+
 
   .editor-container {
     position: relative;
@@ -35,7 +34,7 @@
     min-height: 100%;
     margin-bottom: 1em;
     z-index: 1100;
- }
+  }
 
   .displays {
     order: 2;
@@ -64,6 +63,16 @@
     width: 100%;
     z-index: 1;
     order: 3;
+  }
+
+  .editor-wrapper {
+    width: 100%;
+  }
+
+  .CodeMirror {
+    resize: vertical;
+    min-width: 100%;
+    max-width: 100%;
   }
 
   .displays {

@@ -34,7 +34,7 @@ export const editor = {
         });
         /*set dependent on viewport size to 8em or 100% of parent container*/
         const setEditorSize = () => {
-            const computedStyle = getComputedStyle(textAreaElement.parentElement);
+            const computedStyle = getComputedStyle(textAreaElement.parentElement.parentElement);
             console.warn(computedStyle.height);
             const height = window.document.body.innerHeight < 1000 ? "5em" : computedStyle.height
             this.instance.setSize("100%", height);
