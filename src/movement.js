@@ -5,6 +5,7 @@ import { handleObstacleCollision, handleTargetReached } from './crash-handler.js
 import { checkObstacleCollision } from './game-state.js';
 import { updateView } from './view-renderer.js';
 import { beep } from './audio-player.js';
+import { delay } from './delay.js';
 
 // Calculate new coordinates by moving from a starting position by a number of steps in a given direction
 function moveBy(startCoordinates, steps, direction) {
@@ -12,7 +13,7 @@ function moveBy(startCoordinates, steps, direction) {
     x: startCoordinates.x,
     y: startCoordinates.y
   };
-  
+
   switch (direction) {
     case 0: // North
       result.y -= steps;
@@ -27,21 +28,21 @@ function moveBy(startCoordinates, steps, direction) {
       result.x -= steps;
       break;
   }
-  
+
   return result;
 }
 
-export function getNextRight(){return getNextTurn(1);}
-export function getNextLeft(){return getNextTurn(-1);}
+export function getNextRight() { return getNextTurn(1); }
+export function getNextLeft() { return getNextTurn(-1); }
 
-function getNextTurn(directionOffset){
-  let startFree=free(directionOffset);
+function getNextTurn(directionOffset) {
+  let startFree = free(directionOffset);
   let currentFree;
   let pos = gameState.position;
-  for(let n=0; n<free();n++){
-    pos=moveBy(pos, 1, getDirection());
+  for (let n = 0; n < free(); n++) {
+    pos = moveBy(pos, 1, getDirection());
     currentFree = free(directionOffset, pos.x, pos.y);
-    if(currentFree>startFree) return n+1;//check free to the side return n when > startFree
+    if (currentFree > startFree) return n + 1;//check free to the side return n when > startFree
   }
   return 0;
 }
@@ -52,52 +53,62 @@ export function free(directionOffset, inX, inY) {
     x: (typeof inX === 'number') ? inX : gameState.position.x,
     y: (typeof inY === 'number') ? inY : gameState.position.y
   };
-  
+
   const direction = getDirection(directionOffset);
-  
+
   let spaces = 0;
-  
+
   // Keep checking spaces in the current direction until we hit something
   while (true) {
     // Calculate the next position using moveBy function
     const nextPos = moveBy(currentPos, 1, direction);
-    
+
     // Check bounds
     if (nextPos.x < 0 || nextPos.x > gameState.stageSize.x || nextPos.y < 0 || nextPos.y > gameState.stageSize.y) {
       break;
     }
-    
+
     // Check for obstacles
     const avatarLeft = nextPos.x;
     const avatarRight = nextPos.x + 2;
     const avatarTop = nextPos.y;
     const avatarBottom = nextPos.y + 2;
-    
+
     const hasObstacle = gameState.obstacles.some(obstacle => {
       const obstacleLeft = obstacle.x;
       const obstacleRight = obstacle.x + 1;
       const obstacleTop = obstacle.y;
       const obstacleBottom = obstacle.y + 1;
-      
+
       // Check for overlap in both x and y directions
-      return !(avatarRight <= obstacleLeft || 
-               avatarLeft >= obstacleRight || 
-               avatarBottom <= obstacleTop || 
-               avatarTop >= obstacleBottom);
+      return !(avatarRight <= obstacleLeft ||
+        avatarLeft >= obstacleRight ||
+        avatarBottom <= obstacleTop ||
+        avatarTop >= obstacleBottom);
     });
-    
+
     if (hasObstacle) {
       break;
     }
-    
+
     // This space is free, count it and move to the next position
     spaces++;
     currentPos = nextPos;
   }
-  
+
   return spaces;
 }
-
+export async function say(text, seconds) {
+  if (seconds == undefined) seconds = 1;
+  let bubble = document.getElementById("speech-bubble");
+  try {
+    bubble.classList.add("visible");
+    bubble.innerText = text;
+    await delay(seconds * 1000);
+  } finally {
+    bubble.classList.remove("visible");
+  }
+}
 export async function go(input) {
   let steps = parseNumber(input);
   let freeStepsCount = free(); // Get the number of free steps
@@ -105,7 +116,7 @@ export async function go(input) {
   // Play beep sound with frequency based on steps if sound is enabled
   const soundCheckbox = document.getElementById('soundCheckbox');
   const soundEnabled = soundCheckbox ? soundCheckbox.checked : true;
-  
+
   if (soundEnabled) {
     beep(440 * steps);
   }

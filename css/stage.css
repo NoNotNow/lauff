@@ -208,6 +208,96 @@
   fill: #fbbf24;
 }
 
+.speech-bubble {
+  font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-weight: 800;
+  top: 0;
+  left: 0;
+  position: absolute;
+  background-color: rgba(255, 255, 255, 0.658);
+  border-radius: 2em;
+  z-index: 11;
+  padding: .2em .4em;
+  transform-origin: center;
+  display: none;
+  border: solid .1em black;
+}
+
+
+
+.speech-bubble.visible{
+  display: block;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+.speech-bubble {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: none;
+
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-weight: 800;
+
+  background-color: rgba(255, 255, 255, 0.9);
+  color: black;
+  border: 2px solid black;
+  border-radius: 1em;
+  padding: 0.5em 1em;
+  max-width: 250px;
+  z-index: 11;
+
+  transform-origin: center;
+  box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.2);
+}
+
+.speech-bubble::after {
+  content: "";
+  position: absolute;
+  bottom: -20px; /* position below bubble */
+  left: 30px;     /* adjust this to move the tail left/right */
+  border-width: 10px;
+  border-style: solid;
+  border-color: rgba(255, 255, 255, 0.9) transparent transparent transparent;
+  /* match main background color in border-color */
+  
+  /* create border outline for tail */
+  z-index: -1;
+}
+
+.speech-bubble::before {
+  content: "";
+  position: absolute;
+  bottom: -22px;
+  left: 29px;
+  border-width: 11px;
+  border-style: solid;
+  border-color: black transparent transparent transparent;
+  z-index: -2;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
 /*start an animation where the spaceship gets much bigger and rotates*/
 .avatar.target-reached {
   animation: avatar-target-reached-blink-hue 3s cubic-bezier(0.7, 0, 1, 1) forwards;
@@ -356,6 +446,7 @@
     transform: rotate(360deg);
   }
 }
+
 .running .stage .target {
   animation: slow-rotate 120s linear infinite;
 }

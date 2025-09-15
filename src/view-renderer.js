@@ -4,10 +4,12 @@ import { designs } from './designs.js';
 
 export function updateView() {
   let avatar = document.getElementById("avatar");
+  let speech = document.getElementById("speech-bubble");
   let transform = "translate(" + gameState.position.x + "em, " + gameState.position.y + "em)";
   transform += "rotate(" + gameState.direction * 90 + "deg) ";
-
+  speech.style.transform = "translate(" + (gameState.position.x -.5) +"em, " + (gameState.position.y-3) + "em)"
   avatar.style.transform = transform;
+
 }
 
 export function updateStageView() {
@@ -23,9 +25,6 @@ export function updateStageView() {
     for (let i = 0; i < delta; i++) {
       let obstacle = obstacleArray.pop();
       obstacle.remove();
-
-        
-  
     }
   }
 

@@ -1,9 +1,12 @@
 // Code execution and program control
-import { go, left, right, free, getNextRight, getNextLeft } from './movement.js';
+import { go, left, right, free, getNextRight, getNextLeft, say } from './movement.js';
 import { startTimer, stopTimer, resetTimer } from './timer.js';
 import { analyseRuntimeError, analyseSyntaxError, countStatements } from './code-analyser.js';
 import { localizeUserCodeError } from './localizer.js';
 import { editor } from './code-editor.js';
+import { delay, cancelDelay } from './delay.js';
+import { isRunning, setIsRunning } from './global-state.js';
+
 
 // Random number generator function
 function random(x) {
@@ -14,42 +17,13 @@ function random(x) {
 }
 
 // Global execution state
-let isRunning = false;
-let currentDelay = null;
 let movementDelayTime = 300;
 export function setMovementDelay(input) { movementDelayTime = input; }
 // Non-blocking delay function
-function delay(ms = 300) {
-  return new Promise((resolve, reject) => {
-    if (!isRunning) {
-      reject(new Error("Execution stopped"));
-      return;
-    }
 
-    const timeoutId = setTimeout(() => {
-      currentDelay = null;
-      if (isRunning) {
-        resolve();
-      } else {
-        reject(new Error("Execution stopped"));
-      }
-    }, ms);
-
-    currentDelay = {
-      cancel: () => {
-        clearTimeout(timeoutId);
-        currentDelay = null;
-        reject(new Error("Execution stopped"));
-      }
-    };
-  });
-}
 
 // Extensible delay function for movement commands
 async function movementDelay() {
-  const loopCheckbox = document.getElementById('loopCheckbox');
-  const shouldLoop = loopCheckbox ? loopCheckbox.checked : true;
-  const delayTime = shouldLoop ? 60 : 300;
   await delay(movementDelayTime);
 }
 
@@ -69,13 +43,20 @@ async function wrappedRight(input) {
   await movementDelay();
 }
 
+async function wrappedSay(text, delay) {
+  await say(text, delay);
+}
+
 // Transform user code to use wrapped functions
 function transformCode(code) {
   // Replace function calls with wrapped versions
   let transformedCode = code
     .replace(/\bgo\(/g, 'await go(')
     .replace(/\bleft\(/g, 'await left(')
-    .replace(/\bright\(/g, 'await right(');
+    .replace(/\bright\(/g, 'await right(')
+    .replace(/\bsay\(/g, 'await say(');
+
+
 
   return transformedCode;
 }
@@ -94,7 +75,7 @@ function parseUserCode(code) {
     // Create an async function from the transformed code
     const AsyncFunction = Object.getPrototypeOf(async function () { }).constructor;
     const userFunction = new AsyncFunction('go', 'left', 'right', 'free', 'random',
-      'getNextRight', 'getNextLeft',
+      'getNextRight', 'getNextLeft', 'say',
       `
       // User's transformed code with movement functions available as parameters
       ${transformedCode}
@@ -113,7 +94,7 @@ function parseUserCode(code) {
 async function executeUntilStopped(userFunction) {
   try {
     await userFunction(wrappedGo, wrappedLeft, wrappedRight,
-      free, random, getNextRight, getNextLeft);
+      free, random, getNextRight, getNextLeft, wrappedSay);
   } catch (error) {
     if (error.message === "Execution stopped") {
       throw error; // Re-throw to be caught by start()
@@ -142,7 +123,7 @@ export async function start() {
     const speed = speedSelect ? speedSelect.value : 'normal';
     const stage = document.getElementById('stage');
 
-    isRunning = true;
+    setIsRunning(true);
     startTimer();
     window.document.body.classList.add('running');
     console.log("Starting execution...");
@@ -163,14 +144,14 @@ export async function start() {
     }
   } finally {
     stopTimer();
-    isRunning = false;
+    setIsRunning(false);
     document.body.classList.remove('running');
 
   }
 }
 
 export function stop() {
-  isRunning = false;
+  setIsRunning(false);
   stopTimer();
   stopTimer();
 
@@ -182,9 +163,7 @@ export function stop() {
 
   // Clear error messages when stopping
   removeErrorMessage();
-  if (currentDelay) {
-    currentDelay.cancel();
-  }
+  cancelDelay();
   console.log("Execution stopped");
 }
 
