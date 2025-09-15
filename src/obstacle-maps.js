@@ -434,6 +434,14 @@ export const obstacleMapNight = {
     {"x":9,"y":0},{"x":6,"y":2}]
 }
 
+export const map40x40 = {
+  name: "Map40x40",
+  startPosition: { x: 30, y: 40 },
+  targetPosition: { x: 20, y: 20 },
+  stageSize: { x: 40, y: 40 },
+  obstacles: []
+};
+
 export const obstacleMaps = {
   'map1':  obstacleMap1 ,
   'map2':  obstacleMap2 ,
@@ -451,7 +459,8 @@ export const obstacleMaps = {
   'lium':  obstacleMapLium ,
   'vijos':  obstacleMapViJos,
   'merkwuerdig': obstacleMapMerkwuerdig,
-  'night': obstacleMapNight
+  'night': obstacleMapNight,
+  'map40x40': map40x40
 }
 
 

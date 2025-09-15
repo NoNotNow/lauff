@@ -1,4 +1,3 @@
-
 /**
  * @typedef {Object} EditorInstance
  * @property {Function} getValue
@@ -8,15 +7,17 @@
  * // Add more properties/methods as needed from CodeMirror
  */
 
+
 /**
  * Editor module for initializing and managing the CodeMirror editor instance.
  * @type {{
  *   instance: EditorInstance | undefined,
- *   init: function(): void
+ *   init: function(): void,
+ *   getCode: function() @returns {string}
  * }}
  */
 export const editor = {
-    
+
     /**
      * Initializes the CodeMirror editor instance.
      * @returns {void}
@@ -29,7 +30,7 @@ export const editor = {
             lineNumbers: true,
             mode: "javascript",
             theme: isNightMode ? "lauff-dark" : "default",
-            
+
 
         });
         /*set dependent on viewport size to 8em or 100% of parent container*/
@@ -76,6 +77,21 @@ export const editor = {
         if (this.instance) {
             this.instance.on('change', callback);
         }
+    },
+    /**
+     * 
+     * @param {Function} isDark - mode of the design 
+     */
+    reset: function (isDark) {
+        if (this.instance){
+            let theme = isDark ? "lauff-dark" : "default";
+            // editor.setOption("theme", theme);
+            let element=this.instance.getTextArea();
+            this.instance.setOption("theme", theme);
+            console.log(element);
+            console.log(this.instance);
+        }
+
     }
 
 };

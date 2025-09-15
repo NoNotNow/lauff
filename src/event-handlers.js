@@ -9,6 +9,7 @@ import { gameState } from './game-state.js';
 import { obstacleMaps } from './obstacle-maps.js';
 import { handleRecordedCommand } from './recorder.js';
 import { editor } from './code-editor.js';
+import { designs } from './designs.js';
 
 
 function handleKeydown(event) {
@@ -62,6 +63,10 @@ function handleReset() {
 
   // Remove saved code from localStorage
   localStorage.removeItem('savedCode');
+}
+
+function handleDesignButton(){
+  designs.swap();
 }
 
 function handleClear() {
@@ -141,6 +146,7 @@ export function setupEventListeners() {
   document.getElementById("startButton").addEventListener("pointerdown", start);
   document.getElementById("saveButton").addEventListener("pointerdown", saveCode);
   document.getElementById("clearButton").addEventListener("pointerdown", handleClear);
+  document.getElementById("design-button").addEventListener("pointerdown", handleDesignButton);
 
   // Set up map selector
   document.getElementById("mapSelect").addEventListener("change", handleMapChange);

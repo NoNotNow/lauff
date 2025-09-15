@@ -68,6 +68,27 @@ body {
       background-image: url('../assets/logo-desktop.svg');
 
 }
+.corner-buttons{
+  position: absolute;
+  top:0.5em;
+  right: 0.5em;
+}
+.corner-buttons button{
+  padding: 0;
+  margin: 0;
+  height: 2em;
+  border-radius: 50%;
+  width: 2em;
+  min-width: 2em;
+  background-color: transparent;
+  border: none;
+}
+.corner-buttons button:hover{
+  background-color: rgba(83, 73, 226, 0.8);
+}
+.night .corner-buttons button{
+  color:white
+}
 
 
 
