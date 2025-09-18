@@ -12,7 +12,7 @@
   order: 2;
 }
 
-.stage {
+.stage-container {
   font-size: 1.5em;
 }
 
@@ -83,7 +83,7 @@
     align-items: center;
   }
 
-  .stage {
+  .stage-container {
     order: 1;
     font-size: 1em;
     ;

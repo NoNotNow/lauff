@@ -98,15 +98,20 @@ export function free(directionOffset, inX, inY) {
 
   return spaces;
 }
+let timeout=null;
 export async function say(text, seconds) {
   if (seconds == undefined) seconds = 1;
   let bubble = document.getElementById("speech-bubble");
   try {
     bubble.classList.add("visible");
     bubble.innerText = text;
-    await delay(seconds * 1000);
+    //await delay(seconds * 1000);
   } finally {
-    bubble.classList.remove("visible");
+    if(timeout) clearTimeout(timeout)
+    setTimeout(() => {
+          bubble.classList.remove("visible");
+
+    }, seconds*1000);
   }
 }
 export async function go(input) {

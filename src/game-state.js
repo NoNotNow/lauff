@@ -1,6 +1,6 @@
 // Game state management
-import { defaultObstacleMap } from './obstacle-maps.js';
-
+import { defaultObstacleMap, obstacleMaps } from './obstacle-maps.js';
+import { adjustSize, updateView, updateStageView , drawGrid} from './view-renderer.js';
 export const gameState = {
   startPosition: { x: 0, y: 0 },
   startDirection: 1,
@@ -10,6 +10,17 @@ export const gameState = {
   obstacles: [...defaultObstacleMap],
   target: { x: 20, y: 20 }
 };
+
+export function loadMapFromKey(key) {
+  const selectedMap = key?obstacleMaps[key] :obstacleMaps.klein;
+  loadGameState(selectedMap);
+  adjustSize(selectedMap.stageSize);
+  updateView();
+  resetPosition();
+  updateView();
+  updateStageView();
+  setTimeout(() => { drawGrid() }, 100);
+}
 
 export function loadGameState(map) {
   gameState.startPosition.x = map.startPosition.x;

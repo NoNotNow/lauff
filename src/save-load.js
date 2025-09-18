@@ -43,3 +43,11 @@ export function loadCode(mapName = null) {
     }
   }
 }
+
+export function saveSelectedMap(selected) {
+  localStorage.setItem(`selectedMap`, selected);
+}
+
+export function getStoredSelectedMap() {
+  return localStorage.getItem('selectedMap');
+}

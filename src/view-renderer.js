@@ -1,13 +1,60 @@
 // View rendering and DOM updates
 import { gameState } from './game-state.js';
 import { designs } from './designs.js';
+/**
+ * 
+ * @param {{x,y}} size 
+ */
+export function adjustSize(size) {
+  const maxSize = size.x > size.y ? size.x : size.y;
+  //we need a formula to find the em size to get the default size
+  //1*20 = 20
+  //em * size = 20, solve for em
+  // em = 20/size
+  let em = 22 / (maxSize+2);
+
+  let stageElement = document.getElementById("stage");
+  stageElement.style.fontSize = em + "em";
+  // //with this approach very small grids get slightly bigger 
+  // //and very large grids get slightly smaller that the referenz at 20 
+  // // how might adjust for this
+
+  // const maxSize = Math.max(size.x, size.y);
+  // const referenceSize = 20;
+  // const referenceEm = 1.0;
+  
+  // // Use logarithmic scaling to reduce extreme variations
+  // const scaleFactor = Math.log(referenceSize) / Math.log(maxSize);
+  // let em = referenceEm * scaleFactor;
+  
+  // // Optional: clamp the values to prevent extreme sizes
+  // em = Math.max(0.5, Math.min(em, 3.0));
+  
+  // let stageElement = document.getElementById("stage");
+  // stageElement.style.fontSize = em + "em";
+  // this makes the smaller ones too small and the bigger ones too big
+  // const maxSize = Math.max(size.x, size.y);
+  // const referenceSize = 20;
+  // const referenceEm = 1;
+  
+  // // Use square root to create gentler scaling
+  // let em = referenceEm * Math.sqrt(referenceSize / maxSize);
+  
+  // // Optional clamping
+  // em = Math.max(0.5, Math.min(em, 3.0));
+  
+  // let stageElement = document.getElementById("stage");
+  // stageElement.style.fontSize = em + "em";
+  // the same thing as above
+  //conclusion the original is still the best. maybe there were other factors
+}
 
 export function updateView() {
   let avatar = document.getElementById("avatar");
   let speech = document.getElementById("speech-bubble");
   let transform = "translate(" + gameState.position.x + "em, " + gameState.position.y + "em)";
   transform += "rotate(" + gameState.direction * 90 + "deg) ";
-  speech.style.transform = "translate(" + (gameState.position.x -.5) +"em, " + (gameState.position.y-3) + "em)"
+  speech.style.transform = "translate(" + (gameState.position.x - .5) + "em, " + (gameState.position.y - 3) + "em)"
   avatar.style.transform = transform;
 
 }

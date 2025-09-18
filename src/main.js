@@ -2,20 +2,23 @@
 
 import { updateStageView, updateView, drawGrid } from './view-renderer.js';
 import { setupEventListeners } from './event-handlers.js';
-import { loadCode } from './save-load.js';
+import { getStoredSelectedMap, loadCode } from './save-load.js';
 import { initRecorder } from './recorder.js';
 import { fillMapSelectDropdown } from './obstacle-maps.js';
 import { designs } from './designs.js';
 import {editor } from './code-editor.js';
+import { loadMapFromKey } from './game-state.js';
 
 function main() {
   console.log("Main function called");
   designs.init();
   // Dynamically populate mapSelect using function from obstacle-maps.js
   const mapSelect = document.getElementById("mapSelect");
-  fillMapSelectDropdown(mapSelect);
+  const storedMapKey =  getStoredSelectedMap();
+  fillMapSelectDropdown(mapSelect,storedMapKey);
+  loadMapFromKey(storedMapKey);
 
-  // Apply random background on load
+
 
   initRecorder();
   console.log("Recorder initialized");

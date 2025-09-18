@@ -227,6 +227,7 @@
 
 .speech-bubble.visible{
   display: block;
+  transition: all 150ms ease-in-out;
 }
 
 
