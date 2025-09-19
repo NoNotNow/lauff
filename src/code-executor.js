@@ -1,8 +1,12 @@
 // Code execution and program control
-import { go, left, right, free, getNextRight, getNextLeft } from './movement.js';
+import { go, left, right, free, getNextRight, getNextLeft, say } from './movement.js';
 import { startTimer, stopTimer, resetTimer } from './timer.js';
-import { countStatements } from './code-analyser.js';
-import { applyRandomBackground } from './background-manager.js';
+import { analyseRuntimeError, analyseSyntaxError, countStatements } from './code-analyser.js';
+import { localizeUserCodeError } from './localizer.js';
+import { editor } from './code-editor.js';
+import { delay, cancelDelay } from './delay.js';
+import { isRunning, setIsRunning } from './global-state.js';
+
 
 // Random number generator function
 function random(x) {
@@ -13,42 +17,13 @@ function random(x) {
 }
 
 // Global execution state
-let isRunning = false;
-let currentDelay = null;
 let movementDelayTime = 300;
 export function setMovementDelay(input) { movementDelayTime = input; }
 // Non-blocking delay function
-function delay(ms = 300) {
-  return new Promise((resolve, reject) => {
-    if (!isRunning) {
-      reject(new Error("Execution stopped"));
-      return;
-    }
 
-    const timeoutId = setTimeout(() => {
-      currentDelay = null;
-      if (isRunning) {
-        resolve();
-      } else {
-        reject(new Error("Execution stopped"));
-      }
-    }, ms);
-
-    currentDelay = {
-      cancel: () => {
-        clearTimeout(timeoutId);
-        currentDelay = null;
-        reject(new Error("Execution stopped"));
-      }
-    };
-  });
-}
 
 // Extensible delay function for movement commands
 async function movementDelay() {
-  const loopCheckbox = document.getElementById('loopCheckbox');
-  const shouldLoop = loopCheckbox ? loopCheckbox.checked : true;
-  const delayTime = shouldLoop ? 60 : 300;
   await delay(movementDelayTime);
 }
 
@@ -68,13 +43,20 @@ async function wrappedRight(input) {
   await movementDelay();
 }
 
+async function wrappedSay(text, delay) {
+  await say(text, delay);
+}
+
 // Transform user code to use wrapped functions
 function transformCode(code) {
   // Replace function calls with wrapped versions
   let transformedCode = code
     .replace(/\bgo\(/g, 'await go(')
     .replace(/\bleft\(/g, 'await left(')
-    .replace(/\bright\(/g, 'await right(');
+    .replace(/\bright\(/g, 'await right(')
+    .replace(/\bsay\(/g, 'await say(');
+
+
 
   return transformedCode;
 }
@@ -93,49 +75,38 @@ function parseUserCode(code) {
     // Create an async function from the transformed code
     const AsyncFunction = Object.getPrototypeOf(async function () { }).constructor;
     const userFunction = new AsyncFunction('go', 'left', 'right', 'free', 'random',
-      'getNextRight', 'getNextLeft',
+      'getNextRight', 'getNextLeft', 'say',
       `
       // User's transformed code with movement functions available as parameters
       ${transformedCode}
     `);
     return userFunction;
   } catch (error) {
+    let result = analyseSyntaxError(code); // Log detailed syntax error
+    if (result && !result.success) {
+      throw new Error(localizeUserCodeError(result));
+    }
     throw new Error("Syntax error: " + error.message);
   }
 }
 
 // Execute user function repeatedly until stopped
 async function executeUntilStopped(userFunction) {
-  const loopCheckbox = document.getElementById('loopCheckbox');
-  const shouldLoop = loopCheckbox ? loopCheckbox.checked : true;
-
-  do {
-    try {
-      await userFunction(wrappedGo, wrappedLeft, wrappedRight,
-        free, random, getNextRight, getNextLeft);
-      // Small delay at the end of each execution cycle
-      if (shouldLoop) {
-        await delay(20);
-      }
-    } catch (error) {
-      if (error.message === "Execution stopped") {
-        throw error; // Re-throw to be caught by start()
-      } else {
-        console.error("Runtime error:", error);
-        throw error;
-      }
+  try {
+    await userFunction(wrappedGo, wrappedLeft, wrappedRight,
+      free, random, getNextRight, getNextLeft, wrappedSay);
+  } catch (error) {
+    if (error.message === "Execution stopped") {
+      throw error; // Re-throw to be caught by start()
+    } else {
+      console.error("Runtime error:", error);
+      throw error;
     }
-  } while (shouldLoop && isRunning);
-}
-
-function showLineIndicator(lineNumber) {
-  const indicator = document.getElementById('line-indicator');
-  indicator.textContent = `Executing Line: ${lineNumber}`;
-  indicator.style.display = 'block';
+  }
 }
 
 export async function start() {
-  applyRandomBackground();
+  removeErrorMessage();
   doCodeAnalysisAndStats();
   parseMovementDelay();
   if (isRunning) {
@@ -143,24 +114,20 @@ export async function start() {
     return;
   }
 
-  let textbox = document.getElementById("code");
-  let code = textbox.value;
+  let code = editor.getCode();
 
   try {
     // Parse the user's code
     const userFunction = parseUserCode(code);
-
-    isRunning = true;
-    startTimer();
-    console.log("Starting execution...");
-
-    // Add visual feedback for fast speeds
     const speedSelect = document.getElementById('speedSelect');
     const speed = speedSelect ? speedSelect.value : 'normal';
     const stage = document.getElementById('stage');
-    if (stage && (speed === 'fast' || speed === 'superfast')) {
-      stage.classList.add('loop-active');
-    }
+
+    setIsRunning(true);
+    startTimer();
+    window.document.body.classList.add('running');
+    console.log("Starting execution...");
+
 
     // Execute user function repeatedly until stopped
     await executeUntilStopped(userFunction);
@@ -169,21 +136,22 @@ export async function start() {
   } catch (error) {
     if (error.message === "Execution stopped") {
       console.log("Program stopped by user.");
-      stopTimer();
     } else {
       console.error("Runtime error in user code:", error);
       const errorMessage = document.getElementById('errorMessage');
-      errorMessage.textContent = error.message;
-      stopTimer();
+      errorMessage.textContent = localizeUserCodeError(analyseRuntimeError(error));
       resetTimer();
     }
   } finally {
-    isRunning = false;
+    stopTimer();
+    setIsRunning(false);
+    document.body.classList.remove('running');
+
   }
 }
 
 export function stop() {
-  isRunning = false;
+  setIsRunning(false);
   stopTimer();
   stopTimer();
 
@@ -194,12 +162,14 @@ export function stop() {
   }
 
   // Clear error messages when stopping
+  removeErrorMessage();
+  cancelDelay();
+  console.log("Execution stopped");
+}
+
+function removeErrorMessage() {
   const errorMessage = document.getElementById('errorMessage');
   errorMessage.textContent = '';
-  if (currentDelay) {
-    currentDelay.cancel();
-  }
-  console.log("Execution stopped");
 }
 
 export function parseMovementDelay() {
@@ -211,7 +181,7 @@ export function parseMovementDelay() {
 }
 
 function doCodeAnalysisAndStats() {
-  let code = document.getElementById("code").value;
+  let code = editor.getCode();
   let result = countStatements(code);
   console.log("Code Analysis Result:", result);
 

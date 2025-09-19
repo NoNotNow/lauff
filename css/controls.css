@@ -4,51 +4,6 @@
   z-index: 2;
 }
 
-.textarea-container {
-  position: relative;
-  display: inline-block;
-  width: 100%;
-  z-index: 1;
-}
-
-.night .code{
-  background-color: rgba(255, 255, 255, 0.1);
-  color: white;
-}
-
-.text {
-  resize: vertical;
-  min-width: 300px;
-  min-height: 150px;
-  width: 100%;
-  box-sizing: border-box;
-}
-
-.clear-button {
-  display:table-cell;
-  position: absolute;
-  top: .3em;
-  right: .3em;
-  padding: .3em .4em;
-  margin:0;
-  border: 0.0625em solid #ccc;
-  background-color: #f8f8f8;
-  color: #666;
-  border-radius: 3px;
-  cursor: pointer;
-  font-size: .9em;
-  font-family: Verdana, Geneva, Tahoma, sans-serif;
-  line-height: 1;
-  display: block;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-}
-
-.clear-button:hover {
-  background-color: #e8e8e8;
-  color: #333;
-}
 
 .buttons {
   display: flex;
@@ -58,7 +13,16 @@
   align-items: center;
 }
 
-.loop-control {
+.buttons .movement{
+  display: flex;
+  gap: 0.5em;
+}
+
+.night .buttons {
+    filter: drop-shadow(0 .1em .5em rgba(255, 255, 255, 0.3));
+}
+
+.checkbox-control {
   display: flex;
   align-items: center;
   gap: 0.3em;
@@ -69,45 +33,50 @@
   background-color: transparent;
   border-radius: 3px;
   transition: background-color 0.2s;
-  color: #666;
+  color: #818181;
+}
+.night .checkbox-control {
+  color: white;
+}
+.selectors-container{
+  display: flex;
+  gap: 1em;
+  flex-wrap: wrap;
+  align-items: center;
 }
 
-.loop-control:hover {
-  background-color: #f0f0f0;
+.selectors-container select{
+  width: 8em;
 }
 
-.loop-control input[type="checkbox"] {
-  margin: 0;
-  cursor: pointer;
+.night .selectors-container select{
+  background-color: #333;
+  color: white;
 }
 
-.speed-selector {
+
+  
+.speed-selector { 
   display: flex;
   align-items: center;
   gap: 0.5em;
   font-size: 0.9em;
 }
 
-.speed-selector label {
-  font-weight: bold;
-  color: #333;
-}
-
-.speed-dropdown {
+.dropdown {
   padding: 0.3em 0.5em;
   border: 0.0625em solid #ccc;
   border-radius: 4px;
   background-color: white;
   font-size: 0.9em;
   cursor: pointer;
-  min-width: 120px;
 }
 
-.speed-dropdown:hover {
+.dropdown:hover {
   border-color: #999;
 }
 
-.speed-dropdown:focus {
+.dropdown:focus {
   outline: none;
   border-color: #007bff;
   box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25);
@@ -125,14 +94,55 @@ button {
   text-align: center;
 }
 
+.statement-count{
+  font-weight: bold;
+  color: #000000;
+}
+.night .statement-count{
+  color: white;
+  text-shadow: 0 0 1em rgba(142, 154, 255, 0.5);
+}
+
 button:hover {
   background-color: #e8e8e8;
 }
 
-.start, .stop {
-  background-color: #007bff;
+.game-controls {
+  display: flex;
+  gap: 1em;
+  align-items: center;
+  flex-wrap: wrap;
+  flex-direction: column;
+}
+
+.game-controls button{
+  background-color: #00884f;
   color: white;
-  font-weight: bold;
+  border: none;
+  padding: 0;
+  margin: 0;
+  height: 3em;
+  border-radius: 50%;
+  width: 3em;
+  min-width: 2em;
+}
+.running button.start {
+  background-color: #a85b5b;
+}
+.start span{
+  font-size: 1em; 
+  padding: 0; 
+  margin: 0;
+}
+.start .stop-text {
+  font-size: 1em;
+  display: none;
+}
+.running .start .start-text {
+  display: none;
+}
+.running .start .stop-text {
+  display: inline;
 }
 
 .start:hover, .stop:hover {

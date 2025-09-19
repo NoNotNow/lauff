@@ -1,19 +1,19 @@
 // Event handlers for the application
 import { go, left, right } from './movement.js';
 import { start, stop } from './code-executor.js';
-import { saveCode } from './save-load.js';
+import { saveCode, saveSelectedMap } from './save-load.js';
 import { loadCode } from './save-load.js';
-import { loadGameState, resetPosition } from './game-state.js';
-import { updateView, updateStageView, drawGrid } from './view-renderer.js';
-import { gameState } from './game-state.js';
+import { gameState, loadMapFromKey, resetPosition } from './game-state.js';
+import { adjustSize, updateView, updateStageView, drawGrid } from './view-renderer.js';
 import { obstacleMaps } from './obstacle-maps.js';
 import { handleRecordedCommand } from './recorder.js';
+import { editor } from './code-editor.js';
+import { designs } from './designs.js';
 
 
 function handleKeydown(event) {
   // Check if textarea has focus - if so, don't handle keyboard shortcuts
-  const codeTextarea = document.getElementById('code');
-  if (codeTextarea && document.activeElement === codeTextarea) {
+  if (editor.isActive()) {
     return;
   }
 
@@ -60,21 +60,16 @@ function handleReset() {
   resetPosition();
   updateView();
 
-  // Clear the code textarea and reset to default
-  const codeTextarea = document.getElementById('codeTextarea');
-  if (codeTextarea) {
-    codeTextarea.value = 'go();';
-  }
-
   // Remove saved code from localStorage
   localStorage.removeItem('savedCode');
 }
 
+function handleDesignButton() {
+  designs.swap();
+}
+
 function handleClear() {
-  const codeTextarea = document.getElementById('code');
-  if (codeTextarea) {
-    codeTextarea.value = '';
-  }
+  editor.setCode('');
 
   // Clear error message
   const errorMessage = document.getElementById('errorMessage');
@@ -94,7 +89,7 @@ function handleGridClick(event) {
   const y = event.clientY - rect.top;
 
   // Calculate grid size in pixels (1em)
-  const fontSize = parseFloat(getComputedStyle(document.body).fontSize);
+  const fontSize = parseFloat(getComputedStyle(stage).fontSize);
   const gridSize = fontSize;
 
   // Convert pixel coordinates to grid coordinates
@@ -130,15 +125,12 @@ function handleGridClick(event) {
     console.error('Failed to copy to clipboard:', err);
   });
 }
+
 export function setupEventListeners() {
   function handleMapChange(event) {
     const selectedMapKey = event.target.value;
-    const selectedMap = obstacleMaps[selectedMapKey];
-    loadGameState(selectedMap);
-    updateView();
-    resetPosition();
-    updateView();
-    updateStageView();
+    saveSelectedMap(selectedMapKey);
+    loadMapFromKey(selectedMapKey);
     loadCode(selectedMapKey);
   }
 
@@ -148,9 +140,9 @@ export function setupEventListeners() {
   document.getElementById("rightButton").addEventListener("pointerdown", handleRightButton);
   document.getElementById("resetButton").addEventListener("pointerdown", handleReset);
   document.getElementById("startButton").addEventListener("pointerdown", start);
-  document.getElementById("stopButton").addEventListener("pointerdown", stop);
   document.getElementById("saveButton").addEventListener("pointerdown", saveCode);
   document.getElementById("clearButton").addEventListener("pointerdown", handleClear);
+  document.getElementById("design-button").addEventListener("pointerdown", handleDesignButton);
 
   // Set up map selector
   document.getElementById("mapSelect").addEventListener("change", handleMapChange);
@@ -164,7 +156,7 @@ export function setupEventListeners() {
   // Set up keyboard event handlers
   document.addEventListener('keydown', handleKeydown);
 
-  document.getElementById('code').addEventListener('input', () => {
+  editor.onChange(() => {
     document.getElementById('statementCount').textContent = '';
   });
 

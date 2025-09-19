@@ -1,15 +1,14 @@
 // Recorder functionality for capturing keyboard commands
+import { editor } from './code-editor.js';
 import { consolidate } from './command-consolidator.js';
 
 let isRecording = false;
 let recordButton = null;
-let codeTextarea = null;
 
 export function initRecorder() {
   recordButton = document.getElementById('recordButton');
-  codeTextarea = document.getElementById('code');
   
-  if (!recordButton || !codeTextarea) {
+  if (!recordButton) {
     console.error('Recorder elements not found');
     return;
   }
@@ -38,13 +37,13 @@ function toggleRecording() {
 }
 
 export function handleRecordedCommand(command) {
-  if (!isRecording || !codeTextarea) {
+  if (!isRecording) {
     return;
   }
   
   // Get current textarea content
-  let currentCode = codeTextarea.value;
-  
+  let currentCode = editor.getCode();
+
   // Prepare the new command text
   const commandText = `${command}();`;
   
@@ -59,30 +58,30 @@ export function handleRecordedCommand(command) {
   
   if (currentCode.trim() === '') {
     // Textarea is empty, add command directly
-    codeTextarea.value = commandText;
+    editor.setCode(commandText);
   } else if (consolidated !== false) {
     if (consolidated === '' || consolidated.trim() === '') {
       // Commands cancelled out completely, remove the last line
       lines.pop();
-      codeTextarea.value = lines.join('\n');
+      editor.setCode(lines.join('\n'));
       console.log(`Commands cancelled out: ${lastLine} + ${commandText} = (removed)`);
     } else {
       // Consolidation successful, replace the last line
       lines[lines.length - 1] = consolidated;
-      codeTextarea.value = lines.join('\n');
+      editor.setCode(lines.join('\n'));
       console.log(`Consolidated commands: ${lastLine} + ${commandText} = ${consolidated}`);
     }
   } else {
     // No consolidation possible, add as new line
     if (currentCode.endsWith('\n')) {
-      codeTextarea.value = currentCode + commandText;
+      editor.setCode(currentCode + commandText);
     } else {
-      codeTextarea.value = currentCode + '\n' + commandText;
+      editor.setCode(currentCode + '\n' + commandText);
     }
   }
   
   // Scroll to bottom of textarea to show new command
-  codeTextarea.scrollTop = codeTextarea.scrollHeight;
+  editor.instance.scrollTo(0, editor.instance.getDoc().height);
   
   console.log(`Recorded command: ${commandText}${consolidated ? ' (consolidated)' : ''}`);
 }

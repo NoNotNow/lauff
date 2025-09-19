@@ -1,6 +1,7 @@
 // Save and load functionality for the code editor
 import { gameState } from './game-state.js';
 import { obstacleMaps } from './obstacle-maps.js';
+import { editor } from './code-editor.js';
 
 // Get the current map name
 function getCurrentMapName() {
@@ -15,17 +16,13 @@ function getCurrentMapName() {
 
 export function saveCode() {
   console.log("saveCode function called");
-  const codeTextarea = document.getElementById('code');
-  if (codeTextarea) {
-    const code = codeTextarea.value;
-    const mapName = getCurrentMapName();
-    console.log("Saving code:", code);
-    console.log("Saving code for map:", mapName);
-    localStorage.setItem(`savedCode_${mapName}`, code);
-    console.log("Code saved to localStorage for map:", mapName);
-  } else {
-    console.error("Code textarea not found");
-  }
+  const code = editor.getCode();
+  const mapName = getCurrentMapName();
+  console.log("Saving code:", code);
+  console.log("Saving code for map:", mapName);
+  localStorage.setItem(`savedCode_${mapName}`, code);
+  console.log("Code saved to localStorage for map:", mapName);
+
 }
 
 export function loadCode(mapName = null) {
@@ -36,19 +33,21 @@ export function loadCode(mapName = null) {
   console.log("For map:", currentMapName);
   
   if (savedCode) {
-    const codeTextarea = document.getElementById('code');
-    if (codeTextarea) {
-      codeTextarea.value = savedCode;
-      console.log("Code loaded into textarea for map:", currentMapName);
-    } else {
-      console.error("Code textarea not found");
-    }
+    editor.setCode(savedCode);
+    console.log("Code loaded into editor for map:", currentMapName);
   } else {
     console.log("No saved code found in localStorage for map:", currentMapName);
     // Set default code if no saved code exists
-    const codeTextarea = document.getElementById('code');
-    if (codeTextarea && !codeTextarea.value.trim()) {
-      codeTextarea.value = 'go();';
+    if (!editor.getCode().trim()) {
+      editor.setCode('go();');
     }
   }
+}
+
+export function saveSelectedMap(selected) {
+  localStorage.setItem(`selectedMap`, selected);
+}
+
+export function getStoredSelectedMap() {
+  return localStorage.getItem('selectedMap');
 }
