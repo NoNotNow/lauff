@@ -6,7 +6,7 @@ import { getStoredSelectedMap, loadCode } from './save-load.js';
 import { initRecorder } from './recorder.js';
 import { fillMapSelectDropdown } from './obstacle-maps.js';
 import { designs } from './designs.js';
-import {editor } from './code-editor.js';
+import {editor } from './code/code-editor.js';
 import { loadMapFromKey } from './game-state.js';
 
 function main() {

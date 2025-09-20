@@ -1,6 +1,6 @@
 // Recorder functionality for capturing keyboard commands
-import { editor } from './code-editor.js';
-import { consolidate } from './command-consolidator.js';
+import { editor } from './code/code-editor.js';
+import { consolidate } from './code/command-consolidator.js';
 
 let isRecording = false;
 let recordButton = null;

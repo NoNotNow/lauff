@@ -1,13 +1,13 @@
 // Event handlers for the application
 import { go, left, right } from './movement.js';
-import { start, stop } from './code-executor.js';
+import { start, stop } from './code/code-executor.js';
 import { saveCode, saveSelectedMap } from './save-load.js';
 import { loadCode } from './save-load.js';
 import { gameState, loadMapFromKey, resetPosition } from './game-state.js';
 import { adjustSize, updateView, updateStageView, drawGrid } from './view-renderer.js';
 import { obstacleMaps } from './obstacle-maps.js';
 import { handleRecordedCommand } from './recorder.js';
-import { editor } from './code-editor.js';
+import { editor } from './code/code-editor.js';
 import { designs } from './designs.js';
 
 

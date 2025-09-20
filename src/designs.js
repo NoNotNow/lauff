@@ -1,5 +1,5 @@
 import { applyRandomBackground, applyNightModeBackground } from './background-manager.js';
-import { editor } from './code-editor.js';
+import { editor } from './code/code-editor.js';
 import { drawGrid } from './view-renderer.js';
 export const designs = {
     isNightMode: false,

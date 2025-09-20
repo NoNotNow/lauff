@@ -1,11 +1,11 @@
 // Code execution and program control
-import { go, left, right, free, getNextRight, getNextLeft, say } from './movement.js';
-import { startTimer, stopTimer, resetTimer } from './timer.js';
+import { go, left, right, free, getNextRight, getNextLeft, say } from '../movement.js';
+import { startTimer, stopTimer, resetTimer } from '../timer.js';
 import { analyseRuntimeError, analyseSyntaxError, countStatements } from './code-analyser.js';
-import { localizeUserCodeError } from './localizer.js';
+import { localizeUserCodeError } from '../localizer.js';
 import { editor } from './code-editor.js';
-import { delay, cancelDelay } from './delay.js';
-import { isRunning, setIsRunning } from './global-state.js';
+import { delay, cancelDelay } from '../delay.js';
+import { isRunning, setIsRunning } from '../global-state.js';
 
 
 // Random number generator function
