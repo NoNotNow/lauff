@@ -1,6 +1,6 @@
 // Game state management
 import { defaultObstacleMap, obstacleMaps } from './obstacle-maps.js';
-import { adjustSize, updateView, updateStageView , drawGrid} from './view-renderer.js';
+import { adjustSize, updateView, updateStageView , drawGrid} from './stage-effects/view-renderer.js';
 export const gameState = {
   startPosition: { x: 0, y: 0 },
   startDirection: 1,

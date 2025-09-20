@@ -1,8 +1,8 @@
 // Wall collision handling and animations
-import { gameState, resetPosition } from './game-state.js';
+import { gameState, resetPosition } from '../game-state.js';
 import { updateView } from './view-renderer.js';
-import { stop } from './code/code-executor.js';
-import { stopTimer, resetTimer } from './timer.js';
+import { stop } from '../code/code-executor.js';
+import { stopTimer, resetTimer } from '../timer.js';
 import { playCrashSound, playVictorySound } from './audio-player.js';
 
 export function handleWallCollision() {

@@ -1,10 +1,10 @@
 // Movement and direction controls
 import { gameState, setDirection, getDirection, parseNumber, withinBounds, checkTargetReached } from './game-state.js';
-import { handleWallCollision } from './crash-handler.js';
-import { handleObstacleCollision, handleTargetReached } from './crash-handler.js';
+import { handleWallCollision } from './stage-effects/crash-handler.js';
+import { handleObstacleCollision, handleTargetReached } from './stage-effects/crash-handler.js';
 import { checkObstacleCollision } from './game-state.js';
-import { updateView } from './view-renderer.js';
-import { beep } from './audio-player.js';
+import { updateView } from './stage-effects/view-renderer.js';
+import { beep } from './stage-effects/audio-player.js';
 import { delay } from './delay.js';
 
 // Calculate new coordinates by moving from a starting position by a number of steps in a given direction

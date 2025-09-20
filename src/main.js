@@ -1,11 +1,11 @@
 // Main application entry point
 
-import { updateStageView, updateView, drawGrid } from './view-renderer.js';
+import { updateStageView, updateView, drawGrid } from './stage-effects/view-renderer.js';
 import { setupEventListeners } from './event-handlers.js';
 import { getStoredSelectedMap, loadCode } from './save-load.js';
 import { initRecorder } from './recorder.js';
 import { fillMapSelectDropdown } from './obstacle-maps.js';
-import { designs } from './designs.js';
+import { designs } from './design/designs.js';
 import {editor } from './code/code-editor.js';
 import { loadMapFromKey } from './game-state.js';
 

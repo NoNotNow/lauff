@@ -1,6 +1,6 @@
 // View rendering and DOM updates
-import { gameState } from './game-state.js';
-import { designs } from './designs.js';
+import { gameState } from '../game-state.js';
+import { designs } from '../design/designs.js';
 /**
  * 
  * @param {{x,y}} size 
