@@ -1,11 +1,9 @@
-// Movement and direction controls
-import { gameState, setDirection, getDirection, parseNumber, withinBounds, checkTargetReached } from './game-state.js';
-import { handleWallCollision } from './stage-effects/crash-handler.js';
-import { handleObstacleCollision, handleTargetReached } from './stage-effects/crash-handler.js';
-import { checkObstacleCollision } from './game-state.js';
-import { updateView } from './stage-effects/view-renderer.js';
-import { beep } from './stage-effects/audio-player.js';
-import { delay } from './delay.js';
+import { gameState, setDirection, getDirection, parseNumber, withinBounds } from './game-state.js';
+import { checkTargetReached,checkObstacleCollision } from './collistion-detection.js';
+import { handleWallCollision } from '../stage-effects/crash-handler.js';
+import { handleObstacleCollision, handleTargetReached } from '../stage-effects/crash-handler.js';
+import { updateAvatar } from '../stage-effects/view-renderer.js';
+import { beep } from '../stage-effects/audio-player.js';
 
 // Calculate new coordinates by moving from a starting position by a number of steps in a given direction
 function moveBy(startCoordinates, steps, direction) {
@@ -148,17 +146,17 @@ export async function go(input) {
   }
 
   if (!withinBounds()) handleWallCollision();
-  if (checkObstacleCollision()) handleObstacleCollision();
-  if (checkTargetReached()) handleTargetReached();
-  updateView();
+  if (checkObstacleCollision(gameState)) handleObstacleCollision();
+  if (checkTargetReached(gameState)) handleTargetReached();
+  updateAvatar();
 }
 
 export function right(input) {
   setDirection(gameState.direction + parseNumber(input));
-  updateView();
+  updateAvatar();
 }
 
 export function left(input) {
   setDirection(gameState.direction - parseNumber(input));
-  updateView();
+  updateAvatar();
 }

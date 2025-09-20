@@ -1,8 +1,8 @@
 // Wall collision handling and animations
-import { gameState, resetPosition } from '../game-state.js';
-import { updateView } from './view-renderer.js';
+import { gameState, resetPosition } from '../game-state/game-state.js';
+import { updateAvatar } from './view-renderer.js';
 import { stop } from '../code/code-executor.js';
-import { stopTimer, resetTimer } from '../timer.js';
+import { stopTimer, resetTimer } from '../utility/timer.js';
 import { playCrashSound, playVictorySound } from './audio-player.js';
 
 export function handleWallCollision() {
@@ -26,7 +26,7 @@ export function handleWallCollision() {
     stage.classList.remove("wall-collision");
     resetPosition();
     resetTimer();
-    updateView();
+    updateAvatar();
   }, 500);
 
   stop();
@@ -53,7 +53,7 @@ export function handleObstacleCollision() {
     stage.classList.remove("obstacle-collision");
     resetPosition();
     resetTimer();
-    updateView();
+    updateAvatar();
   }, 500);
 
   stop();
@@ -70,7 +70,7 @@ export function handleTargetReached() {
   if (soundEnabled) {
     playVictorySound();
   }
-  updateView();
+  updateAvatar();
   setTimeout(() => {
     avatar.classList.add("target-reached");
     stage.classList.add("target-reached");
@@ -93,7 +93,7 @@ export function handleTargetReached() {
     avatar.classList.remove("target-reached");
     stage.classList.remove("target-reached");
     resetPosition();
-    updateView();
+    updateAvatar();
   }, 3000);
 
   stop();

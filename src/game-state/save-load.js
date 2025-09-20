@@ -1,7 +1,7 @@
 // Save and load functionality for the code editor
 import { gameState } from './game-state.js';
 import { obstacleMaps } from './obstacle-maps.js';
-import { editor } from './code/code-editor.js';
+import { editor } from '../code/code-editor.js';
 
 // Get the current map name
 function getCurrentMapName() {

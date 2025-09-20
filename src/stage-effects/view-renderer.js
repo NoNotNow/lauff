@@ -1,5 +1,5 @@
 // View rendering and DOM updates
-import { gameState } from '../game-state.js';
+import { gameState } from '../game-state/game-state.js';
 import { designs } from '../design/designs.js';
 /**
  * 
@@ -13,7 +13,7 @@ export function adjustSize(size) {
   stageElement.style.fontSize = em + "em";
 }
 
-export function updateView() {
+export function updateAvatar() {
   let avatar = document.getElementById("avatar");
   let speech = document.getElementById("speech-bubble");
   let transform = "translate(" + gameState.position.x + "em, " + gameState.position.y + "em)";

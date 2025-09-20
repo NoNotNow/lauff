@@ -1,12 +1,12 @@
 // Event handlers for the application
-import { go, left, right } from './movement.js';
+import { go, left, right } from './game-state/movement.js';
 import { start, stop } from './code/code-executor.js';
-import { saveCode, saveSelectedMap } from './save-load.js';
-import { loadCode } from './save-load.js';
-import { gameState, loadMapFromKey, resetPosition } from './game-state.js';
-import { adjustSize, updateView, updateStageView, drawGrid } from './stage-effects/view-renderer.js';
-import { obstacleMaps } from './obstacle-maps.js';
-import { handleRecordedCommand } from './recorder.js';
+import { saveCode, saveSelectedMap } from './game-state/save-load.js';
+import { loadCode } from './game-state/save-load.js';
+import { gameState, loadMapFromKey, resetPosition } from './game-state/game-state.js';
+import { adjustSize, updateAvatar, updateStageView, drawGrid } from './stage-effects/view-renderer.js';
+import { obstacleMaps } from './game-state/obstacle-maps.js';
+import { handleRecordedCommand } from './game-state/recorder.js';
 import { editor } from './code/code-editor.js';
 import { designs } from './design/designs.js';
 
@@ -58,7 +58,7 @@ function handleRightButton() {
 
 function handleReset() {
   resetPosition();
-  updateView();
+  updateAvatar();
 
   // Remove saved code from localStorage
   localStorage.removeItem('savedCode');

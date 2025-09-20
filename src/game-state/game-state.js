@@ -1,6 +1,6 @@
 // Game state management
 import { defaultObstacleMap, obstacleMaps } from './obstacle-maps.js';
-import { adjustSize, updateView, updateStageView , drawGrid} from './stage-effects/view-renderer.js';
+import { adjustSize, updateAvatar, updateStageView , drawGrid} from '../stage-effects/view-renderer.js';
 export const gameState = {
   startPosition: { x: 0, y: 0 },
   startDirection: 1,
@@ -15,9 +15,8 @@ export function loadMapFromKey(key) {
   const selectedMap = key?obstacleMaps[key] :obstacleMaps.klein;
   loadGameState(selectedMap);
   adjustSize(selectedMap.stageSize);
-  updateView();
+  updateAvatar();
   resetPosition();
-  updateView();
   updateStageView();
   setTimeout(() => { drawGrid() }, 100);
 }
@@ -64,43 +63,4 @@ export function parseNumber(input) {
   let steps = 1;
   if (typeof input === "number") steps = input;
   return steps;
-}
-
-export function checkObstacleCollision() {
-  const avatarLeft = gameState.position.x;
-  const avatarRight = gameState.position.x + 2;
-  const avatarTop = gameState.position.y;
-  const avatarBottom = gameState.position.y + 2;
-  
-  return gameState.obstacles.some(obstacle => {
-    const obstacleLeft = obstacle.x;
-    const obstacleRight = obstacle.x + 1;
-    const obstacleTop = obstacle.y;
-    const obstacleBottom = obstacle.y + 1;
-    
-    // Check for overlap in both x and y directions
-    return !(avatarRight <= obstacleLeft || 
-             avatarLeft >= obstacleRight || 
-             avatarBottom <= obstacleTop || 
-             avatarTop >= obstacleBottom);
-  }
-  );
-}
-
-export function checkTargetReached() {
-  const avatarLeft = gameState.position.x;
-  const avatarRight = gameState.position.x + 2;
-  const avatarTop = gameState.position.y;
-  const avatarBottom = gameState.position.y + 2;
-  
-  const targetLeft = gameState.target.x;
-  const targetRight = gameState.target.x + 2;
-  const targetTop = gameState.target.y;
-  const targetBottom = gameState.target.y + 2;
-  
-  // Check for overlap in both x and y directions
-  return !(avatarRight <= targetLeft || 
-           avatarLeft >= targetRight || 
-           avatarBottom <= targetTop || 
-           avatarTop >= targetBottom);
 }

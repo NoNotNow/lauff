@@ -1,13 +1,13 @@
 // Main application entry point
 
-import { updateStageView, updateView, drawGrid } from './stage-effects/view-renderer.js';
+import { updateStageView, updateAvatar, drawGrid } from './stage-effects/view-renderer.js';
 import { setupEventListeners } from './event-handlers.js';
-import { getStoredSelectedMap, loadCode } from './save-load.js';
-import { initRecorder } from './recorder.js';
-import { fillMapSelectDropdown } from './obstacle-maps.js';
+import { getStoredSelectedMap, loadCode } from './game-state/save-load.js';
+import { initRecorder } from './game-state/recorder.js';
+import { fillMapSelectDropdown } from './game-state/obstacle-maps.js';
 import { designs } from './design/designs.js';
 import {editor } from './code/code-editor.js';
-import { loadMapFromKey } from './game-state.js';
+import { loadMapFromKey } from './game-state/game-state.js';
 
 function main() {
   console.log("Main function called");
@@ -26,7 +26,7 @@ function main() {
   console.log("Event listeners set up");
   updateStageView();
   console.log("Stage view updated");
-  updateView();
+  updateAvatar();
   console.log("View updated");
   drawGrid();
   editor.init(designs.isNightMode);
