@@ -1,9 +1,10 @@
 import { gameState, setDirection, getDirection, parseNumber, withinBounds } from './game-state.js';
-import { checkTargetReached,checkObstacleCollision } from './collistion-detection.js';
+import { checkTargetReached, checkObstacleCollision } from './collistion-detection.js';
 import { handleWallCollision } from '../stage-effects/crash-handler.js';
 import { handleObstacleCollision, handleTargetReached } from '../stage-effects/crash-handler.js';
 import { updateAvatar } from '../stage-effects/view-renderer.js';
 import { beep } from '../stage-effects/audio-player.js';
+import { delay } from '../utility/delay.js';
 
 // Calculate new coordinates by moving from a starting position by a number of steps in a given direction
 function moveBy(startCoordinates, steps, direction) {
@@ -96,20 +97,21 @@ export function free(directionOffset, inX, inY) {
 
   return spaces;
 }
-let timeout=null;
-export async function say(text, seconds) {
+let timeout = null;
+export async function say(text, seconds, stop = false) {
   if (seconds == undefined) seconds = 1;
   let bubble = document.getElementById("speech-bubble");
   try {
     bubble.classList.add("visible");
     bubble.innerText = text;
-    //await delay(seconds * 1000);
+    if (stop) await delay(seconds * 1000);
   } finally {
-    if(timeout) clearTimeout(timeout)
-    setTimeout(() => {
-          bubble.classList.remove("visible");
-
-    }, seconds*1000);
+    if (timeout) clearTimeout(timeout)
+    if (!stop) {
+      setTimeout(() => {
+        bubble.classList.remove("visible");
+      }, seconds * 1000);
+    }
   }
 }
 export async function go(input) {

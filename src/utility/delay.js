@@ -1,4 +1,4 @@
-import {isRunning} from '../game-state/global-state.js';
+import {isRunning} from '../global-state.js';
 let currentDelay = null;
 
 export function delay(ms = 300) {

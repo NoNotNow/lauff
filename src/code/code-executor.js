@@ -5,7 +5,7 @@ import { analyseRuntimeError, analyseSyntaxError, countStatements } from './code
 import { localizeUserCodeError } from '../localizer.js';
 import { editor } from './code-editor.js';
 import { delay, cancelDelay } from '../utility/delay.js';
-import { isRunning, setIsRunning } from '../game-state/global-state.js';
+import { isRunning, setIsRunning } from '../global-state.js';
 
 
 // Random number generator function
@@ -43,8 +43,8 @@ async function wrappedRight(input) {
   await movementDelay();
 }
 
-async function wrappedSay(text, delay) {
-  await say(text, delay);
+async function wrappedSay(text, delay, stop) {
+  await say(text, delay, stop);
 }
 
 // Transform user code to use wrapped functions
