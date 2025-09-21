@@ -111,6 +111,8 @@ export async function say(text, seconds, stop = false) {
       setTimeout(() => {
         bubble.classList.remove("visible");
       }, seconds * 1000);
+    } else {
+      bubble.classList.remove("visible");
     }
   }
 }

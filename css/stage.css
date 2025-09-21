@@ -270,9 +270,6 @@
   border-width: 10px;
   border-style: solid;
   border-color: rgba(255, 255, 255, 0.9) transparent transparent transparent;
-  /* match main background color in border-color */
-  
-  /* create border outline for tail */
   z-index: -1;
 }
 

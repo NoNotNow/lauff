@@ -7,7 +7,7 @@ import { designs } from '../design/designs.js';
  */
 export function adjustSize(size) {
   const maxSize = size.x > size.y ? size.x : size.y;
-  let em = 22 / (maxSize+2);
+  let em = 22 / (maxSize + 2);
 
   let stageElement = document.getElementById("stage");
   stageElement.style.fontSize = em + "em";
@@ -16,9 +16,14 @@ export function adjustSize(size) {
 export function updateAvatar() {
   let avatar = document.getElementById("avatar");
   let speech = document.getElementById("speech-bubble");
-  let transform = "translate(" + gameState.position.x + "em, " + gameState.position.y + "em)";
+  let transform = "translate(" + gameState.position.x + "em, "
+    + gameState.position.y + "em)";
   transform += "rotate(" + gameState.direction * 90 + "deg) ";
-  speech.style.transform = "translate(" + (gameState.position.x - .5) + "em, " + (gameState.position.y - 3) + "em)"
+  let maxX =  gameState.stageSize.x - (gameState.stageSize.x/3);
+  let bubbleX= gameState.position.x;
+  if(bubbleX>maxX) bubbleX = maxX;
+  speech.style.transform = "translate(" + (bubbleX - .5)
+    + "em, " + (gameState.position.y - 3) + "em)";
   avatar.style.transform = transform;
 }
 
