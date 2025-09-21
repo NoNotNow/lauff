@@ -1,0 +1,141 @@
+.avatar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 2em;
+  height: 2em;
+  transform-origin: center;
+  z-index: 10;
+  transition: all 150ms ease-in-out;
+}
+
+.night .avatar {
+  filter: drop-shadow(0 .1em .3em rgba(255, 227, 208, .6));
+}
+
+.avatar.fast {
+  transition: all 30ms;
+}
+
+.avatar svg {
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+}
+
+.avatar.wall-collision svg .spaceship-body {
+  fill: #ef4444;
+}
+
+.avatar.wall-collision svg .runner-body {
+  fill: #ef4444;
+}
+
+.avatar.obstacle-collision svg .spaceship-body {
+  fill: #a855f7;
+}
+
+.avatar.obstacle-collision svg .runner-body {
+  fill: #a855f7;
+}
+
+.avatar.target-reached svg .spaceship-body {
+  fill: #fbbf24;
+}
+
+.avatar.target-reached svg .runner-body {
+  fill: #fbbf24;
+}
+
+/*start an animation where the spaceship gets much bigger and rotates*/
+.avatar.target-reached {
+  animation: avatar-target-reached-blink-hue 3s cubic-bezier(0.7, 0, 1, 1) forwards;
+  transition-duration: 300ms;
+}
+
+@keyframes avatar-target-reached-blink-hue {
+  0% {
+    opacity: 1;
+    filter: hue-rotate(0deg);
+  }
+
+  10% {
+    opacity: 0.2;
+    filter: hue-rotate(90deg);
+  }
+
+  20% {
+    opacity: 1;
+    filter: hue-rotate(180deg);
+  }
+
+  30% {
+    opacity: 0.2;
+    filter: hue-rotate(270deg);
+  }
+
+  40% {
+    opacity: 1;
+    filter: hue-rotate(360deg);
+  }
+
+  50% {
+    opacity: 0.2;
+    filter: hue-rotate(180deg);
+  }
+
+  60% {
+    opacity: 1;
+    filter: hue-rotate(0deg);
+  }
+
+  62% {
+    opacity: 0;
+    filter: hue-rotate(60deg);
+  }
+
+  64% {
+    opacity: 1;
+    filter: hue-rotate(120deg);
+  }
+
+  70% {
+    opacity: 0;
+    filter: hue-rotate(300deg);
+  }
+
+  72% {
+    opacity: 1;
+    filter: hue-rotate(360deg);
+  }
+
+  78% {
+    opacity: 0;
+    filter: hue-rotate(270deg);
+  }
+
+  80% {
+    opacity: 1;
+    filter: hue-rotate(0deg);
+  }
+
+  86% {
+    opacity: 0;
+    filter: hue-rotate(180deg);
+  }
+
+  92% {
+    opacity: 1;
+    filter: hue-rotate(360deg);
+  }
+
+  98% {
+    opacity: 0;
+    filter: hue-rotate(270deg);
+  }
+
+  100% {
+    opacity: 0;
+    filter: hue-rotate(360deg);
+  }
+}
