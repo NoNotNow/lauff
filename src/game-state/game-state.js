@@ -1,6 +1,6 @@
 // Game state management
 import { defaultObstacleMap, obstacleMaps } from '../data/obstacle-maps.js';
-import { adjustSize, updateAvatar, updateStageView , drawGrid} from '../stage-effects/view-renderer.js';
+import { adjustSize, updateAvatar, updateStageView, drawGrid } from '../stage-effects/view-renderer.js';
 export const gameState = {
   startPosition: { x: 0, y: 0 },
   startDirection: 1,
@@ -12,12 +12,12 @@ export const gameState = {
 };
 
 export function loadMapFromKey(key) {
-  const selectedMap = key?obstacleMaps[key] :obstacleMaps.klein;
+  const selectedMap = key ? obstacleMaps[key] : obstacleMaps.klein;
   loadGameState(selectedMap);
   adjustSize(selectedMap.stageSize);
-  updateAvatar();
   resetPosition();
   updateStageView();
+  updateAvatar();
   setTimeout(() => { drawGrid() }, 100);
 }
 
@@ -35,7 +35,7 @@ export function resetPosition() {
   gameState.position.x = gameState.startPosition.x ?? 0;
   gameState.position.y = gameState.startPosition.y ?? 0;
   let direction = 1;
-  if (gameState.startDirection !== undefined) {direction = gameState.startDirection;}
+  if (gameState.startDirection !== undefined) { direction = gameState.startDirection; }
   gameState.direction = direction;
 }
 
@@ -51,12 +51,12 @@ export function setDirection(v) {
 }
 
 //gets the current direction altered by input
-export function getDirection(v){
+export function getDirection(v) {
   if (typeof v !== "number") return gameState.direction;
   let result = gameState.direction + v
   result = result % 4;
   if (result < 0) result += 4;
-  return result; 
+  return result;
 }
 
 export function parseNumber(input) {
