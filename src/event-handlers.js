@@ -9,7 +9,7 @@ import {editor} from './code/code-editor.js';
 import {designs} from './design/designs.js';
 
 
-function handleKeydown(event) {
+async function handleKeydown(event) {
   // Check if textarea has focus - if so, don't handle keyboard shortcuts
   if (editor.isActive()) {
     return;
@@ -20,17 +20,17 @@ function handleKeydown(event) {
     case 'ArrowUp':
       event.preventDefault();
       handleRecordedCommand('go');
-      go();
+      await go();
       break;
     case 'ArrowLeft':
       event.preventDefault();
       handleRecordedCommand('left');
-      left();
+      await left();
       break;
     case 'ArrowRight':
       event.preventDefault();
       handleRecordedCommand('right');
-      right();
+      await right();
       break;
     case 'ArrowDown':
       // Optional: could be used for going backwards or other functionality
@@ -39,9 +39,9 @@ function handleKeydown(event) {
   }
 }
 
-function handleGoButton() {
+async function handleGoButton() {
   handleRecordedCommand('go');
-  go();
+  await go();
 }
 
 function handleLeftButton() {

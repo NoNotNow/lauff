@@ -71,10 +71,9 @@ export function localizeUserCodeError(result, lang) {
 	}
 
 	// Replace placeholders
-	let msg = template.replace('{line}', result.line ?? '?')
-		.replace('{column}', result.column ?? '?')
-		.replace('{error}', getErrorExplanation(result.error ?? '', locale));
-	return msg;
+    return template.replace('{line}', result.line ?? '?')
+        .replace('{column}', result.column ?? '?')
+        .replace('{error}', getErrorExplanation(result.error ?? '', locale));
 }
 
 /**

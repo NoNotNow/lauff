@@ -1,11 +1,11 @@
 // Code execution and program control
-import { go, left, right, free, getNextRight, getNextLeft, say } from '../game-state/movement.js';
-import { startTimer, stopTimer, resetTimer } from '../utility/timer.js';
-import { analyseRuntimeError, analyseSyntaxError, countStatements } from './code-analyser.js';
-import { localizeUserCodeError } from '../localizer.js';
-import { editor } from './code-editor.js';
-import { delay, cancelDelay } from '../utility/delay.js';
-import { isRunning, setIsRunning } from '../global-state.js';
+import {free, getNextLeft, getNextRight, go, left, right, say} from '../game-state/movement.js';
+import {resetTimer, startTimer, stopTimer} from '../utility/timer.js';
+import {analyseRuntimeError, analyseSyntaxError, countStatements} from './code-analyser.js';
+import {localizeUserCodeError} from '../localizer.js';
+import {editor} from './code-editor.js';
+import {cancelDelay, delay} from '../utility/delay.js';
+import {isRunning, setIsRunning} from '../global-state.js';
 
 
 // Random number generator function
@@ -50,15 +50,11 @@ async function wrappedSay(text, delay, stop) {
 // Transform user code to use wrapped functions
 function transformCode(code) {
   // Replace function calls with wrapped versions
-  let transformedCode = code
-    .replace(/\bgo\(/g, 'await go(')
-    .replace(/\bleft\(/g, 'await left(')
-    .replace(/\bright\(/g, 'await right(')
-    .replace(/\bsay\(/g, 'await say(');
-
-
-
-  return transformedCode;
+    return code
+      .replace(/\bgo\(/g, 'await go(')
+      .replace(/\bleft\(/g, 'await left(')
+      .replace(/\bright\(/g, 'await right(')
+      .replace(/\bsay\(/g, 'await say(');
 }
 
 // Parse and prepare user code for execution
@@ -74,13 +70,12 @@ function parseUserCode(code) {
   try {
     // Create an async function from the transformed code
     const AsyncFunction = Object.getPrototypeOf(async function () { }).constructor;
-    const userFunction = new AsyncFunction('go', 'left', 'right', 'free', 'random',
-      'getNextRight', 'getNextLeft', 'say',
-      `
+      return new AsyncFunction('go', 'left', 'right', 'free', 'random',
+        'getNextRight', 'getNextLeft', 'say',
+        `
       // User's transformed code with movement functions available as parameters
       ${transformedCode}
     `);
-    return userFunction;
   } catch (error) {
     let result = analyseSyntaxError(code); // Log detailed syntax error
     if (result && !result.success) {

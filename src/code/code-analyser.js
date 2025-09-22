@@ -19,7 +19,7 @@
  * @returns {AnalyseResult} Das Ergebnis der Analyse.
  */
 export function countStatements(code) {
-    var result = {
+    let result = {
         success: false,
         details: '',
         error: ''
