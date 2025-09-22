@@ -1,11 +1,11 @@
 
-export function checkObstacleCollision(gameState) {
-  const avatarLeft = gameState.position.x;
-  const avatarRight = gameState.position.x + 2;
-  const avatarTop = gameState.position.y;
-  const avatarBottom = gameState.position.y + 2;
+export function checkObstacleCollision(state) {
+  const avatarLeft = state.getPosition().x;
+  const avatarRight = state.getPosition().x + 2;
+  const avatarTop = state.getPosition().y;
+  const avatarBottom = state.getPosition().y + 2;
   
-  return gameState.obstacles.some(obstacle => {
+  return state.getObstacles().some(obstacle => {
     const obstacleLeft = obstacle.x;
     const obstacleRight = obstacle.x + 1;
     const obstacleTop = obstacle.y;
@@ -16,20 +16,19 @@ export function checkObstacleCollision(gameState) {
              avatarLeft >= obstacleRight || 
              avatarBottom <= obstacleTop || 
              avatarTop >= obstacleBottom);
-  }
-  );
+  });
 }
 
 export function checkTargetReached(gameState) {
-  const avatarLeft = gameState.position.x;
-  const avatarRight = gameState.position.x + 2;
-  const avatarTop = gameState.position.y;
-  const avatarBottom = gameState.position.y + 2;
+  const avatarLeft = gameState.getPosition().x;
+  const avatarRight = gameState.getPosition().x + 2;
+  const avatarTop = gameState.getPosition().y;
+  const avatarBottom = gameState.getPosition().y + 2;
   
-  const targetLeft = gameState.target.x;
-  const targetRight = gameState.target.x + 2;
-  const targetTop = gameState.target.y;
-  const targetBottom = gameState.target.y + 2;
+  const targetLeft = gameState.getTarget().x;
+  const targetRight = gameState.getTarget().x + 2;
+  const targetTop = gameState.getTarget().y;
+  const targetBottom = gameState.getTarget().y + 2;
   
   // Check for overlap in both x and y directions
   return !(avatarRight <= targetLeft || 

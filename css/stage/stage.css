@@ -98,7 +98,7 @@
   width: 2em;
   height: 2em;
   z-index: 3;
-  background-image: url('../assets/target.svg');
+  background-image: url('../../assets/target.svg');
   background-size: contain;
   /*drop shadow*/
   filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));

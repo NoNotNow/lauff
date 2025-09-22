@@ -1,10 +1,11 @@
-import { stageState, setDirection, getDirection, parseNumber, withinBounds } from './stage-state.js';
+import { stageState } from './stage-state.js';
 import { checkTargetReached, checkObstacleCollision } from './collistion-detection.js';
 import { handleWallCollision } from '../stage-effects/crash-handler.js';
 import { handleObstacleCollision, handleTargetReached } from '../stage-effects/crash-handler.js';
 import { updateAvatar } from '../stage-effects/view-renderer.js';
 import { beep } from '../stage-effects/audio-player.js';
 import { delay } from '../utility/delay.js';
+import {parseNumber} from "../utility/helpers.js";
 
 // Calculate new coordinates by moving from a starting position by a number of steps in a given direction
 function moveBy(startCoordinates, steps, direction) {
@@ -37,9 +38,9 @@ export function getNextLeft() { return getNextTurn(-1); }
 function getNextTurn(directionOffset) {
   let startFree = free(directionOffset);
   let currentFree;
-  let pos = stageState.position;
+  let pos = stageState.getPosition();
   for (let n = 0; n < free(); n++) {
-    pos = moveBy(pos, 1, getDirection());
+    pos = moveBy(pos, 1, stageState.getDirection());
     currentFree = free(directionOffset, pos.x, pos.y);
     if (currentFree > startFree) return n + 1;//check free to the side return n when > startFree
   }
@@ -47,13 +48,13 @@ function getNextTurn(directionOffset) {
 }
 // Check how many steps the avatar can move from a pint to a direction without hitting an obstacle
 export function free(directionOffset, inX, inY) {
-  // Initialize starting position using coordinate object
+  // Initialize the starting position using a coordinate object
   let currentPos = {
-    x: (typeof inX === 'number') ? inX : stageState.position.x,
-    y: (typeof inY === 'number') ? inY : stageState.position.y
+    x: (typeof inX === 'number') ? inX : stageState.getPosition().x,
+    y: (typeof inY === 'number') ? inY : stageState.getPosition().y
   };
 
-  const direction = getDirection(directionOffset);
+  const direction = stageState.getDirection(directionOffset);
 
   let spaces = 0;
 
@@ -63,7 +64,7 @@ export function free(directionOffset, inX, inY) {
     const nextPos = moveBy(currentPos, 1, direction);
 
     // Check bounds
-    if (nextPos.x < 0 || nextPos.x > stageState.stageSize.x || nextPos.y < 0 || nextPos.y > stageState.stageSize.y) {
+    if (nextPos.x < 0 || nextPos.x > stageState.getStageSize().x || nextPos.y < 0 || nextPos.y > stageState.getStageSize().y) {
       break;
     }
 
@@ -73,7 +74,7 @@ export function free(directionOffset, inX, inY) {
     const avatarTop = nextPos.y;
     const avatarBottom = nextPos.y + 2;
 
-    const hasObstacle = stageState.obstacles.some(obstacle => {
+    const hasObstacle = stageState.getObstacles().some(obstacle => {
       const obstacleLeft = obstacle.x;
       const obstacleRight = obstacle.x + 1;
       const obstacleTop = obstacle.y;
@@ -99,7 +100,7 @@ export function free(directionOffset, inX, inY) {
 }
 let timeout = null;
 export async function say(text, seconds, stop = false) {
-  if (seconds == undefined) seconds = 1;
+  if (seconds === undefined) seconds = 1;
   let bubble = document.getElementById("speech-bubble");
   try {
     bubble.classList.add("visible");
@@ -134,33 +135,33 @@ export async function go(input) {
     steps = freeStepsCount + 1;
   }
 
-  switch (stageState.direction) {
+  switch (stageState.getDirection()) {
     case 0:
-      stageState.position.y -= steps;
+      stageState.getPosition().y -= steps;
       break;
     case 1:
-      stageState.position.x += steps;
+      stageState.getPosition().x += steps;
       break;
     case 2:
-      stageState.position.y += steps;
+      stageState.getPosition().y += steps;
       break;
     case 3:
-      stageState.position.x -= steps;
+      stageState.getPosition().x -= steps;
       break;
   }
 
-  if (!withinBounds()) handleWallCollision();
+  if (!stageState.targetWithinBounds()) handleWallCollision();
   if (checkObstacleCollision(stageState)) handleObstacleCollision();
   if (checkTargetReached(stageState)) handleTargetReached();
   updateAvatar();
 }
 
 export function right(input) {
-  setDirection(stageState.direction + parseNumber(input));
+  stageState.turnRight(parseNumber(input));
   updateAvatar();
 }
 
 export function left(input) {
-  setDirection(stageState.direction - parseNumber(input));
+  stageState.turnLeft(parseNumber(input));
   updateAvatar();
 }

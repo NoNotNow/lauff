@@ -7,7 +7,7 @@ import { initRecorder } from './game-state/recorder.js';
 import { fillMapSelectDropdown } from './data/obstacle-maps.js';
 import { designs } from './design/designs.js';
 import {editor } from './code/code-editor.js';
-import { loadMapFromKey } from './game-state/stage-state.js';
+import { stageState } from './game-state/stage-state.js';
 
 function main() {
   console.log("Main function called");
@@ -16,7 +16,7 @@ function main() {
   const mapSelect = document.getElementById("mapSelect");
   const storedMapKey =  getStoredSelectedMap();
   fillMapSelectDropdown(mapSelect,storedMapKey);
-  loadMapFromKey(storedMapKey);
+  stageState.loadMapFromKey(storedMapKey);
 
 
 
