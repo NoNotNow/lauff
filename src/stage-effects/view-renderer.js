@@ -1,5 +1,5 @@
 // View rendering and DOM updates
-import { gameState } from '../game-state/game-state.js';
+import { stageState } from '../game-state/stage-state.js';
 import { designs } from '../design/designs.js';
 /**
  * 
@@ -16,25 +16,25 @@ export function adjustSize(size) {
 export function updateAvatar() {
   let avatar = document.getElementById("avatar");
   let speech = document.getElementById("speech-bubble");
-  let transform = "translate(" + gameState.position.x + "em, "
-    + gameState.position.y + "em)";
-  transform += "rotate(" + gameState.direction * 90 + "deg) ";
-  let maxX =  gameState.stageSize.x - (gameState.stageSize.x/3);
-  let bubbleX= gameState.position.x;
+  let transform = "translate(" + stageState.position.x + "em, "
+    + stageState.position.y + "em)";
+  transform += "rotate(" + stageState.direction * 90 + "deg) ";
+  let maxX =  stageState.stageSize.x - (stageState.stageSize.x/3);
+  let bubbleX= stageState.position.x;
   if(bubbleX>maxX) bubbleX = maxX;
   speech.style.transform = "translate(" + (bubbleX - .5)
-    + "em, " + (gameState.position.y - 3) + "em)";
+    + "em, " + (stageState.position.y - 3) + "em)";
   avatar.style.transform = transform;
 }
 
 export function updateStageView() {
   let stage = document.getElementById("stage");
-  stage.style.width = gameState.stageSize.x + 2 + "em";
-  stage.style.height = gameState.stageSize.y + 2 + "em";
+  stage.style.width = stageState.stageSize.x + 2 + "em";
+  stage.style.height = stageState.stageSize.y + 2 + "em";
 
   const obstacleArray = Array.from(stage.querySelectorAll('.obstacle'));
 
-  let delta = obstacleArray.length - gameState.obstacles.length;
+  let delta = obstacleArray.length - stageState.obstacles.length;
   if (delta > 0) {
     //remove excess obstacles
     for (let i = 0; i < delta; i++) {
@@ -43,8 +43,8 @@ export function updateStageView() {
     }
   }
 
-  for (let i = 0; i < gameState.obstacles.length; i++) {
-    const obstacle = gameState.obstacles[i];
+  for (let i = 0; i < stageState.obstacles.length; i++) {
+    const obstacle = stageState.obstacles[i];
     if (obstacleArray[i]) {
       //update existing obstacle position if it exists
       obstacleArray[i].style.left = obstacle.x + 'em';
@@ -60,8 +60,8 @@ export function updateStageView() {
 
 
   const target = stage.querySelector('.target');
-  target.style.left = gameState.target.x + 'em';
-  target.style.top = gameState.target.y + 'em';
+  target.style.left = stageState.target.x + 'em';
+  target.style.top = stageState.target.y + 'em';
 }
 
 export function drawGrid() {

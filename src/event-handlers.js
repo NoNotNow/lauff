@@ -3,7 +3,7 @@ import { go, left, right } from './game-state/movement.js';
 import { start, stop } from './code/code-executor.js';
 import { saveCode, saveSelectedMap } from './data/save-load.js';
 import { loadCode } from './data/save-load.js';
-import { gameState, loadMapFromKey, resetPosition } from './game-state/game-state.js';
+import { stageState, loadMapFromKey, resetPosition } from './game-state/stage-state.js';
 import { adjustSize, updateAvatar, updateStageView, drawGrid } from './stage-effects/view-renderer.js';
 import { obstacleMaps } from './data/obstacle-maps.js';
 import { handleRecordedCommand } from './game-state/recorder.js';
@@ -97,28 +97,28 @@ function handleGridClick(event) {
   const gridY = Math.floor(y / gridSize);
 
   // Check if click is within reasonable grid bounds (be generous)
-  if (gridX < 0 || gridX > gameState.stageSize.x + 1 || gridY < 0 || gridY > gameState.stageSize.y + 1) {
+  if (gridX < 0 || gridX > stageState.stageSize.x + 1 || gridY < 0 || gridY > stageState.stageSize.y + 1) {
     return;
   }
 
   // Check if there's already an obstacle at this position
-  const existingObstacleIndex = gameState.obstacles.findIndex(
+  const existingObstacleIndex = stageState.obstacles.findIndex(
     obstacle => obstacle.x === gridX && obstacle.y === gridY
   );
 
   if (existingObstacleIndex !== -1) {
     // Remove existing obstacle
-    gameState.obstacles.splice(existingObstacleIndex, 1);
+    stageState.obstacles.splice(existingObstacleIndex, 1);
   } else {
     // Add new obstacle
-    gameState.obstacles.push({ x: gridX, y: gridY });
+    stageState.obstacles.push({ x: gridX, y: gridY });
   }
 
   // Update the stage view to reflect changes
   updateStageView();
 
   // Copy obstacle map to clipboard as JSON
-  const obstacleJson = JSON.stringify(gameState.obstacles);
+  const obstacleJson = JSON.stringify(stageState.obstacles);
   navigator.clipboard.writeText(obstacleJson).then(() => {
     console.log('Obstacle map copied to clipboard:', obstacleJson);
   }).catch(err => {

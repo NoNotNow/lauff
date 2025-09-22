@@ -1,7 +1,8 @@
 // Game state management
 import { defaultObstacleMap, obstacleMaps } from '../data/obstacle-maps.js';
 import { adjustSize, updateAvatar, updateStageView, drawGrid } from '../stage-effects/view-renderer.js';
-export const gameState = {
+
+export const stageState = {
   startPosition: { x: 0, y: 0 },
   startDirection: 1,
   position: { x: 0, y: 0 },
@@ -22,38 +23,38 @@ export function loadMapFromKey(key) {
 }
 
 export function loadGameState(map) {
-  gameState.startPosition.x = map.startPosition.x;
-  gameState.startPosition.y = map.startPosition.y;
-  gameState.startDirection = map.startDirection ?? 1;
-  gameState.obstacles = map.obstacles;
-  gameState.target = map.targetPosition;
-  gameState.stageSize = map.stageSize;
+  stageState.startPosition.x = map.startPosition.x;
+  stageState.startPosition.y = map.startPosition.y;
+  stageState.startDirection = map.startDirection ?? 1;
+  stageState.obstacles = map.obstacles;
+  stageState.target = map.targetPosition;
+  stageState.stageSize = map.stageSize;
 }
 
 export function resetPosition() {
   console.log("Resetting position");
-  gameState.position.x = gameState.startPosition.x ?? 0;
-  gameState.position.y = gameState.startPosition.y ?? 0;
+  stageState.position.x = stageState.startPosition.x ?? 0;
+  stageState.position.y = stageState.startPosition.y ?? 0;
   let direction = 1;
-  if (gameState.startDirection !== undefined) { direction = gameState.startDirection; }
-  gameState.direction = direction;
+  if (stageState.startDirection !== undefined) { direction = stageState.startDirection; }
+  stageState.direction = direction;
 }
 
 export function withinBounds() {
-  if (gameState.position.x < 0 || gameState.position.x > gameState.stageSize.x) return false;
-  if (gameState.position.y < 0 || gameState.position.y > gameState.stageSize.y) return false;
+  if (stageState.position.x < 0 || stageState.position.x > stageState.stageSize.x) return false;
+  if (stageState.position.y < 0 || stageState.position.y > stageState.stageSize.y) return false;
   return true;
 }
 
 export function setDirection(v) {
-  gameState.direction = v % 4;
-  if (gameState.direction < 0) gameState.direction += 4;
+  stageState.direction = v % 4;
+  if (stageState.direction < 0) stageState.direction += 4;
 }
 
 //gets the current direction altered by input
 export function getDirection(v) {
-  if (typeof v !== "number") return gameState.direction;
-  let result = gameState.direction + v
+  if (typeof v !== "number") return stageState.direction;
+  let result = stageState.direction + v
   result = result % 4;
   if (result < 0) result += 4;
   return result;

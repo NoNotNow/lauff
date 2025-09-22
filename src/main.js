@@ -7,7 +7,7 @@ import { initRecorder } from './game-state/recorder.js';
 import { fillMapSelectDropdown } from './data/obstacle-maps.js';
 import { designs } from './design/designs.js';
 import {editor } from './code/code-editor.js';
-import { loadMapFromKey } from './game-state/game-state.js';
+import { loadMapFromKey } from './game-state/stage-state.js';
 
 function main() {
   console.log("Main function called");

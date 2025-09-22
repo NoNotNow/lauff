@@ -1,4 +1,4 @@
-import { gameState, setDirection, getDirection, parseNumber, withinBounds } from './game-state.js';
+import { stageState, setDirection, getDirection, parseNumber, withinBounds } from './stage-state.js';
 import { checkTargetReached, checkObstacleCollision } from './collistion-detection.js';
 import { handleWallCollision } from '../stage-effects/crash-handler.js';
 import { handleObstacleCollision, handleTargetReached } from '../stage-effects/crash-handler.js';
@@ -37,7 +37,7 @@ export function getNextLeft() { return getNextTurn(-1); }
 function getNextTurn(directionOffset) {
   let startFree = free(directionOffset);
   let currentFree;
-  let pos = gameState.position;
+  let pos = stageState.position;
   for (let n = 0; n < free(); n++) {
     pos = moveBy(pos, 1, getDirection());
     currentFree = free(directionOffset, pos.x, pos.y);
@@ -49,8 +49,8 @@ function getNextTurn(directionOffset) {
 export function free(directionOffset, inX, inY) {
   // Initialize starting position using coordinate object
   let currentPos = {
-    x: (typeof inX === 'number') ? inX : gameState.position.x,
-    y: (typeof inY === 'number') ? inY : gameState.position.y
+    x: (typeof inX === 'number') ? inX : stageState.position.x,
+    y: (typeof inY === 'number') ? inY : stageState.position.y
   };
 
   const direction = getDirection(directionOffset);
@@ -63,7 +63,7 @@ export function free(directionOffset, inX, inY) {
     const nextPos = moveBy(currentPos, 1, direction);
 
     // Check bounds
-    if (nextPos.x < 0 || nextPos.x > gameState.stageSize.x || nextPos.y < 0 || nextPos.y > gameState.stageSize.y) {
+    if (nextPos.x < 0 || nextPos.x > stageState.stageSize.x || nextPos.y < 0 || nextPos.y > stageState.stageSize.y) {
       break;
     }
 
@@ -73,7 +73,7 @@ export function free(directionOffset, inX, inY) {
     const avatarTop = nextPos.y;
     const avatarBottom = nextPos.y + 2;
 
-    const hasObstacle = gameState.obstacles.some(obstacle => {
+    const hasObstacle = stageState.obstacles.some(obstacle => {
       const obstacleLeft = obstacle.x;
       const obstacleRight = obstacle.x + 1;
       const obstacleTop = obstacle.y;
@@ -134,33 +134,33 @@ export async function go(input) {
     steps = freeStepsCount + 1;
   }
 
-  switch (gameState.direction) {
+  switch (stageState.direction) {
     case 0:
-      gameState.position.y -= steps;
+      stageState.position.y -= steps;
       break;
     case 1:
-      gameState.position.x += steps;
+      stageState.position.x += steps;
       break;
     case 2:
-      gameState.position.y += steps;
+      stageState.position.y += steps;
       break;
     case 3:
-      gameState.position.x -= steps;
+      stageState.position.x -= steps;
       break;
   }
 
   if (!withinBounds()) handleWallCollision();
-  if (checkObstacleCollision(gameState)) handleObstacleCollision();
-  if (checkTargetReached(gameState)) handleTargetReached();
+  if (checkObstacleCollision(stageState)) handleObstacleCollision();
+  if (checkTargetReached(stageState)) handleTargetReached();
   updateAvatar();
 }
 
 export function right(input) {
-  setDirection(gameState.direction + parseNumber(input));
+  setDirection(stageState.direction + parseNumber(input));
   updateAvatar();
 }
 
 export function left(input) {
-  setDirection(gameState.direction - parseNumber(input));
+  setDirection(stageState.direction - parseNumber(input));
   updateAvatar();
 }

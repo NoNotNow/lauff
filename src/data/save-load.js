@@ -1,5 +1,5 @@
 // Save and load functionality for the code editor
-import { gameState } from '../game-state/game-state.js';
+import { stageState } from '../game-state/stage-state.js';
 import { obstacleMaps } from './obstacle-maps.js';
 import { editor } from '../code/code-editor.js';
 
@@ -7,7 +7,7 @@ import { editor } from '../code/code-editor.js';
 function getCurrentMapName() {
   // Find which map matches the current obstacles
   for (const [key, mapData] of Object.entries(obstacleMaps)) {
-    if (JSON.stringify(mapData.obstacles) === JSON.stringify(gameState.obstacles)) {
+    if (JSON.stringify(mapData.obstacles) === JSON.stringify(stageState.obstacles)) {
       return key;
     }
   }
