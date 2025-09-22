@@ -2,166 +2,169 @@
 <html lang="en">
 
 <head>
-  <title>Lauff</title>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width" />
-  <link rel="stylesheet" href="css/base.css" />
-  <link rel="stylesheet" href="css/layout.css" />
-  <link rel="stylesheet" href="css/instructions.css" />
-  <link rel="stylesheet" href="css/stage/stage.css" />
-  <link rel="stylesheet" href="css/stage/avatar.css" />
-  <link rel="stylesheet" href="css/displays.css" />
-  <link rel="stylesheet" href="css/stage/speech-bubble.css" />
-  <link rel="stylesheet" href="css/controls.css" />
-  <link rel="stylesheet" href="css/animations.css" />
-  <link rel="stylesheet" href="css/editor.css" />
-  <link rel="icon" href="favicon.ico" type="image/x-icon">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/6.65.7/codemirror.min.css">
-  <link rel="stylesheet" href="css/codemirror-lauff-dark.css">
+    <title>Lauff</title>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width"/>
+    <!-- CodeMirror 5.65.7 by Marijn Haverbeke and contributors. MIT License: https://codemirror.net/ -->
+    <!-- JavaScript mode for CodeMirror. MIT License: https://codemirror.net/ -->
+    <!-- Esprima 4.0.1 by Ariya Hidayat and contributors. BSD-2-Clause License: https://esprima.org/ -->
+    <link rel="stylesheet" href="css/base.css"/>
+    <link rel="stylesheet" href="css/layout.css"/>
+    <link rel="stylesheet" href="css/instructions.css"/>
+    <link rel="stylesheet" href="css/stage/stage.css"/>
+    <link rel="stylesheet" href="css/stage/avatar.css"/>
+    <link rel="stylesheet" href="css/displays.css"/>
+    <link rel="stylesheet" href="css/stage/speech-bubble.css"/>
+    <link rel="stylesheet" href="css/controls.css"/>
+    <link rel="stylesheet" href="css/animations.css"/>
+    <link rel="stylesheet" href="css/editor.css"/>
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/6.65.7/codemirror.min.css">
+    <link rel="stylesheet" href="css/codemirror-lauff-dark.css">
 
-  <script src="external_libs/esprima.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/6.65.7/codemirror.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/6.65.7/mode/javascript/javascript.min.js"></script>
+    <script src="external_libs/esprima.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/6.65.7/codemirror.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/6.65.7/mode/javascript/javascript.min.js"></script>
 
 
-  <script type="module" src="src/main.js"></script>
+    <script type="module" src="src/main.js"></script>
 </head>
 
 <body>
-  <div class="body-overlay"></div>
-  <div class="page-container">
+<div class="body-overlay"></div>
+<div class="page-container">
     <header class="site-header">
-      <div class="site-logo"></div>
-      <div class="corner-buttons">
-        <button id="design-button">ds</button>
-      </div>
+        <div class="site-logo"></div>
+        <div class="corner-buttons">
+            <button id="design-button">ds</button>
+        </div>
     </header>
     <div class="game-code-container">
-      <div class="game-container">
-        <div class="stage-container">
-          <div class="stage" id="stage">
-            <canvas id="gridCanvas"></canvas>
-            <div id="stage-background" class="stage-background"></div>
-            <div id="avatar" class="avatar">
-              <img src="assets/spaceship-avatar.svg" alt="Spaceship Avatar" width="100%" height="100%">
+        <div class="game-container">
+            <div class="stage-container">
+                <div class="stage" id="stage">
+                    <canvas id="gridCanvas"></canvas>
+                    <div id="stage-background" class="stage-background"></div>
+                    <div id="avatar" class="avatar">
+                        <img src="assets/spaceship-avatar.svg" alt="Spaceship Avatar" width="100%" height="100%">
+                    </div>
+                    <div class="speech-bubble" id="speech-bubble">test</div>
+                    <div id="target" class="target"></div>
+                </div>
             </div>
-            <div class="speech-bubble" id="speech-bubble">test</div>
-            <div id="target" class="target"></div>
-          </div>
-        </div>
-        <div class="displays">
-          <div class="game-controls">
-            <div class="selectors-container">
-              <div class="map-selector">
-                <select id="mapSelect" class="dropdown">
-                  <option value="" selected>Map 1</option>
-                </select>
-              </div>
-              <div class="speed-selector">
-                <select id="speedSelect" class="dropdown">
-                  <option value="500">Langsam</option>
-                  <option value="200" selected>Normal</option>
-                  <option value="100">Schnell</option>
-                  <option value="10">Super Schnell</option>
-                </select>
-              </div>
+            <div class="displays">
+                <div class="game-controls">
+                    <div class="selectors-container">
+                        <div class="map-selector">
+                            <select id="mapSelect" class="dropdown">
+                                <option value="" selected>Map 1</option>
+                            </select>
+                        </div>
+                        <div class="speed-selector">
+                            <select id="speedSelect" class="dropdown">
+                                <option value="500">Langsam</option>
+                                <option value="200" selected>Normal</option>
+                                <option value="100">Schnell</option>
+                                <option value="10">Super Schnell</option>
+                            </select>
+                        </div>
 
-            </div>
-            <div class="game-buttons">
-              <button class="start" id="startButton">
-                <span class="start-text">▶</span><span class="stop-text">Stop</span>
-              </button>
-              <button class="reset" id="resetButton">
-                <span>&#8617;</span>
-              </button>
-            </div>
+                    </div>
+                    <div class="game-buttons">
+                        <button class="start" id="startButton">
+                            <span class="start-text">▶</span><span class="stop-text">Stop</span>
+                        </button>
+                        <button class="reset" id="resetButton">
+                            <span>&#8617;</span>
+                        </button>
+                    </div>
 
-          </div>
-          <div id="timer" class="timer">0.00</div>
-          <div id="statementCount" class="statement-count"></div>
-          <div id="errorMessage" class="error-message"></div>
+                </div>
+                <div id="timer" class="timer">0.00</div>
+                <div id="statementCount" class="statement-count"></div>
+                <div id="errorMessage" class="error-message"></div>
+            </div>
         </div>
-      </div>
-      <div class="editor-container">
-        <div class="editor-wrapper">
+        <div class="editor-container">
+            <div class="editor-wrapper">
           <textarea class="code" id="code" rows="10" autocomplete="off" autocapitalize="off"
-            spellcheck="false">go();</textarea>
-          <div class="clear-button" id="clearButton">X</div>
+                    spellcheck="false">go();</textarea>
+                <div class="clear-button" id="clearButton">X</div>
+            </div>
         </div>
-      </div>
     </div>
     <div class="bottom-container">
-      <div class="controls">
+        <div class="controls">
 
-        <div class="buttons">
-          <div class="movement">
-            <button class="move" id="goButton">
-              go()
-            </button>
-            <button class="move left" id="leftButton">
-              left()
-            </button>
-            <button class="move right" id="rightButton">
-              right()
-            </button>
-          </div>
-
-
-          <button class="save" id="saveButton">
-            Save
-          </button>
-          <button class="record" id="recordButton">
-            Record
-          </button>
-
-          <label class="checkbox-control">
-            <input type="checkbox" id="soundCheckbox" checked>
-            Sound
-          </label>
+            <div class="buttons">
+                <div class="movement">
+                    <button class="move" id="goButton">
+                        go()
+                    </button>
+                    <button class="move left" id="leftButton">
+                        left()
+                    </button>
+                    <button class="move right" id="rightButton">
+                        right()
+                    </button>
+                </div>
 
 
+                <button class="save" id="saveButton">
+                    Save
+                </button>
+                <button class="record" id="recordButton">
+                    Record
+                </button>
+
+                <label class="checkbox-control">
+                    <input type="checkbox" id="soundCheckbox" checked>
+                    Sound
+                </label>
+
+
+            </div>
         </div>
-      </div>
-      <div class="instructions">
-        <h3>Anleitung</h3>
-        <h4>Befehle:</h4>
-        <ul>
-          <li><code>go()</code> - Bewege dich einen Schritt vorwärts</li>
-          <li><code>go(3)</code> - Bewege dich 3 Schritte vorwärts</li>
-          <li><code>left()</code> - Drehe dich nach links</li>
-          <li><code>right()</code> - Drehe dich nach rechts</li>
-          <li><code>free()</code> - Anzahl freier Felder vor dem Avatar</li>
-          <li><code>random(6)</code> - Zufallszahl zwischen 1 und 6</li>
-          <li><code>getNextRight()</code> - Anzahl Schritte bis zur nächsten Rechtskurve</li>
-          <li><code>free(richtung, x, y)</code> - Freie Felder in Richtung (optional: von Position x,y)</li>
-        </ul>
-        <h4>Ziel:</h4>
-        <p>Erreiche das grüne Ziel, ohne gegen Hindernisse oder Wände zu stoßen!</p>
-        <h4>Beispiel:</h4>
-        <pre><code>go();
+        <div class="instructions">
+            <h3>Anleitung</h3>
+            <h4>Befehle:</h4>
+            <ul>
+                <li><code>go()</code> - Bewege dich einen Schritt vorwärts</li>
+                <li><code>go(3)</code> - Bewege dich 3 Schritte vorwärts</li>
+                <li><code>left()</code> - Drehe dich nach links</li>
+                <li><code>right()</code> - Drehe dich nach rechts</li>
+                <li><code>free()</code> - Anzahl freier Felder vor dem Avatar</li>
+                <li><code>random(6)</code> - Zufallszahl zwischen 1 und 6</li>
+                <li><code>getNextRight()</code> - Anzahl Schritte bis zur nächsten Rechtskurve</li>
+                <li><code>free(richtung, x, y)</code> - Freie Felder in Richtung (optional: von Position x,y)</li>
+            </ul>
+            <h4>Ziel:</h4>
+            <p>Erreiche das grüne Ziel, ohne gegen Hindernisse oder Wände zu stoßen!</p>
+            <h4>Beispiel:</h4>
+            <pre><code>go();
 left();
 go(3);
 right();
 go();</code></pre>
-        <h4>Programmieren:</h4>
-        <p>Du kannst auch echtes JavaScript verwenden! Zum Beispiel Schleifen und Bedingungen:</p>
-        <pre><code>for (let i = 0; i < 3; i++) {
+            <h4>Programmieren:</h4>
+            <p>Du kannst auch echtes JavaScript verwenden! Zum Beispiel Schleifen und Bedingungen:</p>
+            <pre><code>for (let i = 0; i < 3; i++) {
   go();
 }
 
 if (free() > 2) {
   go(2);
 }</code></pre>
-      </div>
+        </div>
     </div>
-  </div>
-  <footer style="text-align: center; margin-top: 2em; padding: 1em; color: #666; font-size: 0.9em;">
+</div>
+<footer style="text-align: center; margin-top: 2em; padding: 1em; color: #666; font-size: 0.9em;">
     <p>
-      <a href="https://github.com/NoNotNow/lauff" target="_blank" style="color: #007bff; text-decoration: none;">
-        View on GitHub
-      </a>
+        <a href="https://github.com/NoNotNow/lauff" target="_blank" style="color: #007bff; text-decoration: none;">
+            View on GitHub
+        </a>
     </p>
-  </footer>
+</footer>
 </body>
 
 </html>
