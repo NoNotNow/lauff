@@ -1,5 +1,5 @@
 import { stageState } from './stage-state.js';
-import { checkTargetReached, checkObstacleCollision } from './collistion-detection.js';
+import { checkTargetReached, checkObstacleCollision } from './collision-detection.js';
 import { handleWallCollision } from '../stage-effects/crash-handler.js';
 import { handleObstacleCollision, handleTargetReached } from '../stage-effects/crash-handler.js';
 import { updateAvatar } from '../stage-effects/view-renderer.js';
