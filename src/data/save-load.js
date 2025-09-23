@@ -1,23 +1,18 @@
 // Save and load functionality for the code editor
 import { stageState } from '../game-state/stage-state.js';
-import { obstacleMaps } from './obstacle-maps.js';
 import { editor } from '../code/code-editor.js';
+import {toFileName} from "../utility/helpers.js";
 
 // Get the current map name
 function getCurrentMapName() {
   // Find which map matches the current obstacles
-  for (const [key, mapData] of Object.entries(obstacleMaps)) {
-    if (JSON.stringify(mapData.obstacles) === JSON.stringify(stageState.obstacles)) {
-      return key;
-    }
-  }
-  return 'default'; // fallback if no match found
+  return stageState.getName();
 }
 
 export function saveCode() {
   console.log("saveCode function called");
   const code = editor.getCode();
-  const mapName = getCurrentMapName();
+  const mapName = toFileName(getCurrentMapName());
   console.log("Saving code:", code);
   console.log("Saving code for map:", mapName);
   localStorage.setItem(`savedCode_${mapName}`, code);
@@ -27,7 +22,7 @@ export function saveCode() {
 
 export function loadCode(mapName = null) {
   console.log("loadCode function called");
-  const currentMapName = mapName || getCurrentMapName();
+  const currentMapName = toFileName(mapName || getCurrentMapName());
   const savedCode = localStorage.getItem(`savedCode_${currentMapName}`);
   console.log("Retrieved saved code:", savedCode);
   console.log("For map:", currentMapName);

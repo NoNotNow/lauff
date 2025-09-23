@@ -3,3 +3,7 @@ export function parseNumber(input) {
     if (typeof input === "number") steps = input;
     return steps;
 }
+
+export function toFileName(name) {
+    return name.replace(/[^a-zA-Z0-9]/g, '_').toLowerCase();
+}

@@ -17,9 +17,6 @@ function main() {
   const storedMapKey =  getStoredSelectedMap();
   fillMapSelectDropdown(mapSelect,storedMapKey);
   stageState.loadMapFromKey(storedMapKey);
-
-
-
   initRecorder();
   console.log("Recorder initialized");
   setupEventListeners();
