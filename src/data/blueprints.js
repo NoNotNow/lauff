@@ -13,7 +13,7 @@ export function fillMapSelectDropdown(selectElement, selectedValue) {
     if (!selectElement) return;
     selectElement.innerHTML = '';
     let index = 0;
-    Object.entries(obstacleMaps).forEach(([key, value]) => {
+    Object.entries(blueprints).forEach(([key, value]) => {
         const option = document.createElement('option');
         option.value = value.name;
         option.textContent = value.name || key;
@@ -26,11 +26,18 @@ export function fillMapSelectDropdown(selectElement, selectedValue) {
 
 export const bluePrints = {
     getBlueprint: function(name) {
-        return obstacleMaps.find(map => toFileName(map.name) === toFileName(name));
+
+        return this.copy(blueprints.find(map => toFileName(map.name) === toFileName(name)));
     },
     getDefault() {
-        return obstacleMaps[0];
+        return this.copy(blueprints[0]);
+    },
+
+    copy: function(map) {
+        return JSON.parse(JSON.stringify(map));
     }
+
+
 };
 
 
@@ -621,7 +628,7 @@ const map40x40 = {
 };
 
 /** @type {StageBlueprint[]} */
-const obstacleMaps = [
+const blueprints = [
     smalMap,
     labyrinth,
     obstacleMapEinfach,
@@ -641,6 +648,3 @@ const obstacleMaps = [
     obstacleMapNight,
     map40x40,
 ]
-
-export class defaultObstacleMap {
-}

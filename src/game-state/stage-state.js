@@ -1,5 +1,5 @@
 // Game state management
-import {bluePrints} from '../data/obstacle-maps.js';
+import {bluePrints} from '../data/blueprints.js';
 import {adjustSize, updateAvatar, updateStageView, drawGrid} from '../stage-effects/view-renderer.js';
 
 /** @typedef {import('../types/stage-model.js').Vec2} Vec2 */
@@ -14,6 +14,19 @@ class StageState {
 
     constructor() {
         this.#state = bluePrints.getDefault();
+        this.addDefaultMembers();
+    }
+
+    addDefaultMembers(){
+        if(this.#state.name === undefined)  this.#state.name = "Default";
+        if(this.#state.startPosition === undefined)  this.#state.startPosition = {x: 0, y: 0};
+        if(this.#state.startDirection === undefined)  this.#state.startDirection = 1;
+        if(this.#state.obstacles === undefined)  this.#state.obstacles = [];
+        if(this.#state.target === undefined)  this.#state.target = {x: 0, y: 0};
+        if(this.#state.stageSize === undefined)  this.#state.stageSize = {x: 0, y: 0};
+        if(this.#state.position === undefined)  this.#state.position
+            = {x: this.#state.startPosition.x, y: this.#state.startPosition.y};
+        if(this.#state.direction === undefined)  this.#state.direction = 1;
     }
 
     getName() {return this.#state.name;}
@@ -101,5 +114,4 @@ class StageState {
     }
 }
 
-// Expose only a single global instance
 export const stageState = new StageState();

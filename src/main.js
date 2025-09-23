@@ -4,7 +4,7 @@ import { updateStageView, updateAvatar, drawGrid } from './stage-effects/view-re
 import { setupEventListeners } from './event-handlers.js';
 import { getStoredSelectedMap, loadCode } from './data/save-load.js';
 import { initRecorder } from './game-state/recorder.js';
-import { fillMapSelectDropdown } from './data/obstacle-maps.js';
+import { fillMapSelectDropdown } from './data/blueprints.js';
 import { designs } from './design/designs.js';
 import {editor } from './code/code-editor.js';
 import { stageState } from './game-state/stage-state.js';
@@ -12,7 +12,7 @@ import { stageState } from './game-state/stage-state.js';
 function main() {
   console.log("Main function called");
   designs.init();
-  // Dynamically populate mapSelect using function from obstacle-maps.js
+  // Dynamically populate mapSelect using function from blueprints.js
   const mapSelect = document.getElementById("mapSelect");
   const storedMapKey =  getStoredSelectedMap();
   fillMapSelectDropdown(mapSelect,storedMapKey);
