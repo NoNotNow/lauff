@@ -34,6 +34,7 @@ export const bluePrints = {
     },
 
     copy: function(map) {
+        if (!map) return;
         return JSON.parse(JSON.stringify(map));
     }
 

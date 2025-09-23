@@ -5,5 +5,5 @@ export function parseNumber(input) {
 }
 
 export function toFileName(name) {
-    return name.replace(/[^a-zA-Z0-9]/g, '_').toLowerCase();
+    if(name)  return name.replace(/[^a-zA-Z0-9]/g, '_').toLowerCase();
 }
