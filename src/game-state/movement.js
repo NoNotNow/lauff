@@ -1,5 +1,5 @@
 import { stageState } from './stage-state.js';
-import { checkTargetReached, checkObstacleCollision } from './collision-detection.js';
+import {checkTargetReached, checkObstacleCollision, checkWithinBounds} from './collision-detection.js';
 import { handleWallCollision } from '../stage-effects/crash-handler.js';
 import { handleObstacleCollision, handleTargetReached } from '../stage-effects/crash-handler.js';
 import { updateAvatar } from '../stage-effects/view-renderer.js';
@@ -46,7 +46,7 @@ function getNextTurn(directionOffset) {
   }
   return 0;
 }
-// Check how many steps the avatar can move from a pint to a direction without hitting an obstacle
+// Check how many steps the avatar can move from a point to a direction without hitting an obstacle
 export function free(directionOffset, inX, inY) {
   // Initialize the starting position using a coordinate object
   let currentPos = {
@@ -63,10 +63,7 @@ export function free(directionOffset, inX, inY) {
     // Calculate the next position using moveBy function
     const nextPos = moveBy(currentPos, 1, direction);
 
-    // Check bounds
-    if (nextPos.x < 0 || nextPos.x > stageState.getStageSize().x || nextPos.y < 0 || nextPos.y > stageState.getStageSize().y) {
-      break;
-    }
+    if(!checkWithinBounds(nextPos,stageState.getStageSize())) break;
 
     // Check for obstacles
     const avatarLeft = nextPos.x;

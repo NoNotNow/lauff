@@ -2,7 +2,7 @@ import esprima from 'esprima';
 globalThis.esprima = esprima;
 import { test, describe } from 'node:test';
 import assert from 'node:assert';
-import { analyseSyntaxError } from '../code-analyser.js';
+import { analyseSyntaxError } from '../code/code-analyser.js';
 import {getErrorExplanation, localizeUserCodeError} from '../localizer.js';
 describe('code-analyser', () => {
 

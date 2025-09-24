@@ -36,3 +36,11 @@ export function checkTargetReached(gameState) {
            avatarBottom <= targetTop || 
            avatarTop >= targetBottom);
 }
+/**
+ * @param {{x: number, y: number}} point
+ * @param {{x: number, y: number}} size
+ * @returns {boolean}
+ */
+export function checkWithinBounds(point,size){
+    return  !(point.x < 0 || point.x > size.x || point.y < 0 || point.y > size.y)
+}
