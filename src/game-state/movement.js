@@ -47,14 +47,14 @@ function getNextTurn(directionOffset) {
   return 0;
 }
 // Check how many steps the avatar can move from a point to a direction without hitting an obstacle
-export function free(directionOffset, inX, inY) {
+export function free(directionOffset, inX, inY, state = stageState) {
   // Initialize the starting position using a coordinate object
   let currentPos = {
-    x: (typeof inX === 'number') ? inX : stageState.getPosition().x,
-    y: (typeof inY === 'number') ? inY : stageState.getPosition().y
+    x: (typeof inX === 'number') ? inX : state.getPosition().x,
+    y: (typeof inY === 'number') ? inY : state.getPosition().y
   };
 
-  const direction = stageState.getDirection(directionOffset);
+  const direction = state.getDirection(directionOffset);
 
   let spaces = 0;
 
@@ -63,7 +63,7 @@ export function free(directionOffset, inX, inY) {
     // Calculate the next position using moveBy function
     const nextPos = moveBy(currentPos, 1, direction);
 
-    if(!checkWithinBounds(nextPos,stageState.getStageSize())) break;
+    if(!checkWithinBounds(nextPos,state.getStageSize())) break;
 
     // Check for obstacles
     const avatarLeft = nextPos.x;
@@ -71,7 +71,7 @@ export function free(directionOffset, inX, inY) {
     const avatarTop = nextPos.y;
     const avatarBottom = nextPos.y + 2;
 
-    const hasObstacle = stageState.getObstacles().some(obstacle => {
+    const hasObstacle = state.getObstacles().some(obstacle => {
       const obstacleLeft = obstacle.x;
       const obstacleRight = obstacle.x + 1;
       const obstacleTop = obstacle.y;
