@@ -1,42 +1,69 @@
+/**
+ * Axis-aligned rectangle.
+ * @typedef {{left: number, right: number, top: number, bottom: number}} Rect
+ */
 
+/**
+ * Test if two axis-aligned rectangles overlap.
+ * @param {Rect} a
+ * @param {Rect} b
+ * @returns {boolean}
+ */
+export function rectanglesOverlap(a, b) {
+  return !(a.right <= b.left ||
+           a.left >= b.right ||
+           a.bottom <= b.top ||
+           a.top >= b.bottom);
+}
+
+/**
+ * Check whether the avatar collides with any obstacles in the given state.
+ * @param {{getPosition: () => {x:number,y:number}, getObstacles: () => Array<{x:number,y:number}>}} state
+ * @returns {boolean}
+ */
 export function checkObstacleCollision(state) {
-  const avatarLeft = state.getPosition().x;
-  const avatarRight = state.getPosition().x + 2;
-  const avatarTop = state.getPosition().y;
-  const avatarBottom = state.getPosition().y + 2;
-  
+  const avatar = {
+    left: state.getPosition().x,
+    right: state.getPosition().x + 2,
+    top: state.getPosition().y,
+    bottom: state.getPosition().y + 2
+  };
+
   return state.getObstacles().some(obstacle => {
-    const obstacleLeft = obstacle.x;
-    const obstacleRight = obstacle.x + 1;
-    const obstacleTop = obstacle.y;
-    const obstacleBottom = obstacle.y + 1;
-    
-    // Check for overlap in both x and y directions
-    return !(avatarRight <= obstacleLeft || 
-             avatarLeft >= obstacleRight || 
-             avatarBottom <= obstacleTop || 
-             avatarTop >= obstacleBottom);
+    const rect = {
+      left: obstacle.x,
+      right: obstacle.x + 1,
+      top: obstacle.y,
+      bottom: obstacle.y + 1
+    };
+    return rectanglesOverlap(avatar, rect);
   });
 }
 
+/**
+ * Check if the avatar reached the target.
+ * @param {{getPosition: () => {x:number,y:number}, getTarget: () => {x:number,y:number}}} gameState
+ * @returns {boolean}
+ */
 export function checkTargetReached(gameState) {
-  const avatarLeft = gameState.getPosition().x;
-  const avatarRight = gameState.getPosition().x + 2;
-  const avatarTop = gameState.getPosition().y;
-  const avatarBottom = gameState.getPosition().y + 2;
-  
-  const targetLeft = gameState.getTarget().x;
-  const targetRight = gameState.getTarget().x + 2;
-  const targetTop = gameState.getTarget().y;
-  const targetBottom = gameState.getTarget().y + 2;
-  
-  // Check for overlap in both x and y directions
-  return !(avatarRight <= targetLeft || 
-           avatarLeft >= targetRight || 
-           avatarBottom <= targetTop || 
-           avatarTop >= targetBottom);
+  const avatar = {
+    left: gameState.getPosition().x,
+    right: gameState.getPosition().x + 2,
+    top: gameState.getPosition().y,
+    bottom: gameState.getPosition().y + 2
+  };
+
+  const target = {
+    left: gameState.getTarget().x,
+    right: gameState.getTarget().x + 2,
+    top: gameState.getTarget().y,
+    bottom: gameState.getTarget().y + 2
+  };
+
+  return rectanglesOverlap(avatar, target);
 }
 /**
+ * Check if a point is within the bounds of a stage of given size.
  * @param {{x: number, y: number}} point
  * @param {{x: number, y: number}} size
  * @returns {boolean}

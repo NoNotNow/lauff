@@ -118,3 +118,23 @@ describe('movement.free', () => {
     assert.strictEqual(free(undefined, undefined, undefined, state), 5);
   });
 });
+
+
+// Additional scenario: obstacles left, right, behind, and ahead
+// Only the obstacle ahead should stop movement; others must be ignored.
+test('with obstacles left, right, behind, and ahead only ahead stops movement (east)', () => {
+  const state = makeState({
+    pos: { x: 3, y: 3 },
+    dir: 1, // east
+    size: { x: 12, y: 12 },
+    obstacles: [
+      { x: 8, y: 3 }, // ahead (will block when nextPos.x = 7)
+      { x: 2, y: 3 }, // behind (west) — should not matter
+      { x: 5, y: 1 }, // left (north of path) — no vertical overlap with avatar (y in [3,5))
+      { x: 6, y: 6 }  // right (south of path) — no vertical overlap with avatar (y in [3,5))
+    ]
+  });
+  const result = free(undefined, undefined, undefined, state);
+  // Steps from x=3: to 4 (ok), 5 (ok), 6 (ok), next 7 would overlap with obstacle at x=8 (avatar [7,9) vs [8,9))
+  assert.strictEqual(result, 3);
+});

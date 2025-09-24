@@ -9,6 +9,11 @@ import {isRunning, setIsRunning} from '../global-state.js';
 
 
 // Random number generator function
+/**
+ * Returns a random integer between 1 and x (inclusive).
+ * @param {number} x
+ * @returns {number}
+ */
 function random(x) {
   if (typeof x !== 'number' || x < 1) {
     throw new Error("random() requires a positive number");
@@ -17,37 +22,55 @@ function random(x) {
 }
 
 // Global execution state
+/** @type {number} */
 let movementDelayTime = 300;
+/**
+ * Set the movement delay in milliseconds.
+ * @param {number} input
+ */
 export function setMovementDelay(input) { movementDelayTime = input; }
 // Non-blocking delay function
 
 
 // Extensible delay function for movement commands
+/** @returns {Promise<void>} */
 async function movementDelay() {
   await delay(movementDelayTime);
 }
 
 // Explicit wrapped functions
+/** @param {number|string} input */
 async function wrappedGo(input) {
   await go(input);
   await movementDelay();
 }
 
+/** @param {number|string} input */
 async function wrappedLeft(input) {
   left(input);
   await movementDelay();
 }
 
+/** @param {number|string} input */
 async function wrappedRight(input) {
   right(input);
   await movementDelay();
 }
 
+/**
+ * @param {string} text
+ * @param {number} delay
+ * @param {boolean} stop
+ */
 async function wrappedSay(text, delay, stop) {
   await say(text, delay, stop);
 }
 
 // Transform user code to use wrapped functions
+/**
+ * @param {string} code
+ * @returns {string}
+ */
 function transformCode(code) {
   // Replace function calls with wrapped versions
     return code
@@ -58,6 +81,10 @@ function transformCode(code) {
 }
 
 // Parse and prepare user code for execution
+/**
+ * @param {string} code
+ * @returns {(go:Function,left:Function,right:Function,free:Function,random:Function,getNextRight:Function,getNextLeft:Function,say:Function) => Promise<void>}
+ */
 function parseUserCode(code) {
   if (!code.trim()) {
     throw new Error("No code to execute");
@@ -86,6 +113,9 @@ function parseUserCode(code) {
 }
 
 // Execute user function repeatedly until stopped
+/**
+ * @param {Function} userFunction
+ */
 async function executeUntilStopped(userFunction) {
   try {
     await userFunction(wrappedGo, wrappedLeft, wrappedRight,
@@ -100,6 +130,10 @@ async function executeUntilStopped(userFunction) {
   }
 }
 
+/**
+ * Start execution of user code.
+ * @returns {Promise<void>}
+ */
 export async function start() {
   removeErrorMessage();
   doCodeAnalysisAndStats();
@@ -114,9 +148,6 @@ export async function start() {
   try {
     // Parse the user's code
     const userFunction = parseUserCode(code);
-    const speedSelect = document.getElementById('speedSelect');
-    const speed = speedSelect ? speedSelect.value : 'normal';
-    const stage = document.getElementById('stage');
 
     setIsRunning(true);
     startTimer();
@@ -145,6 +176,9 @@ export async function start() {
   }
 }
 
+/**
+ * Stop execution and reset UI state.
+ */
 export function stop() {
   setIsRunning(false);
   stopTimer();
@@ -162,19 +196,28 @@ export function stop() {
   console.log("Execution stopped");
 }
 
+/** Clear the error message banner. */
 function removeErrorMessage() {
   const errorMessage = document.getElementById('errorMessage');
   errorMessage.textContent = '';
 }
 
+/**
+ * Read UI and set movement delay, updating CSS animation class.
+ */
 export function parseMovementDelay() {
+  /** @type {HTMLSelectElement} */
+  // @ts-ignore next line: element exists on page
   let option = document.getElementById('speedSelect');
+  /** @type {HTMLElement} */
+  // @ts-ignore next line: element exists on page
   let avatar = document.getElementById('avatar');
   let result = option.value;
   avatar.classList.toggle('fast', result < 100);
   setMovementDelay(result);
 }
 
+/** Run static analysis and update UI stats. */
 function doCodeAnalysisAndStats() {
   let code = editor.getCode();
   let result = countStatements(code);
