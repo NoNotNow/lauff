@@ -72,7 +72,8 @@ async function wrappedSay(text, delay, stop) {
  * @returns {string}
  */
 function transformCode(code) {
-  // Replace function calls with wrapped versions
+  // Replace movement calls with awaited versions.
+  // The identifiers (go, left, right, say) refer to wrapped functions passed as parameters.
     return code
       .replace(/\bgo\(/g, 'await go(')
       .replace(/\bleft\(/g, 'await left(')
@@ -112,11 +113,11 @@ function parseUserCode(code) {
   }
 }
 
-// Execute user function repeatedly until stopped
+// Execute the parsed user program once
 /**
  * @param {Function} userFunction
  */
-async function executeUntilStopped(userFunction) {
+async function executeUserProgram(userFunction) {
   try {
     await userFunction(wrappedGo, wrappedLeft, wrappedRight,
       free, random, getNextRight, getNextLeft, wrappedSay);
@@ -155,10 +156,10 @@ export async function start() {
     console.log("Starting execution...");
 
 
-    // Execute user function repeatedly until stopped
-    await executeUntilStopped(userFunction);
+    // Execute user program once
+    await executeUserProgram(userFunction);
 
-    console.log("Continuous execution completed");
+    console.log("Execution completed");
   } catch (error) {
     if (error.message === "Execution stopped") {
       console.log("Program stopped by user.");
@@ -181,7 +182,6 @@ export async function start() {
  */
 export function stop() {
   setIsRunning(false);
-  stopTimer();
   stopTimer();
 
   // Remove loop-active class when stopping

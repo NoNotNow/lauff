@@ -1,5 +1,5 @@
 import { stageState } from './stage-state.js';
-import {checkTargetReached, checkObstacleCollision, checkWithinBounds, rectanglesOverlap} from './collision-detection.js';
+import {checkTargetReached, checkObstacleCollision, checkWithinBounds, collidesAtPosition} from './collision-detection.js';
 import { handleWallCollision } from '../stage-effects/crash-handler.js';
 import { handleObstacleCollision, handleTargetReached } from '../stage-effects/crash-handler.js';
 import { updateAvatar } from '../stage-effects/view-renderer.js';
@@ -89,29 +89,9 @@ export function free(directionOffset, inX, inY, state = stageState) {
     // Calculate the next position using moveBy function
     const nextPos = moveBy(currentPos, 1, direction);
 
-    if(!checkWithinBounds(nextPos,state.getStageSize())) break;
+    if (!checkWithinBounds(nextPos, state.getStageSize())) break;
 
-    // Check for obstacles using shared rectangle overlap helper
-    const avatar = {
-      left: nextPos.x,
-      right: nextPos.x + 2,
-      top: nextPos.y,
-      bottom: nextPos.y + 2
-    };
-
-    const hasObstacle = state.getObstacles().some(obstacle => {
-      const rect = {
-        left: obstacle.x,
-        right: obstacle.x + 1,
-        top: obstacle.y,
-        bottom: obstacle.y + 1
-      };
-      return rectanglesOverlap(avatar, rect);
-    });
-
-    if (hasObstacle) {
-      break;
-    }
+    if (collidesAtPosition(state, nextPos)) break;
 
     // This space is free, count it and move to the next position
     spaces++;
@@ -141,10 +121,11 @@ export async function say(text, seconds, stop = false) {
     }
     if (stop) await delay(seconds * 1000);
   } finally {
-    if (timeout) clearTimeout(timeout)
+    if (timeout) clearTimeout(timeout);
     if (!stop) {
-      setTimeout(() => {
+      timeout = setTimeout(() => {
         if (bubble) bubble.classList.remove("visible");
+        timeout = null;
       }, seconds * 1000);
     } else {
       if (bubble) bubble.classList.remove("visible");
