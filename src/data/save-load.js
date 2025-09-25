@@ -24,9 +24,7 @@ export function loadCode(mapName = null) {
   console.log("loadCode function called");
   const currentMapName = toFileName(mapName || getCurrentMapName());
   const savedCode = localStorage.getItem(`savedCode_${currentMapName}`);
-  console.log("Retrieved saved code:", savedCode);
-  console.log("For map:", currentMapName);
-  
+  console.log("Retrieved saved code for "+currentMapName+":\n", savedCode);
   if (savedCode) {
     editor.setCode(savedCode);
     console.log("Code loaded into editor for map:", currentMapName);
@@ -40,9 +38,9 @@ export function loadCode(mapName = null) {
 }
 
 export function saveSelectedMap(selected) {
-  localStorage.setItem(`selectedMap`, selected);
+  localStorage.setItem(`selectedMap`, toFileName(selected));
 }
 
 export function getStoredSelectedMap() {
-  return localStorage.getItem('selectedMap');
+  return toFileName(localStorage.getItem('selectedMap'));
 }
