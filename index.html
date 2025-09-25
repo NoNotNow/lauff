@@ -30,13 +30,22 @@
     <script type="module" src="src/main.js"></script>
 </head>
 
-<body>
+<body class="">
 <div class="body-overlay"></div>
 <div class="page-container">
     <header class="site-header">
         <div class="site-logo"></div>
         <div class="corner-buttons">
-            <button id="design-button">ds</button>
+            <button id="design-button" class="icon-btn" title="Design wechseln" aria-label="Design wechseln">
+                <img src="assets/design.svg" alt="Design icon" onerror="this.style.display='none'"/>
+                <span style="display:none;">DS</span>
+            </button>
+            <button id="builder-button" class="icon-btn" title="Builder einschalten" aria-label="Builder einschalten" aria-pressed="true">
+                <!-- White wrench icon -->
+                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                    <path fill="currentColor" d="M22.7 19.3l-6.1-6.1a6.5 6.5 0 0 1-8.6-8.6l3.05 3.05 2.12-2.12L10.12 2.5a6.5 6.5 0 0 1 8.6 8.6l6.1 6.1-2.12 2.12zM7 22a2 2 0 1 1 0-4 2 2 0 0 1 0 4z"/>
+                </svg>
+            </button>
         </div>
     </header>
     <div class="game-code-container">
@@ -99,6 +108,36 @@
           <textarea class="code" id="code" rows="10" autocomplete="off" autocapitalize="off"
                     spellcheck="false">go();</textarea>
                 </div>
+            </div>
+        </div>
+        
+        <!-- New builder UI container: shown when body has class 'builder' -->
+        <div class="builder-container" aria-hidden="true">
+            <div class="builder-toolbar" id="builderControls">
+                <label style="display:inline-flex;align-items:center;gap:.35em;">
+                    Name:
+                    <input id="builder-name" type="text" placeholder="Level Name" style="min-width:10em;" />
+                </label>
+                <label style="display:inline-flex;align-items:center;gap:.35em;">
+                    Breite:
+                    <input id="gridWidth" type="number" min="1" step="1" style="width:5em;" />
+                </label>
+                <label style="display:inline-flex;align-items:center;gap:.35em;">
+                    Höhe:
+                    <input id="gridHeight" type="number" min="1" step="1" style="width:5em;" />
+                </label>
+                <label style="display:inline-flex;align-items:center;gap:.35em;">
+                    Werkzeug:
+                    <select id="builderTool" class="dropdown">
+                        <option value="obstacles" selected>Hindernisse</option>
+                        <option value="start">Start + Position</option>
+                        <option value="target">Ziel</option>
+                    </select>
+                </label>
+                <button id="clearObstaclesBtn" class="builder-btn" title="Alle Hindernisse entfernen">Leeren</button>
+            </div>
+            <div class="builder-content">
+                <p style="margin:0; opacity:0.8;">Builder-Modus aktiv. Klicke ins Grid je nach Werkzeug, um Hindernisse zu setzen, Start/Position zu ändern oder das Ziel zu setzen.</p>
             </div>
         </div>
     </div>

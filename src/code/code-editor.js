@@ -91,14 +91,47 @@ export const editor = {
      */
     reset: function (isDark) {
         if (this.instance){
-            let theme = isDark ? "lauff-dark" : "default";
-            // editor.setOption("theme", theme);
-            let element=this.instance.getTextArea();
+            const theme = isDark ? "lauff-dark" : "default";
             this.instance.setOption("theme", theme);
-            console.log(element);
-            console.log(this.instance);
         }
+    },
 
+    /**
+     * Recalculate and apply the editor size to fit its container.
+     */
+    recalculateSize: function () {
+        if (!this.instance) return;
+        try {
+            const sizing = document.querySelector('.editor-sizing');
+            let height = '5em';
+            if (sizing) {
+                const cs = getComputedStyle(sizing);
+                const h = parseFloat(cs.height);
+                if (!isNaN(h) && h > 0) {
+                    height = cs.height;
+                } else if (sizing.clientHeight > 0) {
+                    height = sizing.clientHeight + 'px';
+                }
+            }
+            this.instance.setSize('100%', height);
+            if (typeof this.instance.refresh === 'function') {
+                this.instance.refresh();
+            }
+        } catch (e) {
+            // Best-effort; ignore errors
+            console.warn('Editor resize failed:', e);
+        }
+    },
+
+    /**
+     * Notify editor that the app mode changed so it can adjust its view.
+     * @param {('editor'|'builder')} mode
+     */
+    onModeChanged: function (mode) {
+        if (mode === 'editor') {
+            // Wait for layout after showing the editor
+            requestAnimationFrame(() => requestAnimationFrame(() => this.recalculateSize()));
+        }
     }
 
 };

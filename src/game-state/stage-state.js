@@ -31,6 +31,10 @@ class StageState {
 
     getName() {return this.#state.name;}
 
+    setName(name){
+        this.#state.name = String(name ?? '');
+    }
+
     loadMapFromKey(key) {
 
         let selectedMap =  bluePrints.getBlueprint(key)
@@ -103,6 +107,35 @@ class StageState {
 
     getTarget() {
         return this.#state.target;
+    }
+
+    /**
+     * Update startPosition and current position together
+     * @param {Vec2} pos
+     */
+    setStartAndPosition(pos){
+        this.#state.startPosition.x = pos.x;
+        this.#state.startPosition.y = pos.y;
+        this.#state.position.x = pos.x;
+        this.#state.position.y = pos.y;
+    }
+
+    /**
+     * Update target position
+     * @param {Vec2} pos
+     */
+    setTarget(pos){
+        this.#state.target.x = pos.x;
+        this.#state.target.y = pos.y;
+    }
+
+    /**
+     * Update stage size
+     * @param {Vec2} size
+     */
+    setStageSize(size){
+        this.#state.stageSize.x = size.x;
+        this.#state.stageSize.y = size.y;
     }
 
     turnRight(input) {

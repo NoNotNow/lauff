@@ -3,11 +3,14 @@ import {go, left, right} from './game-state/movement.js';
 import {start} from './code/code-executor.js';
 import {loadCode, saveCode, saveSelectedMap} from './data/save-load.js';
 import {stageState} from './game-state/stage-state.js';
-import {drawGrid, updateAvatar, updateStageView} from './stage-effects/view-renderer.js';
+import {drawGrid, updateAvatar} from './stage-effects/view-renderer.js';
 import {handleRecordedCommand} from './game-state/recorder.js';
 import {editor} from './code/code-editor.js';
 import {designs} from './design/designs.js';
+import {builder} from './design/builder.js';
+import {mode} from './design/mode.js';
 import {toFileName} from "./utility/helpers.js";
+import { BuilderView } from './design/builder-view.js';
 
 
 async function handleKeydown(event) {
@@ -77,52 +80,6 @@ function handleClear() {
     }
 }
 
-function handleGridClick(event) {
-    const canvas = document.getElementById('gridCanvas');
-    const stage = document.getElementById('stage');
-
-    if (!canvas || !stage) return;
-
-    const rect = canvas.getBoundingClientRect();
-    const x = event.clientX - rect.left;
-    const y = event.clientY - rect.top;
-
-    // Calculate grid size in pixels (1em)
-    const gridSize = parseFloat(getComputedStyle(stage).fontSize);
-
-    // Convert pixel coordinates to grid coordinates
-    const gridX = Math.floor(x / gridSize);
-    const gridY = Math.floor(y / gridSize);
-
-    // Check if click is within reasonable grid bounds (be generous)
-    if (gridX < 0 || gridX > stageState.getStageSize().x + 1 || gridY < 0 || gridY > stageState.getStageSize().y + 1) {
-        return;
-    }
-
-    // Check if there's already an obstacle at this position
-    const existingObstacleIndex = stageState.getObstacles().findIndex(
-        obstacle => obstacle.x === gridX && obstacle.y === gridY
-    );
-
-    if (existingObstacleIndex !== -1) {
-        // Remove existing obstacle
-        stageState.getObstacles().splice(existingObstacleIndex, 1);
-    } else {
-        // Add new obstacle
-        stageState.getObstacles().push({x: gridX, y: gridY});
-    }
-
-    // Update the stage view to reflect changes
-    updateStageView();
-
-    // Copy obstacle map to clipboard as JSON
-    const obstacleJson = JSON.stringify(stageState.getObstacles());
-    navigator.clipboard.writeText(obstacleJson).then(() => {
-        console.log('Obstacle map copied to clipboard:', obstacleJson);
-    }).catch(err => {
-        console.error('Failed to copy to clipboard:', err);
-    });
-}
 
 export function setupEventListeners() {
   function handleMapChange(event) {
@@ -142,14 +99,20 @@ export function setupEventListeners() {
     document.getElementById("clearButton").addEventListener("pointerdown", handleClear);
     document.getElementById("design-button").addEventListener("pointerdown", handleDesignButton);
 
+    // Builder toggle button
+    const builderBtn = document.getElementById("builder-button");
+    if (builderBtn) {
+        builderBtn.addEventListener("pointerdown", () => mode.toggleBuilder());
+        builderBtn.setAttribute('aria-pressed', String(builder.isEnabled()));
+    }
+
     // Set up map selector
     document.getElementById("mapSelect").addEventListener("change", handleMapChange);
 
-    // Set up grid click handler
-    const canvas = document.getElementById('gridCanvas');
-    if (canvas) {
-        canvas.addEventListener('click', handleGridClick);
-    }
+    // ==== Builder controls wiring moved into BuilderView ====
+    // Initialize the BuilderView which binds DOM and delegates to Builder methods.
+    const builderView = new BuilderView();
+    builder.initView(builderView);
 
     // Set up keyboard event handlers
     document.addEventListener('keydown', handleKeydown);
