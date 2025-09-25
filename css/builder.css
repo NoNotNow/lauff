@@ -1,0 +1,14 @@
+.builder-container label{
+    font-family: 'Roboto', sans-serif;
+}
+
+/* Make labels white in night mode */
+.night .builder-container label{
+    color: #ffffff;
+}
+
+/* Moved from inline in index.html */
+.builder-content p{
+    margin: 0;
+    opacity: 0.8;
+}

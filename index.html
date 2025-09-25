@@ -18,6 +18,7 @@
     <link rel="stylesheet" href="css/controls.css"/>
     <link rel="stylesheet" href="css/animations.css"/>
     <link rel="stylesheet" href="css/editor.css"/>
+    <link rel="stylesheet" href="css/builder.css"/>
     <link rel="icon" href="favicon.ico" type="image/x-icon">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/6.65.7/codemirror.min.css">
     <link rel="stylesheet" href="css/codemirror-lauff-dark.css">
@@ -36,8 +37,9 @@
     <header class="site-header">
         <div class="site-logo"></div>
         <div class="corner-buttons">
-            <button id="design-button" class="icon-btn" title="Design wechseln" aria-label="Design wechseln">
-                <img src="assets/design.svg" alt="Design icon" onerror="this.style.display='none'"/>
+            <button id="design-button" class="icon-btn design-button" title="Design wechseln" aria-label="Design wechseln">
+                <img class="day" src="assets/day.svg" alt="Day"/>
+                <img class="night" src="assets/night.svg" alt="Night"/>
                 <span style="display:none;">DS</span>
             </button>
             <button id="builder-button" class="icon-btn" title="Builder einschalten" aria-label="Builder einschalten" aria-pressed="true">
@@ -114,19 +116,19 @@
         <!-- New builder UI container: shown when body has class 'builder' -->
         <div class="builder-container" aria-hidden="true">
             <div class="builder-toolbar" id="builderControls">
-                <label style="display:inline-flex;align-items:center;gap:.35em;">
+                <label>
                     Name:
-                    <input id="builder-name" type="text" placeholder="Level Name" style="min-width:10em;" />
+                    <input id="builder-name" type="text" placeholder="Level Name" />
                 </label>
-                <label style="display:inline-flex;align-items:center;gap:.35em;">
+                <label>
                     Breite:
-                    <input id="gridWidth" type="number" min="1" step="1" style="width:5em;" />
+                    <input id="gridWidth" type="number" min="1" step="1" />
                 </label>
-                <label style="display:inline-flex;align-items:center;gap:.35em;">
+                <label>
                     Höhe:
-                    <input id="gridHeight" type="number" min="1" step="1" style="width:5em;" />
+                    <input id="gridHeight" type="number" min="1" step="1" />
                 </label>
-                <label style="display:inline-flex;align-items:center;gap:.35em;">
+                <label>
                     Werkzeug:
                     <select id="builderTool" class="dropdown">
                         <option value="obstacles" selected>Hindernisse</option>
@@ -137,7 +139,7 @@
                 <button id="clearObstaclesBtn" class="builder-btn" title="Alle Hindernisse entfernen">Leeren</button>
             </div>
             <div class="builder-content">
-                <p style="margin:0; opacity:0.8;">Builder-Modus aktiv. Klicke ins Grid je nach Werkzeug, um Hindernisse zu setzen, Start/Position zu ändern oder das Ziel zu setzen.</p>
+                <p>Builder-Modus aktiv. Klicke ins Grid je nach Werkzeug, um Hindernisse zu setzen, Start/Position zu ändern oder das Ziel zu setzen.</p>
             </div>
         </div>
     </div>

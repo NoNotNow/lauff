@@ -1,7 +1,7 @@
 // Centralized app mode controller
 // Manages switching between 'editor' and 'builder' modes and notifies sub-systems
 
-import { builder } from './builder.js';
+import { builder } from '../builder/builder.js';
 import { editor } from '../code/code-editor.js';
 
 class ModeController {

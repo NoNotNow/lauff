@@ -8,6 +8,15 @@
     box-shadow: 0 0 7em rgba(0, 26, 255, 0.2);
 
 }
+.night .corner-buttons .design-button.icon-btn img.day{
+    display: block;
+}
+.corner-buttons .design-button.icon-btn img.day{
+    display: none;
+}
+.night .corner-buttons .design-button.icon-btn img.night{
+    display: none;
+}
 
 .code {
     background-color: white;
@@ -150,7 +159,9 @@
 /** Builder mode visibility toggles */
 /* Hide builder UI by default */
 .builder-container {
+    position: relative;
     display: none;
+    z-index: 10;
 }
 /* When body has class 'builder', show builder UI and hide editor */
 .builder .builder-container {
@@ -164,10 +175,30 @@
 
 /* Minimal styling for builder UI */
 .builder-toolbar {
-    display: flex;
-    gap: 0.5em;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr));
+    gap: 0.5em 0.75em;
     align-items: center;
-    justify-content: flex-start;
+}
+/* Make controls look orderly when wrapping */
+.builder-toolbar label {
+    display: inline-flex;
+    align-items: center;
+    gap: .35em;
+    white-space: nowrap;
+}
+.builder-toolbar input[type="text"] {
+    min-width: 10em;
+    flex: 1 1 auto;
+}
+.builder-toolbar input[type="number"] {
+    width: 5em;
+}
+.builder-toolbar select.dropdown {
+    min-width: 10em;
+}
+.builder-toolbar .builder-btn {
+    justify-self: start;
 }
 .builder-btn {
     padding: 0.4em 0.6em;
