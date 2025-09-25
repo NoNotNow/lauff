@@ -86,10 +86,19 @@
             </div>
         </div>
         <div class="editor-container">
-            <div class="editor-wrapper">
+            <div class="editor-actions top">
+                <button class="icon-btn save" id="saveButton" title="Save" aria-label="Save">
+                    <img src="assets/save.svg" alt="Save icon"/>
+                </button>
+                <button class="icon-btn clear-button" id="clearButton" title="Clear" aria-label="Clear">
+                    <img src="assets/clear.svg" alt="Clear icon"/>
+                </button>
+            </div>
+            <div class="editor-sizing">
+                <div class="editor-wrapper">
           <textarea class="code" id="code" rows="10" autocomplete="off" autocapitalize="off"
                     spellcheck="false">go();</textarea>
-                <div class="clear-button" id="clearButton">X</div>
+                </div>
             </div>
         </div>
     </div>
@@ -110,9 +119,6 @@
                 </div>
 
 
-                <button class="save" id="saveButton">
-                    Save
-                </button>
                 <button class="record" id="recordButton">
                     Record
                 </button>

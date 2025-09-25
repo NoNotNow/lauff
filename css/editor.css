@@ -15,14 +15,28 @@
     width: 100%;
 }
 
-.editor-wrapper {
-    position: relative;
-}
+
 
 .editor-container {
     position: relative;
+    display: flex;
+    flex-direction: column;
 }
 
+/* Editor actions toolbar above the editor */
+.editor-actions {
+    display: flex;
+    gap: 0.25em;
+    align-items: center;
+    margin-bottom: 0.25em;
+}
+.editor-sizing{
+    position: relative;
+    flex-grow: 1;
+}
+.editor-wrapper {
+    position: relative;
+}
 
 .CodeMirror {
     resize: both;
@@ -35,7 +49,7 @@
     height: 100%;
 }
 
-.clear-button {
+.editor-wrapper .clear-button {
     position: absolute;
     top: .3em;
     right: .3em;
@@ -56,8 +70,51 @@
     z-index: 6000;
 }
 
-.clear-button:hover {
+.editor-wrapper .clear-button:hover {
     background-color: #e8e8e8;
     color: #333;
+}
+
+
+
+/* Icon button style for editor toolbar */
+.editor-actions .icon-btn {
+    all: unset;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    border-radius: 4px;
+    cursor: pointer;
+    background: transparent;
+    color: #fff; /* white icons */
+}
+
+.editor-actions .icon-btn svg {
+    width: 1.3em;
+    height: 1.3em;
+}
+
+/* size external SVG <img> icons too */
+.editor-actions .icon-btn img {
+    width: 1.3em;
+    height: 1.3em;
+    display: block;
+}
+
+.editor-actions .icon-btn:hover {
+    background: rgba(255, 255, 255, 0.08);
+}
+
+/* Ensure global button styles don't leak in */
+.editor-actions .save,
+.editor-actions .clear-button {
+    background: transparent !important;
+    border: none !important;
+    min-width: 0 !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    color: #fff !important;
 }
 
