@@ -18,7 +18,7 @@ export function fillMapSelectDropdown(selectElement, selectedValue) {
         option.value = value.name;
         option.textContent = value.name || key;
         selectElement.appendChild(option);
-        if (key === selectedValue) selectElement.selectedIndex = index;
+        if (toFileName(value.name) === toFileName(selectedValue)) selectElement.selectedIndex = index;
         index++;
     });
 
