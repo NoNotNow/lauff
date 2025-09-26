@@ -8,7 +8,7 @@ import {handleRecordedCommand} from './game-state/recorder.js';
 import {editor} from './code/code-editor.js';
 import {designs} from './design/designs.js';
 import {builder} from './builder/builder.js';
-import {mode} from './design/mode.js';
+import {mode} from './mode.js';
 import {toFileName} from "./utility/helpers.js";
 import { BuilderView } from './builder/builder-view.js';
 

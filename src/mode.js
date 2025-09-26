@@ -1,8 +1,9 @@
 // Centralized app mode controller
 // Manages switching between 'editor' and 'builder' modes and notifies sub-systems
 
-import { builder } from '../builder/builder.js';
-import { editor } from '../code/code-editor.js';
+import { builder } from './builder/builder.js';
+import { editor } from './code/code-editor.js';
+import {drawGrid} from "./stage-effects/view-renderer.js";
 
 class ModeController {
   /**
@@ -28,6 +29,8 @@ class ModeController {
       if (!builder.isEnabled()) builder.enable();
     } else {
       if (builder.isEnabled()) builder.disable();
+      drawGrid();
+
     }
     this.#afterModeChanged(mode);
   }
@@ -45,6 +48,7 @@ class ModeController {
     this.#announce();
     // Give layout a frame to update visibility, then let editor adjust itself
     requestAnimationFrame(() => requestAnimationFrame(() => editor.onModeChanged(mode)));
+    drawGrid();
   }
 
   #announce() {

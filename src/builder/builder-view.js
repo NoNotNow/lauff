@@ -14,6 +14,7 @@ export class BuilderView {
     this.clearBtn = document.getElementById('clearObstaclesBtn');
     this.canvas = document.getElementById('gridCanvas');
     this.stage = document.getElementById('stage');
+    this.saveGridButton = document.getElementById('saveGridButton');
 
     // Initialize inputs from builder state
     try {
@@ -49,10 +50,15 @@ export class BuilderView {
     if (this.canvas) {
       this.canvas.addEventListener('click', (event) => this.#handleCanvasClick(event));
     }
+
+    if (this.saveGridButton) {
+      this.saveGridButton.addEventListener('pointerdown', () => builder.saveGrid());
+    }
   }
 
   /** Convert mouse click to grid coordinates and forward to builder */
   #handleCanvasClick(event) {
+      if(!builder.isEnabled()) return;
     if (!this.canvas || !this.stage) return;
     const rect = this.canvas.getBoundingClientRect();
     const x = event.clientX - rect.left;
