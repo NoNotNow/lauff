@@ -49,12 +49,14 @@
   width: 8em;
 }
 
-.night .selectors-container select{
+.night .selectors-container select, .night .dropdown{
   background-color: #333;
   color: white;
 }
 
-
+.selectors-container select option{
+    color:black;
+}
   
 .speed-selector { 
   display: flex;
@@ -72,9 +74,14 @@
   cursor: pointer;
 }
 
-.dropdown:hover {
-  border-color: #999;
-}
+/*.dropdown:hover {*/
+/*    border-color: #999;*/
+/*    !*color: black;*!*/
+/*}*/
+
+/*!*.dropdown option:hover {*!*/
+/*!*    color:black;*!*/
+/*!*}*!*/
 
 .dropdown:focus {
   outline: none;
