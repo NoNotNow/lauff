@@ -2,6 +2,7 @@
 // Manages switching between 'editor' and 'builder' modes and notifies sub-systems
 
 import { builder } from './builder/builder.js';
+import { builderView } from './builder/builder-view.js';
 import { editor } from './code/code-editor.js';
 import {drawGrid} from "./stage-effects/view-renderer.js";
 
@@ -27,6 +28,7 @@ class ModeController {
   setMode(mode) {
     if (mode === 'builder') {
       if (!builder.isEnabled()) builder.enable();
+      builderView.updateViewFromSnapshot();
     } else {
       if (builder.isEnabled()) builder.disable();
       drawGrid();

@@ -25,6 +25,10 @@
     gap: 4%;
   }
 
+   .builder .stage-container{
+      font-size: 2em;
+   }
+
 
 
   .editor-container {

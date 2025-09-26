@@ -15,17 +15,12 @@ export class BuilderView {
     this.canvas = document.getElementById('gridCanvas');
     this.stage = document.getElementById('stage');
     this.saveGridButton = document.getElementById('saveGridButton');
+    this.copyGridButton = document.getElementById('copyGridButton');
 
     // Initialize inputs from builder state
-    try {
-      const s = builder.getSnapshot();
-      if (this.nameInput) this.nameInput.value = s.name || '';
-      if (this.widthInput) this.widthInput.value = String(s.stageSize.x ?? 0);
-      if (this.heightInput) this.heightInput.value = String(s.stageSize.y ?? 0);
-      if (this.toolSelect) this.toolSelect.value = s.tool;
-    } catch {}
+      this.updateViewFromSnapshot();
 
-    // Wire events -> builder API
+      // Wire events -> builder API
     if (this.nameInput) {
       this.nameInput.addEventListener('input', () => builder.setName(this.nameInput.value));
     }
@@ -54,9 +49,26 @@ export class BuilderView {
     if (this.saveGridButton) {
       this.saveGridButton.addEventListener('pointerdown', () => builder.saveGrid());
     }
+    if (this.copyGridButton) {
+      this.copyGridButton.addEventListener('pointerdown', () => builder.copyGrid());
+    }
+    /*copy values to ui*/
+      this.#copyValuesToUI();
   }
 
-  /** Convert mouse click to grid coordinates and forward to builder */
+    updateViewFromSnapshot() {
+        try {
+            const s = builder.getSnapshot();
+            if (this.nameInput) this.nameInput.value = s.name || '';
+            if (this.widthInput) this.widthInput.value = String(s.stageSize.x ?? 0);
+            if (this.heightInput) this.heightInput.value = String(s.stageSize.y ?? 0);
+            if (this.toolSelect) this.toolSelect.value = s.tool;
+        } catch (e){
+            console.error('Unable to save view', e);
+        }
+    }
+
+    /** Convert mouse click to grid coordinates and forward to builder */
   #handleCanvasClick(event) {
       if(!builder.isEnabled()) return;
     if (!this.canvas || !this.stage) return;
@@ -70,4 +82,11 @@ export class BuilderView {
 
     builder.applyGridClick(gridX, gridY);
   }
+
+    #copyValuesToUI() {
+        builder.getSnapshot();
+    }
 }
+
+export const builderView = new BuilderView();
+builder.initView(builderView);

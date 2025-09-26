@@ -42,14 +42,17 @@
     <header class="site-header">
         <div class="site-logo"></div>
         <div class="corner-buttons">
-            <button id="design-button" class="icon-btn design-button" title="Design wechseln" aria-label="Design wechseln">
+            <button id="design-button" class="icon-btn design-button" title="Design wechseln"
+                    aria-label="Design wechseln">
                 <img class="day" src="assets/day.svg" alt="Day"/>
                 <img class="night" src="assets/night.svg" alt="Night"/>
             </button>
-            <button id="builder-button" class="icon-btn" title="Builder einschalten" aria-label="Builder einschalten" aria-pressed="true">
+            <button id="builder-button" class="icon-btn" title="Builder einschalten" aria-label="Builder einschalten"
+                    aria-pressed="true">
                 <!-- White wrench icon -->
                 <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                    <path fill="currentColor" d="M22.7 19.3l-6.1-6.1a6.5 6.5 0 0 1-8.6-8.6l3.05 3.05 2.12-2.12L10.12 2.5a6.5 6.5 0 0 1 8.6 8.6l6.1 6.1-2.12 2.12zM7 22a2 2 0 1 1 0-4 2 2 0 0 1 0 4z"/>
+                    <path fill="currentColor"
+                          d="M22.7 19.3l-6.1-6.1a6.5 6.5 0 0 1-8.6-8.6l3.05 3.05 2.12-2.12L10.12 2.5a6.5 6.5 0 0 1 8.6 8.6l6.1 6.1-2.12 2.12zM7 22a2 2 0 1 1 0-4 2 2 0 0 1 0 4z"/>
                 </svg>
             </button>
         </div>
@@ -116,24 +119,24 @@
                 </div>
             </div>
         </div>
-        
+
         <!-- New builder UI container: shown when body has class 'builder' -->
         <div class="builder-container" aria-hidden="true">
             <div class="builder-toolbar" id="builderControls">
 
                 <label>
                     Name:
-                    <input id="builder-name" type="text" placeholder="Level Name" />
+                    <input id="builder-name" type="text" placeholder="Level Name"/>
                 </label>
                 <div>
-                <label>
-                    Breite:
-                    <input id="gridWidth" type="number" min="1" step="1" max="100" />
-                </label>
-                <label>
-                    Höhe:
-                    <input id="gridHeight" type="number" min="1" step="1" max="100"/>
-                </label>
+                    <label>
+                        Breite:
+                        <input id="gridWidth" type="number" min="1" step="1" max="100"/>
+                    </label>
+                    <label>
+                        Höhe:
+                        <input id="gridHeight" type="number" min="1" step="1" max="100"/>
+                    </label>
                 </div>
                 <label>
                     Werkzeug:
@@ -143,12 +146,17 @@
                         <option value="target">Ziel</option>
                     </select>
                 </label>
-                <button id="clearObstaclesBtn" class="icon-btn" title="Alle Hindernisse entfernen">
-                    <img src="assets/clear.svg" alt="clear icon"/>
-                </button>
-                <button class="icon-btn save" id="saveGridButton" title="Save" aria-label="Save">
-                    <img src="assets/save.svg" alt="Save icon"/>
-                </button>
+                <div>
+                    <button id="clearObstaclesBtn" class="icon-btn" title="Alle Hindernisse entfernen">
+                        <img src="assets/clear.svg" alt="clear icon"/>
+                    </button>
+                    <button class="icon-btn save" id="saveGridButton" title="Save" aria-label="Save">
+                        <img src="assets/save.svg" alt="Save icon"/>
+                    </button>
+                    <button class="icon-btn copy" id="copyGridButton" title="Copy" aria-label="Copy">
+                        <img src="assets/copy.svg" alt="Copy icon"/>
+                    </button>
+                </div>
             </div>
         </div>
     </div>

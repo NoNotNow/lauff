@@ -145,6 +145,14 @@ class StageState {
     turnLeft(input) {
         this.setDirection(this.#state.direction - input);
     }
+
+    /**
+     * return a copy of the state
+     * @returns {StageBlueprint}
+     */
+    getState() {
+        return JSON.parse(JSON.stringify(this.#state));
+    }
 }
 
 export const stageState = new StageState();

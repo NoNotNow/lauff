@@ -10,7 +10,6 @@ import {designs} from './design/designs.js';
 import {builder} from './builder/builder.js';
 import {mode} from './mode.js';
 import {toFileName} from "./utility/helpers.js";
-import { BuilderView } from './builder/builder-view.js';
 
 
 async function handleKeydown(event) {
@@ -109,10 +108,7 @@ export function setupEventListeners() {
     // Set up map selector
     document.getElementById("mapSelect").addEventListener("change", handleMapChange);
 
-    // ==== Builder controls wiring moved into BuilderView ====
-    // Initialize the BuilderView which binds DOM and delegates to Builder methods.
-    const builderView = new BuilderView();
-    builder.initView(builderView);
+
 
     // Set up keyboard event handlers
     document.addEventListener('keydown', handleKeydown);

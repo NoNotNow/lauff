@@ -3,6 +3,7 @@
 
 import { stageState } from '../game-state/stage-state.js';
 import { adjustSize, updateAvatar, updateStageView, drawGrid } from '../stage-effects/view-renderer.js';
+import {saveBluePrint} from "../data/save-load.js";
 
 class Builder {
   constructor() {
@@ -152,6 +153,15 @@ class Builder {
       btn.title = this.isEnabled() ? 'Builder ausschalten' : 'Builder einschalten';
     }
   }
+
+    saveGrid() {
+        saveBluePrint(stageState.getState())
+    }
+
+    copyGrid() {
+        //copy to clipboard
+        navigator.clipboard.writeText(JSON.stringify(stageState.getState()));
+    }
 }
 
 export const builder = new Builder();

@@ -5,6 +5,7 @@
 
 /** @typedef {import('../types/stage-model.js').StageBlueprint} StageBlueprint */
 import {toFileName} from "../utility/helpers.js";
+import {getStoredBluePrints} from "./save-load.js";
 
 /** @typedef {import('../types/stage-model.js').StageSnapshot} StageSnapshot */
 
@@ -12,15 +13,18 @@ import {toFileName} from "../utility/helpers.js";
 export function fillMapSelectDropdown(selectElement, selectedValue) {
     if (!selectElement) return;
     selectElement.innerHTML = '';
+    blueprints.push(...getStoredBluePrints());
     let index = 0;
-    Object.entries(blueprints).forEach(([key, value]) => {
+    blueprints.forEach((value) => {
         const option = document.createElement('option');
         option.value = value.name;
-        option.textContent = value.name || key;
+        option.textContent = value.name;
         selectElement.appendChild(option);
         if (toFileName(value.name) === toFileName(selectedValue)) selectElement.selectedIndex = index;
         index++;
     });
+
+
 
 }
 

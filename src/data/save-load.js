@@ -2,13 +2,17 @@
 import { stageState } from '../game-state/stage-state.js';
 import { editor } from '../code/code-editor.js';
 import {toFileName} from "../utility/helpers.js";
+/** @typedef {import('../types/stage-model.js').StageBlueprint} StageBlueprint */
+
 
 // Get the current map name
+/** @returns {string} */
 function getCurrentMapName() {
   // Find which map matches the current obstacles
   return stageState.getName();
 }
 
+/** @returns {void} */
 export function saveCode() {
   console.log("saveCode function called");
   const code = editor.getCode();
@@ -20,6 +24,10 @@ export function saveCode() {
 
 }
 
+/**
+ * @param {string|null} mapName
+ * @returns {void}
+ */
 export function loadCode(mapName = null) {
   console.log("loadCode function called");
   const currentMapName = toFileName(mapName || getCurrentMapName());
@@ -37,10 +45,50 @@ export function loadCode(mapName = null) {
   }
 }
 
+/**
+ * @param {string} selected
+ * @returns {void}
+ */
 export function saveSelectedMap(selected) {
   localStorage.setItem(`selectedMap`, toFileName(selected));
 }
 
+/** @returns {string} */
 export function getStoredSelectedMap() {
   return toFileName(localStorage.getItem('selectedMap'));
+}
+
+/**
+ * @param {StageBlueprint} bluePrint
+ */
+export function saveBluePrint(bluePrint) {
+    localStorage.setItem(`blueprint_${bluePrint.name}`, JSON.stringify(bluePrint));
+}
+
+
+/**
+ * @param {string} mapName
+ * @returns {StageBlueprint|null}
+ */
+export function loadBluePrint(mapName) {
+    const blueprint = localStorage.getItem(`blueprint_${mapName}`);
+    if (blueprint) {
+        return JSON.parse(blueprint);
+    }
+    return null;
+}
+
+/**
+ * Get all stored blueprints
+ * @returns {StageBlueprint[]}
+ */
+export function getStoredBluePrints() {
+    const blueprints = [];
+    for (let i = 0; i < localStorage.length; i++) {
+        const key = localStorage.key(i);
+        if (key.startsWith('blueprint_')) {
+            blueprints.push(JSON.parse(localStorage.getItem(key)));
+        }
+    }
+    return blueprints;
 }
