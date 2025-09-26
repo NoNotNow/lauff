@@ -8,6 +8,7 @@
     <!-- CodeMirror 5.65.7 by Marijn Haverbeke and contributors. MIT License: https://codemirror.net/ -->
     <!-- JavaScript mode for CodeMirror. MIT License: https://codemirror.net/ -->
     <!-- Esprima 4.0.1 by Ariya Hidayat and contributors. BSD-2-Clause License: https://esprima.org/ -->
+    <link rel="stylesheet" href="css/general.css"/>
     <link rel="stylesheet" href="css/base.css"/>
     <link rel="stylesheet" href="css/layout.css"/>
     <link rel="stylesheet" href="css/instructions.css"/>
@@ -20,8 +21,12 @@
     <link rel="stylesheet" href="css/editor.css"/>
     <link rel="stylesheet" href="css/builder.css"/>
     <link rel="icon" href="favicon.ico" type="image/x-icon">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/6.65.7/codemirror.min.css">
     <link rel="stylesheet" href="css/codemirror-lauff-dark.css">
+    <link rel="stylesheet" href="external_libs/custom-select/custom-select.css">
+    <script src="external_libs/custom-select/custom-select.min.js"></script>
+
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/6.65.7/codemirror.min.css">
 
     <script src="external_libs/esprima.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/6.65.7/codemirror.min.js"></script>
@@ -40,7 +45,6 @@
             <button id="design-button" class="icon-btn design-button" title="Design wechseln" aria-label="Design wechseln">
                 <img class="day" src="assets/day.svg" alt="Day"/>
                 <img class="night" src="assets/night.svg" alt="Night"/>
-                <span style="display:none;">DS</span>
             </button>
             <button id="builder-button" class="icon-btn" title="Builder einschalten" aria-label="Builder einschalten" aria-pressed="true">
                 <!-- White wrench icon -->
@@ -116,18 +120,21 @@
         <!-- New builder UI container: shown when body has class 'builder' -->
         <div class="builder-container" aria-hidden="true">
             <div class="builder-toolbar" id="builderControls">
+
                 <label>
                     Name:
                     <input id="builder-name" type="text" placeholder="Level Name" />
                 </label>
+                <div>
                 <label>
                     Breite:
-                    <input id="gridWidth" type="number" min="1" step="1" />
+                    <input id="gridWidth" type="number" min="1" step="1" max="100" />
                 </label>
                 <label>
                     Höhe:
-                    <input id="gridHeight" type="number" min="1" step="1" />
+                    <input id="gridHeight" type="number" min="1" step="1" max="100"/>
                 </label>
+                </div>
                 <label>
                     Werkzeug:
                     <select id="builderTool" class="dropdown">
@@ -136,10 +143,12 @@
                         <option value="target">Ziel</option>
                     </select>
                 </label>
-                <button id="clearObstaclesBtn" class="builder-btn" title="Alle Hindernisse entfernen">Leeren</button>
-            </div>
-            <div class="builder-content">
-                <p>Builder-Modus aktiv. Klicke ins Grid je nach Werkzeug, um Hindernisse zu setzen, Start/Position zu ändern oder das Ziel zu setzen.</p>
+                <button id="clearObstaclesBtn" class="icon-btn" title="Alle Hindernisse entfernen">
+                    <img src="assets/clear.svg" alt="clear icon"/>
+                </button>
+                <button class="icon-btn save" id="saveGridButton" title="Save" aria-label="Save">
+                    <img src="assets/save.svg" alt="Save icon"/>
+                </button>
             </div>
         </div>
     </div>

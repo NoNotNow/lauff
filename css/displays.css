@@ -16,11 +16,7 @@
 
 .map-selector label {
   font-weight: bold;
-  color: #333;
-}
-
-.night .map-selector label {
-  color: white;
+  /*color: #333;*/
 }
 
 .map-dropdown {
@@ -33,15 +29,7 @@
   min-width: 120px;
 }
 
-.map-dropdown:hover {
-  border-color: #999;
-}
 
-.map-dropdown:focus {
-  outline: none;
-  border-color: #007bff;
-  box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25);
-}
 
 
 

@@ -1,0 +1,94 @@
+
+/*text*/
+.night{
+    color: white;
+}
+
+
+/*selector*/
+select { /* L48–51 */
+    width: 8em;
+}
+
+.night select, .night .dropdown option{ /* L52–55 */
+    background-color: #333;
+    color: white;
+}
+
+.night select option:hover, .night .dropdown option:hover{ /* L52–55 */
+    background-color: #333;
+    color: black;
+}
+
+ select option{
+    color:black;
+}
+
+.dropdown:focus {
+    outline: none;
+    border-color: #007bff;
+    box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25);
+}
+.dropdown {
+    padding: 0.3em 0.5em;
+    border: 0.0625em solid #ccc;
+    border-radius: 4px;
+    background-color: white;
+    font-size: 0.9em;
+    cursor: pointer;
+}
+
+.dropdown:hover {
+    border-color: #999;
+    /*color: black;*/
+}
+
+.dropdown select option:hover {
+    color:black;
+}
+
+.map-dropdown:hover {
+    border-color: #999;
+}
+
+.map-dropdown:focus {
+    outline: none;
+    border-color: #007bff;
+    box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25);
+}
+
+select:hover {
+    background-color: #f0f0f0;
+    border-color: #007bff;
+}
+
+/* Icon button  */
+.icon-btn {
+    all: unset;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 1.3em;
+    height: 1.3em;
+    padding: 0.2em;
+    border-radius: 4px;
+    cursor: pointer;
+    background: transparent;
+    color: #fff; /* white icons */
+}
+
+.icon-btn svg {
+    width: 1.3em;
+    height: 1.3em;
+}
+
+/* size external SVG <img> icons too */
+.icon-btn img {
+    width: 1.3em;
+    height: 1.3em;
+    display: block;
+}
+
+ .icon-btn:hover {
+    background: rgba(255, 255, 255, 0.08);
+}
