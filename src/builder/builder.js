@@ -3,7 +3,7 @@
 
 import {stageState} from '../game-state/stage-state.js';
 import {adjustSize, updateAvatar, updateStageView, drawGrid} from '../stage-effects/view-renderer.js';
-import {loadBluePrint, saveBluePrint} from "../data/save-load.js";
+import {loadBluePrint, removeBluePrintEntry, saveBluePrint} from "../data/save-load.js";
 
 class Builder {
     constructor() {
@@ -175,6 +175,10 @@ class Builder {
         }
         stageState.loadGameState(loadBluePrint(value));
 
+    }
+
+    remove(value) {
+        removeBluePrintEntry(value);
     }
 }
 

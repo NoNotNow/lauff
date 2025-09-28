@@ -19,6 +19,8 @@ export class BuilderView {
         this.saveGridButton = document.getElementById('saveGridButton');
         this.copyGridButton = document.getElementById('copyGridButton');
         this.levelSelect = document.getElementById('builder-level-select');
+        this.loadButton = document.getElementById('load-blueprint');
+        this.removeButton = document.getElementById('remove-blueprint');
         // Initialize inputs from builder state
         this.updateViewFromSnapshot();
         this.populateLevelSelect();
@@ -50,16 +52,31 @@ export class BuilderView {
         }
 
         if (this.saveGridButton) {
-            this.saveGridButton.addEventListener('pointerdown', () => builder.saveGrid());
+            this.saveGridButton.addEventListener('pointerdown', () => {
+                builder.saveGrid();
+                this.populateLevelSelect();
+            });
         }
         if (this.copyGridButton) {
             this.copyGridButton.addEventListener('pointerdown', () => builder.copyGrid());
         }
         if (this.levelSelect) {
             this.levelSelect.addEventListener('change', () => {
-                builder.setLevel(this.levelSelect.value);
-                updateFullStage();
-                this.updateViewFromSnapshot();
+
+            });
+        }
+        if (this.loadButton) {
+            this.loadButton.addEventListener('pointerdown', () => {
+                    builder.setLevel(this.levelSelect.value);
+                    updateFullStage();
+                    this.updateViewFromSnapshot();
+                }
+            );
+        }
+        if (this.removeButton) {
+            this.removeButton.addEventListener('pointerdown', () => {
+                builder.remove(this.levelSelect.value);
+                this.populateLevelSelect();
             });
         }
 

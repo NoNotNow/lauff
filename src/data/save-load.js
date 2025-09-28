@@ -81,6 +81,15 @@ export function loadBluePrint(mapName) {
 }
 
 /**
+ * Remove blueprint from storage
+ * @param mapName
+ */
+export function removeBluePrintEntry(mapName) {
+    localStorage.removeItem(`blueprint_${toFileName(mapName)}`);
+    localStorage.removeItem(`blueprint_${mapName}`);
+}
+
+/**
  * Get all stored blueprints
  * @returns {StageBlueprint[]}
  */
