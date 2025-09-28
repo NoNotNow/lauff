@@ -123,7 +123,11 @@
         <!-- New builder UI container: shown when body has class 'builder' -->
         <div class="builder-container" aria-hidden="true">
             <div class="builder-toolbar" id="builderControls">
+                <div class="">
+                    <select id="builder-level-select" size="4">
 
+                    </select>
+                </div>
                 <label>
                     Name:
                     <input id="builder-name" type="text" placeholder="Level Name"/>
@@ -148,7 +152,7 @@
                 </label>
                 <div>
                     <button id="clearObstaclesBtn" class="icon-btn" title="Alle Hindernisse entfernen">
-                        <img src="assets/clear.svg" alt="clear icon"/>
+                        <img src="assets/broom.svg" alt="clear icon"/>
                     </button>
                     <button class="icon-btn save" id="saveGridButton" title="Save" aria-label="Save">
                         <img src="assets/save.svg" alt="Save icon"/>

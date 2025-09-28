@@ -2,6 +2,12 @@
 import {stageState} from '../game-state/stage-state.js';
 import {designs} from '../design/designs.js';
 
+export function updateFullStage(){
+    adjustSize(stageState.getStageSize());
+    updateStageView();
+    drawGrid();
+}
+
 /**
  *
  * @param {{x,y}} size
@@ -63,6 +69,8 @@ export function updateStageView() {
     const target = stage.querySelector('.target');
     target.style.left = stageState.getTarget().x + 'em';
     target.style.top = stageState.getTarget().y + 'em';
+
+    updateAvatar();
 }
 
 export function drawGrid() {

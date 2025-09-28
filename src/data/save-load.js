@@ -62,7 +62,8 @@ export function getStoredSelectedMap() {
  * @param {StageBlueprint} bluePrint
  */
 export function saveBluePrint(bluePrint) {
-    localStorage.setItem(`blueprint_${bluePrint.name}`, JSON.stringify(bluePrint));
+    localStorage.removeItem(`blueprint_${bluePrint.name}`);
+    localStorage.setItem(`blueprint_${bluePrint.name}`, JSON.stringify(bluePrint), );
 }
 
 
@@ -71,7 +72,8 @@ export function saveBluePrint(bluePrint) {
  * @returns {StageBlueprint|null}
  */
 export function loadBluePrint(mapName) {
-    const blueprint = localStorage.getItem(`blueprint_${mapName}`);
+    mapName = toFileName(mapName);
+    const blueprint = localStorage.getItem(`blueprint_${toFileName(mapName)}`);
     if (blueprint) {
         return JSON.parse(blueprint);
     }

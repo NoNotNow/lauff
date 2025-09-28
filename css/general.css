@@ -11,18 +11,26 @@ select { /* L48–51 */
 }
 
 .night select, .night .dropdown option{ /* L52–55 */
-    background-color: #333;
+    background-color: #888;
     color: white;
 }
 
 .night select option:hover, .night .dropdown option:hover{ /* L52–55 */
-    background-color: #333;
+    background-color: #888;
     color: black;
 }
-
- select option{
-    color:black;
+select:focus {
+    background-color: #888;
 }
+.night select:focus {
+    background-color: #888;
+    border-color: #007bff;
+    box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25);
+}
+
+/* select option{*/
+/*    color:black;*/
+/*}*/
 
 .dropdown:focus {
     outline: none;
@@ -58,7 +66,7 @@ select { /* L48–51 */
 }
 
 select:hover {
-    background-color: #f0f0f0;
+    background-color: #999;
     border-color: #007bff;
 }
 
