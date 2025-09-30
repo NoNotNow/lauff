@@ -1,131 +1,130 @@
 /* Game stage and game elements */
 .stage {
-  position: relative;
-  background: linear-gradient(135deg, #ff9a56, #ff6b35, #f7931e);
-  transition-duration: 60ms;
-  outline: 0.125em solid black;
-  flex-shrink: 0;
-  z-index: 1001;
+    position: relative;
+    background: linear-gradient(135deg, #ff9a56, #ff6b35, #f7931e);
+    transition-duration: 60ms;
+    outline: 0.125em solid black;
+    flex-shrink: 0;
+    z-index: 1001;
 }
 
 /*give a glow to the stage outline in night mode*/
 /* Use a pseudo-element for multiply blend box-shadow effect */
 .night .stage {
-  position: relative;
+    position: relative;
 }
 
 .night .stage::after {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  pointer-events: none;
-  box-shadow: 0 0 4em 0.5em rgba(134, 156, 255, 0.4);
-  mix-blend-mode: difference;
-  z-index: 1002;
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    box-shadow: 0 0 4em 0.5em rgba(134, 156, 255, 0.4);
+    mix-blend-mode: difference;
+    z-index: 1002;
 }
 
 
 .stage .stage-background {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-size: cover;
-  background-position: center;
-  opacity: 1;
-  /* Adjust opacity for a subtle effect */
-  z-index: 0;
-  /* Ensure it's behind other elements */
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    opacity: 1;
+    /* Adjust opacity for a subtle effect */
+    z-index: 0;
+    /* Ensure it's behind other elements */
 }
 
 .night .stage-background {
-  background-image: url('../../assets/stars.svg');
+    background-image: url('../../assets/stars.svg');
 }
 
 #gridCanvas {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  pointer-events: none;
-  z-index: 1;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 1;
 }
-
-
 
 
 .stage.wall-collision {
-  animation: shake 500ms infinite;
-  background-color: red;
+    animation: shake 500ms infinite;
+    background-color: red;
 }
 
 .stage.obstacle-collision {
-  animation: shake 500ms infinite;
-  background: linear-gradient(135deg, #8b5cf6, #a855f7, #9333ea);
+    animation: shake 500ms infinite;
+    background: linear-gradient(135deg, #8b5cf6, #a855f7, #9333ea);
 }
 
 .stage.target-reached {
-  animation: celebrate 2s ease-in-out;
-  background: linear-gradient(135deg, #fbbf24, #f59e0b, #d97706);
+    animation: celebrate 2s ease-in-out;
+    background: linear-gradient(135deg, #fbbf24, #f59e0b, #d97706);
 }
 
 .obstacle {
-  position: absolute;
-  width: 1em;
-  height: 1em;
-  background: linear-gradient(135deg, #374151, #1f2937);
-  border: 0.125em solid #000;
-  border-radius: 0.2em;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
-  box-sizing: border-box;
-  z-index: 2;
-  pointer-events: none;
-  transition-duration: 600ms;
+    position: absolute;
+    width: 1em;
+    height: 1em;
+    background: linear-gradient(135deg, #374151, #1f2937);
+    border: 0.125em solid #000;
+    border-radius: 0.2em;
+    box-shadow: 0 .1em .2em rgba(0, 0, 0, 0.3);
+    box-sizing: border-box;
+    z-index: 2;
+    pointer-events: none;
+    transition-duration: 600ms;
 }
 
 .night .obstacle {
-  /* background: linear-gradient(135deg, #4b5563, #374151); */
-  filter: drop-shadow(0 .01em .5em rgba(112, 255, 212, 0.158));
+    /* background: linear-gradient(135deg, #4b5563, #374151); */
+    filter: drop-shadow(0 .01em .5em rgba(112, 255, 212, 0.158));
+    border-color: rgba(255, 255, 255, 0.2);
 }
 
 .target {
-  position: absolute;
-  width: 2em;
-  height: 2em;
-  z-index: 3;
-  background-image: url('../../assets/target.svg');
-  background-size: contain;
-  /*drop shadow*/
-  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
-  transition-duration: 500ms;
+    position: absolute;
+    width: 2em;
+    height: 2em;
+    z-index: 3;
+    background-image: url('../../assets/target.svg');
+    background-size: contain;
+    /*drop shadow*/
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
+    transition-duration: 500ms;
 }
 
 @keyframes slow-rotate {
-  0% {
-    transform: rotate(0deg);
-  }
+    0% {
+        transform: rotate(0deg);
+    }
 
-  100% {
-    transform: rotate(360deg);
-  }
+    100% {
+        transform: rotate(360deg);
+    }
 }
 
 .running .stage .target {
-  animation: slow-rotate 120s linear infinite;
+    animation: slow-rotate 120s linear infinite;
 }
 
 .night .target {
-  filter: drop-shadow(0 .2em 2em rgba(253, 237, 13, 0.8));
+    filter: drop-shadow(0 .2em 2em rgba(253, 237, 13, 0.8));
 }
 
 .target span {
-  position: relative;
-  top: -.1em;
-  left: -.1em;
-  font-size: 1.6em;
+    position: relative;
+    top: -.1em;
+    left: -.1em;
+    font-size: 1.6em;
 }
