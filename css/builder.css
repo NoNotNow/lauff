@@ -1,16 +1,44 @@
 .builder-container label {
     font-family: 'Roboto', sans-serif;
 }
-.level-loader{
+
+.level-loader {
+    border: .1em solid #ccc;
+    border-radius: 1em;
+    padding: 1em;
     display: flex;
     flex-direction: row;
 }
 
-.level-loader-actions{
+.level-loader .level-loader-actions{
+    display: none;
+}
+
+.level-loader select{
+    display: none;
+}
+.level-loader .level-loader-title{
+    cursor: pointer;
+}
+.level-loader.open .level-loader-title{
+    display: none;
+}
+
+.level-loader.open .level-loader-actions{
+    display: flex;
+}
+.level-loader.open select{
+    display:flex;
+}
+
+
+
+.level-loader-actions {
     display: flex;
     flex-direction: column;
 }
-.level-loader-actions button{
+
+.level-loader-actions button {
     display: flex;
 }
 
@@ -105,10 +133,10 @@
 }
 
 
-.builder .site-logo{
-    display:none;
+.builder .site-logo {
+    display: none;
 }
 
-.builder .instructions{
+.builder .instructions {
     display: none;
 }

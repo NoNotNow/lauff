@@ -21,6 +21,7 @@ export class BuilderView {
         this.levelSelect = document.getElementById('builder-level-select');
         this.loadButton = document.getElementById('load-blueprint');
         this.removeButton = document.getElementById('remove-blueprint');
+        this.levelLoaderOpener = document.getElementById('level-loader-title');
         // Initialize inputs from builder state
         this.updateViewFromSnapshot();
         this.populateLevelSelect();
@@ -70,6 +71,7 @@ export class BuilderView {
                     builder.setLevel(this.levelSelect.value);
                     updateFullStage();
                     this.updateViewFromSnapshot();
+                    document.getElementById('level-loader').classList.remove('open');
                 }
             );
         }
@@ -77,6 +79,12 @@ export class BuilderView {
             this.removeButton.addEventListener('pointerdown', () => {
                 builder.remove(this.levelSelect.value);
                 this.populateLevelSelect();
+            });
+        }
+
+        if (this.levelLoaderOpener) {
+            this.levelLoaderOpener.addEventListener('pointerdown', () => {
+                document.getElementById('level-loader').classList.add('open');
             });
         }
 

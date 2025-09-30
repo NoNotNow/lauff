@@ -11,6 +11,7 @@ import {adjustSize, updateAvatar, updateStageView, drawGrid} from '../stage-effe
 class StageState {
     /** @type {StageModel} */
     #state;
+    #isDirty = false;
 
     constructor() {
         this.#state = bluePrints.getDefault();
@@ -33,6 +34,7 @@ class StageState {
 
     setName(name){
         this.#state.name = String(name ?? '');
+        this.#isDirty = true;
     }
 
     loadMapFromKey(key) {
@@ -60,6 +62,7 @@ class StageState {
         this.#state.obstacles = map.obstacles;
         this.#state.targetPosition = map.targetPosition;
         this.#state.stageSize = map.stageSize;
+        this.#isDirty = false;
     }
 
     resetPosition() {
@@ -118,6 +121,7 @@ class StageState {
         this.#state.startPosition.y = pos.y;
         this.#state.position.x = pos.x;
         this.#state.position.y = pos.y;
+        this.#isDirty = true;
     }
 
     /**
@@ -127,6 +131,7 @@ class StageState {
     setTarget(pos){
         this.#state.targetPosition.x = pos.x;
         this.#state.targetPosition.y = pos.y;
+        this.#isDirty = true;
     }
 
     /**
@@ -136,6 +141,7 @@ class StageState {
     setStageSize(size){
         this.#state.stageSize.x = size.x;
         this.#state.stageSize.y = size.y;
+        this.#isDirty = true;
     }
 
     turnRight(input) {
@@ -152,6 +158,24 @@ class StageState {
      */
     getState() {
         return JSON.parse(JSON.stringify(this.#state));
+    }
+
+    isDirty() {
+        return this.#isDirty;
+    }
+
+    hasObstacle(gridX, gridY) {
+        return this.#state.obstacles.some(o => o.x === gridX && o.y === gridY);
+    }
+
+    removeObstacle(gridX, gridY) {
+        this.#state.obstacles = this.#state.obstacles.filter(o => o.x !== gridX || o.y !== gridY);
+        this.#isDirty = true;
+    }
+
+    addObstacle(gridX, gridY) {
+        this.#state.obstacles.push({x: gridX, y: gridY});
+        this.#isDirty = true;
     }
 }
 

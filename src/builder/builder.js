@@ -99,20 +99,12 @@ class Builder {
         if (gridX < 0 || gridX > size.x + 1 || gridY < 0 || gridY > size.y + 1) return;
 
         if (this._tool === 'obstacles') {
-            const idx = stageState.getObstacles().findIndex(o => o.x === gridX && o.y === gridY);
-            if (idx !== -1) {
-                stageState.getObstacles().splice(idx, 1);
+            if (!stageState.hasObstacle(gridX, gridY)) {
+                stageState.addObstacle(gridX, gridY);
             } else {
-                stageState.getObstacles().push({x: gridX, y: gridY});
+                stageState.removeObstacle(gridX, gridY);
             }
             updateStageView();
-            // Copy obstacle map to clipboard as JSON (best-effort)
-            try {
-                const obstacleJson = JSON.stringify(stageState.getObstacles());
-                navigator.clipboard?.writeText(obstacleJson).catch(() => {
-                });
-            } catch {
-            }
         } else if (this._tool === 'start') {
             stageState.setStartAndPosition({x: gridX, y: gridY});
             updateAvatar();

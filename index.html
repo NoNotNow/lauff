@@ -119,13 +119,14 @@
         <!-- New builder UI container: shown when body has class 'builder' -->
         <div class="builder-container" aria-hidden="true">
             <div class="builder-toolbar" id="builderControls">
-                <div class="level-loader">
+                <div id="level-loader" class="level-loader">
+                    <div id="level-loader-title" class="level-loader-title">Laden und speichern</div>
                     <select id="builder-level-select" size="4">
 
                     </select>
                     <div class="level-loader-actions">
                         <button id="load-blueprint" class="icon-btn" title="Laden">
-                            <img src="assets/select.svg" alt="clear icon"/>
+                            <img src="assets/select.svg" alt="laden"/>
                         </button>
                         <button id="remove-blueprint" class="icon-btn" title="Löschen">
                             <img src="assets/clear.svg" alt="clear icon"/>
