@@ -73,9 +73,6 @@ button {
   text-shadow: 0 0 1em rgba(142, 154, 255, 0.5);
 }
 
-button:hover {
-  background-color: #e8e8e8;
-}
 
 .game-controls {
   display: flex;

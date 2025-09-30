@@ -94,12 +94,12 @@
 /* Ensure global button styles don't leak in */
 .editor-actions .save,
 .editor-actions .clear-button {
-    background: transparent !important;
-    border: none !important;
-    min-width: 0 !important;
-    padding: 0 !important;
-    margin: 0 !important;
-    color: #fff !important;
+    /*background: transparent !important;*/
+    /*border: none !important;*/
+    /*min-width: 0 !important;*/
+    /*padding: 0 !important;*/
+    /*margin: 0 !important;*/
+    /*color: #fff !important;*/
 }
 
 /* Corner buttons (top-right header) use same icon style */
@@ -111,14 +111,10 @@
     width: 1.6em;
     height: 1.6em;
     padding: 0.2em;
-    border-radius: 4px;
+    border-radius: .1em;
     cursor: pointer;
-    background: transparent;
-    color: #fff;
 }
-.corner-buttons .icon-btn:hover {
-    background: rgba(255, 255, 255, 0.08);
-}
+
 .corner-buttons .icon-btn svg,
 .corner-buttons .icon-btn img {
     width: 1.3em;
