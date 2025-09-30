@@ -21,6 +21,10 @@
   margin-bottom: 0.5em;
 }
 
+.night .instructions h3, .night .instructions h4 {
+    color:black;
+}
+
 .instructions ul {
   margin: 0.5em 0;
   padding-left: 1.5em;
@@ -49,4 +53,8 @@
 .instructions pre code {
   background-color: transparent;
   padding: 0;
+}
+
+.night .instructions code{
+    color:black;
 }

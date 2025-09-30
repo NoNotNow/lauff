@@ -81,9 +81,16 @@ select:hover {
     padding: 0.2em;
     border-radius: 4px;
     cursor: pointer;
-    background: transparent;
-    color: #fff; /* white icons */
+    margin: 0.2em;
+    background: rgba(76, 76, 76, 0.36);
+    color:white;
 }
+
+.night .icon-btn{
+    background: transparent;
+}
+
+
 
 .icon-btn svg {
     width: 1.3em;

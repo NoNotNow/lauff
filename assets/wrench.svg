@@ -1,0 +1,5 @@
+<!-- White wrench icon -->
+<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <path fill="#fff"
+          d="M22.7 19.3l-6.1-6.1a6.5 6.5 0 0 1-8.6-8.6l3.05 3.05 2.12-2.12L10.12 2.5a6.5 6.5 0 0 1 8.6 8.6l6.1 6.1-2.12 2.12zM7 22a2 2 0 1 1 0-4 2 2 0 0 1 0 4z"/>
+</svg>

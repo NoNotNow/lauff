@@ -49,11 +49,7 @@
             </button>
             <button id="builder-button" class="icon-btn" title="Builder einschalten" aria-label="Builder einschalten"
                     aria-pressed="true">
-                <!-- White wrench icon -->
-                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                    <path fill="currentColor"
-                          d="M22.7 19.3l-6.1-6.1a6.5 6.5 0 0 1-8.6-8.6l3.05 3.05 2.12-2.12L10.12 2.5a6.5 6.5 0 0 1 8.6 8.6l6.1 6.1-2.12 2.12zM7 22a2 2 0 1 1 0-4 2 2 0 0 1 0 4z"/>
-                </svg>
+                <img src="assets/wrench.svg" alt="Builder"/>
             </button>
         </div>
     </header>
@@ -123,16 +119,18 @@
         <!-- New builder UI container: shown when body has class 'builder' -->
         <div class="builder-container" aria-hidden="true">
             <div class="builder-toolbar" id="builderControls">
-                <div class="blueprint-actions">
+                <div class="level-loader">
                     <select id="builder-level-select" size="4">
 
                     </select>
-                    <button id="load-blueprint" class="icon-btn" title="Laden">
-                        <img src="assets/select.svg" alt="clear icon"/>
-                    </button>
-                    <button id="remove-blueprint" class="icon-btn" title="Löschen">
-                        <img src="assets/clear.svg" alt="clear icon"/>
-                    </button>
+                    <div class="level-loader-actions">
+                        <button id="load-blueprint" class="icon-btn" title="Laden">
+                            <img src="assets/select.svg" alt="clear icon"/>
+                        </button>
+                        <button id="remove-blueprint" class="icon-btn" title="Löschen">
+                            <img src="assets/clear.svg" alt="clear icon"/>
+                        </button>
+                    </div>
                 </div>
                 <label>
                     Name:
