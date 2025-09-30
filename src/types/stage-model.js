@@ -20,7 +20,6 @@
  * @property {Vec2} stageSize
  * @property {number=} direction
  * @property {Obstacle[]} obstacles
- * @property {Vec2=} target
  * @property {Vec2=} targetPosition
  */
 

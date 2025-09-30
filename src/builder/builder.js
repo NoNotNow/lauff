@@ -61,7 +61,7 @@ class Builder {
      * @param {'obstacles'|'start'|'target'} tool
      */
     setTool(tool) {
-        if (tool === 'obstacles' || tool === 'start' || tool === 'target') {
+        if (tool === 'obstacles' || tool === 'start' || tool === 'targetPosition') {
             this._tool = tool;
         }
     }
@@ -117,7 +117,7 @@ class Builder {
             stageState.setStartAndPosition({x: gridX, y: gridY});
             updateAvatar();
             updateStageView();
-        } else if (this._tool === 'target') {
+        } else if (this._tool === 'targetPosition') {
             stageState.setTarget({x: gridX, y: gridY});
             updateStageView();
         }

@@ -22,7 +22,7 @@ class StageState {
         if(this.#state.startPosition === undefined)  this.#state.startPosition = {x: 0, y: 0};
         if(this.#state.startDirection === undefined)  this.#state.startDirection = 1;
         if(this.#state.obstacles === undefined)  this.#state.obstacles = [];
-        if(this.#state.target === undefined)  this.#state.target = {x: 0, y: 0};
+        if(this.#state.targetPosition === undefined)  this.#state.targetPosition = {x: 0, y: 0};
         if(this.#state.stageSize === undefined)  this.#state.stageSize = {x: 0, y: 0};
         if(this.#state.position === undefined)  this.#state.position
             = {x: this.#state.startPosition.x, y: this.#state.startPosition.y};
@@ -58,7 +58,7 @@ class StageState {
         this.#state.startPosition.y = map.startPosition.y;
         this.#state.startDirection = map.startDirection ?? 1;
         this.#state.obstacles = map.obstacles;
-        this.#state.target = map.targetPosition;
+        this.#state.targetPosition = map.targetPosition;
         this.#state.stageSize = map.stageSize;
     }
 
@@ -106,7 +106,7 @@ class StageState {
     }
 
     getTarget() {
-        return this.#state.target;
+        return this.#state.targetPosition;
     }
 
     /**
@@ -125,8 +125,8 @@ class StageState {
      * @param {Vec2} pos
      */
     setTarget(pos){
-        this.#state.target.x = pos.x;
-        this.#state.target.y = pos.y;
+        this.#state.targetPosition.x = pos.x;
+        this.#state.targetPosition.y = pos.y;
     }
 
     /**
