@@ -177,6 +177,10 @@ class StageState {
         this.#state.obstacles.push({x: gridX, y: gridY});
         this.#isDirty = true;
     }
+
+    notifySaved() {
+        this.#isDirty = false;
+    }
 }
 
 export const stageState = new StageState();

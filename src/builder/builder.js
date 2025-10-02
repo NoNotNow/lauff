@@ -144,6 +144,7 @@ class Builder {
 
     saveGrid() {
         saveBluePrint(stageState.getState())
+        stageState.notifySaved();
     }
 
     copyGrid() {
