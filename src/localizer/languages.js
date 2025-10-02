@@ -1,6 +1,8 @@
 
 // Error message templates for supported languages
-const errorMessages = {
+import {MessageTokens} from "./tokens.js";
+
+export const errorMessages = {
 	de: {
 		syntax: "Syntaxfehler in Zeile {line}, Spalte {column}: {error}",
 		default: "{error}",
@@ -35,71 +37,27 @@ const errorMessages = {
 	},
 };
 
-/**
- * Returns the current locale (default: 'de').
- */
-function getCurrentLocale() {
-	return 'de'; //todo later: have user choose language
-	// Example: use browser language if available, fallback to 'de'
-	if (typeof navigator !== 'undefined' && navigator.language) {
-		if (navigator.language.startsWith('de')) return 'de';
-		if (navigator.language.startsWith('en')) return 'en';
-	}
-	return 'de';
-}
+
+
+
+
+
 
 
 
 /**
- * Localizes a user code error result.
- * @param {object} result - The error result from analyseSyntaxError.
- * @param {string|null} lang - Language code ('de', 'en', etc.), or null/empty for auto-detect.
- * @returns {string} Localized error message.
+ * @typedef {MessageTokens} token
  */
-export function localizeUserCodeError(result, lang) {
-	let locale = lang;
-	if (!locale) {
-		locale = getCurrentLocale();
-	}
-	const messages = errorMessages[locale] || errorMessages['de'];
 
-	let template;
-	if (result && result.line && result.column) {
-		template = messages.syntax;
-	} else {
-		template = messages.default;
-	}
+export const messagesEn =
+    {[MessageTokens.unsavedChanges]:'You have unsaved changes. Are you sure you want to load a new level?',
+    [MessageTokens.removeLevel]:'Are you sure you want to delete this level?'}
 
-	// Replace placeholders
-    return template.replace('{line}', result.line ?? '?')
-        .replace('{column}', result.column ?? '?')
-        .replace('{error}', getErrorExplanation(result.error ?? '', locale));
-}
+export const messagesDe =
+    {[MessageTokens.unsavedChanges]:'Du hast nicht gespeicherte Änderungen. Bist du sicher, dass du das Level laden möchtenst?',
+    [MessageTokens.removeLevel]:'Bist du sicher, dass du dieses Level löschen möchtest?',
+    [MessageTokens.loadAndSave]:'Laden und Speichern',
+        [MessageTokens.turnOnBuilder]:'Builder einschalten',
 
-/**
- * Dynamisch: Sucht nach passenden Error-Patterns und ersetzt Platzhalter.
- * @param {string} errorMsg
- * @param {string} locale
- * @returns {string|null}
- */
-export function getErrorExplanation(errorMsg, locale = 'de') {
-	const explanations = errorMessages[locale]?.errorExplanations || {};
-	for (const patternKey in explanations) {
-		// Pattern-Key z.B. 'Unexpected-token{token}'
-		// Umwandlung in Regex: 'Unexpected-token{token}' => /Unexpected token (\S+)/
-		const regexStr = patternKey.replace(/\{(\w+)\}/g, (_, name) => `(?<${name}>\\S+)`).replace(/-/g, ' ');
-		const regex = new RegExp('^' + regexStr + '$');
-		const match = errorMsg.match(regex);
-		if (match) {
-			let explanation = explanations[patternKey];
-			// If there are groups, replace placeholders
-			if (match.groups) {
-				for (const [name, value] of Object.entries(match.groups)) {
-					explanation = explanation.replace(`{${name}}`, value);
-				}
-			}
-			return explanation;
-		}
-	}
-	return errorMsg;
-}
+    }
+

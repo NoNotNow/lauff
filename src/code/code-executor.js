@@ -2,10 +2,10 @@
 import {free, getNextLeft, getNextRight, go, left, right, say} from '../game-state/movement.js';
 import {resetTimer, startTimer, stopTimer} from '../utility/timer.js';
 import {analyseRuntimeError, analyseSyntaxError, countStatements} from './code-analyser.js';
-import {localizeUserCodeError} from '../localizer.js';
 import {editor} from './code-editor.js';
 import {cancelDelay, delay} from '../utility/delay.js';
 import {isRunning, setIsRunning} from '../global-state.js';
+import {localizer} from "../localizer/localizer.js";
 
 
 // Random number generator function
@@ -107,7 +107,7 @@ function parseUserCode(code) {
   } catch (error) {
     let result = analyseSyntaxError(code); // Log detailed syntax error
     if (result && !result.success) {
-      throw new Error(localizeUserCodeError(result));
+      throw new Error(localizer.localizeUserCodeError(result));
     }
     throw new Error("Syntax error: " + error.message);
   }

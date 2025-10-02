@@ -4,6 +4,9 @@
 import {builder} from './builder.js';
 import {getStoredBluePrints} from "../data/save-load.js";
 import {updateFullStage} from "../stage-effects/view-renderer.js";
+import {localizer} from "../localizer/localizer.js";
+import {MessageTokens} from "../localizer/tokens.js";
+
 
 export class BuilderView {
     /** Bind UI controls and canvas interactions */
@@ -61,13 +64,14 @@ export class BuilderView {
         if (this.copyGridButton) {
             this.copyGridButton.addEventListener('pointerdown', () => builder.copyGrid());
         }
-        if (this.levelSelect) {
-            this.levelSelect.addEventListener('change', () => {
-
-            });
-        }
         if (this.loadButton) {
             this.loadButton.addEventListener('pointerdown', () => {
+                    if(builder.isDirty()){
+                        if(!window.confirm(localizer.localizeMessage(MessageTokens.unsavedChanges))){
+                            return;
+                        }
+                    }
+
                     builder.setLevel(this.levelSelect.value);
                     updateFullStage();
                     this.updateViewFromSnapshot();
@@ -77,6 +81,7 @@ export class BuilderView {
         }
         if (this.removeButton) {
             this.removeButton.addEventListener('pointerdown', () => {
+                window.confirm(localizer.localizeMessage(MessageTokens.removeLevel));
                 builder.remove(this.levelSelect.value);
                 this.populateLevelSelect();
             });

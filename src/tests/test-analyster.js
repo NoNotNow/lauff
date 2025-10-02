@@ -3,7 +3,7 @@ globalThis.esprima = esprima;
 import { test, describe } from 'node:test';
 import assert from 'node:assert';
 import { analyseSyntaxError } from '../code/code-analyser.js';
-import {getErrorExplanation, localizeUserCodeError} from '../localizer.js';
+import {localizer} from '../localizer/localizer.js';
 describe('code-analyser', () => {
 
 	// test('countStatements should count function calls in code', () => {
@@ -67,14 +67,14 @@ describe('code-analyser', () => {
 		codes.forEach(code => {
 			const result = analyseSyntaxError(code);
 			console.log(result.error);
-			console.log(localizeUserCodeError(result, 'de'));
-			console.log(localizeUserCodeError(result, 'en'));
+			console.log(localizer.localizeUserCodeError(result, 'de'));
+			console.log(localizer.localizeUserCodeError(result, 'en'));
 			console.log('---');
 		});
 	});
 
 	test('get error explanation for Unexpected end of input', () => {
-		let result=getErrorExplanation('Unexpected end of input', 'de');
+		let result=localizer.getErrorExplanation('Unexpected end of input', 'de');
 		console.log(result);
 	});
 

@@ -27,14 +27,6 @@ class Builder {
         this.#announce();
     }
 
-    toggle() {
-        if (this.isEnabled()) {
-            this.disable();
-        } else {
-            this.enable();
-        }
-    }
-
     /** Register a view instance that handles DOM wiring */
     initView(view) {
         this._view = view;
@@ -171,6 +163,10 @@ class Builder {
 
     remove(value) {
         removeBluePrintEntry(value);
+    }
+
+    isDirty() {
+        return stageState.isDirty()
     }
 }
 
