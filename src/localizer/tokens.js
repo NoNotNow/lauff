@@ -4,7 +4,7 @@
 export const MessageTokens = {
     unsavedChanges: 0,
     removeLevel:1,
-    loadAndSave:2,
+    loadLevel:2,
     turnOnBuilder:3,
     swapDesign:4,
     obstacles:5,

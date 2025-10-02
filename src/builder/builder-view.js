@@ -89,7 +89,7 @@ export class BuilderView {
 
         if (this.levelLoaderOpener) {
             this.levelLoaderOpener.addEventListener('pointerdown', () => {
-                document.getElementById('level-loader').classList.add('open');
+                document.getElementById('level-loader').classList.toggle('open');
             });
         }
 

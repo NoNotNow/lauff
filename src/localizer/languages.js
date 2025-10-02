@@ -45,7 +45,7 @@ export const messagesEn =
     {
         [MessageTokens.unsavedChanges]: 'You have unsaved changes. Are you sure you want to load a new level?',
         [MessageTokens.removeLevel]: 'Are you sure you want to delete this level?',
-        [MessageTokens.loadAndSave]: 'Load and save',
+        [MessageTokens.loadLevel]: 'Load and save',
         [MessageTokens.turnOnBuilder]: 'Turn on builder',
         [MessageTokens.swapDesign]: 'Swap design',
         [MessageTokens.obstacles]: 'Obstacles',
@@ -58,7 +58,7 @@ export const messagesDe =
     {
         [MessageTokens.unsavedChanges]: 'Du hast nicht gespeicherte Änderungen. Bist du sicher, dass du das Level laden möchtenst?',
         [MessageTokens.removeLevel]: 'Bist du sicher, dass du dieses Level löschen möchtest?',
-        [MessageTokens.loadAndSave]: 'Laden und Speichern',
+        [MessageTokens.loadLevel]: 'Level laden',
         [MessageTokens.turnOnBuilder]: 'Builder einschalten',
         [MessageTokens.swapDesign]: 'Design wechseln',
         [MessageTokens.obstacles]: 'Hindernisse',

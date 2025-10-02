@@ -3,25 +3,37 @@
 }
 
 .level-loader {
+    position: relative;
     border: .1em solid #ccc;
     border-radius: 1em;
     padding: 1em;
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
 }
 
-.level-loader .level-loader-actions{
-    display: none;
+.level-loader .level-loader-title{
+    font-size: 1.2em;
+    width: 100%;
+    text-align: center;
+}
+.level-loader-title:hover{
+    background-color: rgba(195, 194, 194, 0.23);
 }
 
-.level-loader select{
+.level-loader-controls{
+    margin-top: 1em;
+}
+.open .level-loader-controls{
+    display: flex;
+}
+.level-loader-controls{
     display: none;
 }
 .level-loader .level-loader-title{
     cursor: pointer;
 }
 .level-loader.open .level-loader-title{
-    display: none;
+    /*display: none;*/
 }
 
 .level-loader.open .level-loader-actions{
@@ -29,13 +41,17 @@
 }
 .level-loader.open select{
     display:flex;
+    height: 10em;
 }
 
 
 
 .level-loader-actions {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
+    position: absolute;
+    bottom: 0.5em;
+    right: 0.3em;
 }
 
 .level-loader-actions button {
