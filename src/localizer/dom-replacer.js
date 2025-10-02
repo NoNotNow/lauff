@@ -84,7 +84,7 @@ class DomReplacer {
      */
     getNodesToReplace(root = document.body) {
         const nodes = [];
-        const tokenRegex = /\[MessageTokens\.(\w+)\]/;
+        const tokenRegex = /\[MessageTokens\.(\w+)]/;
         // TreeWalker only returns text nodes, not attributes
         const walker = document.createTreeWalker(
             root,

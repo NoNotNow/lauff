@@ -1,7 +1,6 @@
 import esprima from 'esprima';
 globalThis.esprima = esprima;
 import { test, describe } from 'node:test';
-import assert from 'node:assert';
 import { analyseSyntaxError } from '../code/code-analyser.js';
 import {localizer} from '../localizer/localizer.js';
 describe('code-analyser', () => {
