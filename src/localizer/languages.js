@@ -58,6 +58,7 @@ export const messagesDe =
     [MessageTokens.removeLevel]:'Bist du sicher, dass du dieses Level löschen möchtest?',
     [MessageTokens.loadAndSave]:'Laden und Speichern',
         [MessageTokens.turnOnBuilder]:'Builder einschalten',
+        [MessageTokens.swapDesign]:'Design wechseln',
 
     }
 
