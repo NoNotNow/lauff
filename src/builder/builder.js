@@ -158,8 +158,7 @@ class Builder {
             alert("Das level " + value + " konnte nicht gefunden/geladen werden");
             return;
         }
-        stageState.loadGameState(loadBluePrint(value));
-
+        stageState.loadGameState(level);
     }
 
     remove(value) {

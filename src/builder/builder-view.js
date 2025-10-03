@@ -6,6 +6,7 @@ import {getStoredBluePrints} from "../data/save-load.js";
 import {updateFullStage} from "../stage-effects/view-renderer.js";
 import {localizer} from "../localizer/localizer.js";
 import {MessageTokens} from "../localizer/tokens.js";
+import {stageState} from "../game-state/stage-state.js";
 
 
 export class BuilderView {
@@ -73,6 +74,7 @@ export class BuilderView {
                     }
 
                     builder.setLevel(this.levelSelect.value);
+                    stageState.resetPosition();
                     updateFullStage();
                     this.updateViewFromSnapshot();
                     document.getElementById('level-loader').classList.remove('open');
