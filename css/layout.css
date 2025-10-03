@@ -1,104 +1,112 @@
 .textarea-container {
-  position: relative;
-  z-index: 1;
+    position: relative;
+    z-index: 1;
 }
 
 /* Layout and responsive design */
 .game-container {
-  display: flex;
-  align-items: flex-start;
-  gap: 1em;
-  margin-bottom: 1em;
-  order: 2;
+    display: flex;
+    align-items: flex-start;
+    gap: 1em;
+    margin-bottom: 1em;
+    order: 2;
 }
 
 .stage-container {
-  font-size: 1.5em;
+    font-size: 1.5em;
 }
 
 
+@media (min-width: 1000px) {
+    .game-code-container {
+        display: flex;
+        flex-direction: row;
+        gap: 4%;
+    }
 
-@media (min-width:1000px) {
-  .game-code-container {
-    display: flex;
-    flex-direction: row;
-    gap: 4%;
-  }
-
-   .builder .stage-container{
-      font-size: 2em;
-   }
-
+    .builder .stage-container {
+        font-size: 2em;
+    }
 
 
-  .editor-container {
-    position: relative;
-    min-width: 20%;
-    order: 1;
-    min-height: 100%;
-    margin-bottom: 1em;
-    z-index: 1100;
-  }
+    .editor-container {
+        position: relative;
+        min-width: 20%;
+        order: 1;
+        min-height: 100%;
+        margin-bottom: 1em;
+        z-index: 1100;
+    }
 
 
+    .displays {
+        order: 2;
+        max-width: 10em;
 
-  .displays {
-    order: 2;
-    max-width: 10em;
-
-  }
+    }
 
 }
 
 /* Stack layout vertically on smaller screens */
 @media (max-width: 768px) {
 
-  .game-code-container {
-    flex-direction: column;
-    align-items: center;
-  }
+    .game-code-container {
+        flex-direction: column;
+        align-items: center;
+    }
 
-  .game-container {
-    flex-direction: column;
-    align-items: center;
-    z-index: 2;
-    order: 1;
-  }
+    .game-container {
+        flex-direction: column;
+        align-items: center;
+        z-index: 2;
+        order: 1;
+    }
 
-  .editor-container {
-    width: 100%;
-    z-index: 1;
-    order: 3;
-  }
+    .editor-container {
+        width: 100%;
+        z-index: 1;
+        order: 3;
+    }
 
-  .editor-wrapper {
-    width: 100%;
-  }
+    .editor-wrapper {
+        width: 100%;
+    }
 
-  .CodeMirror {
-    resize: vertical;
-    min-width: 100%;
-    max-width: 100%;
-  }
+    .CodeMirror {
+        resize: vertical;
+        min-width: 100%;
+        max-width: 100%;
+    }
 
-  .displays {
-    order: 2;
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
+    .displays {
+        order: 2;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
 
-  .stage-container {
-    order: 1;
-    font-size: 1em;
-    ;
-  }
+    .stage-container {
+        order: 1;
+        font-size: 1em;;
+    }
 }
 
 .bottom-container {
-  display: flex;
-  flex-direction: column;
-  gap: 2em;
-  z-index: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 2em;
+    z-index: 0;
+}
+
+footer {
+    background-color: rgba(27, 26, 26, 0.1);
+    position: relative;
+    text-align: center;
+    margin: 1em;
+    padding: 1em;
+    color: #666;
+    font-size: 0.9em;
+    border-radius: 0.5em;
+    z-index: 5;
 }
