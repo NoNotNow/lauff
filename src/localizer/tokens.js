@@ -10,6 +10,7 @@ export const MessageTokens = {
     obstacles:5,
     startPosition: 6,
     targetPosition: 7,
-    tool: 8
+    tool: 8,
+    language: 9,
 
 };

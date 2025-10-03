@@ -21,12 +21,14 @@
 }
 
 .level-loader-controls{
-    margin-top: 1em;
 }
 .open .level-loader-controls{
     display: flex;
+    flex-direction: column;
 }
 .level-loader-controls{
+    gap: 0.6em;
+    margin-top: 1em;
     display: none;
 }
 .level-loader .level-loader-title{
@@ -42,6 +44,7 @@
 .level-loader.open select{
     display:flex;
     height: 10em;
+    width: 100%;
 }
 
 
@@ -49,9 +52,9 @@
 .level-loader-actions {
     display: flex;
     flex-direction: row;
-    position: absolute;
-    bottom: 0.5em;
-    right: 0.3em;
+    width: 100%;
+    justify-content: flex-end;
+
 }
 
 .level-loader-actions button {

@@ -2,7 +2,7 @@
 
 import { updateStageView, updateAvatar, drawGrid } from './stage-effects/view-renderer.js';
 import { setupEventListeners } from './event-handlers.js';
-import { getStoredSelectedMap, loadCode } from './data/save-load.js';
+import {getStoredSelectedMap, loadCode, loadLocale} from './data/save-load.js';
 import { initRecorder } from './game-state/recorder.js';
 import { fillMapSelectDropdown } from './data/blueprints.js';
 import { designs } from './design/designs.js';
@@ -13,7 +13,8 @@ import {domReplacer} from "./localizer/dom-replacer.js";
 
 function main() {
   console.log("Main function called");
-  domReplacer.run();
+  let locale = loadLocale();
+  domReplacer.run(document.body, locale);
   designs.init();
   // Initialize mode state from DOM (e.g., body has 'builder' class?)
   mode.initFromDOM();

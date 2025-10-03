@@ -52,6 +52,7 @@ export const messagesEn =
         [MessageTokens.startPosition]: 'Start position',
         [MessageTokens.targetPosition]: 'Target position',
         [MessageTokens.tool]: 'Tool',
+        [MessageTokens.language]: 'Language',
     }
 
 export const messagesDe =
@@ -65,6 +66,7 @@ export const messagesDe =
         [MessageTokens.startPosition]: 'Startposition',
         [MessageTokens.targetPosition]: 'Zielposition',
         [MessageTokens.tool]: 'Werkzeug',
+        [MessageTokens.language]: 'Sprache',
 
 
     }

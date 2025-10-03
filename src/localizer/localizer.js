@@ -1,17 +1,14 @@
 import {errorMessages, messagesDe, messagesEn} from "./languages.js";
+import {saveLocale} from "../data/save-load.js";
 
 class Localizer{
+    languages = ['de', 'en'];
+    currentLocale = 'de';
     /**
      * Returns the current locale (default: 'de').
      */
     getCurrentLocale() {
-        return 'de'; //todo later: have user choose language
-        // Example: use browser language if available, fallback to 'de'
-        if (typeof navigator !== 'undefined' && navigator.language) {
-            if (navigator.language.startsWith('de')) return 'de';
-            if (navigator.language.startsWith('en')) return 'en';
-        }
-        return 'de';
+        return this.currentLocale;
     }
 
     /**
@@ -83,5 +80,14 @@ class Localizer{
         return messagesDe[token];
     }
 
+    swapLanguage() {
+         let index = this.languages.indexOf(this.currentLocale);
+        index++;
+        if (index > (this.languages.length)) index = 0;
+        this.currentLocale = this.languages[index];
+        console.log("Swapped language to: ", this.currentLocale);
+        saveLocale(this.currentLocale);
+        location.reload();
+    }
 }
 export const localizer = new Localizer();

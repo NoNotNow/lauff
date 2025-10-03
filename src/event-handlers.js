@@ -10,6 +10,7 @@ import {designs} from './design/designs.js';
 import {builder} from './builder/builder.js';
 import {mode} from './mode.js';
 import {toFileName} from "./utility/helpers.js";
+import {localizer} from "./localizer/localizer.js";
 
 
 async function handleKeydown(event) {
@@ -78,7 +79,9 @@ function handleClear() {
         errorMessage.textContent = '';
     }
 }
-
+function swapLanguage() {
+    localizer.swapLanguage();
+}
 
 export function setupEventListeners() {
   function handleMapChange(event) {
@@ -97,6 +100,10 @@ export function setupEventListeners() {
     document.getElementById("saveButton").addEventListener("pointerdown", saveCode);
     document.getElementById("clearButton").addEventListener("pointerdown", handleClear);
     document.getElementById("design-button").addEventListener("pointerdown", handleDesignButton);
+
+
+
+    document.getElementById("language-button").addEventListener("pointerdown", swapLanguage);
 
     // Builder toggle button
     const builderBtn = document.getElementById("builder-button");

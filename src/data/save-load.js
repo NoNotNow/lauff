@@ -102,3 +102,11 @@ export function getStoredBluePrints() {
     }
     return blueprints;
 }
+
+export function saveLocale(locale) {
+    localStorage.setItem('locale', locale);
+}
+export function loadLocale() {
+    return localStorage.getItem('locale');
+}
+
