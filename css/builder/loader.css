@@ -1,11 +1,13 @@
 
 .level-loader {
     position: relative;
-    border: .1em solid #ccc;
+    border: .15em solid #b5b5b5;
     border-radius: 1em;
     padding: 1em;
     display: flex;
     flex-direction: column;
+    background-color: rgba(138, 138, 138, 0.16);
+    filter: drop-shadow(0 .01em .3em rgba(0, 0, 0, 0.26));
 }
 
 .level-loader .level-loader-title{
@@ -26,7 +28,7 @@
     height: 100%;
     background-color: rgba(255, 255, 255, 0.19);
     mix-blend-mode: color-burn;
-    border-radius: 1em;
+    border-radius: .5em;
 }
 
 .night .level-loader-title:hover::after{

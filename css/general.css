@@ -40,7 +40,7 @@ select:focus {
     border-color: #007bff;
     box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25);
 }
-.dropdown {
+select {
     padding: 0.3em 0.5em;
     border: 0.0625em solid #ccc;
     border-radius: 4px;
@@ -100,7 +100,6 @@ select:hover {
     height: 1.3em;
 }
 
-/* size external SVG <img> icons too */
 .icon-btn img {
     width: 1.3em;
     height: 1.3em;
@@ -109,4 +108,17 @@ select:hover {
 
  .icon-btn:hover {
     transform: scale(1.1);
+}
+
+ /* -input- */
+input {
+    border-radius: .2em;
+    border: 1px solid #8f8f8f;
+    background-color: rgba(255, 255, 255, 0.76);
+}
+
+.night input{
+    background-color: rgba(255, 255, 255, 0.18);
+    color: white;
+    border-color: rgba(255, 255, 255, 0.2);
 }
