@@ -7,6 +7,7 @@ import {updateFullStage} from "../stage-effects/view-renderer.js";
 import {localizer} from "../localizer/localizer.js";
 import {MessageTokens} from "../localizer/tokens.js";
 import {stageState} from "../game-state/stage-state.js";
+import {parseNumber} from "../utility/helpers.js";
 
 
 export class BuilderView {
@@ -37,9 +38,11 @@ export class BuilderView {
 
         const onSizeChange = () => {
             // Parse numbers; let builder validate and clamp
-            const wx = parseInt(this.widthInput?.value ?? '', 10);
-            const hy = parseInt(this.heightInput?.value ?? '', 10);
+            const wx = parseNumber(this.widthInput?.value ?? '', 10, 0, 200);
+            const hy = parseNumber(this.heightInput?.value ?? '', 10, 0,200);
+            console.log("stage size", wx, hy);
             builder.setStageSize({x: wx, y: hy});
+            this.updateViewFromSnapshot();
         };
         if (this.widthInput) this.widthInput.addEventListener('change', onSizeChange);
         if (this.heightInput) this.heightInput.addEventListener('change', onSizeChange);
