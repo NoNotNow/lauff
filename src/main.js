@@ -10,10 +10,12 @@ import {editor } from './code/code-editor.js';
 import { stageState } from './game-state/stage-state.js';
 import { mode } from './mode.js';
 import {domReplacer} from "./localizer/dom-replacer.js";
+import {localizer} from "./localizer/localizer.js";
 
 function main() {
   console.log("Main function called");
   let locale = loadLocale();
+  localizer.currentLocale = locale;
   domReplacer.run(document.body, locale);
   designs.init();
   // Initialize mode state from DOM (e.g., body has 'builder' class?)

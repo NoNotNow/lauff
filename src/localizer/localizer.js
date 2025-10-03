@@ -1,9 +1,10 @@
 import {errorMessages, messagesDe, messagesEn} from "./languages.js";
 import {saveLocale} from "../data/save-load.js";
 
-class Localizer{
+class Localizer {
     languages = ['de', 'en'];
     currentLocale = 'de';
+
     /**
      * Returns the current locale (default: 'de').
      */
@@ -17,7 +18,7 @@ class Localizer{
      * @param {string|null} lang - Language code ('de', 'en', etc.), or null/empty for auto-detect.
      * @returns {string} Localized error message.
      */
-     localizeUserCodeError(result, lang=undefined) {
+    localizeUserCodeError(result, lang = undefined) {
         let locale = lang;
         if (!locale) {
             locale = this.getCurrentLocale();
@@ -43,7 +44,7 @@ class Localizer{
      * @param {string} locale
      * @returns {string|null}
      */
-     getErrorExplanation(errorMsg, locale = 'de') {
+    getErrorExplanation(errorMsg, locale = 'de') {
         const explanations = errorMessages[locale]?.errorExplanations || {};
         for (const patternKey in explanations) {
             // Pattern-Key z.B. 'Unexpected-token{token}'
@@ -71,7 +72,7 @@ class Localizer{
      * @param {string} locale - Language code ('de', 'en', etc.), or null/empty for auto-detect.
      * @returns {string} Localized message.
      */
-     localizeMessage(token, locale = undefined) {
+    localizeMessage(token, locale = undefined) {
         if (!locale) {
             locale = this.getCurrentLocale();
         }
@@ -81,13 +82,16 @@ class Localizer{
     }
 
     swapLanguage() {
-         let index = this.languages.indexOf(this.currentLocale);
+        let index = this.languages.indexOf(this.currentLocale);
         index++;
-        if (index > (this.languages.length-1)) index = 0;
+        if (index > (this.languages.length - 1)) index = 0;
         this.currentLocale = this.languages[index];
         console.log("Swapped language to: ", this.currentLocale);
         saveLocale(this.currentLocale);
-        location.reload();
+        setTimeout(() => {
+            location.reload();
+        }, 50);
     }
 }
+
 export const localizer = new Localizer();
