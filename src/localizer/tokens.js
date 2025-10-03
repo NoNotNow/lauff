@@ -12,5 +12,7 @@ export const MessageTokens = {
     targetPosition: 7,
     tool: 8,
     language: 9,
+    height: 10,
+    width: 11
 
 };

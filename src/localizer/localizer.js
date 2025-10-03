@@ -83,7 +83,7 @@ class Localizer{
     swapLanguage() {
          let index = this.languages.indexOf(this.currentLocale);
         index++;
-        if (index > (this.languages.length)) index = 0;
+        if (index > (this.languages.length-1)) index = 0;
         this.currentLocale = this.languages[index];
         console.log("Swapped language to: ", this.currentLocale);
         saveLocale(this.currentLocale);

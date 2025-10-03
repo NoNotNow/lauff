@@ -45,7 +45,7 @@ export const messagesEn =
     {
         [MessageTokens.unsavedChanges]: 'You have unsaved changes. Are you sure you want to load a new level?',
         [MessageTokens.removeLevel]: 'Are you sure you want to delete this level?',
-        [MessageTokens.loadLevel]: 'Load and save',
+        [MessageTokens.loadLevel]: 'Load level',
         [MessageTokens.turnOnBuilder]: 'Turn on builder',
         [MessageTokens.swapDesign]: 'Swap design',
         [MessageTokens.obstacles]: 'Obstacles',
@@ -53,6 +53,8 @@ export const messagesEn =
         [MessageTokens.targetPosition]: 'Target position',
         [MessageTokens.tool]: 'Tool',
         [MessageTokens.language]: 'Language',
+        [MessageTokens.height]: 'Height',
+        [MessageTokens.width]: 'Width'
     }
 
 export const messagesDe =
@@ -67,6 +69,9 @@ export const messagesDe =
         [MessageTokens.targetPosition]: 'Zielposition',
         [MessageTokens.tool]: 'Werkzeug',
         [MessageTokens.language]: 'Sprache',
+        [MessageTokens.height]: 'Höhe',
+        [MessageTokens.width]: 'Breite'
+
 
 
     }
