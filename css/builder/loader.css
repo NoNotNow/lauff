@@ -1,0 +1,84 @@
+
+.level-loader {
+    position: relative;
+    border: .1em solid #ccc;
+    border-radius: 1em;
+    padding: 1em;
+    display: flex;
+    flex-direction: column;
+}
+
+.level-loader .level-loader-title{
+    font-size: 1.2em;
+    width: 100%;
+    text-align: center;
+}
+.level-loader-title:hover{
+    position: relative;
+
+}
+.level-loader-title:hover::after{
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(255, 255, 255, 0.19);
+    mix-blend-mode: color-burn;
+    border-radius: 1em;
+}
+
+.night .level-loader-title:hover::after{
+    background-color: rgba(252, 255, 254, 0.16);
+}
+
+/* When the title is hovered, increase saturation of the controls below */
+.level-loader-title:hover + .level-loader-controls,
+.level-loader-title:focus + .level-loader-controls {
+    filter: saturate(4);
+    transition: filter 0.2s;
+}
+
+.level-loader-controls{
+}
+.open .level-loader-controls{
+    display: flex;
+    flex-direction: column;
+}
+.level-loader-controls{
+    gap: 0.6em;
+    margin-top: 1em;
+    display: none;
+}
+.level-loader .level-loader-title{
+    cursor: pointer;
+    padding: 0.1em;
+    border-radius: 0.2em;
+}
+.level-loader.open .level-loader-title{
+    /*display: none;*/
+}
+
+.level-loader.open .level-loader-actions{
+    display: flex;
+}
+.level-loader.open select{
+    display:flex;
+    height: 10em;
+    width: 100%;
+}
+
+
+
+.level-loader-actions {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    justify-content: flex-end;
+
+}
+
+.level-loader-actions button {
+    display: flex;
+}

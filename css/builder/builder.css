@@ -2,65 +2,6 @@
     font-family: 'Roboto', sans-serif;
 }
 
-.level-loader {
-    position: relative;
-    border: .1em solid #ccc;
-    border-radius: 1em;
-    padding: 1em;
-    display: flex;
-    flex-direction: column;
-}
-
-.level-loader .level-loader-title{
-    font-size: 1.2em;
-    width: 100%;
-    text-align: center;
-}
-.level-loader-title:hover{
-    background-color: rgba(195, 194, 194, 0.23);
-}
-
-.level-loader-controls{
-}
-.open .level-loader-controls{
-    display: flex;
-    flex-direction: column;
-}
-.level-loader-controls{
-    gap: 0.6em;
-    margin-top: 1em;
-    display: none;
-}
-.level-loader .level-loader-title{
-    cursor: pointer;
-}
-.level-loader.open .level-loader-title{
-    /*display: none;*/
-}
-
-.level-loader.open .level-loader-actions{
-    display: flex;
-}
-.level-loader.open select{
-    display:flex;
-    height: 10em;
-    width: 100%;
-}
-
-
-
-.level-loader-actions {
-    display: flex;
-    flex-direction: row;
-    width: 100%;
-    justify-content: flex-end;
-
-}
-
-.level-loader-actions button {
-    display: flex;
-}
-
 
 /* Make labels white in night mode */
 .night .builder-container label {
