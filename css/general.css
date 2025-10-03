@@ -9,24 +9,24 @@ body{
 
 
 /*selector*/
-select { /* L48–51 */
+select {
     width: 8em;
 }
 
-.night select, .night .dropdown option{ /* L52–55 */
-    background-color: #888;
+.night select, .night .dropdown option{
+    background-color: rgba(136, 136, 136, 0.62);
     color: white;
 }
 
-.night select option:hover, .night .dropdown option:hover{ /* L52–55 */
-    background-color: #888;
+.night select option:hover, .night .dropdown option:hover{
+    background-color: rgba(136, 136, 136, 0.62);
     color: black;
 }
 select:focus {
-    background-color: #888;
+    background-color: rgba(136, 136, 136, 0.62);
 }
 .night select:focus {
-    background-color: #888;
+    background-color: rgba(136, 136, 136, 0.62);
     border-color: #007bff;
     box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25);
 }
@@ -58,9 +58,6 @@ select {
     color:black;
 }
 
-.map-dropdown:hover {
-    border-color: #999;
-}
 
 .map-dropdown:focus {
     outline: none;
