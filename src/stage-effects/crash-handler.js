@@ -1,5 +1,5 @@
 // Wall collision handling and animations
-import { gameState, resetPosition } from '../game-state/game-state.js';
+import { stageState } from '../game-state/stage-state.js';
 import { updateAvatar } from './view-renderer.js';
 import { stop } from '../code/code-executor.js';
 import { stopTimer, resetTimer } from '../utility/timer.js';
@@ -24,7 +24,7 @@ export function handleWallCollision() {
   setTimeout(() => {
     avatar.classList.remove("wall-collision");
     stage.classList.remove("wall-collision");
-    resetPosition();
+    stageState.resetPosition();
     resetTimer();
     updateAvatar();
   }, 500);
@@ -51,7 +51,7 @@ export function handleObstacleCollision() {
   setTimeout(() => {
     avatar.classList.remove("obstacle-collision");
     stage.classList.remove("obstacle-collision");
-    resetPosition();
+    stageState.resetPosition();
     resetTimer();
     updateAvatar();
   }, 500);
@@ -75,13 +75,13 @@ export function handleTargetReached() {
     avatar.classList.add("target-reached");
     stage.classList.add("target-reached");
     requestAnimationFrame(() => {
-      avatar.style.transform = `translate(${gameState.position.x}em, ${gameState.position.y}em) rotate(${gameState.direction * 90*4}deg) scale(8)`;
+      avatar.style.transform = `translate(${stageState.getPosition().x}em, ${stageState.getPosition().y}em) rotate(${stageState.getDirection() * 90*4}deg) scale(8)`;
       setTimeout(() => {
-        avatar.style.transform = `translate(${0}em, ${gameState.position.y}em) rotate(${gameState.direction * 90 * 3}deg) scale(8)`;
+        avatar.style.transform = `translate(${0}em, ${stageState.getPosition().y}em) rotate(${stageState.getDirection() * 90 * 3}deg) scale(8)`;
         setTimeout(() => {
-          avatar.style.transform = `translate(${gameState.stageSize.x}em, ${0}em) rotate(${gameState.direction * 90 * 2}deg) scale(8)`;
+          avatar.style.transform = `translate(${stageState.getStageSize().x}em, ${0}em) rotate(${stageState.getDirection() * 90 * 2}deg) scale(8)`;
           setTimeout(() => {
-            avatar.style.transform = `translate(${gameState.stageSize.x/2}em, ${gameState.stageSize.y/2}em) rotate(${0}deg) scale(8)`;
+            avatar.style.transform = `translate(${stageState.getStageSize().x/2}em, ${stageState.getStageSize().y/2}em) rotate(${0}deg) scale(8)`;
           }, 300);
 
         }, 300);
@@ -92,7 +92,7 @@ export function handleTargetReached() {
   setTimeout(() => {
     avatar.classList.remove("target-reached");
     stage.classList.remove("target-reached");
-    resetPosition();
+    stageState.resetPosition();
     updateAvatar();
   }, 3000);
 

@@ -1,0 +1,91 @@
+
+.displays {
+  position: relative;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+}
+
+.map-selector {
+  display: flex;
+  align-items: center;
+  gap: 0.5em;
+  font-size: 0.9em;
+}
+
+.map-selector label {
+  font-weight: bold;
+  /*color: #333;*/
+}
+
+.map-dropdown {
+  padding: 0.3em 0.5em;
+  border: 0.0625em solid #ccc;
+  border-radius: 4px;
+  background-color: white;
+  font-size: 0.9em;
+  cursor: pointer;
+  min-width: 120px;
+}
+
+
+
+
+
+.timer {
+  position: relative;
+  font-size: 1.3em;
+  font-family: 'Courier New', monospace;
+  font-weight: bold;
+  color: #ff8c00;
+  background-color: #1a1a1a;
+  border: 0.1875em solid #34495e;
+  border-radius: 15px;
+  padding: 0.4em 0.6em;
+  text-align: center;
+  width: 100%;
+  max-width: 8em;
+  min-width: 6em;
+  box-shadow:
+    inset 0 2px 5px rgba(0, 0, 0, 0.1),
+    0 4px 8px rgba(0, 0, 0, 0.2);
+  text-shadow: 0 0 10px #ff8c00, 0 0 20px #ff8c00, 0 0 30px #ff8c00;
+  letter-spacing: 0.1em;
+  box-sizing: border-box;
+}
+
+.night .timer::after {
+  content: "";
+  position: absolute;
+  top: -0.3em;
+  left: -0.3em;
+  width: calc(100% + 0.6em);
+  height: calc(100% + 0.6em);
+  border-radius: 15px;
+  box-shadow: 0 0 1em 0.3em rgba(254, 255, 219, 0.048);
+  pointer-events: none;
+}
+
+/* should not get infinitely wide on large screens */
+.error-message {
+  font-family: 'Courier New', Courier, monospace;
+  color: red;
+  font-weight: bold;
+  font-size: 1em;
+  padding: 0.5em;
+  background-color: #ffe6e6;
+  border: 0.125em solid red;
+  border-radius: 0.3em;
+  display: none;
+  text-align: center;
+  max-width: 10em;
+  /* Or a specific pixel value if needed */
+  overflow-wrap: break-word;
+  /* word-break: break-all; */
+  width: 100%;
+}
+
+.error-message:not(:empty) {
+  display: block;
+}

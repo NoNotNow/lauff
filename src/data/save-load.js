@@ -1,23 +1,22 @@
 // Save and load functionality for the code editor
-import { gameState } from '../game-state/game-state.js';
-import { obstacleMaps } from './obstacle-maps.js';
+import { stageState } from '../game-state/stage-state.js';
 import { editor } from '../code/code-editor.js';
+import {toFileName} from "../utility/helpers.js";
+/** @typedef {import('../types/stage-model.js').StageBlueprint} StageBlueprint */
+
 
 // Get the current map name
+/** @returns {string} */
 function getCurrentMapName() {
   // Find which map matches the current obstacles
-  for (const [key, mapData] of Object.entries(obstacleMaps)) {
-    if (JSON.stringify(mapData.obstacles) === JSON.stringify(gameState.obstacles)) {
-      return key;
-    }
-  }
-  return 'default'; // fallback if no match found
+  return stageState.getName();
 }
 
+/** @returns {void} */
 export function saveCode() {
   console.log("saveCode function called");
   const code = editor.getCode();
-  const mapName = getCurrentMapName();
+  const mapName = toFileName(getCurrentMapName());
   console.log("Saving code:", code);
   console.log("Saving code for map:", mapName);
   localStorage.setItem(`savedCode_${mapName}`, code);
@@ -25,13 +24,15 @@ export function saveCode() {
 
 }
 
+/**
+ * @param {string|null} mapName
+ * @returns {void}
+ */
 export function loadCode(mapName = null) {
   console.log("loadCode function called");
-  const currentMapName = mapName || getCurrentMapName();
+  const currentMapName = toFileName(mapName || getCurrentMapName());
   const savedCode = localStorage.getItem(`savedCode_${currentMapName}`);
-  console.log("Retrieved saved code:", savedCode);
-  console.log("For map:", currentMapName);
-  
+  console.log("Retrieved saved code for "+currentMapName+":\n", savedCode);
   if (savedCode) {
     editor.setCode(savedCode);
     console.log("Code loaded into editor for map:", currentMapName);
@@ -44,10 +45,68 @@ export function loadCode(mapName = null) {
   }
 }
 
+/**
+ * @param {string} selected
+ * @returns {void}
+ */
 export function saveSelectedMap(selected) {
-  localStorage.setItem(`selectedMap`, selected);
+  localStorage.setItem(`selectedMap`, toFileName(selected));
 }
 
+/** @returns {string} */
 export function getStoredSelectedMap() {
-  return localStorage.getItem('selectedMap');
+  return toFileName(localStorage.getItem('selectedMap'));
 }
+
+/**
+ * @param {StageBlueprint} bluePrint
+ */
+export function saveBluePrint(bluePrint) {
+    let fileName = toFileName(bluePrint.name);
+    localStorage.setItem(`blueprint_${fileName}`, JSON.stringify(bluePrint), );
+}
+
+
+/**
+ * @param {string} mapName
+ * @returns {StageBlueprint|null}
+ */
+export function loadBluePrint(mapName) {
+    const blueprint = localStorage.getItem(`blueprint_${toFileName(mapName)}`);
+    if (blueprint) {
+        return JSON.parse(blueprint);
+    }
+    return null;
+}
+
+/**
+ * Remove blueprint from storage
+ * @param mapName
+ */
+export function removeBluePrintEntry(mapName) {
+    localStorage.removeItem(`blueprint_${toFileName(mapName)}`);
+    localStorage.removeItem(`blueprint_${mapName}`);
+}
+
+/**
+ * Get all stored blueprints
+ * @returns {StageBlueprint[]}
+ */
+export function getStoredBluePrints() {
+    const blueprints = [];
+    for (let i = 0; i < localStorage.length; i++) {
+        const key = localStorage.key(i);
+        if (key.startsWith('blueprint_')) {
+            blueprints.push(JSON.parse(localStorage.getItem(key)));
+        }
+    }
+    return blueprints;
+}
+
+export function saveLocale(locale) {
+    localStorage.setItem('locale', locale);
+}
+export function loadLocale() {
+    return localStorage.getItem('locale');
+}
+

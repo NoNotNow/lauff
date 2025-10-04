@@ -1,0 +1,102 @@
+.builder-container label {
+    font-family: 'Roboto', sans-serif;
+}
+
+
+/* Make labels white in night mode */
+.night .builder-container label {
+    color: #ffffff;
+}
+
+.builder-content p {
+    margin: 0;
+    opacity: 0.8;
+}
+
+/** Builder mode visibility toggles */
+/* Hide builder UI by default */
+.builder-container {
+    position: relative;
+    display: none;
+    z-index: 10;
+}
+
+/* When body has class 'builder', show builder UI and hide editor */
+.builder .builder-container {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5em;
+}
+
+.builder .editor-container {
+    display: none;
+}
+
+/* Minimal styling for builder UI */
+.builder-toolbar {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr));
+    gap: 0.5em 0.75em;
+    align-items: center;
+}
+
+/* Make controls look orderly when wrapping */
+.builder-toolbar label {
+    display: inline-flex;
+    align-items: center;
+    gap: .35em;
+    white-space: nowrap;
+}
+
+.builder-toolbar input[type="text"] {
+    /*min-width: 8em;*/
+    width: 6em;
+    flex: 0 0 auto;
+}
+
+.builder-toolbar input[type="number"] {
+    width: 3em;
+}
+
+.builder-toolbar select.dropdown {
+    min-width: 10em;
+}
+
+.builder-toolbar .builder-btn {
+    justify-self: start;
+}
+
+.builder-btn {
+    padding: 0.4em 0.6em;
+    border-radius: 4px;
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    background: rgba(255, 255, 255, 0.08);
+    color: #fff;
+}
+
+.builder-btn[disabled] {
+    opacity: 0.6;
+}
+
+.builder-content {
+    padding: 0.75em;
+    border: 1px dashed rgba(255, 255, 255, 0.25);
+    border-radius: 6px;
+}
+
+.builder .displays {
+    display: none;
+}
+
+.builder .controls {
+    display: none;
+}
+
+
+.builder .site-logo {
+    display: none;
+}
+
+.builder .instructions {
+    display: none;
+}

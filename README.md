@@ -31,6 +31,12 @@ Lauff is an engaging educational programming game where players control a colorf
 
 ## Example Code
 
+- Esprima (4.0.1)
+  - Homepage: https://esprima.org/
+  - Source: https://github.com/jquery/esprima
+  - License: BSD-2-Clause
+  - Copyright (c) Ariya Hidayat and other contributors
+
 ```javascript
 // Simple movement
 go(3);
@@ -50,3 +56,19 @@ if (free() > 2) {
 ```
 
 Perfect for students, educators, and anyone wanting to learn programming through interactive gameplay!
+
+## Third-party credits
+
+- CodeMirror (5.65.7)
+  - Homepage: https://codemirror.net/
+  - Source: https://github.com/codemirror/CodeMirror
+  - License: MIT
+  - Copyright (c) Marijn Haverbeke and others
+
+- Esprima (4.0.1)
+  - Homepage: https://esprima.org/
+  - Source: https://github.com/jquery/esprima
+  - License: BSD-2-Clause
+  - Copyright (c) Ariya Hidayat and other contributors
+
+See THIRD-PARTY-LICENSES.md for full license text.

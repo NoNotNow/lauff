@@ -1,14 +1,20 @@
 // Code execution and program control
-import { go, left, right, free, getNextRight, getNextLeft, say } from '../game-state/movement.js';
-import { startTimer, stopTimer, resetTimer } from '../utility/timer.js';
-import { analyseRuntimeError, analyseSyntaxError, countStatements } from './code-analyser.js';
-import { localizeUserCodeError } from '../localizer.js';
-import { editor } from './code-editor.js';
-import { delay, cancelDelay } from '../utility/delay.js';
-import { isRunning, setIsRunning } from '../global-state.js';
+import {free, getNextLeft, getNextRight, go, left, right, say} from '../game-state/movement.js';
+import {resetTimer, startTimer, stopTimer} from '../utility/timer.js';
+import {analyseRuntimeError, analyseSyntaxError, countStatements} from './code-analyser.js';
+import {editor} from './code-editor.js';
+import {cancelDelay, delay} from '../utility/delay.js';
+import {isRunning, setIsRunning} from '../global-state.js';
+import {localizer} from "../localizer/localizer.js";
+import {MessageTokens} from "../localizer/tokens.js";
 
 
 // Random number generator function
+/**
+ * Returns a random integer between 1 and x (inclusive).
+ * @param {number} x
+ * @returns {number}
+ */
 function random(x) {
   if (typeof x !== 'number' || x < 1) {
     throw new Error("random() requires a positive number");
@@ -17,51 +23,70 @@ function random(x) {
 }
 
 // Global execution state
+/** @type {number} */
 let movementDelayTime = 300;
+/**
+ * Set the movement delay in milliseconds.
+ * @param {number} input
+ */
 export function setMovementDelay(input) { movementDelayTime = input; }
 // Non-blocking delay function
 
 
 // Extensible delay function for movement commands
+/** @returns {Promise<void>} */
 async function movementDelay() {
   await delay(movementDelayTime);
 }
 
 // Explicit wrapped functions
+/** @param {number|string} input */
 async function wrappedGo(input) {
   await go(input);
   await movementDelay();
 }
 
+/** @param {number|string} input */
 async function wrappedLeft(input) {
   left(input);
   await movementDelay();
 }
 
+/** @param {number|string} input */
 async function wrappedRight(input) {
   right(input);
   await movementDelay();
 }
 
+/**
+ * @param {string} text
+ * @param {number} delay
+ * @param {boolean} stop
+ */
 async function wrappedSay(text, delay, stop) {
   await say(text, delay, stop);
 }
 
 // Transform user code to use wrapped functions
+/**
+ * @param {string} code
+ * @returns {string}
+ */
 function transformCode(code) {
-  // Replace function calls with wrapped versions
-  let transformedCode = code
-    .replace(/\bgo\(/g, 'await go(')
-    .replace(/\bleft\(/g, 'await left(')
-    .replace(/\bright\(/g, 'await right(')
-    .replace(/\bsay\(/g, 'await say(');
-
-
-
-  return transformedCode;
+  // Replace movement calls with awaited versions.
+  // The identifiers (go, left, right, say) refer to wrapped functions passed as parameters.
+    return code
+      .replace(/\bgo\(/g, 'await go(')
+      .replace(/\bleft\(/g, 'await left(')
+      .replace(/\bright\(/g, 'await right(')
+      .replace(/\bsay\(/g, 'await say(');
 }
 
 // Parse and prepare user code for execution
+/**
+ * @param {string} code
+ * @returns {(go:Function,left:Function,right:Function,free:Function,random:Function,getNextRight:Function,getNextLeft:Function,say:Function) => Promise<void>}
+ */
 function parseUserCode(code) {
   if (!code.trim()) {
     throw new Error("No code to execute");
@@ -74,24 +99,26 @@ function parseUserCode(code) {
   try {
     // Create an async function from the transformed code
     const AsyncFunction = Object.getPrototypeOf(async function () { }).constructor;
-    const userFunction = new AsyncFunction('go', 'left', 'right', 'free', 'random',
-      'getNextRight', 'getNextLeft', 'say',
-      `
+      return new AsyncFunction('go', 'left', 'right', 'free', 'random',
+        'getNextRight', 'getNextLeft', 'say',
+        `
       // User's transformed code with movement functions available as parameters
       ${transformedCode}
     `);
-    return userFunction;
   } catch (error) {
     let result = analyseSyntaxError(code); // Log detailed syntax error
     if (result && !result.success) {
-      throw new Error(localizeUserCodeError(result));
+      throw new Error(localizer.localizeUserCodeError(result));
     }
     throw new Error("Syntax error: " + error.message);
   }
 }
 
-// Execute user function repeatedly until stopped
-async function executeUntilStopped(userFunction) {
+// Execute the parsed user program once
+/**
+ * @param {Function} userFunction
+ */
+async function executeUserProgram(userFunction) {
   try {
     await userFunction(wrappedGo, wrappedLeft, wrappedRight,
       free, random, getNextRight, getNextLeft, wrappedSay);
@@ -105,6 +132,10 @@ async function executeUntilStopped(userFunction) {
   }
 }
 
+/**
+ * Start execution of user code.
+ * @returns {Promise<void>}
+ */
 export async function start() {
   removeErrorMessage();
   doCodeAnalysisAndStats();
@@ -119,9 +150,6 @@ export async function start() {
   try {
     // Parse the user's code
     const userFunction = parseUserCode(code);
-    const speedSelect = document.getElementById('speedSelect');
-    const speed = speedSelect ? speedSelect.value : 'normal';
-    const stage = document.getElementById('stage');
 
     setIsRunning(true);
     startTimer();
@@ -129,10 +157,10 @@ export async function start() {
     console.log("Starting execution...");
 
 
-    // Execute user function repeatedly until stopped
-    await executeUntilStopped(userFunction);
+    // Execute user program once
+    await executeUserProgram(userFunction);
 
-    console.log("Continuous execution completed");
+    console.log("Execution completed");
   } catch (error) {
     if (error.message === "Execution stopped") {
       console.log("Program stopped by user.");
@@ -150,9 +178,11 @@ export async function start() {
   }
 }
 
+/**
+ * Stop execution and reset UI state.
+ */
 export function stop() {
   setIsRunning(false);
-  stopTimer();
   stopTimer();
 
   // Remove loop-active class when stopping
@@ -167,19 +197,28 @@ export function stop() {
   console.log("Execution stopped");
 }
 
+/** Clear the error message banner. */
 function removeErrorMessage() {
   const errorMessage = document.getElementById('errorMessage');
   errorMessage.textContent = '';
 }
 
+/**
+ * Read UI and set movement delay, updating CSS animation class.
+ */
 export function parseMovementDelay() {
+  /** @type {HTMLSelectElement} */
+  // @ts-ignore next line: element exists on page
   let option = document.getElementById('speedSelect');
+  /** @type {HTMLElement} */
+  // @ts-ignore next line: element exists on page
   let avatar = document.getElementById('avatar');
   let result = option.value;
   avatar.classList.toggle('fast', result < 100);
   setMovementDelay(result);
 }
 
+/** Run static analysis and update UI stats. */
 function doCodeAnalysisAndStats() {
   let code = editor.getCode();
   let result = countStatements(code);
@@ -192,7 +231,7 @@ function doCodeAnalysisAndStats() {
       // Try to extract the number from the details string
       const match = result.details.match(/Anzahl Statements: (\d+)/);
       const count = match ? match[1] : '?';
-      statementCountDiv.textContent = `Anzahl Funktionsaufrufe: ${count}`;
+      statementCountDiv.textContent = localizer.localizeMessage(MessageTokens.numberOfFunctionCalls)+`: ${count}`;
       statementCountDiv.style.display = 'block';
     } else {
       statementCountDiv.textContent = '';

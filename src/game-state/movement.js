@@ -1,12 +1,21 @@
-import { gameState, setDirection, getDirection, parseNumber, withinBounds } from './game-state.js';
-import { checkTargetReached, checkObstacleCollision } from './collistion-detection.js';
+import { stageState } from './stage-state.js';
+import {checkTargetReached, checkObstacleCollision, checkWithinBounds, collidesAtPosition} from './collision-detection.js';
 import { handleWallCollision } from '../stage-effects/crash-handler.js';
 import { handleObstacleCollision, handleTargetReached } from '../stage-effects/crash-handler.js';
 import { updateAvatar } from '../stage-effects/view-renderer.js';
 import { beep } from '../stage-effects/audio-player.js';
 import { delay } from '../utility/delay.js';
+import {parseNumber} from "../utility/helpers.js";
+
+/** @typedef {{x:number,y:number}} Vec2 */
 
 // Calculate new coordinates by moving from a starting position by a number of steps in a given direction
+/**
+ * @param {Vec2} startCoordinates
+ * @param {number} steps
+ * @param {0|1|2|3} direction
+ * @returns {Vec2}
+ */
 function moveBy(startCoordinates, steps, direction) {
   const result = {
     x: startCoordinates.x,
@@ -31,29 +40,47 @@ function moveBy(startCoordinates, steps, direction) {
   return result;
 }
 
+/**
+ * @returns {number}
+ */
 export function getNextRight() { return getNextTurn(1); }
+/**
+ * @returns {number}
+ */
 export function getNextLeft() { return getNextTurn(-1); }
 
+/**
+ * Returns how many steps forward until turning by directionOffset yields more free space than at start.
+ * @param {number} directionOffset
+ * @returns {number}
+ */
 function getNextTurn(directionOffset) {
   let startFree = free(directionOffset);
   let currentFree;
-  let pos = gameState.position;
+  let pos = stageState.getPosition();
   for (let n = 0; n < free(); n++) {
-    pos = moveBy(pos, 1, getDirection());
+    pos = moveBy(pos, 1, stageState.getDirection());
     currentFree = free(directionOffset, pos.x, pos.y);
     if (currentFree > startFree) return n + 1;//check free to the side return n when > startFree
   }
   return 0;
 }
-// Check how many steps the avatar can move from a pint to a direction without hitting an obstacle
-export function free(directionOffset, inX, inY) {
-  // Initialize starting position using coordinate object
+// Check how many steps the avatar can move from a point to a direction without hitting an obstacle
+/**
+ * @param {number} [directionOffset]
+ * @param {number} [inX]
+ * @param {number} [inY]
+ * @param {{getPosition: () => Vec2, getDirection: (offset?: number) => 0|1|2|3, getStageSize: () => Vec2, getObstacles: () => Array<Vec2>}} [state=stageState]
+ * @returns {number}
+ */
+export function free(directionOffset, inX, inY, state = stageState) {
+  // Initialize the starting position using a coordinate object
   let currentPos = {
-    x: (typeof inX === 'number') ? inX : gameState.position.x,
-    y: (typeof inY === 'number') ? inY : gameState.position.y
+    x: (typeof inX === 'number') ? inX : state.getPosition().x,
+    y: (typeof inY === 'number') ? inY : state.getPosition().y
   };
 
-  const direction = getDirection(directionOffset);
+  const direction = state.getDirection(directionOffset);
 
   let spaces = 0;
 
@@ -62,33 +89,9 @@ export function free(directionOffset, inX, inY) {
     // Calculate the next position using moveBy function
     const nextPos = moveBy(currentPos, 1, direction);
 
-    // Check bounds
-    if (nextPos.x < 0 || nextPos.x > gameState.stageSize.x || nextPos.y < 0 || nextPos.y > gameState.stageSize.y) {
-      break;
-    }
+    if (!checkWithinBounds(nextPos, state.getStageSize())) break;
 
-    // Check for obstacles
-    const avatarLeft = nextPos.x;
-    const avatarRight = nextPos.x + 2;
-    const avatarTop = nextPos.y;
-    const avatarBottom = nextPos.y + 2;
-
-    const hasObstacle = gameState.obstacles.some(obstacle => {
-      const obstacleLeft = obstacle.x;
-      const obstacleRight = obstacle.x + 1;
-      const obstacleTop = obstacle.y;
-      const obstacleBottom = obstacle.y + 1;
-
-      // Check for overlap in both x and y directions
-      return !(avatarRight <= obstacleLeft ||
-        avatarLeft >= obstacleRight ||
-        avatarBottom <= obstacleTop ||
-        avatarTop >= obstacleBottom);
-    });
-
-    if (hasObstacle) {
-      break;
-    }
+    if (collidesAtPosition(state, nextPos)) break;
 
     // This space is free, count it and move to the next position
     spaces++;
@@ -97,30 +100,49 @@ export function free(directionOffset, inX, inY) {
 
   return spaces;
 }
+/** @type {number|null} */
 let timeout = null;
+/**
+ * Show a speech bubble with text for a number of seconds.
+ * When stop=true, waits synchronously and hides immediately after.
+ * @param {string} text
+ * @param {number} [seconds=1]
+ * @param {boolean} [stop=false]
+ * @returns {Promise<void>}
+ */
 export async function say(text, seconds, stop = false) {
-  if (seconds == undefined) seconds = 1;
+  if (seconds === undefined) seconds = 1;
+  /** @type {HTMLElement|null} */
   let bubble = document.getElementById("speech-bubble");
   try {
-    bubble.classList.add("visible");
-    bubble.innerText = text;
+    if (bubble) {
+      bubble.classList.add("visible");
+      bubble.innerText = text;
+    }
     if (stop) await delay(seconds * 1000);
   } finally {
-    if (timeout) clearTimeout(timeout)
+    if (timeout) clearTimeout(timeout);
     if (!stop) {
-      setTimeout(() => {
-        bubble.classList.remove("visible");
+      timeout = setTimeout(() => {
+        if (bubble) bubble.classList.remove("visible");
+        timeout = null;
       }, seconds * 1000);
     } else {
-      bubble.classList.remove("visible");
+      if (bubble) bubble.classList.remove("visible");
     }
   }
 }
+/**
+ * Move forward by the given input steps, handling collisions and view updates.
+ * @param {number|string} input
+ * @returns {Promise<void>}
+ */
 export async function go(input) {
   let steps = parseNumber(input);
   let freeStepsCount = free(); // Get the number of free steps
 
   // Play beep sound with frequency based on steps if sound is enabled
+  /** @type {HTMLInputElement|null} */
   const soundCheckbox = document.getElementById('soundCheckbox');
   const soundEnabled = soundCheckbox ? soundCheckbox.checked : true;
 
@@ -134,33 +156,41 @@ export async function go(input) {
     steps = freeStepsCount + 1;
   }
 
-  switch (gameState.direction) {
+  switch (stageState.getDirection()) {
     case 0:
-      gameState.position.y -= steps;
+      stageState.getPosition().y -= steps;
       break;
     case 1:
-      gameState.position.x += steps;
+      stageState.getPosition().x += steps;
       break;
     case 2:
-      gameState.position.y += steps;
+      stageState.getPosition().y += steps;
       break;
     case 3:
-      gameState.position.x -= steps;
+      stageState.getPosition().x -= steps;
       break;
   }
 
-  if (!withinBounds()) handleWallCollision();
-  if (checkObstacleCollision(gameState)) handleObstacleCollision();
-  if (checkTargetReached(gameState)) handleTargetReached();
+  if (!stageState.targetWithinBounds()) handleWallCollision();
+  if (checkObstacleCollision(stageState)) handleObstacleCollision();
+  if (checkTargetReached(stageState)) handleTargetReached();
   updateAvatar();
 }
 
+/**
+ * Turn right by the given number of quarter turns.
+ * @param {number|string} input
+ */
 export function right(input) {
-  setDirection(gameState.direction + parseNumber(input));
+  stageState.turnRight(parseNumber(input));
   updateAvatar();
 }
 
+/**
+ * Turn left by the given number of quarter turns.
+ * @param {number|string} input
+ */
 export function left(input) {
-  setDirection(gameState.direction - parseNumber(input));
+  stageState.turnLeft(parseNumber(input));
   updateAvatar();
 }

@@ -45,17 +45,6 @@
   align-items: center;
 }
 
-.selectors-container select{
-  width: 8em;
-}
-
-.night .selectors-container select{
-  background-color: #333;
-  color: white;
-}
-
-
-  
 .speed-selector { 
   display: flex;
   align-items: center;
@@ -63,34 +52,15 @@
   font-size: 0.9em;
 }
 
-.dropdown {
-  padding: 0.3em 0.5em;
-  border: 0.0625em solid #ccc;
-  border-radius: 4px;
-  background-color: white;
-  font-size: 0.9em;
-  cursor: pointer;
-}
-
-.dropdown:hover {
-  border-color: #999;
-}
-
-.dropdown:focus {
-  outline: none;
-  border-color: #007bff;
-  box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25);
-}
-
 button {
   padding: 0.5em 1em;
   border: 0.0625em solid #ccc;
   background-color: #f8f8f8;
-  border-radius: 4px;
+  border-radius: .1em;
   cursor: pointer;
   font-size: 0.9em;
   transition: background-color 0.2s;
-  min-width: 80px;
+  min-width: 3em;
   text-align: center;
 }
 
@@ -103,9 +73,6 @@ button {
   text-shadow: 0 0 1em rgba(142, 154, 255, 0.5);
 }
 
-button:hover {
-  background-color: #e8e8e8;
-}
 
 .game-controls {
   display: flex;
@@ -149,14 +116,6 @@ button:hover {
   background-color: #0056b3;
 }
 
-.save {
-  background-color: #28a745;
-  color: white;
-}
-
-.save:hover {
-  background-color: #1e7e34;
-}
 
 .record {
   background-color: #6c757d;

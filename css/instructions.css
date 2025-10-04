@@ -1,7 +1,7 @@
 /* Instructions panel styles */
 .instructions {
   flex: 1;
-  background-color: #f8f9fa;
+  background-color: rgba(248, 249, 250, 0.58);
   padding: 1.5em;
   border-radius: 0.5em;
   border: 2px solid #dee2e6;
@@ -19,6 +19,10 @@
   color: #6c757d;
   margin-top: 1.5em;
   margin-bottom: 0.5em;
+}
+
+.night .instructions h3, .night .instructions h4 {
+    color:black;
 }
 
 .instructions ul {
@@ -49,4 +53,8 @@
 .instructions pre code {
   background-color: transparent;
   padding: 0;
+}
+
+.night .instructions code{
+    color:black;
 }

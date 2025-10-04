@@ -2,24 +2,30 @@
 
 import { updateStageView, updateAvatar, drawGrid } from './stage-effects/view-renderer.js';
 import { setupEventListeners } from './event-handlers.js';
-import { getStoredSelectedMap, loadCode } from './data/save-load.js';
+import {getStoredSelectedMap, loadCode, loadLocale} from './data/save-load.js';
 import { initRecorder } from './game-state/recorder.js';
-import { fillMapSelectDropdown } from './data/obstacle-maps.js';
+import { fillMapSelectDropdown } from './data/blueprints.js';
 import { designs } from './design/designs.js';
 import {editor } from './code/code-editor.js';
-import { loadMapFromKey } from './game-state/game-state.js';
+import { stageState } from './game-state/stage-state.js';
+import { mode } from './mode.js';
+import {domReplacer} from "./localizer/dom-replacer.js";
+import {localizer} from "./localizer/localizer.js";
 
 function main() {
   console.log("Main function called");
+  let locale = loadLocale();
+  localizer.currentLocale = locale;
+  domReplacer.run(document.body, locale);
   designs.init();
-  // Dynamically populate mapSelect using function from obstacle-maps.js
+  // Initialize mode state from DOM (e.g., body has 'builder' class?)
+  mode.initFromDOM();
+  // Dynamically populate mapSelect using function from blueprints.js
   const mapSelect = document.getElementById("mapSelect");
   const storedMapKey =  getStoredSelectedMap();
   fillMapSelectDropdown(mapSelect,storedMapKey);
-  loadMapFromKey(storedMapKey);
 
-
-
+  stageState.loadMapFromKey(storedMapKey);
   initRecorder();
   console.log("Recorder initialized");
   setupEventListeners();

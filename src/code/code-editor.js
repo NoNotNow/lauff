@@ -1,39 +1,46 @@
 /**
  * @typedef {Object} EditorInstance
- * @property {Function} getValue
- * @property {Function} setValue
- * @property {Function} on
- * @property {Function} off
- * // Add more properties/methods as needed from CodeMirror
+ * @property {function(): string} getValue
+ * @property {function(string): void} setValue
+ * @property {function(string, Function): void} on
+ * @property {function(string, Function): void} off
+ * @property {function(): HTMLTextAreaElement} getTextArea
+ * @property {function(): HTMLElement} getInputField
+ * @property {function(string, *): void} setOption
+ * @property {function((string|number), (string|number)): void} setSize
  */
 
 
 /**
  * Editor module for initializing and managing the CodeMirror editor instance.
  * @type {{
- *   instance: EditorInstance | undefined,
- *   init: function(): void,
- *   getCode: function() @returns {string}
+ *   instance: (EditorInstance|undefined),
+ *   init: function(boolean): void,
+ *   getCode: function(): string,
+ *   setCode: function(string): void,
+ *   isActive: function(): boolean,
+ *   onChange: function(function(any, any): void): void,
+ *   reset: function(boolean): void
  * }}
  */
 export const editor = {
 
     /**
      * Initializes the CodeMirror editor instance.
+     * @param {boolean} isNightMode - Whether to use the dark theme.
      * @returns {void}
      */
     init: function (isNightMode) {
 
+        /** @type {HTMLTextAreaElement} */
         const textAreaElement = document.getElementById("code");
-        /** @type {EditorInstance} */
-        this.instance = CodeMirror.fromTextArea(textAreaElement, {
+        this.instance = /** @type {EditorInstance} */ (CodeMirror.fromTextArea(textAreaElement, {
             lineNumbers: true,
             mode: "javascript",
             theme: isNightMode ? "lauff-dark" : "default",
 
 
-        });
-        /*set dependent on viewport size to 8em or 100% of parent container*/
+        }));
         const setEditorSize = () => {
             const computedStyle = getComputedStyle(textAreaElement.parentElement.parentElement);
             console.warn(computedStyle.height);
@@ -71,7 +78,7 @@ export const editor = {
 
     /**
      * Registers a callback for when the editor content changes.
-     * @param {Function} callback - The function to call on content change.
+     * @param {function(any, any): void} callback - Callback invoked on content change.
      */
     onChange: function (callback) {
         if (this.instance) {
@@ -79,19 +86,52 @@ export const editor = {
         }
     },
     /**
-     * 
-     * @param {Function} isDark - mode of the design 
+     * Updates theme-related options on the existing editor instance.
+     * @param {boolean} isDark - Whether to use the dark theme.
      */
     reset: function (isDark) {
         if (this.instance){
-            let theme = isDark ? "lauff-dark" : "default";
-            // editor.setOption("theme", theme);
-            let element=this.instance.getTextArea();
+            const theme = isDark ? "lauff-dark" : "default";
             this.instance.setOption("theme", theme);
-            console.log(element);
-            console.log(this.instance);
         }
+    },
 
+    /**
+     * Recalculate and apply the editor size to fit its container.
+     */
+    recalculateSize: function () {
+        if (!this.instance) return;
+        try {
+            const sizing = document.querySelector('.editor-sizing');
+            let height = '5em';
+            if (sizing) {
+                const cs = getComputedStyle(sizing);
+                const h = parseFloat(cs.height);
+                if (!isNaN(h) && h > 0) {
+                    height = cs.height;
+                } else if (sizing.clientHeight > 0) {
+                    height = sizing.clientHeight + 'px';
+                }
+            }
+            this.instance.setSize('100%', height);
+            if (typeof this.instance.refresh === 'function') {
+                this.instance.refresh();
+            }
+        } catch (e) {
+            // Best-effort; ignore errors
+            console.warn('Editor resize failed:', e);
+        }
+    },
+
+    /**
+     * Notify editor that the app mode changed so it can adjust its view.
+     * @param {('editor'|'builder')} mode
+     */
+    onModeChanged: function (mode) {
+        if (mode === 'editor') {
+            // Wait for layout after showing the editor
+            requestAnimationFrame(() => requestAnimationFrame(() => this.recalculateSize()));
+        }
     }
 
 };
