@@ -13,6 +13,11 @@ export const MessageTokens = {
     tool: 8,
     language: 9,
     height: 10,
-    width: 11
+    width: 11,
+    slow: 12,
+    normal: 13,
+    fast: 14,
+    superFast: 15,
+    numberOfFunctionCalls: 16,
 
 };

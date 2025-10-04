@@ -54,7 +54,12 @@ export const messagesEn =
         [MessageTokens.tool]: 'Tool',
         [MessageTokens.language]: 'Language',
         [MessageTokens.height]: 'Height',
-        [MessageTokens.width]: 'Width'
+        [MessageTokens.width]: 'Width',
+        [MessageTokens.slow]: 'Slow',
+        [MessageTokens.normal]: 'Normal',
+        [MessageTokens.fast]: 'Fast',
+        [MessageTokens.superFast]: 'Super Fast',
+        [MessageTokens.numberOfFunctionCalls]: 'Number of function calls'
     }
 
 export const messagesDe =
@@ -70,7 +75,13 @@ export const messagesDe =
         [MessageTokens.tool]: 'Werkzeug',
         [MessageTokens.language]: 'Sprache',
         [MessageTokens.height]: 'Höhe',
-        [MessageTokens.width]: 'Breite'
+        [MessageTokens.width]: 'Breite',
+        [MessageTokens.slow]: 'Langsam',
+        [MessageTokens.normal]:'Normal',
+        [MessageTokens.fast]:'Schnell',
+        [MessageTokens.superFast]:'Sehr schnell',
+        [MessageTokens.numberOfFunctionCalls]: 'Anzahl der Funktionenaufrufe'
+
 
 
 

@@ -6,6 +6,7 @@ import {editor} from './code-editor.js';
 import {cancelDelay, delay} from '../utility/delay.js';
 import {isRunning, setIsRunning} from '../global-state.js';
 import {localizer} from "../localizer/localizer.js";
+import {MessageTokens} from "../localizer/tokens.js";
 
 
 // Random number generator function
@@ -230,7 +231,7 @@ function doCodeAnalysisAndStats() {
       // Try to extract the number from the details string
       const match = result.details.match(/Anzahl Statements: (\d+)/);
       const count = match ? match[1] : '?';
-      statementCountDiv.textContent = `Anzahl Funktionsaufrufe: ${count}`;
+      statementCountDiv.textContent = localizer.localizeMessage(MessageTokens.numberOfFunctionCalls)+`: ${count}`;
       statementCountDiv.style.display = 'block';
     } else {
       statementCountDiv.textContent = '';
