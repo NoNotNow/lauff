@@ -27,14 +27,16 @@ export function countStatements(code) {
     try {
         // Parse den Code mit Esprima
         // @ts-ignore
-        const ast = esprima.parseScript(code, {
+        const ast = esprima.parseModule(`(async () => { ${code} })();`, { // Wrap in async function to avoid issues with top-level await
             tolerant: true,
             range: true,
-            loc: true
+            loc: true,
+            ecmaVersion: 2018,
+            jsx: false
         });
 
         /** @type {number} */
-        let statementCount = 0;
+        let statementCount = -1; //account for the async function wrapper
         /** @type {StatementDetail[]} */
         const statements = [];
 

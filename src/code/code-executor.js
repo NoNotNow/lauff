@@ -167,7 +167,7 @@ export async function start() {
     } else {
       console.error("Runtime error in user code:", error);
       const errorMessage = document.getElementById('errorMessage');
-      errorMessage.textContent = localizeUserCodeError(analyseRuntimeError(error));
+      errorMessage.textContent = localizer.localizeUserCodeError(analyseRuntimeError(error));
       resetTimer();
     }
   } finally {
