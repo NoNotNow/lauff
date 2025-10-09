@@ -133,8 +133,17 @@ export function drawGradient() {
         const x1 = halfW + dx;
         const y1 = halfH + dy;
         const grad = ctx.createLinearGradient(x0, y0, x1, y1);
-        grad.addColorStop(0, bg.from || '#ffffff');
-        grad.addColorStop(1, bg.to || '#ffffff');
+        const stops = Array.isArray(bg.stops) && bg.stops.length >= 2
+            ? bg.stops
+            : [
+                { offset: 0, color: bg.from || '#ffffff' },
+                { offset: 1, color: bg.to || '#ffffff' }
+            ];
+        // ensure ordered and clamped
+        stops
+            .map(s => ({ offset: Math.max(0, Math.min(1, Number(s.offset))), color: String(s.color || '#ffffff') }))
+            .sort((a,b) => a.offset - b.offset)
+            .forEach(s => grad.addColorStop(s.offset, s.color));
         ctx.fillStyle = grad;
         ctx.fillRect(0, 0, rect.width, rect.height);
     }

@@ -1,5 +1,5 @@
 // Background gradient presets and management
-const backgroundPresets = [
+export const backgroundPresets = [
   // Original-style backgrounds (ocean/teal themes)
   'linear-gradient(-45deg, #1e3c72, #2a5298, #4facfe)',
   'linear-gradient(-45deg, #134e5e, #71b280, #b2fefa)',

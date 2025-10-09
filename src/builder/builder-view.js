@@ -8,6 +8,7 @@ import {localizer} from "../localizer/localizer.js";
 import {MessageTokens} from "../localizer/tokens.js";
 import {stageState} from "../game-state/stage-state.js";
 import {parseNumber} from "../utility/helpers.js";
+import {backgroundPresets} from "../design/background-manager.js";
 
 
 export class BuilderView {
@@ -29,7 +30,10 @@ export class BuilderView {
         this.levelLoaderOpener = document.getElementById('level-loader-title');
         // Background gradient controls
         this.bgEnabled = document.getElementById('bgGradientEnabled');
+        this.bgPreset = document.getElementById('bgGradientPreset');
         this.bgFrom = document.getElementById('bgGradientFrom');
+        this.bgMid = document.getElementById('bgGradientMid');
+        this.bgMidPos = document.getElementById('bgGradientMidPos');
         this.bgTo = document.getElementById('bgGradientTo');
         this.bgAngle = document.getElementById('bgGradientAngle');
         // Obstacle color controls
@@ -38,6 +42,7 @@ export class BuilderView {
         // Initialize inputs from builder state
         this.updateViewFromSnapshot();
         this.populateLevelSelect();
+        this.populateGradientPresets();
 
         // Wire events -> builder API
         if (this.nameInput) {
@@ -67,12 +72,34 @@ export class BuilderView {
         if (this.bgEnabled) {
             this.bgEnabled.addEventListener('change', () => builder.setBackgroundGradient({enabled: this.bgEnabled.checked}));
         }
-        if (this.bgFrom) {
-            this.bgFrom.addEventListener('input', () => builder.setBackgroundGradient({from: this.bgFrom.value}));
+        if (this.bgPreset) {
+            this.bgPreset.addEventListener('change', () => {
+                const css = this.bgPreset.value;
+                const parsed = this.#parseLinearGradient(css);
+                if (parsed) {
+                    // update inputs accordingly
+                    this.bgAngle.value = String(parsed.angle);
+                    this.bgFrom.value = parsed.colors[0] || '#ffffff';
+                    if (parsed.colors[1]) {
+                        this.bgMid.value = parsed.colors[1];
+                        this.bgMidPos.value = '50';
+                    }
+                    this.bgTo.value = parsed.colors[parsed.colors.length - 1] || '#ffffff';
+                    // apply as stops (evenly spaced if 3 colors)
+                    const n = parsed.colors.length;
+                    const stops = parsed.colors.map((c, i) => ({ offset: n === 1 ? 1 : i / (n - 1), color: c }));
+                    builder.setBackgroundGradient({ angle: parsed.angle, stops });
+                }
+            });
         }
-        if (this.bgTo) {
-            this.bgTo.addEventListener('input', () => builder.setBackgroundGradient({to: this.bgTo.value}));
-        }
+        const applyStopsFromInputs = () => {
+            const stops = this.#buildStopsFromInputs();
+            builder.setBackgroundGradient({ stops });
+        };
+        if (this.bgFrom) this.bgFrom.addEventListener('input', applyStopsFromInputs);
+        if (this.bgMid) this.bgMid.addEventListener('input', applyStopsFromInputs);
+        if (this.bgMidPos) this.bgMidPos.addEventListener('input', applyStopsFromInputs);
+        if (this.bgTo) this.bgTo.addEventListener('input', applyStopsFromInputs);
         if (this.bgAngle) {
             this.bgAngle.addEventListener('input', () => builder.setBackgroundGradient({angle: parseFloat(this.bgAngle.value) || 0}));
         }
@@ -140,9 +167,38 @@ export class BuilderView {
             if (this.toolSelect) this.toolSelect.value = s.tool;
             const bg = s.backgroundGradient || {};
             if (this.bgEnabled) this.bgEnabled.checked = !!bg.enabled;
-            if (this.bgFrom && bg.from) this.bgFrom.value = bg.from;
-            if (this.bgTo && bg.to) this.bgTo.value = bg.to;
+            // angle
             if (this.bgAngle && typeof bg.angle === 'number') this.bgAngle.value = String(bg.angle);
+            // stops -> from/mid/to
+            let stops = Array.isArray(bg.stops) ? bg.stops.slice() : [];
+            if (stops.length < 2) {
+                stops = [
+                    { offset: 0, color: bg.from || '#ffffff' },
+                    { offset: 1, color: bg.to || '#ffffff' }
+                ];
+            }
+            stops.sort((a,b) => a.offset - b.offset);
+            if (this.bgFrom) this.bgFrom.value = stops[0]?.color || '#ffffff';
+            if (this.bgTo) this.bgTo.value = stops[stops.length-1]?.color || '#ffffff';
+            if (this.bgMid) this.bgMid.value = stops[1] && stops.length >= 3 ? stops[1].color : '';
+            if (this.bgMidPos) this.bgMidPos.value = stops[1] && stops.length >= 3 ? String(Math.round((stops[1].offset || 0.5)*100)) : '50';
+            // preset selection: try to match current to a preset string
+            if (this.bgPreset) {
+                let matched = '';
+                try {
+                    for (const css of backgroundPresets) {
+                        const p = this.#parseLinearGradient(css);
+                        if (!p) continue;
+                        const cols = p.colors;
+                        const curCols = [stops[0]?.color, stops[1] && stops.length>=3 ? stops[1].color : undefined, stops[stops.length-1]?.color].filter(Boolean);
+                        if (cols.length === curCols.length && cols.every((c,i)=> c.toLowerCase() === curCols[i].toLowerCase())) {
+                            matched = css;
+                            break;
+                        }
+                    }
+                } catch(e) {}
+                this.bgPreset.value = matched;
+            }
             const os = s.obstacleStyle || {};
             if (this.obFill && os.fill) this.obFill.value = os.fill;
             if (this.obBorder && os.border) this.obBorder.value = os.border;
@@ -179,6 +235,55 @@ export class BuilderView {
             option.textContent = bp.name;
             this.levelSelect.appendChild(option);
         }
+    }
+
+    populateGradientPresets() {
+        if (!this.bgPreset) return;
+        // First option: none
+        this.bgPreset.innerHTML = '';
+        const none = document.createElement('option');
+        none.value = '';
+        none.textContent = '— custom —';
+        this.bgPreset.appendChild(none);
+        for (const css of backgroundPresets) {
+            const opt = document.createElement('option');
+            opt.value = css;
+            opt.textContent = css;
+            this.bgPreset.appendChild(opt);
+        }
+    }
+
+    #parseLinearGradient(css) {
+        // Expect formats like: linear-gradient(-45deg, #a, #b, #c)
+        if (!css || typeof css !== 'string') return null;
+        const m = css.match(/linear-gradient\(([^,]+),\s*(.*)\)/i);
+        if (!m) return null;
+        const anglePart = m[1].trim();
+        let angle = 0;
+        const degMatch = anglePart.match(/(-?\d+(?:\.\d+)?)deg/i);
+        if (degMatch) angle = parseFloat(degMatch[1]);
+        const rest = m[2];
+        // split by commas not inside parentheses (simple here: no functions in colors)
+        const parts = rest.split(',').map(s => s.trim()).filter(Boolean);
+        const colors = parts.map(p => p.split(/\s+/)[0]);
+        return { angle, colors };
+    }
+
+    #buildStopsFromInputs() {
+        const from = this.bgFrom?.value || '#ffffff';
+        const to = this.bgTo?.value || '#ffffff';
+        const mid = this.bgMid?.value || '';
+        const midPos = Math.max(0, Math.min(100, parseInt(this.bgMidPos?.value || '50', 10))) / 100;
+        /** @type {{offset:number,color:string}[]} */
+        const stops = [];
+        stops.push({ offset: 0, color: from });
+        if (mid) {
+            stops.push({ offset: midPos, color: mid });
+        }
+        stops.push({ offset: 1, color: to });
+        // sort and unique offsets
+        stops.sort((a,b) => a.offset - b.offset);
+        return stops;
     }
 }
 

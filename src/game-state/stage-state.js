@@ -32,7 +32,11 @@ class StageState {
             enabled: false,
             from: '#ffffff',
             to: '#ffffff',
-            angle: 0
+            angle: 0,
+            stops: [
+                { offset: 0, color: '#ffffff' },
+                { offset: 1, color: '#ffffff' }
+            ]
         };
         if (this.#state.obstacleStyle === undefined) this.#state.obstacleStyle = {
             fill: '#374151',
@@ -74,11 +78,18 @@ class StageState {
         this.#state.stageSize = map.stageSize;
         // background gradient with defaults for backward compatibility
         const bg = map.backgroundGradient || {};
+        const stops = Array.isArray(bg.stops) && bg.stops.length >= 2
+            ? bg.stops.map(s => ({ offset: Math.max(0, Math.min(1, Number(s.offset))), color: String(s.color || '#ffffff') }))
+            : [
+                { offset: 0, color: bg.from || '#ffffff' },
+                { offset: 1, color: bg.to || '#ffffff' }
+            ];
         this.#state.backgroundGradient = {
             enabled: !!bg.enabled,
             from: bg.from || '#ffffff',
             to: bg.to || '#ffffff',
-            angle: typeof bg.angle === 'number' ? bg.angle : 0
+            angle: typeof bg.angle === 'number' ? bg.angle : 0,
+            stops
         };
         // obstacle style with defaults for backward compatibility
         const os = map.obstacleStyle || {};
@@ -133,7 +144,7 @@ class StageState {
     }
 
     /**
-     * @param {{enabled?: boolean, from?: string, to?: string, angle?: number}} bg
+     * @param {{enabled?: boolean, from?: string, to?: string, angle?: number, stops?: {offset:number,color:string}[]}} bg
      */
     updateBackgroundGradient(bg) {
         if (!this.#state.backgroundGradient) this.addDefaultMembers();
@@ -142,6 +153,13 @@ class StageState {
         if (bg.from !== undefined) cur.from = String(bg.from);
         if (bg.to !== undefined) cur.to = String(bg.to);
         if (typeof bg.angle === 'number' && isFinite(bg.angle)) cur.angle = bg.angle;
+        if (Array.isArray(bg.stops)) {
+            // sanitize stops
+            const cleaned = bg.stops
+                .map(s => ({ offset: Math.max(0, Math.min(1, Number(s.offset))), color: String(s.color || '#ffffff') }))
+                .sort((a,b) => a.offset - b.offset);
+            if (cleaned.length >= 2) cur.stops = cleaned;
+        }
         this.#isDirty = true;
     }
 

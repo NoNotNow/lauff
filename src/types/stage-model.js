@@ -9,11 +9,13 @@
 
 /**
  * Background gradient configuration for the grid.
+ * Supports both simple two-stop gradients (from/to) and multi-stop via `stops`.
  * - enabled: toggle gradient usage
- * - from: CSS color string for start
- * - to: CSS color string for end
+ * - from: CSS color string for start (legacy/simple)
+ * - to: CSS color string for end (legacy/simple)
  * - angle: degrees for linear-gradient (0..360)
- * @typedef {{enabled?: boolean, from?: string, to?: string, angle?: number}} BackgroundGradient
+ * - stops: Array of {offset: number (0..1), color: string}
+ * @typedef {{enabled?: boolean, from?: string, to?: string, angle?: number, stops?: {offset:number,color:string}[]}} BackgroundGradient
  */
 
 /**
