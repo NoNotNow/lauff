@@ -28,6 +28,12 @@ class StageState {
         if(this.#state.position === undefined)  this.#state.position
             = {x: this.#state.startPosition.x, y: this.#state.startPosition.y};
         if(this.#state.direction === undefined)  this.#state.direction = 1;
+        if(this.#state.backgroundGradient === undefined) this.#state.backgroundGradient = {
+            enabled: false,
+            from: '#ffffff',
+            to: '#ffffff',
+            angle: 0
+        };
     }
 
     getName() {return this.#state.name;}
@@ -62,6 +68,14 @@ class StageState {
         this.#state.obstacles = map.obstacles;
         this.#state.targetPosition = map.targetPosition;
         this.#state.stageSize = map.stageSize;
+        // background gradient with defaults for backward compatibility
+        const bg = map.backgroundGradient || {};
+        this.#state.backgroundGradient = {
+            enabled: !!bg.enabled,
+            from: bg.from || '#ffffff',
+            to: bg.to || '#ffffff',
+            angle: typeof bg.angle === 'number' ? bg.angle : 0
+        };
         this.#isDirty = false;
     }
 
@@ -102,6 +116,23 @@ class StageState {
 
     getStageSize() {
         return this.#state.stageSize;
+    }
+
+    getBackgroundGradient() {
+        return this.#state.backgroundGradient;
+    }
+
+    /**
+     * @param {{enabled?: boolean, from?: string, to?: string, angle?: number}} bg
+     */
+    updateBackgroundGradient(bg) {
+        if (!this.#state.backgroundGradient) this.addDefaultMembers();
+        const cur = this.#state.backgroundGradient;
+        if (bg.enabled !== undefined) cur.enabled = !!bg.enabled;
+        if (bg.from !== undefined) cur.from = String(bg.from);
+        if (bg.to !== undefined) cur.to = String(bg.to);
+        if (typeof bg.angle === 'number' && isFinite(bg.angle)) cur.angle = bg.angle;
+        this.#isDirty = true;
     }
 
     getObstacles() {

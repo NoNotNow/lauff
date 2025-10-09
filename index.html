@@ -164,6 +164,24 @@
                         <option value="targetPosition">[MessageTokens.targetPosition]</option>
                     </select>
                 </label>
+                <div class="gradient-controls">
+                    <label>
+                        Grid gradient:
+                        <input type="checkbox" id="bgGradientEnabled"/> enable
+                    </label>
+                    <label>
+                        From:
+                        <input type="color" id="bgGradientFrom" value="#ffffff"/>
+                    </label>
+                    <label>
+                        To:
+                        <input type="color" id="bgGradientTo" value="#ffffff"/>
+                    </label>
+                    <label>
+                        Angle:
+                        <input type="range" id="bgGradientAngle" min="0" max="360" step="1" value="0"/>
+                    </label>
+                </div>
                 <div>
                     <button id="clearObstaclesBtn" class="icon-btn" title="Alle Hindernisse entfernen">
                         <img src="assets/broom.svg" alt="clear icon"/>

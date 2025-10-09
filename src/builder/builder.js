@@ -40,7 +40,8 @@ class Builder {
         return {
             name: stageState.getName ? stageState.getName() : '',
             stageSize: stageState.getStageSize(),
-            tool: this._tool
+            tool: this._tool,
+            backgroundGradient: stageState.getBackgroundGradient ? stageState.getBackgroundGradient() : undefined
         };
     }
 
@@ -82,6 +83,14 @@ class Builder {
         updateStageView();
         updateAvatar();
         setTimeout(() => drawGrid(), 300);
+    }
+
+    setBackgroundGradient(partial) {
+        if (stageState.updateBackgroundGradient) {
+            stageState.updateBackgroundGradient(partial);
+            // Re-render background/grid
+            drawGrid();
+        }
     }
 
     /** Handle a click on the grid in grid coordinates */

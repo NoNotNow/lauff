@@ -117,6 +117,27 @@ function drawGridImpl() {
     // Clear canvas
     ctx.clearRect(0, 0, rect.width, rect.height);
 
+    // Fill background gradient if enabled
+    const bg = stageState.getBackgroundGradient ? stageState.getBackgroundGradient() : null;
+    if (bg && bg.enabled) {
+        const angleRad = ((bg.angle || 0) % 360) * Math.PI / 180;
+        // Compute gradient vector endpoints across the rect
+        const halfW = rect.width / 2;
+        const halfH = rect.height / 2;
+        const len = Math.sqrt(halfW * halfW + halfH * halfH);
+        const dx = Math.cos(angleRad) * len;
+        const dy = Math.sin(angleRad) * len;
+        const x0 = halfW - dx;
+        const y0 = halfH - dy;
+        const x1 = halfW + dx;
+        const y1 = halfH + dy;
+        const grad = ctx.createLinearGradient(x0, y0, x1, y1);
+        grad.addColorStop(0, bg.from || '#ffffff');
+        grad.addColorStop(1, bg.to || '#ffffff');
+        ctx.fillStyle = grad;
+        ctx.fillRect(0, 0, rect.width, rect.height);
+    }
+
     // Set line style
     if (designs.isNightMode) {
         ctx.strokeStyle = 'rgba(243, 208, 9, 0.12)';

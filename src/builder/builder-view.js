@@ -27,6 +27,11 @@ export class BuilderView {
         this.loadButton = document.getElementById('load-blueprint');
         this.removeButton = document.getElementById('remove-blueprint');
         this.levelLoaderOpener = document.getElementById('level-loader-title');
+        // Background gradient controls
+        this.bgEnabled = document.getElementById('bgGradientEnabled');
+        this.bgFrom = document.getElementById('bgGradientFrom');
+        this.bgTo = document.getElementById('bgGradientTo');
+        this.bgAngle = document.getElementById('bgGradientAngle');
         // Initialize inputs from builder state
         this.updateViewFromSnapshot();
         this.populateLevelSelect();
@@ -53,6 +58,20 @@ export class BuilderView {
 
         if (this.clearBtn) {
             this.clearBtn.addEventListener('pointerdown', () => builder.clearObstacles());
+        }
+
+        // Background gradient bindings
+        if (this.bgEnabled) {
+            this.bgEnabled.addEventListener('change', () => builder.setBackgroundGradient({enabled: this.bgEnabled.checked}));
+        }
+        if (this.bgFrom) {
+            this.bgFrom.addEventListener('input', () => builder.setBackgroundGradient({from: this.bgFrom.value}));
+        }
+        if (this.bgTo) {
+            this.bgTo.addEventListener('input', () => builder.setBackgroundGradient({to: this.bgTo.value}));
+        }
+        if (this.bgAngle) {
+            this.bgAngle.addEventListener('input', () => builder.setBackgroundGradient({angle: parseFloat(this.bgAngle.value) || 0}));
         }
 
         if (this.canvas) {
@@ -109,6 +128,11 @@ export class BuilderView {
             if (this.widthInput) this.widthInput.value = String(s.stageSize.x ?? 0);
             if (this.heightInput) this.heightInput.value = String(s.stageSize.y ?? 0);
             if (this.toolSelect) this.toolSelect.value = s.tool;
+            const bg = s.backgroundGradient || {};
+            if (this.bgEnabled) this.bgEnabled.checked = !!bg.enabled;
+            if (this.bgFrom && bg.from) this.bgFrom.value = bg.from;
+            if (this.bgTo && bg.to) this.bgTo.value = bg.to;
+            if (this.bgAngle && typeof bg.angle === 'number') this.bgAngle.value = String(bg.angle);
         } catch (e) {
             console.error('Unable to save view', e);
         }
