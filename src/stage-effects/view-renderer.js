@@ -50,17 +50,26 @@ export function updateStageView() {
         }
     }
 
+    const obsStyle = stageState.getObstacleStyle ? stageState.getObstacleStyle() : null;
     for (let i = 0; i < stageState.getObstacles().length; i++) {
         const obstacle = stageState.getObstacles()[i];
         if (obstacleArray[i]) {
             //update existing obstacle position if it exists
             obstacleArray[i].style.left = obstacle.x + 'em';
             obstacleArray[i].style.top = obstacle.y + 'em';
+            if (obsStyle) {
+                obstacleArray[i].style.background = obsStyle.fill || '';
+                obstacleArray[i].style.borderColor = obsStyle.border || '';
+            }
         } else {
             const obstacleElement = document.createElement('div');
             obstacleElement.className = 'obstacle';
             obstacleElement.style.left = obstacle.x + 'em';
             obstacleElement.style.top = obstacle.y + 'em';
+            if (obsStyle) {
+                obstacleElement.style.background = obsStyle.fill || '';
+                obstacleElement.style.borderColor = obsStyle.border || '';
+            }
             stage.appendChild(obstacleElement);
         }
     }
@@ -74,11 +83,11 @@ export function updateStageView() {
 }
 
 export function drawGrid() {
-    setTimeout(() => drawGridImpl(), 200);
-    setTimeout(() => drawGridImpl(), 1000);
+    setTimeout(() => { drawGradient(); drawGridImpl(); }, 200);
+    setTimeout(() => { drawGradient(); drawGridImpl(); }, 1000);
 }
 
-function drawGridImpl() {
+export function drawGradient() {
     const canvas = document.getElementById('gridCanvas');
     const stage = document.getElementById('stage');
 
@@ -89,8 +98,6 @@ function drawGridImpl() {
 
     const ctx = canvas.getContext('2d');
     const rect = stage.getBoundingClientRect();
-
-    console.log('Stage rect:', rect);
 
     // Force a reflow to ensure we get accurate dimensions
     stage.offsetHeight;
@@ -105,14 +112,8 @@ function drawGridImpl() {
     canvas.style.height = rect.height + 'px';
 
     // Scale the drawing context to match the device pixel ratio
+    ctx.setTransform(1, 0, 0, 1, 0, 0); // reset any previous transform
     ctx.scale(pixelRatio, pixelRatio);
-
-    console.log('Canvas size set to:', canvas.width, 'x', canvas.height, 'with pixel ratio:', pixelRatio);
-
-    // Calculate grid size in pixels (1em)
-    const gridSize = parseFloat(getComputedStyle(stage).fontSize);
-
-    console.log('Grid size (1em):', gridSize, 'px');
 
     // Clear canvas
     ctx.clearRect(0, 0, rect.width, rect.height);
@@ -137,6 +138,22 @@ function drawGridImpl() {
         ctx.fillStyle = grad;
         ctx.fillRect(0, 0, rect.width, rect.height);
     }
+}
+
+function drawGridImpl() {
+    const canvas = document.getElementById('gridCanvas');
+    const stage = document.getElementById('stage');
+
+    if (!canvas || !stage) {
+        console.log('Canvas or stage not found:', {canvas: !!canvas, stage: !!stage});
+        return;
+    }
+
+    const ctx = canvas.getContext('2d');
+    const rect = stage.getBoundingClientRect();
+
+    // Calculate grid size in pixels (1em)
+    const gridSize = parseFloat(getComputedStyle(stage).fontSize);
 
     // Set line style
     if (designs.isNightMode) {

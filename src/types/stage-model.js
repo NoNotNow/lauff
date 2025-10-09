@@ -17,6 +17,13 @@
  */
 
 /**
+ * Appearance configuration for all obstacles.
+ * - fill: CSS color string for obstacle background (solid)
+ * - border: CSS color string for obstacle border
+ * @typedef {{fill?: string, border?: string}} ObstacleStyle
+ */
+
+/**
  * Core structural type for stage data used both as a template (blueprint)
  * and as a runtime snapshot. Fields not applicable in a given role are optional.
  * - Blueprints typically provide: name, startPosition, startDirection?, targetPosition, stageSize, obstacles
@@ -31,6 +38,7 @@
  * @property {Obstacle[]} obstacles
  * @property {Vec2=} targetPosition
  * @property {BackgroundGradient=} backgroundGradient
+ * @property {ObstacleStyle=} obstacleStyle
  */
 
 /** @typedef {StageModel} StageBlueprint */

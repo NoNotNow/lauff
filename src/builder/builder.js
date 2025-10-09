@@ -41,7 +41,8 @@ class Builder {
             name: stageState.getName ? stageState.getName() : '',
             stageSize: stageState.getStageSize(),
             tool: this._tool,
-            backgroundGradient: stageState.getBackgroundGradient ? stageState.getBackgroundGradient() : undefined
+            backgroundGradient: stageState.getBackgroundGradient ? stageState.getBackgroundGradient() : undefined,
+            obstacleStyle: stageState.getObstacleStyle ? stageState.getObstacleStyle() : undefined
         };
     }
 
@@ -90,6 +91,14 @@ class Builder {
             stageState.updateBackgroundGradient(partial);
             // Re-render background/grid
             drawGrid();
+        }
+    }
+
+    setObstacleStyle(partial) {
+        if (stageState.updateObstacleStyle) {
+            stageState.updateObstacleStyle(partial);
+            // Re-render obstacles with new style
+            updateStageView();
         }
     }
 

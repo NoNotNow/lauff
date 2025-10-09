@@ -32,6 +32,9 @@ export class BuilderView {
         this.bgFrom = document.getElementById('bgGradientFrom');
         this.bgTo = document.getElementById('bgGradientTo');
         this.bgAngle = document.getElementById('bgGradientAngle');
+        // Obstacle color controls
+        this.obFill = document.getElementById('obstacleFillColor');
+        this.obBorder = document.getElementById('obstacleBorderColor');
         // Initialize inputs from builder state
         this.updateViewFromSnapshot();
         this.populateLevelSelect();
@@ -72,6 +75,13 @@ export class BuilderView {
         }
         if (this.bgAngle) {
             this.bgAngle.addEventListener('input', () => builder.setBackgroundGradient({angle: parseFloat(this.bgAngle.value) || 0}));
+        }
+        // Obstacle color bindings
+        if (this.obFill) {
+            this.obFill.addEventListener('input', () => builder.setObstacleStyle({fill: this.obFill.value}));
+        }
+        if (this.obBorder) {
+            this.obBorder.addEventListener('input', () => builder.setObstacleStyle({border: this.obBorder.value}));
         }
 
         if (this.canvas) {
@@ -133,6 +143,9 @@ export class BuilderView {
             if (this.bgFrom && bg.from) this.bgFrom.value = bg.from;
             if (this.bgTo && bg.to) this.bgTo.value = bg.to;
             if (this.bgAngle && typeof bg.angle === 'number') this.bgAngle.value = String(bg.angle);
+            const os = s.obstacleStyle || {};
+            if (this.obFill && os.fill) this.obFill.value = os.fill;
+            if (this.obBorder && os.border) this.obBorder.value = os.border;
         } catch (e) {
             console.error('Unable to save view', e);
         }

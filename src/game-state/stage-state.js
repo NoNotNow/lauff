@@ -34,6 +34,10 @@ class StageState {
             to: '#ffffff',
             angle: 0
         };
+        if (this.#state.obstacleStyle === undefined) this.#state.obstacleStyle = {
+            fill: '#374151',
+            border: '#000000'
+        };
     }
 
     getName() {return this.#state.name;}
@@ -75,6 +79,12 @@ class StageState {
             from: bg.from || '#ffffff',
             to: bg.to || '#ffffff',
             angle: typeof bg.angle === 'number' ? bg.angle : 0
+        };
+        // obstacle style with defaults for backward compatibility
+        const os = map.obstacleStyle || {};
+        this.#state.obstacleStyle = {
+            fill: os.fill || '#374151',
+            border: os.border || '#000000'
         };
         this.#isDirty = false;
     }
@@ -132,6 +142,21 @@ class StageState {
         if (bg.from !== undefined) cur.from = String(bg.from);
         if (bg.to !== undefined) cur.to = String(bg.to);
         if (typeof bg.angle === 'number' && isFinite(bg.angle)) cur.angle = bg.angle;
+        this.#isDirty = true;
+    }
+
+    getObstacleStyle() {
+        return this.#state.obstacleStyle;
+    }
+
+    /**
+     * @param {{fill?: string, border?: string}} partial
+     */
+    updateObstacleStyle(partial) {
+        if (!this.#state.obstacleStyle) this.addDefaultMembers();
+        const cur = this.#state.obstacleStyle;
+        if (partial.fill !== undefined) cur.fill = String(partial.fill);
+        if (partial.border !== undefined) cur.border = String(partial.border);
         this.#isDirty = true;
     }
 
