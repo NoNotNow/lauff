@@ -119,7 +119,7 @@ export const messagesDe =
         [MessageTokens.nameLabel]: 'Name',
         [MessageTokens.levelNamePlaceholder]: 'Levelname',
         [MessageTokens.gridGradient]: 'Spielfeld-Verlauf',
-        [MessageTokens.enable]: 'aktivieren',
+        [MessageTokens.enable]: 'aktiv',
         [MessageTokens.preset]: 'Vorlage',
         [MessageTokens.from]: 'Von',
         [MessageTokens.mid]: 'Mitte',
