@@ -142,7 +142,7 @@ export class BuilderView {
         }
         if (this.removeButton) {
             this.removeButton.addEventListener('pointerdown', () => {
-                window.confirm(localizer.localizeMessage(MessageTokens.removeLevel));
+                window.confirm(localizer.localizeMessage(MessageTokens.deleteLevelConfirmation));
                 builder.remove(this.levelSelect.value);
                 this.populateLevelSelect();
             });

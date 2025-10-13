@@ -45,17 +45,17 @@
         <div class="corner-buttons">
             <button id="design-button" class="icon-btn design-button" title="[MessageTokens.swapDesign]"
                     aria-label="[MessageTokens.swapDesign]">
-                <img class="day" src="assets/day.svg" alt="Day"/>
-                <img class="night" src="assets/night.svg" alt="Night"/>
+                <img class="day" src="assets/day.svg" alt="[MessageTokens.day]"/>
+                <img class="night" src="assets/night.svg" alt="[MessageTokens.night]"/>
             </button>
             <button id="builder-button" class="icon-btn" title="[MessageTokens.turnOnBuilder]"
                     aria-label="[MessageTokens.turnOnBuilder]"
                     aria-pressed="true">
-                <img src="assets/wrench.svg" alt="Builder"/>
+                <img src="assets/wrench.svg" alt="[MessageTokens.turnOnBuilder]"/>
             </button>
             <button id="language-button" class="icon-btn" title="[MessageTokens.language]"
                     aria-label="[MessageTokens.language]">
-                <img src="assets/language.svg" alt="Settings"/>
+                <img src="assets/language.svg" alt="[MessageTokens.language]"/>
             </button>
         </div>
     </header>
@@ -77,7 +77,7 @@
                     <div class="selectors-container">
                         <div class="map-selector">
                             <select id="mapSelect" class="dropdown">
-                                <option value="" selected>Map 1</option>
+                                <option value="" selected>[MessageTokens.defaultMapName]</option>
                             </select>
                         </div>
                         <div class="speed-selector">
@@ -92,7 +92,7 @@
                     </div>
                     <div class="game-buttons">
                         <button class="start" id="startButton">
-                            <span class="start-text">▶</span><span class="stop-text">Stop</span>
+                            <span class="start-text">▶</span><span class="stop-text">[MessageTokens.stop]</span>
                         </button>
                         <button class="reset" id="resetButton">
                             <span>&#8617;</span>
@@ -107,11 +107,11 @@
         </div>
         <div class="editor-container">
             <div class="editor-actions top">
-                <button class="icon-btn save" id="saveButton" title="Save" aria-label="Save">
-                    <img src="assets/save.svg" alt="Save icon"/>
+                <button class="icon-btn save" id="saveButton" title="[MessageTokens.save]" aria-label="[MessageTokens.save]">
+                    <img src="assets/save.svg" alt="[MessageTokens.save]"/>
                 </button>
-                <button class="icon-btn clear-button" id="clearButton" title="Clear" aria-label="Clear">
-                    <img src="assets/clear.svg" alt="Clear icon"/>
+                <button class="icon-btn clear-button" id="clearButton" title="[MessageTokens.clear]" aria-label="[MessageTokens.clear]">
+                    <img src="assets/clear.svg" alt="[MessageTokens.clear]"/>
                 </button>
             </div>
             <div class="editor-sizing">
@@ -132,19 +132,19 @@
 
                         </select>
                         <div class="level-loader-actions">
-                            <button id="remove-blueprint" class="icon-btn" title="Löschen">
-                                <img src="assets/clear.svg" alt="clear icon"/>
+                            <button id="remove-blueprint" class="icon-btn" title="[MessageTokens.removeLevel]">
+                                <img src="assets/clear.svg" alt="[MessageTokens.removeLevel]"/>
                             </button>
-                            <button id="load-blueprint" class="icon-btn" title="Laden">
-                                <img src="assets/open.svg" alt="laden"/>
+                            <button id="load-blueprint" class="icon-btn" title="[MessageTokens.loadLevel]">
+                                <img src="assets/open.svg" alt="[MessageTokens.loadLevel]"/>
                             </button>
 
                         </div>
                     </div>
                 </div>
                 <label>
-                    Name:
-                    <input id="builder-name" type="text" placeholder="Level Name"/>
+                    [MessageTokens.nameLabel]:
+                    <input id="builder-name" type="text" placeholder="[MessageTokens.levelNamePlaceholder]"/>
                 </label>
                 <div>
                     <label>
@@ -166,53 +166,53 @@
                 </label>
                 <div class="gradient-controls">
                     <label>
-                        Grid gradient:
-                        <input type="checkbox" id="bgGradientEnabled"/> enable
+                        [MessageTokens.gridGradient]:
+                        <input type="checkbox" id="bgGradientEnabled"/> [MessageTokens.enable]
                     </label>
                     <label>
-                        Preset:
+                        [MessageTokens.preset]:
                         <select id="bgGradientPreset"></select>
                     </label>
                     <label>
-                        From:
+                        [MessageTokens.from]:
                         <input type="color" id="bgGradientFrom" value="#ffffff"/>
                     </label>
                     <label>
-                        Mid:
+                        [MessageTokens.mid]:
                         <input type="color" id="bgGradientMid" value="#ffffff"/>
                     </label>
                     <label>
-                        Mid position:
+                        [MessageTokens.midPosition]:
                         <input type="range" id="bgGradientMidPos" min="0" max="100" step="1" value="50"/>
                     </label>
                     <label>
-                        To:
+                        [MessageTokens.to]:
                         <input type="color" id="bgGradientTo" value="#ffffff"/>
                     </label>
                     <label>
-                        Angle:
+                        [MessageTokens.angle]:
                         <input type="range" id="bgGradientAngle" min="0" max="360" step="1" value="0"/>
                     </label>
                 </div>
                 <div class="obstacle-style-controls">
                     <label>
-                        Obstacle color:
+                        [MessageTokens.obstacleColor]:
                         <input type="color" id="obstacleFillColor" value="#374151"/>
                     </label>
                     <label>
-                        Obstacle border:
+                        [MessageTokens.obstacleBorder]:
                         <input type="color" id="obstacleBorderColor" value="#000000"/>
                     </label>
                 </div>
                 <div>
-                    <button id="clearObstaclesBtn" class="icon-btn" title="Alle Hindernisse entfernen">
-                        <img src="assets/broom.svg" alt="clear icon"/>
+                    <button id="clearObstaclesBtn" class="icon-btn" title="[MessageTokens.clearObstacles]">
+                        <img src="assets/broom.svg" alt="[MessageTokens.clear]"/>
                     </button>
-                    <button class="icon-btn save" id="saveGridButton" title="Save" aria-label="Save">
-                        <img src="assets/save.svg" alt="Save icon"/>
+                    <button class="icon-btn save" id="saveGridButton" title="[MessageTokens.save]" aria-label="[MessageTokens.save]">
+                        <img src="assets/save.svg" alt="[MessageTokens.save]"/>
                     </button>
-                    <button class="icon-btn copy" id="copyGridButton" title="Copy" aria-label="Copy">
-                        <img src="assets/copy.svg" alt="Copy icon"/>
+                    <button class="icon-btn copy" id="copyGridButton" title="[MessageTokens.copy]" aria-label="[MessageTokens.copy]">
+                        <img src="assets/copy.svg" alt="[MessageTokens.copy]"/>
                     </button>
                 </div>
             </div>
@@ -224,28 +224,28 @@
             <div class="buttons">
                 <div class="movement">
                     <button class="move" id="goButton">
-                        go()
+                        [MessageTokens.goLabel]
                     </button>
                     <button class="move left" id="leftButton">
-                        left()
+                        [MessageTokens.leftLabel]
                     </button>
                     <button class="move right" id="rightButton">
-                        right()
+                        [MessageTokens.rightLabel]
                     </button>
                 </div>
 
 
                 <button class="record" id="recordButton">
-                    Record
+                    [MessageTokens.record]
                 </button>
 
                 <label class="checkbox-control">
                     <input type="checkbox" id="soundCheckbox" checked>
-                    Sound
+                    [MessageTokens.sound]
                 </label>
 
 
-            </div>
+                </div>
         </div>
         <div class="instructions">
             <h3>Anleitung</h3>
@@ -283,7 +283,7 @@ if (free() > 2) {
 <footer>
     <p>
         <a href="https://github.com/NoNotNow/lauff" target="_blank" style="color: #007bff; text-decoration: none;">
-            View on GitHub
+            [MessageTokens.viewOnGithub]
         </a>
     </p>
 </footer>
