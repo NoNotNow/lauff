@@ -177,3 +177,14 @@
 .builder-toolbar .gradient-controls .slider-line input[type="range"] {
     width: 100%;
 }
+
+
+@media (max-width: 600px) {
+    /* On very narrow screens, avoid overflow and left-offset for the gradient box */
+    .builder-toolbar .gradient-controls {
+        min-width: 0;        /* allow it to shrink with the viewport */
+        max-width: 100%;     /* never exceed the container width */
+        justify-self: stretch; /* align to the left/edge rather than centering an overflowing box */
+        width: 100%;
+    }
+}
