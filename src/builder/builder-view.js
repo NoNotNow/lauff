@@ -186,7 +186,8 @@ export class BuilderView {
             if (this.bgPreset) {
                 let matched = '';
                 try {
-                    for (const css of backgroundPresets) {
+                    for (const preset of backgroundPresets) {
+                        const css = typeof preset === 'string' ? preset : preset.css;
                         const p = this.#parseLinearGradient(css);
                         if (!p) continue;
                         const cols = p.colors;
@@ -245,10 +246,12 @@ export class BuilderView {
         none.value = '';
         none.textContent = '— custom —';
         this.bgPreset.appendChild(none);
-        for (const css of backgroundPresets) {
+        for (const preset of backgroundPresets) {
             const opt = document.createElement('option');
+            const css = typeof preset === 'string' ? preset : preset.css;
+            const name = typeof preset === 'string' ? preset : preset.name;
             opt.value = css;
-            opt.textContent = css;
+            opt.textContent = name;
             this.bgPreset.appendChild(opt);
         }
     }
