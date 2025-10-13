@@ -46,6 +46,56 @@ export function loadCode(mapName = null) {
 }
 
 /**
+ * Download the current editor code to a .lauff file. Prompts for a name.
+ */
+export function downloadEditorCode() {
+  try {
+    const code = editor.getCode() || '';
+    const defaultName = toFileName(getCurrentMapName() || 'program');
+    let name = window.prompt('File name for your code (without extension):', defaultName);
+    if (name == null) return; // cancel
+    name = toFileName(String(name).trim() || defaultName);
+    const blob = new Blob([code], { type: 'text/plain;charset=utf-8' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `${name}.lauff`;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    setTimeout(() => URL.revokeObjectURL(url), 0);
+  } catch (e) {
+    console.error('Code download failed', e);
+    alert('Download failed.');
+  }
+}
+
+/**
+ * Open a .lauff file and load its contents into the editor.
+ */
+export function uploadEditorCode() {
+  const input = document.createElement('input');
+  input.type = 'file';
+  input.accept = '.lauff,text/plain';
+  input.style.display = 'none';
+  input.addEventListener('change', async () => {
+    const file = input.files && input.files[0];
+    if (!file) { input.remove(); return; }
+    try {
+      const text = await file.text();
+      editor.setCode(text);
+    } catch (e) {
+      console.error('Code upload failed', e);
+      alert('Invalid code file.');
+    } finally {
+      input.remove();
+    }
+  }, { once: true });
+  document.body.appendChild(input);
+  input.click();
+}
+
+/**
  * @param {string} selected
  * @returns {void}
  */

@@ -7,7 +7,7 @@ import {updateFullStage} from "../stage-effects/view-renderer.js";
 import {localizer} from "../localizer/localizer.js";
 import {MessageTokens} from "../localizer/tokens.js";
 import {stageState} from "../game-state/stage-state.js";
-import {parseNumber} from "../utility/helpers.js";
+import {parseNumber, toFileName} from "../utility/helpers.js";
 import {backgroundPresets} from "../design/background-manager.js";
 
 
@@ -24,6 +24,8 @@ export class BuilderView {
         this.stage = document.getElementById('stage');
         this.saveGridButton = document.getElementById('saveGridButton');
         this.copyGridButton = document.getElementById('copyGridButton');
+        this.downloadGridButton = document.getElementById('downloadGridButton');
+        this.uploadGridButton = document.getElementById('uploadGridButton');
         this.levelSelect = document.getElementById('builder-level-select');
         this.loadButton = document.getElementById('load-blueprint');
         this.removeButton = document.getElementById('remove-blueprint');
@@ -123,6 +125,60 @@ export class BuilderView {
         }
         if (this.copyGridButton) {
             this.copyGridButton.addEventListener('pointerdown', () => builder.copyGrid());
+        }
+        if (this.downloadGridButton) {
+            this.downloadGridButton.addEventListener('pointerdown', () => {
+                try {
+                    const bp = stageState.getState ? stageState.getState() : null;
+                    if (!bp) return;
+                    const name = toFileName(stageState.getName ? stageState.getName() : 'level');
+                    const blob = new Blob([JSON.stringify(bp, null, 2)], { type: 'application/json' });
+                    const url = URL.createObjectURL(blob);
+                    const a = document.createElement('a');
+                    a.href = url;
+                    a.download = `${name}.lab`;
+                    document.body.appendChild(a);
+                    a.click();
+                    document.body.removeChild(a);
+                    setTimeout(() => URL.revokeObjectURL(url), 0);
+                } catch (e) {
+                    console.error('Download failed', e);
+                }
+            });
+        }
+        if (this.uploadGridButton) {
+            this.uploadGridButton.addEventListener('pointerdown', () => {
+                if (builder.isDirty && builder.isDirty()) {
+                    if (!window.confirm(localizer.localizeMessage ? localizer.localizeMessage(MessageTokens.unsavedChanges) : 'Unsaved changes. Continue?')) {
+                        return;
+                    }
+                }
+                const input = document.createElement('input');
+                input.type = 'file';
+                input.accept = '.lab';
+                input.style.display = 'none';
+                input.addEventListener('change', async () => {
+                    const file = input.files && input.files[0];
+                    if (!file) return;
+                    try {
+                        const text = await file.text();
+                        const data = JSON.parse(text);
+                        if (stageState.loadGameState) {
+                            stageState.loadGameState(data);
+                            stageState.resetPosition && stageState.resetPosition();
+                            updateFullStage();
+                            this.updateViewFromSnapshot();
+                        }
+                    } catch (e) {
+                        console.error('Upload failed', e);
+                        alert('Invalid level file.');
+                    } finally {
+                        input.remove();
+                    }
+                }, { once: true });
+                document.body.appendChild(input);
+                input.click();
+            });
         }
         if (this.loadButton) {
             this.loadButton.addEventListener('pointerdown', () => {
