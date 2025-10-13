@@ -100,3 +100,25 @@
 .builder .instructions {
     display: none;
 }
+.builder-toolbar .gradient-controls,
+.builder-toolbar .obstacle-style-controls {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5em 0.75em;
+    padding: 0.75em;
+    border: 1px solid rgba(0, 0, 0, 0.15);
+    border-radius: 8px;
+    background: rgba(0, 0, 0, 0.04);
+}
+
+/* Make the (larger) gradient group span full width of the grid for better layout */
+.builder-toolbar .gradient-controls {
+    grid-column: 1 / -1;
+}
+
+/* Improve contrast in night mode */
+.night .builder-toolbar .gradient-controls,
+.night .builder-toolbar .obstacle-style-controls {
+    border-color: rgba(255, 255, 255, 0.22);
+    background: rgba(255, 255, 255, 0.06);
+}
