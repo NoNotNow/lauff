@@ -48,4 +48,6 @@ export const MessageTokens = {
     day: 43,
     night: 44,
     deleteLevelConfirmation: 45,
+    fill: 46,
+    border: 47,
 };

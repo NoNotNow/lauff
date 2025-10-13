@@ -89,6 +89,8 @@ export const messagesEn =
         [MessageTokens.day]: 'Day',
         [MessageTokens.night]: 'Night',
         [MessageTokens.removeLevel]: 'Delete level',
+        [MessageTokens.fill]: 'Fill',
+        [MessageTokens.border]: 'Border',
     }
 
 export const messagesDe =
@@ -139,5 +141,7 @@ export const messagesDe =
         [MessageTokens.day]: 'Tag',
         [MessageTokens.night]: 'Nacht',
         [MessageTokens.removeLevel]: 'Level löschen',
+        [MessageTokens.fill]: 'Füllfarbe',
+        [MessageTokens.border]: 'Randfarbe',
     }
 
