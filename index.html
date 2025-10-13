@@ -166,27 +166,29 @@
                 </label>
                 <div class="gradient-controls">
                     <div class="group-header"><span>[MessageTokens.gridGradient]</span><label class="inline header-toggle"><input type="checkbox" id="bgGradientEnabled" title="[MessageTokens.enable]" aria-label="[MessageTokens.enable]"/> [MessageTokens.enable]</label></div>
-                    <label>
+                    <label class="full-line">
                         [MessageTokens.preset]:
                         <select id="bgGradientPreset"></select>
                     </label>
-                    <label>
-                        [MessageTokens.from]:
-                        <input type="color" id="bgGradientFrom" value="#ffffff"/>
-                    </label>
-                    <label>
-                        [MessageTokens.mid]:
-                        <input type="color" id="bgGradientMid" value="#ffffff"/>
-                    </label>
-                    <label>
+                    <div class="color-row">
+                        <label>
+                            [MessageTokens.from]:
+                            <input type="color" id="bgGradientFrom" value="#ffffff"/>
+                        </label>
+                        <label>
+                            [MessageTokens.mid]:
+                            <input type="color" id="bgGradientMid" value="#ffffff"/>
+                        </label>
+                        <label>
+                            [MessageTokens.to]:
+                            <input type="color" id="bgGradientTo" value="#ffffff"/>
+                        </label>
+                    </div>
+                    <label class="slider-line">
                         [MessageTokens.midPosition]:
                         <input type="range" id="bgGradientMidPos" min="0" max="100" step="1" value="50"/>
                     </label>
-                    <label>
-                        [MessageTokens.to]:
-                        <input type="color" id="bgGradientTo" value="#ffffff"/>
-                    </label>
-                    <label>
+                    <label class="slider-line">
                         [MessageTokens.angle]:
                         <input type="range" id="bgGradientAngle" min="0" max="360" step="1" value="0"/>
                     </label>

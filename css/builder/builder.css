@@ -114,6 +114,12 @@
 /* Make the (larger) gradient group span full width of the grid for better layout */
 .builder-toolbar .gradient-controls {
     grid-column: 1 / -1;
+    min-width: 15em;
+    max-width: 30em;
+    width: 100%;
+    box-sizing: border-box;
+    /* Center within the toolbar grid when narrower than full width */
+    justify-self: center;
 }
 
 /* Improve contrast in night mode */
@@ -139,4 +145,35 @@
 
 .night .builder-toolbar .group-header {
     border-bottom-color: rgba(255,255,255,0.22);
+}
+
+
+/* Gradient section layout refinements */
+.builder-toolbar .gradient-controls .full-line {
+    flex-basis: 100%;
+}
+
+.builder-toolbar .gradient-controls .color-row {
+    display: flex;
+    gap: 0.5em 0.75em;
+    flex-wrap: wrap;
+    flex-basis: 100%;
+}
+
+.builder-toolbar .gradient-controls .color-row label {
+    display: inline-flex;
+    align-items: center;
+    gap: .35em;
+}
+
+/* Place sliders on their own lines and align starts consistently */
+.builder-toolbar .gradient-controls .slider-line {
+    flex-basis: 100%;
+    display: grid;
+    grid-template-columns: 8em 1fr;
+    align-items: center;
+}
+
+.builder-toolbar .gradient-controls .slider-line input[type="range"] {
+    width: 100%;
 }
