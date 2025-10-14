@@ -128,17 +128,22 @@ class Builder {
             updateStageView();
         } else if (this._tool === 'line') {
             if (!this._pendingLineStart) {
-                this._pendingLineStart = { x: gridX, y: gridY };
+                const has = stageState.hasObstacle(gridX, gridY);
+                this._pendingLineStart = { x: gridX, y: gridY, remove: has };
             } else {
-                this.drawLine(this._pendingLineStart, { x: gridX, y: gridY });
+                this.drawLine(this._pendingLineStart, { x: gridX, y: gridY }, this._pendingLineStart.remove === true);
                 this._pendingLineStart = null;
                 updateStageView();
             }
         }
     }
 
-    /** Draw a line of obstacles between two grid points (inclusive) */
-    drawLine(startPoint, endPoint) {
+    /** Draw a line of obstacles between two grid points (inclusive)
+     * @param {{x:number,y:number}} startPoint
+     * @param {{x:number,y:number}} endPoint
+     * @param {boolean} [remove=false] when true, remove obstacles along the line instead of adding
+     */
+    drawLine(startPoint, endPoint, remove = false) {
         if (!startPoint || !endPoint) return;
         const size = stageState.getStageSize();
         const maxX = size.x + 1;
@@ -157,8 +162,14 @@ class Builder {
 
         // Bresenham's line algorithm
         while (true) {
-            if (!stageState.hasObstacle(x0, y0)) {
-                stageState.addObstacle(x0, y0);
+            if (remove) {
+                if (stageState.hasObstacle(x0, y0)) {
+                    stageState.removeObstacle(x0, y0);
+                }
+            } else {
+                if (!stageState.hasObstacle(x0, y0)) {
+                    stageState.addObstacle(x0, y0);
+                }
             }
             if (x0 === x1 && y0 === y1) break;
             const e2 = 2 * err;
