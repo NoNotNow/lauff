@@ -7,10 +7,12 @@ import {loadBluePrint, removeBluePrintEntry, saveBluePrint} from "../data/save-l
 
 class Builder {
     constructor() {
-        /** @type {'obstacles'|'start'|'target'} */
+        /** @type {'obstacles'|'start'|'target'|'line'} */
         this._tool = 'obstacles';
         /** optional back-reference to view if needed */
         this._view = null;
+        /** @type {{x:number,y:number}|null} first click for line tool */
+        this._pendingLineStart = null;
     }
 
     isEnabled() {
@@ -55,8 +57,10 @@ class Builder {
      * @param {'obstacles'|'start'|'target'} tool
      */
     setTool(tool) {
-        if (tool === 'obstacles' || tool === 'start' || tool === 'targetPosition') {
+        if (tool === 'obstacles' || tool === 'start' || tool === 'targetPosition' || tool === 'line') {
             this._tool = tool;
+            // reset any in-progress line when switching tools
+            if (tool !== 'line') this._pendingLineStart = null;
         }
     }
 
@@ -122,6 +126,50 @@ class Builder {
         } else if (this._tool === 'targetPosition') {
             stageState.setTarget({x: gridX, y: gridY});
             updateStageView();
+        } else if (this._tool === 'line') {
+            if (!this._pendingLineStart) {
+                this._pendingLineStart = { x: gridX, y: gridY };
+            } else {
+                this.drawLine(this._pendingLineStart, { x: gridX, y: gridY });
+                this._pendingLineStart = null;
+                updateStageView();
+            }
+        }
+    }
+
+    /** Draw a line of obstacles between two grid points (inclusive) */
+    drawLine(startPoint, endPoint) {
+        if (!startPoint || !endPoint) return;
+        const size = stageState.getStageSize();
+        const maxX = size.x + 1;
+        const maxY = size.y + 1;
+        const clamp = (v, min, max) => Math.max(min, Math.min(max, v));
+        let x0 = clamp(Math.round(startPoint.x), 0, maxX);
+        let y0 = clamp(Math.round(startPoint.y), 0, maxY);
+        let x1 = clamp(Math.round(endPoint.x), 0, maxX);
+        let y1 = clamp(Math.round(endPoint.y), 0, maxY);
+
+        const dx = Math.abs(x1 - x0);
+        const dy = Math.abs(y1 - y0);
+        const sx = x0 < x1 ? 1 : -1;
+        const sy = y0 < y1 ? 1 : -1;
+        let err = dx - dy;
+
+        // Bresenham's line algorithm
+        while (true) {
+            if (!stageState.hasObstacle(x0, y0)) {
+                stageState.addObstacle(x0, y0);
+            }
+            if (x0 === x1 && y0 === y1) break;
+            const e2 = 2 * err;
+            if (e2 > -dy) {
+                err -= dy;
+                x0 += sx;
+            }
+            if (e2 < dx) {
+                err += dx;
+                y0 += sy;
+            }
         }
     }
 
