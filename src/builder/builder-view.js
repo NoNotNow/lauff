@@ -67,7 +67,7 @@ export class BuilderView {
         }
 
         if (this.clearBtn) {
-            this.clearBtn.addEventListener('pointerdown', () => builder.clearObstacles());
+            this.clearBtn.addEventListener('pointerup', () => builder.clearObstacles());
         }
 
         // Background gradient bindings
@@ -118,16 +118,16 @@ export class BuilderView {
         }
 
         if (this.saveGridButton) {
-            this.saveGridButton.addEventListener('pointerdown', () => {
+            this.saveGridButton.addEventListener('pointerup', () => {
                 builder.saveGrid();
                 this.populateLevelSelect();
             });
         }
         if (this.copyGridButton) {
-            this.copyGridButton.addEventListener('pointerdown', () => builder.copyGrid());
+            this.copyGridButton.addEventListener('pointerup', () => builder.copyGrid());
         }
         if (this.downloadGridButton) {
-            this.downloadGridButton.addEventListener('pointerdown', () => {
+            this.downloadGridButton.addEventListener('pointerup', () => {
                 try {
                     const bp = stageState.getState ? stageState.getState() : null;
                     if (!bp) return;
@@ -147,7 +147,7 @@ export class BuilderView {
             });
         }
         if (this.uploadGridButton) {
-            this.uploadGridButton.addEventListener('pointerdown', () => {
+            this.uploadGridButton.addEventListener('pointerup', () => {
                 if (builder.isDirty && builder.isDirty()) {
                     if (!window.confirm(localizer.localizeMessage ? localizer.localizeMessage(MessageTokens.unsavedChanges) : 'Unsaved changes. Continue?')) {
                         return;
@@ -181,7 +181,7 @@ export class BuilderView {
             });
         }
         if (this.loadButton) {
-            this.loadButton.addEventListener('pointerdown', () => {
+            this.loadButton.addEventListener('pointerup', () => {
                     if(builder.isDirty()){
                         if(!window.confirm(localizer.localizeMessage(MessageTokens.unsavedChanges))){
                             return;
@@ -197,7 +197,7 @@ export class BuilderView {
             );
         }
         if (this.removeButton) {
-            this.removeButton.addEventListener('pointerdown', () => {
+            this.removeButton.addEventListener('pointerup', () => {
                 window.confirm(localizer.localizeMessage(MessageTokens.deleteLevelConfirmation));
                 builder.remove(this.levelSelect.value);
                 this.populateLevelSelect();
@@ -205,7 +205,7 @@ export class BuilderView {
         }
 
         if (this.levelLoaderOpener) {
-            this.levelLoaderOpener.addEventListener('pointerdown', () => {
+            this.levelLoaderOpener.addEventListener('pointerup', () => {
                 document.getElementById('level-loader').classList.toggle('open');
             });
         }

@@ -92,28 +92,28 @@ export function setupEventListeners() {
   }
 
     // Set up button event listeners
-    document.getElementById("goButton").addEventListener("pointerdown", handleGoButton);
-    document.getElementById("leftButton").addEventListener("pointerdown", handleLeftButton);
-    document.getElementById("rightButton").addEventListener("pointerdown", handleRightButton);
-    document.getElementById("resetButton").addEventListener("pointerdown", handleReset);
-    document.getElementById("startButton").addEventListener("pointerdown", start);
-    document.getElementById("saveButton").addEventListener("pointerdown", saveCode);
-    document.getElementById("clearButton").addEventListener("pointerdown", handleClear);
+    document.getElementById("goButton").addEventListener("pointerup", handleGoButton);
+    document.getElementById("leftButton").addEventListener("pointerup", handleLeftButton);
+    document.getElementById("rightButton").addEventListener("pointerup", handleRightButton);
+    document.getElementById("resetButton").addEventListener("pointerup", handleReset);
+    document.getElementById("startButton").addEventListener("pointerup", start);
+    document.getElementById("saveButton").addEventListener("pointerup", saveCode);
+    document.getElementById("clearButton").addEventListener("pointerup", handleClear);
     // Optional: download/upload editor code buttons
     const dlBtn = document.getElementById("downloadCodeButton");
-    if (dlBtn) dlBtn.addEventListener("pointerdown", downloadEditorCode);
+    if (dlBtn) dlBtn.addEventListener("pointerup", downloadEditorCode);
     const ulBtn = document.getElementById("uploadCodeButton");
-    if (ulBtn) ulBtn.addEventListener("pointerdown", uploadEditorCode);
-    document.getElementById("design-button").addEventListener("pointerdown", handleDesignButton);
+    if (ulBtn) ulBtn.addEventListener("pointerup", uploadEditorCode);
+    document.getElementById("design-button").addEventListener("pointerup", handleDesignButton);
 
 
 
-    document.getElementById("language-button").addEventListener("pointerdown", swapLanguage);
+    document.getElementById("language-button").addEventListener("pointerup", swapLanguage);
 
     // Builder toggle button
     const builderBtn = document.getElementById("builder-button");
     if (builderBtn) {
-        builderBtn.addEventListener("pointerdown", () => mode.toggleBuilder());
+        builderBtn.addEventListener("pointerup", () => mode.toggleBuilder());
         builderBtn.setAttribute('aria-pressed', String(builder.isEnabled()));
     }
 
