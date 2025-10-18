@@ -55,9 +55,9 @@
 .speech-bubble::before {
   content: "";
   position: absolute;
-  bottom: -22px;
-  left: 29px;
-  border-width: 11px;
+  bottom: -2rem;
+  left: 3rem;
+  border-width: 1rem;
   border-style: solid;
   border-color: black transparent transparent transparent;
   z-index: -2;
