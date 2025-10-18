@@ -39,6 +39,19 @@
     gap: 0.5em 0.75em;
     align-items: center;
 }
+.builder-container .name-label{
+    grid-column: 1 / -1;
+}
+.builder-container input[type="text"].name{
+    font-size: 1.5em;
+    width: 100%;
+    grid-column: 1 / -1;
+    border: none;
+    text-align: center;
+}
+.night .builder-container input[type="text"].name {
+    background: rgba(255, 255, 255, 0.06);
+}
 
 /* Make controls look orderly when wrapping */
 .builder-toolbar label {
