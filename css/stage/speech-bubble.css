@@ -5,12 +5,12 @@
   left: 0;
   position: absolute;
   background-color: rgba(255, 255, 255, 0.658);
-  border-radius: 2em;
+  border-radius: 2rem;
   z-index: 11;
-  padding: .2em .4em;
+  padding: .2rem .4rem;
   transform-origin: center;
   display: none;
-  border: solid .1em black;
+  border: solid .1rem black;
 }
 
 
@@ -31,22 +31,22 @@
 
   background-color: rgb(255, 238, 182);
   color: black;
-  border: 2px solid black;
-  border-radius: 1em;
-  padding: 0.5em 1em;
-  max-width: 250px;
+  border: .1rem solid black;
+  border-radius: 1rem;
+  padding: 0.5em 1rem;
+  max-width: 5rem;
   z-index: 11;
 
   transform-origin: center;
-  box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.2);
+  box-shadow: .2rem .2rem .6rem rgba(0, 0, 0, 0.2);
 }
 
 .speech-bubble::after {
   content: "";
   position: absolute;
-  bottom: -20px; /* position below bubble */
-  left: 30px;     /* adjust this to move the tail left/right */
-  border-width: 10px;
+  bottom: -2rem; /* position below bubble */
+  left: 3rem;     /* adjust this to move the tail left/right */
+  border-width: 1rem;
   border-style: solid;
   border-color: rgba(255, 255, 255, 0.9) transparent transparent transparent;
   z-index: -1;
