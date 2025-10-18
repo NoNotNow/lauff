@@ -76,12 +76,12 @@
                 <div class="game-controls">
                     <div class="selectors-container">
                         <div class="map-selector">
-                            <select id="mapSelect" class="dropdown">
+                            <label for="mapSelect"></label><select id="mapSelect" class="dropdown">
                                 <option value="" selected>[MessageTokens.defaultMapName]</option>
                             </select>
                         </div>
                         <div class="speed-selector">
-                            <select id="speedSelect" class="dropdown">
+                            <label for="speedSelect"></label><select id="speedSelect" class="dropdown">
                                 <option value="500">[MessageTokens.slow]</option>
                                 <option value="200" selected>[MessageTokens.normal]</option>
                                 <option value="100">[MessageTokens.fast]</option>
@@ -107,13 +107,16 @@
         </div>
         <div class="editor-container">
             <div class="editor-actions top">
-                <button class="icon-btn save" id="saveButton" title="[MessageTokens.save]" aria-label="[MessageTokens.save]">
+                <button class="icon-btn save" id="saveButton" title="[MessageTokens.save]"
+                        aria-label="[MessageTokens.save]">
                     <img src="assets/save.svg" alt="[MessageTokens.save]"/>
                 </button>
-                <button class="icon-btn clear-button" id="clearButton" title="[MessageTokens.clear]" aria-label="[MessageTokens.clear]">
+                <button class="icon-btn clear-button" id="clearButton" title="[MessageTokens.clear]"
+                        aria-label="[MessageTokens.clear]">
                     <img src="assets/clear.svg" alt="[MessageTokens.clear]"/>
                 </button>
-                <button class="icon-btn download" id="downloadCodeButton" title="Download code" aria-label="Download code">
+                <button class="icon-btn download" id="downloadCodeButton" title="Download code"
+                        aria-label="Download code">
                     <img src="assets/download.svg" alt="Download"/>
                 </button>
                 <button class="icon-btn upload" id="uploadCodeButton" title="Upload code" aria-label="Upload code">
@@ -122,8 +125,9 @@
             </div>
             <div class="editor-sizing">
                 <div class="editor-wrapper">
-          <textarea class="code" id="code" rows="10" autocomplete="off" autocapitalize="off"
-                    spellcheck="false">go();</textarea>
+                    <label for="code"></label><textarea class="code" id="code" rows="10" autocomplete="off"
+                                                        autocapitalize="off"
+                                                        spellcheck="false">go();</textarea>
                 </div>
             </div>
         </div>
@@ -134,9 +138,8 @@
                 <div id="level-loader" class="level-loader">
                     <div id="level-loader-title" class="level-loader-title">[MessageTokens.loadLevel]</div>
                     <div class="level-loader-controls">
-                        <select id="builder-level-select" size="4">
-
-                        </select>
+                        <label for="builder-level-select">
+                        </label><select id="builder-level-select" size="4"></select>
                         <div class="level-loader-actions">
                             <button id="remove-blueprint" class="icon-btn" title="[MessageTokens.removeLevel]">
                                 <img src="assets/clear.svg" alt="[MessageTokens.removeLevel]"/>
@@ -149,7 +152,8 @@
                     </div>
                 </div>
                 <label class="name-label">
-                    <input id="builder-name" class = "name" type="text" placeholder="[MessageTokens.levelNamePlaceholder]"/>
+                    <input id="builder-name" class="name" type="text"
+                           placeholder="[MessageTokens.levelNamePlaceholder]"/>
                 </label>
                 <div>
                     <label>
@@ -171,7 +175,11 @@
                     </select>
                 </label>
                 <div class="gradient-controls">
-                    <div class="group-header"><span>[MessageTokens.gridGradient]</span><label class="inline header-toggle"><input type="checkbox" id="bgGradientEnabled" title="[MessageTokens.enable]" aria-label="[MessageTokens.enable]"/> [MessageTokens.enable]</label></div>
+                    <div class="group-header"><span>[MessageTokens.gridGradient]</span><label
+                            class="inline header-toggle"><input type="checkbox" id="bgGradientEnabled"
+                                                                title="[MessageTokens.enable]"
+                                                                aria-label="[MessageTokens.enable]"/>
+                        [MessageTokens.enable]</label></div>
                     <label class="full-line">
                         [MessageTokens.preset]:
                         <select id="bgGradientPreset"></select>
@@ -215,10 +223,12 @@
                     <button id="clearObstaclesBtn" class="icon-btn" title="[MessageTokens.clearObstacles]">
                         <img src="assets/broom.svg" alt="[MessageTokens.clear]"/>
                     </button>
-                    <button class="icon-btn save" id="saveGridButton" title="[MessageTokens.save]" aria-label="[MessageTokens.save]">
+                    <button class="icon-btn save" id="saveGridButton" title="[MessageTokens.save]"
+                            aria-label="[MessageTokens.save]">
                         <img src="assets/save.svg" alt="[MessageTokens.save]"/>
                     </button>
-                    <button class="icon-btn copy" id="copyGridButton" title="[MessageTokens.copy]" aria-label="[MessageTokens.copy]">
+                    <button class="icon-btn copy" id="copyGridButton" title="[MessageTokens.copy]"
+                            aria-label="[MessageTokens.copy]">
                         <img src="assets/copy.svg" alt="[MessageTokens.copy]"/>
                     </button>
                     <button class="icon-btn download" id="downloadGridButton" title="Download" aria-label="Download">
@@ -258,7 +268,7 @@
                 </label>
 
 
-                </div>
+            </div>
         </div>
         <div class="instructions">
             <h3>Anleitung</h3>
