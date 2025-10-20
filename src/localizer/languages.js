@@ -94,6 +94,8 @@ export const messagesEn =
         [MessageTokens.copyCode]: 'Copy code',
         [MessageTokens.downloadCode]: 'Download code',
         [MessageTokens.uploadCode]: 'Upload code',
+        [MessageTokens.pasteCode]: 'Paste code',
+        [MessageTokens.confirmPasteCode]: 'Are you sure you want to paste code from the clipboard? This will overwrite the current code.'
     }
 
 export const messagesDe =
@@ -149,5 +151,7 @@ export const messagesDe =
         [MessageTokens.copyCode]: 'Code kopieren',
         [MessageTokens.downloadCode]: 'Code herunterladen',
         [MessageTokens.uploadCode]: 'Code hochladen',
+        [MessageTokens.pasteCode]: 'Code einfügen',
+        [MessageTokens.confirmPasteCode]: 'Bist du sicher, dass du den Code aus der Zwischenablage einfügen möchtest? Dadurch wird der aktuelle Code überschrieben.'
     }
 

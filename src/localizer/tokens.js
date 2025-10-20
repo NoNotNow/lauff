@@ -53,4 +53,6 @@ export const MessageTokens = {
     copyCode: 48,
     downloadCode: 49,
     uploadCode: 50,
+    pasteCode: 51,
+    confirmPasteCode: 52,
 };

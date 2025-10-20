@@ -1,7 +1,9 @@
 // Save and load functionality for the code editor
 import { stageState } from '../game-state/stage-state.js';
 import { editor } from '../code/code-editor.js';
-import {toFileName} from "../utility/helpers.js";
+import { toFileName } from "../utility/helpers.js";
+import { localizer } from '../localizer/localizer.js';
+import { MessageTokens } from '../localizer/tokens.js';
 /** @typedef {import('../types/stage-model.js').StageBlueprint} StageBlueprint */
 
 
@@ -32,7 +34,7 @@ export function loadCode(mapName = null) {
   console.log("loadCode function called");
   const currentMapName = toFileName(mapName || getCurrentMapName());
   const savedCode = localStorage.getItem(`savedCode_${currentMapName}`);
-  console.log("Retrieved saved code for "+currentMapName+":\n", savedCode);
+  console.log("Retrieved saved code for " + currentMapName + ":\n", savedCode);
   if (savedCode) {
     editor.setCode(savedCode);
     console.log("Code loaded into editor for map:", currentMapName);
@@ -112,8 +114,8 @@ export function getStoredSelectedMap() {
  * @param {StageBlueprint} bluePrint
  */
 export function saveBluePrint(bluePrint) {
-    let fileName = toFileName(bluePrint.name);
-    localStorage.setItem(`blueprint_${fileName}`, JSON.stringify(bluePrint), );
+  let fileName = toFileName(bluePrint.name);
+  localStorage.setItem(`blueprint_${fileName}`, JSON.stringify(bluePrint),);
 }
 
 
@@ -122,11 +124,11 @@ export function saveBluePrint(bluePrint) {
  * @returns {StageBlueprint|null}
  */
 export function loadBluePrint(mapName) {
-    const blueprint = localStorage.getItem(`blueprint_${toFileName(mapName)}`);
-    if (blueprint) {
-        return JSON.parse(blueprint);
-    }
-    return null;
+  const blueprint = localStorage.getItem(`blueprint_${toFileName(mapName)}`);
+  if (blueprint) {
+    return JSON.parse(blueprint);
+  }
+  return null;
 }
 
 /**
@@ -134,14 +136,35 @@ export function loadBluePrint(mapName) {
  * Copies the current code to the clipboard.
  */
 export function copyCode() {
-    const code = editor.getCode(); // Get the current code from the editor
-    navigator.clipboard.writeText(code) // Copy to clipboard
-        .then(() => {
-            console.log('Code copied to clipboard!');
-        })
-        .catch(err => {
-            console.error('Failed to copy: ', err);
-        });
+  const code = editor.getCode(); // Get the current code from the editor
+  navigator.clipboard.writeText(code) // Copy to clipboard
+    .then(() => {
+      console.log('Code copied to clipboard!');
+    })
+    .catch(err => {
+      console.error('Failed to copy: ', err);
+    });
+}
+
+/**
+ * Handle the paste action for the editor.
+ * Pastes the copied code from the clipboard into the editor.
+ */
+export function pasteCode() {
+  // ask before pasting
+  if (editor.getCode().trim().length > 0) {
+    if (!confirm(localizer.localizeMessage(MessageTokens.confirmPasteCode))) {
+      return;
+    }
+  }
+  navigator.clipboard.readText()
+    .then(text => {
+      editor.setCode(text);
+      console.log('Code pasted from clipboard!');
+    })
+    .catch(err => {
+      console.error('Failed to paste: ', err);
+    });
 }
 
 /**
@@ -149,8 +172,8 @@ export function copyCode() {
  * @param mapName
  */
 export function removeBluePrintEntry(mapName) {
-    localStorage.removeItem(`blueprint_${toFileName(mapName)}`);
-    localStorage.removeItem(`blueprint_${mapName}`);
+  localStorage.removeItem(`blueprint_${toFileName(mapName)}`);
+  localStorage.removeItem(`blueprint_${mapName}`);
 }
 
 /**
@@ -158,20 +181,20 @@ export function removeBluePrintEntry(mapName) {
  * @returns {StageBlueprint[]}
  */
 export function getStoredBluePrints() {
-    const blueprints = [];
-    for (let i = 0; i < localStorage.length; i++) {
-        const key = localStorage.key(i);
-        if (key.startsWith('blueprint_')) {
-            blueprints.push(JSON.parse(localStorage.getItem(key)));
-        }
+  const blueprints = [];
+  for (let i = 0; i < localStorage.length; i++) {
+    const key = localStorage.key(i);
+    if (key.startsWith('blueprint_')) {
+      blueprints.push(JSON.parse(localStorage.getItem(key)));
     }
-    return blueprints;
+  }
+  return blueprints;
 }
 
 export function saveLocale(locale) {
-    localStorage.setItem('locale', locale);
+  localStorage.setItem('locale', locale);
 }
 export function loadLocale() {
-    return localStorage.getItem('locale');
+  return localStorage.getItem('locale');
 }
 

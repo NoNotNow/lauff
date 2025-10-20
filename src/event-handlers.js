@@ -1,7 +1,7 @@
 // Event handlers for the application
 import {go, left, right} from './game-state/movement.js';
 import {start} from './code/code-executor.js';
-import {loadCode, saveCode, saveSelectedMap, downloadEditorCode, uploadEditorCode, copyCode} from './data/save-load.js';
+import {loadCode, pasteCode, saveCode, saveSelectedMap, downloadEditorCode, uploadEditorCode, copyCode} from './data/save-load.js';
 import {stageState} from './game-state/stage-state.js';
 import {drawGrid, updateAvatar} from './stage-effects/view-renderer.js';
 import {handleRecordedCommand} from './game-state/recorder.js';
@@ -100,6 +100,7 @@ export function setupEventListeners() {
     document.getElementById("saveButton").addEventListener("pointerup", saveCode);
     document.getElementById("clearButton").addEventListener("pointerup", handleClear);
     document.getElementById("copyCodeButton").addEventListener("pointerup", copyCode);
+    document.getElementById("pasteCodeButton").addEventListener("pointerup", pasteCode);
     // Optional: download/upload editor code buttons
     const dlBtn = document.getElementById("downloadCodeButton");
     if (dlBtn) dlBtn.addEventListener("pointerup", downloadEditorCode);
