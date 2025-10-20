@@ -27,7 +27,7 @@
     color: black;
     border-radius: .5rem;
     max-width: 15rem;
-    line-break: anywhere;
+    overflow-wrap: break-word;
 }
 
 
