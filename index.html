@@ -3,24 +3,24 @@
 
 <head>
     <title>Lauff</title>
-    <meta charset="UTF-8"/>
-    <meta name="viewport" content="width=device-width"/>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
     <!-- CodeMirror 5.65.7 by Marijn Haverbeke and contributors. MIT License: https://codemirror.net/ -->
     <!-- JavaScript mode for CodeMirror. MIT License: https://codemirror.net/ -->
     <!-- Esprima 4.0.1 by Ariya Hidayat and contributors. BSD-2-Clause License: https://esprima.org/ -->
-    <link rel="stylesheet" href="css/general.css"/>
-    <link rel="stylesheet" href="css/base.css"/>
-    <link rel="stylesheet" href="css/layout.css"/>
-    <link rel="stylesheet" href="css/instructions.css"/>
-    <link rel="stylesheet" href="css/stage/stage.css"/>
-    <link rel="stylesheet" href="css/stage/avatar.css"/>
-    <link rel="stylesheet" href="css/displays.css"/>
-    <link rel="stylesheet" href="css/stage/speech-bubble.css"/>
-    <link rel="stylesheet" href="css/controls.css"/>
-    <link rel="stylesheet" href="css/animations.css"/>
-    <link rel="stylesheet" href="css/editor.css"/>
-    <link rel="stylesheet" href="css/builder/builder.css"/>
-    <link rel="stylesheet" href="css/builder/loader.css"/>
+    <link rel="stylesheet" href="css/general.css" />
+    <link rel="stylesheet" href="css/base.css" />
+    <link rel="stylesheet" href="css/layout.css" />
+    <link rel="stylesheet" href="css/instructions.css" />
+    <link rel="stylesheet" href="css/stage/stage.css" />
+    <link rel="stylesheet" href="css/stage/avatar.css" />
+    <link rel="stylesheet" href="css/displays.css" />
+    <link rel="stylesheet" href="css/stage/speech-bubble.css" />
+    <link rel="stylesheet" href="css/controls.css" />
+    <link rel="stylesheet" href="css/animations.css" />
+    <link rel="stylesheet" href="css/editor.css" />
+    <link rel="stylesheet" href="css/builder/builder.css" />
+    <link rel="stylesheet" href="css/builder/loader.css" />
     <link rel="icon" href="favicon.ico" type="image/x-icon">
     <link rel="stylesheet" href="css/codemirror-lauff-dark.css">
     <link rel="stylesheet" href="external_libs/custom-select/custom-select.css">
@@ -38,280 +38,282 @@
 </head>
 
 <body class="">
-<div class="body-overlay"></div>
-<div class="page-container">
-    <header class="site-header">
-        <div class="site-logo"></div>
-        <div class="corner-buttons">
-            <button id="design-button" class="icon-btn design-button" title="[MessageTokens.swapDesign]"
+    <div class="body-overlay"></div>
+    <div class="page-container">
+        <header class="site-header">
+            <div class="site-logo"></div>
+            <div class="corner-buttons">
+                <button id="design-button" class="icon-btn design-button" title="[MessageTokens.swapDesign]"
                     aria-label="[MessageTokens.swapDesign]">
-                <img class="day" src="assets/day.svg" alt="[MessageTokens.day]"/>
-                <img class="night" src="assets/night.svg" alt="[MessageTokens.night]"/>
-            </button>
-            <button id="builder-button" class="icon-btn" title="[MessageTokens.turnOnBuilder]"
-                    aria-label="[MessageTokens.turnOnBuilder]"
-                    aria-pressed="true">
-                <img src="assets/wrench.svg" alt="[MessageTokens.turnOnBuilder]"/>
-            </button>
-            <button id="language-button" class="icon-btn" title="[MessageTokens.language]"
+                    <img class="day" src="assets/day.svg" alt="[MessageTokens.day]" />
+                    <img class="night" src="assets/night.svg" alt="[MessageTokens.night]" />
+                </button>
+                <button id="builder-button" class="icon-btn" title="[MessageTokens.turnOnBuilder]"
+                    aria-label="[MessageTokens.turnOnBuilder]" aria-pressed="true">
+                    <img src="assets/wrench.svg" alt="[MessageTokens.turnOnBuilder]" />
+                </button>
+                <button id="language-button" class="icon-btn" title="[MessageTokens.language]"
                     aria-label="[MessageTokens.language]">
-                <img src="assets/language.svg" alt="[MessageTokens.language]"/>
-            </button>
-        </div>
-    </header>
-    <div class="game-code-container">
-        <div class="game-container">
-            <div class="stage-container">
-                <div class="stage" id="stage">
-                    <canvas id="gridCanvas"></canvas>
-                    <div id="stage-background" class="stage-background"></div>
-                    <div id="avatar" class="avatar">
-                        <img src="assets/spaceship-avatar.svg" alt="Spaceship Avatar" width="100%" height="100%">
-                    </div>
-                    <div class="speech-bubble-container" id="speech-bubble-container">
-                        <div class="speech-bubble" id="speech-bubble"></div>
-                    </div>
-                    <div id="target" class="target"></div>
-                </div>
+                    <img src="assets/language.svg" alt="[MessageTokens.language]" />
+                </button>
             </div>
-            <div class="displays">
-                <div class="game-controls">
-                    <div class="selectors-container">
-                        <div class="map-selector">
-                            <label for="mapSelect"></label><select id="mapSelect" class="dropdown">
-                                <option value="" selected>[MessageTokens.defaultMapName]</option>
-                            </select>
+        </header>
+        <div class="game-code-container">
+            <div class="game-container">
+                <div class="stage-container">
+                    <div class="stage" id="stage">
+                        <canvas id="gridCanvas"></canvas>
+                        <div id="stage-background" class="stage-background"></div>
+                        <div id="avatar" class="avatar">
+                            <img src="assets/spaceship-avatar.svg" alt="Spaceship Avatar" width="100%" height="100%">
                         </div>
-                        <div class="speed-selector">
-                            <label for="speedSelect"></label><select id="speedSelect" class="dropdown">
-                                <option value="500">[MessageTokens.slow]</option>
-                                <option value="200" selected>[MessageTokens.normal]</option>
-                                <option value="100">[MessageTokens.fast]</option>
-                                <option value="10">[MessageTokens.superFast]</option>
-                            </select>
+                        <div class="speech-bubble-container" id="speech-bubble-container">
+                            <div class="speech-bubble" id="speech-bubble"></div>
+                        </div>
+                        <div id="target" class="target"></div>
+                    </div>
+                </div>
+                <div class="displays">
+                    <div class="game-controls">
+                        <div class="selectors-container">
+                            <div class="map-selector">
+                                <label for="mapSelect"></label><select id="mapSelect" class="dropdown">
+                                    <option value="" selected>[MessageTokens.defaultMapName]</option>
+                                </select>
+                            </div>
+                            <div class="speed-selector">
+                                <label for="speedSelect"></label><select id="speedSelect" class="dropdown">
+                                    <option value="500">[MessageTokens.slow]</option>
+                                    <option value="200" selected>[MessageTokens.normal]</option>
+                                    <option value="100">[MessageTokens.fast]</option>
+                                    <option value="10">[MessageTokens.superFast]</option>
+                                </select>
+                            </div>
+
+                        </div>
+                        <div class="game-buttons">
+                            <button class="start" id="startButton">
+                                <span class="start-text">▶</span><span class="stop-text">[MessageTokens.stop]</span>
+                            </button>
+                            <button class="reset" id="resetButton">
+                                <span>&#8617;</span>
+                            </button>
                         </div>
 
                     </div>
-                    <div class="game-buttons">
-                        <button class="start" id="startButton">
-                            <span class="start-text">▶</span><span class="stop-text">[MessageTokens.stop]</span>
-                        </button>
-                        <button class="reset" id="resetButton">
-                            <span>&#8617;</span>
-                        </button>
-                    </div>
-
+                    <div id="timer" class="timer">0.00</div>
+                    <div id="statementCount" class="statement-count"></div>
+                    <div id="errorMessage" class="error-message"></div>
                 </div>
-                <div id="timer" class="timer">0.00</div>
-                <div id="statementCount" class="statement-count"></div>
-                <div id="errorMessage" class="error-message"></div>
             </div>
-        </div>
-        <div class="editor-container">
-            <div class="editor-actions top">
-                <button class="icon-btn save" id="saveButton" title="[MessageTokens.save]"
+            <div class="editor-container">
+                <div class="editor-actions top">
+                    <button class="icon-btn copy" id="copyCodeButton" title="Copy code" aria-label="Copy code">
+                        <img src="assets/copy.svg" alt="Copy" />
+                    </button>
+                    <button class="icon-btn save" id="saveButton" title="[MessageTokens.save]"
                         aria-label="[MessageTokens.save]">
-                    <img src="assets/save.svg" alt="[MessageTokens.save]"/>
-                </button>
-                <button class="icon-btn clear-button" id="clearButton" title="[MessageTokens.clear]"
+                        <img src="assets/save.svg" alt="[MessageTokens.save]" />
+                    </button>
+                    <button class="icon-btn clear-button" id="clearButton" title="[MessageTokens.clear]"
                         aria-label="[MessageTokens.clear]">
-                    <img src="assets/clear.svg" alt="[MessageTokens.clear]"/>
-                </button>
-                <button class="icon-btn download" id="downloadCodeButton" title="Download code"
+                        <img src="assets/clear.svg" alt="[MessageTokens.clear]" />
+                    </button>
+                    <button class="icon-btn download" id="downloadCodeButton" title="Download code"
                         aria-label="Download code">
-                    <img src="assets/download.svg" alt="Download"/>
-                </button>
-                <button class="icon-btn upload" id="uploadCodeButton" title="Upload code" aria-label="Upload code">
-                    <img src="assets/upload.svg" alt="Upload"/>
-                </button>
-            </div>
-            <div class="editor-sizing">
-                <div class="editor-wrapper">
-                    <label for="code"></label><textarea class="code" id="code" rows="10" autocomplete="off"
-                                                        autocapitalize="off"
-                                                        spellcheck="false">go();</textarea>
+                        <img src="assets/download.svg" alt="Download" />
+                    </button>
+                    <button class="icon-btn upload" id="uploadCodeButton" title="Upload code" aria-label="Upload code">
+                        <img src="assets/upload.svg" alt="Upload" />
+                    </button>
+
+                </div>
+                <div class="editor-sizing">
+                    <div class="editor-wrapper">
+                        <label for="code"></label><textarea class="code" id="code" rows="10" autocomplete="off"
+                            autocapitalize="off" spellcheck="false">go();</textarea>
+                    </div>
                 </div>
             </div>
-        </div>
 
-        <!-- New builder UI container: shown when body has class 'builder' -->
-        <div class="builder-container" aria-hidden="true">
-            <div class="builder-toolbar" id="builderControls">
-                <div id="level-loader" class="level-loader">
-                    <div id="level-loader-title" class="level-loader-title">[MessageTokens.loadLevel]</div>
-                    <div class="level-loader-controls">
-                        <label for="builder-level-select">
-                        </label><select id="builder-level-select" size="4"></select>
-                        <div class="level-loader-actions">
-                            <button id="remove-blueprint" class="icon-btn" title="[MessageTokens.removeLevel]">
-                                <img src="assets/clear.svg" alt="[MessageTokens.removeLevel]"/>
-                            </button>
-                            <button id="load-blueprint" class="icon-btn" title="[MessageTokens.loadLevel]">
-                                <img src="assets/open.svg" alt="[MessageTokens.loadLevel]"/>
-                            </button>
+            <!-- New builder UI container: shown when body has class 'builder' -->
+            <div class="builder-container" aria-hidden="true">
+                <div class="builder-toolbar" id="builderControls">
+                    <div id="level-loader" class="level-loader">
+                        <div id="level-loader-title" class="level-loader-title">[MessageTokens.loadLevel]</div>
+                        <div class="level-loader-controls">
+                            <label for="builder-level-select">
+                            </label><select id="builder-level-select" size="4"></select>
+                            <div class="level-loader-actions">
+                                <button id="remove-blueprint" class="icon-btn" title="[MessageTokens.removeLevel]">
+                                    <img src="assets/clear.svg" alt="[MessageTokens.removeLevel]" />
+                                </button>
+                                <button id="load-blueprint" class="icon-btn" title="[MessageTokens.loadLevel]">
+                                    <img src="assets/open.svg" alt="[MessageTokens.loadLevel]" />
+                                </button>
 
+                            </div>
                         </div>
                     </div>
-                </div>
-                <label class="name-label">
-                    <input id="builder-name" class="name" type="text"
-                           placeholder="[MessageTokens.levelNamePlaceholder]"/>
-                </label>
-                <div>
-                    <label>
-                        [MessageTokens.width]:
-                        <input id="gridWidth" type="number" min="1" step="1" max="100"/>
+                    <label class="name-label">
+                        <input id="builder-name" class="name" type="text"
+                            placeholder="[MessageTokens.levelNamePlaceholder]" />
                     </label>
-                    <label>
-                        [MessageTokens.height]:
-                        <input id="gridHeight" type="number" min="1" step="1" max="100"/>
-                    </label>
-                </div>
-                <label>
-                    [MessageTokens.tool]:
-                    <select id="builderTool" class="dropdown">
-                        <option value="obstacles" selected>[MessageTokens.obstacles]</option>
-                        <option value="start">[MessageTokens.startPosition]</option>
-                        <option value="targetPosition">[MessageTokens.targetPosition]</option>
-                        <option value="line">Line</option>
-                    </select>
-                </label>
-                <div class="gradient-controls">
-                    <div class="group-header"><span>[MessageTokens.gridGradient]</span><label
-                            class="inline header-toggle"><input type="checkbox" id="bgGradientEnabled"
-                                                                title="[MessageTokens.enable]"
-                                                                aria-label="[MessageTokens.enable]"/>
-                        [MessageTokens.enable]</label></div>
-                    <label class="full-line">
-                        [MessageTokens.preset]:
-                        <select id="bgGradientPreset"></select>
-                    </label>
-                    <div class="color-row">
+                    <div>
                         <label>
-                            [MessageTokens.from]:
-                            <input type="color" id="bgGradientFrom" value="#ffffff"/>
+                            [MessageTokens.width]:
+                            <input id="gridWidth" type="number" min="1" step="1" max="100" />
                         </label>
                         <label>
-                            [MessageTokens.mid]:
-                            <input type="color" id="bgGradientMid" value="#ffffff"/>
-                        </label>
-                        <label>
-                            [MessageTokens.to]:
-                            <input type="color" id="bgGradientTo" value="#ffffff"/>
+                            [MessageTokens.height]:
+                            <input id="gridHeight" type="number" min="1" step="1" max="100" />
                         </label>
                     </div>
-                    <label class="slider-line">
-                        [MessageTokens.midPosition]:
-                        <input type="range" id="bgGradientMidPos" min="0" max="100" step="1" value="50"/>
+                    <label>
+                        [MessageTokens.tool]:
+                        <select id="builderTool" class="dropdown">
+                            <option value="obstacles" selected>[MessageTokens.obstacles]</option>
+                            <option value="start">[MessageTokens.startPosition]</option>
+                            <option value="targetPosition">[MessageTokens.targetPosition]</option>
+                            <option value="line">Line</option>
+                        </select>
                     </label>
-                    <label class="slider-line">
-                        [MessageTokens.angle]:
-                        <input type="range" id="bgGradientAngle" min="0" max="360" step="1" value="0"/>
-                    </label>
-                </div>
+                    <div class="gradient-controls">
+                        <div class="group-header"><span>[MessageTokens.gridGradient]</span><label
+                                class="inline header-toggle"><input type="checkbox" id="bgGradientEnabled"
+                                    title="[MessageTokens.enable]" aria-label="[MessageTokens.enable]" />
+                                [MessageTokens.enable]</label></div>
+                        <label class="full-line">
+                            [MessageTokens.preset]:
+                            <select id="bgGradientPreset"></select>
+                        </label>
+                        <div class="color-row">
+                            <label>
+                                [MessageTokens.from]:
+                                <input type="color" id="bgGradientFrom" value="#ffffff" />
+                            </label>
+                            <label>
+                                [MessageTokens.mid]:
+                                <input type="color" id="bgGradientMid" value="#ffffff" />
+                            </label>
+                            <label>
+                                [MessageTokens.to]:
+                                <input type="color" id="bgGradientTo" value="#ffffff" />
+                            </label>
+                        </div>
+                        <label class="slider-line">
+                            [MessageTokens.midPosition]:
+                            <input type="range" id="bgGradientMidPos" min="0" max="100" step="1" value="50" />
+                        </label>
+                        <label class="slider-line">
+                            [MessageTokens.angle]:
+                            <input type="range" id="bgGradientAngle" min="0" max="360" step="1" value="0" />
+                        </label>
+                    </div>
 
-                <div class="obstacle-style-controls">
-                    <div class="group-header">[MessageTokens.obstacleColor]</div>
-                    <label>
-                        [MessageTokens.fill]:
-                        <input type="color" id="obstacleFillColor" value="#374151"/>
-                    </label>
-                    <label>
-                        [MessageTokens.border]:
-                        <input type="color" id="obstacleBorderColor" value="#000000"/>
-                    </label>
-                </div>
-                <div>
-                    <button id="clearObstaclesBtn" class="icon-btn" title="[MessageTokens.clearObstacles]">
-                        <img src="assets/broom.svg" alt="[MessageTokens.clear]"/>
-                    </button>
-                    <button class="icon-btn save" id="saveGridButton" title="[MessageTokens.save]"
+                    <div class="obstacle-style-controls">
+                        <div class="group-header">[MessageTokens.obstacleColor]</div>
+                        <label>
+                            [MessageTokens.fill]:
+                            <input type="color" id="obstacleFillColor" value="#374151" />
+                        </label>
+                        <label>
+                            [MessageTokens.border]:
+                            <input type="color" id="obstacleBorderColor" value="#000000" />
+                        </label>
+                    </div>
+                    <div>
+                        <button id="clearObstaclesBtn" class="icon-btn" title="[MessageTokens.clearObstacles]">
+                            <img src="assets/broom.svg" alt="[MessageTokens.clear]" />
+                        </button>
+                        <button class="icon-btn save" id="saveGridButton" title="[MessageTokens.save]"
                             aria-label="[MessageTokens.save]">
-                        <img src="assets/save.svg" alt="[MessageTokens.save]"/>
-                    </button>
-                    <button class="icon-btn copy" id="copyGridButton" title="[MessageTokens.copy]"
+                            <img src="assets/save.svg" alt="[MessageTokens.save]" />
+                        </button>
+                        <button class="icon-btn copy" id="copyGridButton" title="[MessageTokens.copy]"
                             aria-label="[MessageTokens.copy]">
-                        <img src="assets/copy.svg" alt="[MessageTokens.copy]"/>
-                    </button>
-                    <button class="icon-btn download" id="downloadGridButton" title="Download" aria-label="Download">
-                        <img src="assets/download.svg" alt="Download"/>
-                    </button>
-                    <button class="icon-btn upload" id="uploadGridButton" title="Upload" aria-label="Upload">
-                        <img src="assets/upload.svg" alt="Upload"/>
-                    </button>
+                            <img src="assets/copy.svg" alt="[MessageTokens.copy]" />
+                        </button>
+                        <button class="icon-btn download" id="downloadGridButton" title="Download"
+                            aria-label="Download">
+                            <img src="assets/download.svg" alt="Download" />
+                        </button>
+                        <button class="icon-btn upload" id="uploadGridButton" title="Upload" aria-label="Upload">
+                            <img src="assets/upload.svg" alt="Upload" />
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-    <div class="bottom-container">
-        <div class="controls">
+        <div class="bottom-container">
+            <div class="controls">
 
-            <div class="buttons">
-                <div class="movement">
-                    <button class="move" id="goButton">
-                        [MessageTokens.goLabel]
+                <div class="buttons">
+                    <div class="movement">
+                        <button class="move" id="goButton">
+                            [MessageTokens.goLabel]
+                        </button>
+                        <button class="move left" id="leftButton">
+                            [MessageTokens.leftLabel]
+                        </button>
+                        <button class="move right" id="rightButton">
+                            [MessageTokens.rightLabel]
+                        </button>
+                    </div>
+
+
+                    <button class="record" id="recordButton">
+                        [MessageTokens.record]
                     </button>
-                    <button class="move left" id="leftButton">
-                        [MessageTokens.leftLabel]
-                    </button>
-                    <button class="move right" id="rightButton">
-                        [MessageTokens.rightLabel]
-                    </button>
+
+                    <label class="checkbox-control">
+                        <input type="checkbox" id="soundCheckbox" checked>
+                        [MessageTokens.sound]
+                    </label>
+
+
                 </div>
-
-
-                <button class="record" id="recordButton">
-                    [MessageTokens.record]
-                </button>
-
-                <label class="checkbox-control">
-                    <input type="checkbox" id="soundCheckbox" checked>
-                    [MessageTokens.sound]
-                </label>
-
-
             </div>
-        </div>
-        <div class="instructions">
-            <h3>Anleitung</h3>
-            <h4>Befehle:</h4>
-            <ul>
-                <li><code>go()</code> - Bewege dich einen Schritt vorwärts</li>
-                <li><code>go(3)</code> - Bewege dich 3 Schritte vorwärts</li>
-                <li><code>left()</code> - Drehe dich nach links</li>
-                <li><code>right()</code> - Drehe dich nach rechts</li>
-                <li><code>free()</code> - Anzahl freier Felder vor dem Avatar</li>
-                <li><code>random(6)</code> - Zufallszahl zwischen 1 und 6</li>
-                <li><code>getNextRight()</code> - Anzahl Schritte bis zur nächsten Rechtskurve</li>
-                <li><code>free(richtung, x, y)</code> - Freie Felder in Richtung (optional: von Position x,y)</li>
-            </ul>
-            <h4>Ziel:</h4>
-            <p>Erreiche das grüne Ziel, ohne gegen Hindernisse oder Wände zu stoßen!</p>
-            <h4>Beispiel:</h4>
-            <pre><code>go();
+            <div class="instructions">
+                <h3>Anleitung</h3>
+                <h4>Befehle:</h4>
+                <ul>
+                    <li><code>go()</code> - Bewege dich einen Schritt vorwärts</li>
+                    <li><code>go(3)</code> - Bewege dich 3 Schritte vorwärts</li>
+                    <li><code>left()</code> - Drehe dich nach links</li>
+                    <li><code>right()</code> - Drehe dich nach rechts</li>
+                    <li><code>free()</code> - Anzahl freier Felder vor dem Avatar</li>
+                    <li><code>random(6)</code> - Zufallszahl zwischen 1 und 6</li>
+                    <li><code>getNextRight()</code> - Anzahl Schritte bis zur nächsten Rechtskurve</li>
+                    <li><code>free(richtung, x, y)</code> - Freie Felder in Richtung (optional: von Position x,y)</li>
+                </ul>
+                <h4>Ziel:</h4>
+                <p>Erreiche das grüne Ziel, ohne gegen Hindernisse oder Wände zu stoßen!</p>
+                <h4>Beispiel:</h4>
+                <pre><code>go();
 left();
 go(3);
 right();
 go();</code></pre>
-            <h4>Programmieren:</h4>
-            <p>Du kannst auch echtes JavaScript verwenden! Zum Beispiel Schleifen und Bedingungen:</p>
-            <pre><code>for (let i = 0; i < 3; i++) {
+                <h4>Programmieren:</h4>
+                <p>Du kannst auch echtes JavaScript verwenden! Zum Beispiel Schleifen und Bedingungen:</p>
+                <pre><code>for (let i = 0; i < 3; i++) {
   go();
 }
 
 if (free() > 2) {
   go(2);
 }</code></pre>
+            </div>
         </div>
     </div>
-</div>
-<footer>
-    <p>
-        <a href="https://github.com/NoNotNow/lauff" target="_blank" style="color: #007bff; text-decoration: none;">
-            [MessageTokens.viewOnGithub]
-        </a>
-    </p>
-</footer>
+    <footer>
+        <p>
+            <a href="https://github.com/NoNotNow/lauff" target="_blank" style="color: #007bff; text-decoration: none;">
+                [MessageTokens.viewOnGithub]
+            </a>
+        </p>
+    </footer>
 </body>
 
 </html>

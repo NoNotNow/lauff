@@ -130,6 +130,21 @@ export function loadBluePrint(mapName) {
 }
 
 /**
+ * Handle the copy action for the editor.
+ * Copies the current code to the clipboard.
+ */
+export function copyCode() {
+    const code = editor.getCode(); // Get the current code from the editor
+    navigator.clipboard.writeText(code) // Copy to clipboard
+        .then(() => {
+            console.log('Code copied to clipboard!');
+        })
+        .catch(err => {
+            console.error('Failed to copy: ', err);
+        });
+}
+
+/**
  * Remove blueprint from storage
  * @param mapName
  */
