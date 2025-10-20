@@ -1,127 +1,132 @@
 /* Base styles and typography */
+html {
+    font-size: min(2vw, 16px);
+}
+
 body {
-  background: black;
-  margin: 0;
-  padding: 1em;
-  font-size: min(2vw, 16px);
-  min-height: 100vh;
-  display: none;
-  ;
+    background: black;
+    margin: 0;
+    padding: 1em;
+    min-height: 100vh;
+    display: none;;
 }
 
 /* Responsive font sizing for better mobile experience */
 @media (max-width: 768px) {
-  body {
-    font-size: min(3vw, 18px);
-  }
+    body {
+        font-size: min(3vw, 18px);
+    }
 }
 
 @media (max-width: 480px) {
-  body {
-    font-size: min(3.5vw, 20px);
-  }
+    body {
+        font-size: min(3.5vw, 20px);
+    }
 }
 
 .body-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
 
-  background: rgba(7, 0, 22, 0.8);
-  z-index: 0;
-  display: none;
-  mix-blend-mode: darken;
+    background: rgba(7, 0, 22, 0.8);
+    z-index: 0;
+    display: none;
+    mix-blend-mode: darken;
 }
 
 .night .body-overlay {
-  display: block;
+    display: block;
 }
 
 .page-container {
 
-  margin: 0 auto;
-  padding: 1em;
-  z-index: 1;
+    margin: 0 auto;
+    padding: 1em;
+    z-index: 1;
 }
 
 .site-header {
-  margin-top: 0;
-  padding-top: 0;
-  text-align: center;
-  margin-bottom: 2em;
+    margin-top: 0;
+    padding-top: 0;
+    text-align: center;
+    margin-bottom: 2em;
 }
 
 .site-logo {
-  width: auto;
-  height: 8em;
-  display: block;
-  filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.2));
-  transition: transform 0.3s ease;
-  padding-top: 0;
-  margin-top: 0;
-  background-size: contain;
-  background-repeat: no-repeat;
-  background-position: center;
-      background-image: url('../assets/logo-desktop.svg');
+    width: auto;
+    height: 8em;
+    display: block;
+    filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.2));
+    transition: transform 0.3s ease;
+    padding-top: 0;
+    margin-top: 0;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-image: url('../assets/logo-desktop.svg');
 
 }
-.corner-buttons{
-  position: absolute;
-  top:0.5em;
-  right: 0.5em;
-}
-.corner-buttons button{
-  padding: 0;
-  margin: 0;
-  height: 2em;
-  border-radius: 50%;
-  width: 2em;
-  min-width: 2em;
-  background-color: transparent;
-  border: none;
-}
-.corner-buttons button:hover{
-  background-color: rgba(83, 73, 226, 0.8);
-}
-.night .corner-buttons button{
-  color:white
+
+.corner-buttons {
+    position: absolute;
+    top: 0.5em;
+    right: 0.5em;
 }
 
+.corner-buttons button {
+    padding: 0;
+    margin: 0;
+    height: 2em;
+    border-radius: 50%;
+    width: 2em;
+    min-width: 2em;
+    background-color: transparent;
+    border: none;
+}
+
+.corner-buttons button:hover {
+    background-color: rgba(83, 73, 226, 0.8);
+}
+
+.night .corner-buttons button {
+    color: white
+}
 
 
 .night .site-logo {
-  filter: drop-shadow(0 .5em 1em rgba(172, 60, 216, 0.7));
+    filter: drop-shadow(0 .5em 1em rgba(172, 60, 216, 0.7));
 }
 
 
 .site-logo:hover {
-  transform: scale(1.05);
+    transform: scale(1.05);
 }
 
 /* Responsive logo sizing */
 @media (max-width: 768px) {
-  .site-logo {
-    height: 3em;
-    width: 100%;
-    background-image: url('../assets/logo-desktop.svg');
-  }
+    .site-logo {
+        height: 3em;
+        width: 100%;
+        background-image: url('../assets/logo-desktop.svg');
+    }
 
-  .site-header {
-    margin-bottom: .5em;
-  }
+    .site-header {
+        margin-bottom: .5em;
+    }
 }
 
 @media (max-width: 480px) {
-  .site-logo {
-    height: 6em;
-    width: 100%;
-    background-image: url('../assets/logo.svg');
+    .site-logo {
+        height: 6em;
+        width: 100%;
+        background-image: url('../assets/logo.svg');
 
-  }
+    }
 
-  .site-header {
-    margin-bottom: 1em;
-  }
+    .site-header {
+        margin-bottom: 1em;
+    }
 }

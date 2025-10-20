@@ -22,7 +22,7 @@ export function adjustSize(size) {
 
 export function updateAvatar() {
     let avatar = document.getElementById("avatar");
-    let speech = document.getElementById("speech-bubble");
+    let speech = document.getElementById("speech-bubble-container");
     let transform = "translate(" + stageState.getPosition().x + "em, "
         + stageState.getPosition().y + "em)";
     transform += "rotate(" + stageState.getDirection() * 90 + "deg) ";
@@ -30,7 +30,7 @@ export function updateAvatar() {
     let bubbleX = stageState.getPosition().x;
     if (bubbleX > maxX) bubbleX = maxX;
     speech.style.transform = "translate(" + (bubbleX - .5)
-        + "em, " + (stageState.getPosition().y - 3) + "em)";
+        + "em, " + (stageState.getPosition().y) + "em)";
     avatar.style.transform = transform;
 }
 
