@@ -91,6 +91,9 @@ export const messagesEn =
         [MessageTokens.removeLevel]: 'Delete level',
         [MessageTokens.fill]: 'Fill',
         [MessageTokens.border]: 'Border',
+        [MessageTokens.copyCode]: 'Copy code',
+        [MessageTokens.downloadCode]: 'Download code',
+        [MessageTokens.uploadCode]: 'Upload code',
     }
 
 export const messagesDe =
@@ -143,5 +146,8 @@ export const messagesDe =
         [MessageTokens.removeLevel]: 'Level löschen',
         [MessageTokens.fill]: 'Füllfarbe',
         [MessageTokens.border]: 'Randfarbe',
+        [MessageTokens.copyCode]: 'Code kopieren',
+        [MessageTokens.downloadCode]: 'Code herunterladen',
+        [MessageTokens.uploadCode]: 'Code hochladen',
     }
 

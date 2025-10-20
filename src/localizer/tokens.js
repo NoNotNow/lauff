@@ -50,4 +50,7 @@ export const MessageTokens = {
     deleteLevelConfirmation: 45,
     fill: 46,
     border: 47,
+    copyCode: 48,
+    downloadCode: 49,
+    uploadCode: 50,
 };
