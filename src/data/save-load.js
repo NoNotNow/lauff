@@ -140,6 +140,7 @@ export function copyCode() {
   navigator.clipboard.writeText(code) // Copy to clipboard
     .then(() => {
       console.log('Code copied to clipboard!');
+      alert('Code copied to clipboard!');
     })
     .catch(err => {
       console.error('Failed to copy: ', err);
