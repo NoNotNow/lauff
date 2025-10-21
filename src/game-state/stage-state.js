@@ -111,6 +111,7 @@ class StageState {
             direction = this.#state.startDirection;
         }
         this.#state.direction = direction;
+        this.#fluidDirection = direction;
     }
 
     targetWithinBounds() {
