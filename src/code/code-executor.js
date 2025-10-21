@@ -35,15 +35,15 @@ export function setMovementDelay(input) { movementDelayTime = input; }
 
 // Extensible delay function for movement commands
 /** @returns {Promise<void>} */
-async function movementDelay() {
-  await delay(movementDelayTime);
+async function movementDelay(factor=1) {
+  await delay(movementDelayTime*factor);
 }
 
 // Explicit wrapped functions
 /** @param {number|string} input */
 async function wrappedGo(input) {
   await go(input);
-  await movementDelay();
+  await movementDelay(input);
 }
 
 /** @param {number|string} input */
