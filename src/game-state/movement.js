@@ -147,7 +147,7 @@ export async function go(input) {
   const soundEnabled = soundCheckbox ? soundCheckbox.checked : true;
 
   if (soundEnabled) {
-    beep(440 * steps);
+    beep(440 * Math.sqrt(steps));
   }
 
   // If the requested steps exceed the available free steps,
