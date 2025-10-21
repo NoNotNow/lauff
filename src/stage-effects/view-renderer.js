@@ -27,7 +27,7 @@ export function updateAvatar(timeFactor = 1) {
     avatar.style.transitionDuration =  getSelectedSpeed() * timeFactor + "ms";
     let transform = "translate(" + stageState.getPosition().x + "em, "
         + stageState.getPosition().y + "em)";
-    transform += "rotate(" + stageState.getDirection() * 90 + "deg) ";
+    transform += "rotate(" + stageState.getFluidDirection() * 90 + "deg) ";
     let maxX = stageState.getStageSize().x - (stageState.getStageSize().x / 3);
     let bubbleX = stageState.getPosition().x;
     if (bubbleX > maxX) bubbleX = maxX;

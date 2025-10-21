@@ -12,6 +12,7 @@ class StageState {
     /** @type {StageModel} */
     #state;
     #isDirty = false;
+    #fluidDirection = 0;
 
     constructor() {
         this.#state = bluePrints.getDefault();
@@ -73,6 +74,7 @@ class StageState {
         this.#state.startPosition.x = map.startPosition.x;
         this.#state.startPosition.y = map.startPosition.y;
         this.#state.startDirection = map.startDirection ?? 1;
+        this.#fluidDirection = map.startDirection ?? 1;
         this.#state.obstacles = map.obstacles;
         this.#state.targetPosition = map.targetPosition;
         this.#state.stageSize = map.stageSize;
@@ -130,6 +132,9 @@ class StageState {
         return result;
     }
 
+    getFluidDirection() {
+        return this.#fluidDirection;
+    }
 
     getPosition() {
         return this.#state.position;
@@ -220,10 +225,12 @@ class StageState {
 
     turnRight(input) {
         this.setDirection(this.#state.direction + input);
+        this.#fluidDirection += input;
     }
 
     turnLeft(input) {
         this.setDirection(this.#state.direction - input);
+        this.#fluidDirection -= input;
     }
 
     /**
