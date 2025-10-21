@@ -174,7 +174,7 @@ export async function go(input) {
   if (!stageState.targetWithinBounds()) handleWallCollision();
   if (checkObstacleCollision(stageState)) handleObstacleCollision();
   if (checkTargetReached(stageState)) handleTargetReached();
-  updateAvatar();
+  updateAvatar(input);
 }
 
 /**
