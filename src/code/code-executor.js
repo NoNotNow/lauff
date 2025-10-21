@@ -7,6 +7,7 @@ import {cancelDelay, delay} from '../utility/delay.js';
 import {isRunning, setIsRunning} from '../global-state.js';
 import {localizer} from "../localizer/localizer.js";
 import {MessageTokens} from "../localizer/tokens.js";
+import {parseNumber} from "../utility/helpers.js";
 
 
 // Random number generator function
@@ -36,14 +37,14 @@ export function setMovementDelay(input) { movementDelayTime = input; }
 // Extensible delay function for movement commands
 /** @returns {Promise<void>} */
 async function movementDelay(factor=1) {
-  await delay(movementDelayTime*factor);
+  await delay(getSelectedSpeed()*factor);
 }
 
 // Explicit wrapped functions
 /** @param {number|string} input */
 async function wrappedGo(input) {
   await go(input);
-  await movementDelay(input);
+  await movementDelay(Math.sqrt(input));
 }
 
 /** @param {number|string} input */
@@ -207,15 +208,23 @@ function removeErrorMessage() {
  * Read UI and set movement delay, updating CSS animation class.
  */
 export function parseMovementDelay() {
-  /** @type {HTMLSelectElement} */
-  // @ts-ignore next line: element exists on page
-  let option = document.getElementById('speedSelect');
   /** @type {HTMLElement} */
   // @ts-ignore next line: element exists on page
   let avatar = document.getElementById('avatar');
-  let result = option.value;
+  let result = getSelectedSpeed();
   avatar.classList.toggle('fast', result < 100);
   setMovementDelay(result);
+}
+
+/**
+ * Get the selected speed from the UI.
+ * @returns {number}
+ */
+export function getSelectedSpeed() {
+    /** @type {HTMLSelectElement} */
+        // @ts-ignore next line: element exists on page
+    let option = document.getElementById('speedSelect');
+    return parseNumber(option.value, 200);
 }
 
 /** Run static analysis and update UI stats. */

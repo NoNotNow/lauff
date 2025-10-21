@@ -1,6 +1,7 @@
 // View rendering and DOM updates
 import {stageState} from '../game-state/stage-state.js';
 import {designs} from '../design/designs.js';
+import {getSelectedSpeed} from "../code/code-executor.js";
 
 export function updateFullStage(){
     adjustSize(stageState.getStageSize());
@@ -20,9 +21,10 @@ export function adjustSize(size) {
     stageElement.style.fontSize = em + "em";
 }
 
-export function updateAvatar() {
+export function updateAvatar(timeFactor = 1) {
     let avatar = document.getElementById("avatar");
     let speech = document.getElementById("speech-bubble-container");
+    avatar.style.transitionDuration =  getSelectedSpeed() * timeFactor + "ms";
     let transform = "translate(" + stageState.getPosition().x + "em, "
         + stageState.getPosition().y + "em)";
     transform += "rotate(" + stageState.getDirection() * 90 + "deg) ";
