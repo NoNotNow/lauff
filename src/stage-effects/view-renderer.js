@@ -24,7 +24,7 @@ export function adjustSize(size) {
 export function updateAvatar(timeFactor = 1) {
     let avatar = document.getElementById("avatar");
     let speech = document.getElementById("speech-bubble-container");
-    avatar.style.transitionDuration =  getSelectedSpeed() * timeFactor + "ms";
+    avatar.style.transitionDuration = ( getSelectedSpeed() * timeFactor -30) + "ms";
     let transform = "translate(" + stageState.getPosition().x + "em, "
         + stageState.getPosition().y + "em)";
     transform += "rotate(" + stageState.getFluidDirection() * 90 + "deg) ";

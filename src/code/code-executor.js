@@ -1,14 +1,15 @@
 // Code execution and program control
-import {free, getNextLeft, getNextRight, go, left, right, say} from '../game-state/movement.js';
-import {resetTimer, startTimer, stopTimer} from '../utility/timer.js';
-import {analyseRuntimeError, analyseSyntaxError, countStatements} from './code-analyser.js';
-import {editor} from './code-editor.js';
-import {cancelDelay, delay} from '../utility/delay.js';
-import {isRunning, setIsRunning} from '../global-state.js';
-import {localizer} from "../localizer/localizer.js";
-import {MessageTokens} from "../localizer/tokens.js";
-import {parseNumber} from "../utility/helpers.js";
+import { free, getNextLeft, getNextRight, go, left, right, say } from '../game-state/movement.js';
+import { resetTimer, startTimer, stopTimer } from '../utility/timer.js';
+import { analyseRuntimeError, analyseSyntaxError, countStatements } from './code-analyser.js';
+import { editor } from './code-editor.js';
+import { cancelDelay, delay } from '../utility/delay.js';
+import { isRunning, setIsRunning } from '../global-state.js';
+import { localizer } from "../localizer/localizer.js";
+import { MessageTokens } from "../localizer/tokens.js";
+import { parseNumber } from "../utility/helpers.js";
 
+const TurnDelayFactor = 0.5;
 
 // Random number generator function
 /**
@@ -36,8 +37,8 @@ export function setMovementDelay(input) { movementDelayTime = input; }
 
 // Extensible delay function for movement commands
 /** @returns {Promise<void>} */
-async function movementDelay(factor=1) {
-  await delay(getSelectedSpeed()*factor);
+async function movementDelay(factor = 1) {
+  await delay(getSelectedSpeed() * factor);
 }
 
 // Explicit wrapped functions
@@ -49,14 +50,14 @@ async function wrappedGo(input) {
 
 /** @param {number|string} input */
 async function wrappedLeft(input) {
-  left(input);
-  await movementDelay();
+  left(input, TurnDelayFactor);
+  await movementDelay(TurnDelayFactor);
 }
 
 /** @param {number|string} input */
 async function wrappedRight(input) {
-  right(input);
-  await movementDelay();
+  right(input, TurnDelayFactor);
+  await movementDelay(TurnDelayFactor);
 }
 
 /**
@@ -76,11 +77,11 @@ async function wrappedSay(text, delay, stop) {
 function transformCode(code) {
   // Replace movement calls with awaited versions.
   // The identifiers (go, left, right, say) refer to wrapped functions passed as parameters.
-    return code
-      .replace(/\bgo\(/g, 'await go(')
-      .replace(/\bleft\(/g, 'await left(')
-      .replace(/\bright\(/g, 'await right(')
-      .replace(/\bsay\(/g, 'await say(');
+  return code
+    .replace(/\bgo\(/g, 'await go(')
+    .replace(/\bleft\(/g, 'await left(')
+    .replace(/\bright\(/g, 'await right(')
+    .replace(/\bsay\(/g, 'await say(');
 }
 
 // Parse and prepare user code for execution
@@ -100,9 +101,9 @@ function parseUserCode(code) {
   try {
     // Create an async function from the transformed code
     const AsyncFunction = Object.getPrototypeOf(async function () { }).constructor;
-      return new AsyncFunction('go', 'left', 'right', 'free', 'random',
-        'getNextRight', 'getNextLeft', 'say',
-        `
+    return new AsyncFunction('go', 'left', 'right', 'free', 'random',
+      'getNextRight', 'getNextLeft', 'say',
+      `
       // User's transformed code with movement functions available as parameters
       ${transformedCode}
     `);
@@ -216,15 +217,16 @@ export function parseMovementDelay() {
   setMovementDelay(result);
 }
 
+var optionsElement = null;
 /**
  * Get the selected speed from the UI.
  * @returns {number}
  */
 export function getSelectedSpeed() {
-    /** @type {HTMLSelectElement} */
-        // @ts-ignore next line: element exists on page
-    let option = document.getElementById('speedSelect');
-    return parseNumber(option.value, 200);
+  if (!optionsElement) {
+    optionsElement = document.getElementById('speedSelect');
+  }
+  return parseNumber(optionsElement.value, 200);
 }
 
 /** Run static analysis and update UI stats. */
@@ -240,7 +242,7 @@ function doCodeAnalysisAndStats() {
       // Try to extract the number from the details string
       const match = result.details.match(/Anzahl Statements: (\d+)/);
       const count = match ? match[1] : '?';
-      statementCountDiv.textContent = localizer.localizeMessage(MessageTokens.numberOfFunctionCalls)+`: ${count}`;
+      statementCountDiv.textContent = localizer.localizeMessage(MessageTokens.numberOfFunctionCalls) + `: ${count}`;
       statementCountDiv.style.display = 'block';
     } else {
       statementCountDiv.textContent = '';

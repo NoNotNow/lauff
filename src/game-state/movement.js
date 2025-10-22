@@ -181,16 +181,16 @@ export async function go(input) {
  * Turn right by the given number of quarter turns.
  * @param {number|string} input
  */
-export function right(input) {
+export function right(input, delayFactor = 1) {
   stageState.turnRight(parseNumber(input));
-  updateAvatar();
+  updateAvatar(delayFactor);
 }
 
 /**
  * Turn left by the given number of quarter turns.
  * @param {number|string} input
  */
-export function left(input) {
+export function left(input, delayFactor = 1) {
   stageState.turnLeft(parseNumber(input));
-  updateAvatar();
+  updateAvatar(delayFactor);
 }
