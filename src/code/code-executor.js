@@ -8,6 +8,7 @@ import { isRunning, setIsRunning } from '../global-state.js';
 import { localizer } from "../localizer/localizer.js";
 import { MessageTokens } from "../localizer/tokens.js";
 import { parseNumber } from "../utility/helpers.js";
+import { stageState } from '../game-state/stage-state.js';
 
 const TurnDelayFactor = 0.5;
 
@@ -22,6 +23,14 @@ function random(x) {
     throw new Error("random() requires a positive number");
   }
   return Math.floor(Math.random() * x) + 1;
+}
+
+function trailOn(color){
+  stageState.turnOnTrail(color);
+}
+
+function trailOff(){
+  stageState.turnOffTrail();
 }
 
 // Global execution state
@@ -102,7 +111,7 @@ function parseUserCode(code) {
     // Create an async function from the transformed code
     const AsyncFunction = Object.getPrototypeOf(async function () { }).constructor;
     return new AsyncFunction('go', 'left', 'right', 'free', 'random',
-      'getNextRight', 'getNextLeft', 'say',
+      'getNextRight', 'getNextLeft', 'say', 'trailOn', 'trailOff',
       `
       // User's transformed code with movement functions available as parameters
       ${transformedCode}
@@ -123,7 +132,7 @@ function parseUserCode(code) {
 async function executeUserProgram(userFunction) {
   try {
     await userFunction(wrappedGo, wrappedLeft, wrappedRight,
-      free, random, getNextRight, getNextLeft, wrappedSay);
+      free, random, getNextRight, getNextLeft, wrappedSay, trailOn, trailOff);
   } catch (error) {
     if (error.message === "Execution stopped") {
       throw error; // Re-throw to be caught by start()

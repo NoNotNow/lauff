@@ -1,6 +1,6 @@
 // Wall collision handling and animations
 import { stageState } from '../game-state/stage-state.js';
-import { updateAvatar } from './view-renderer.js';
+import { clearTrail, updateAvatar } from './view-renderer.js';
 import { stop } from '../code/code-executor.js';
 import { stopTimer, resetTimer } from '../utility/timer.js';
 import { playCrashSound, playVictorySound } from './audio-player.js';
@@ -27,6 +27,7 @@ export function handleWallCollision() {
     stageState.resetPosition();
     resetTimer();
     updateAvatar();
+    clearTrail();
   }, 500);
 
   stop();
@@ -54,6 +55,7 @@ export function handleObstacleCollision() {
     stageState.resetPosition();
     resetTimer();
     updateAvatar();
+    clearTrail();
   }, 500);
 
   stop();

@@ -1,6 +1,6 @@
 // Game state management
 import {bluePrints} from '../data/blueprints.js';
-import {adjustSize, updateAvatar, updateStageView, drawGrid} from '../stage-effects/view-renderer.js';
+import {adjustSize, updateAvatar, updateStageView, drawGrid, clearTrail} from '../stage-effects/view-renderer.js';
 
 /** @typedef {import('../types/stage-model.js').Vec2} Vec2 */
 /** @typedef {import('../types/stage-model.js').Obstacle} Obstacle */
@@ -13,6 +13,8 @@ class StageState {
     #state;
     #isDirty = false;
     #fluidDirection = 0;
+    #trailOn = false;
+    #trailColor = 'black';
 
     constructor() {
         this.#state = bluePrints.getDefault();
@@ -61,6 +63,7 @@ class StageState {
         this.resetPosition();
         updateStageView();
         updateAvatar();
+        clearTrail();
         setTimeout(() => {
             drawGrid();
         }, 100);
@@ -267,6 +270,20 @@ class StageState {
     addObstacle(gridX, gridY) {
         this.#state.obstacles.push({x: gridX, y: gridY});
         this.#isDirty = true;
+    }
+
+    turnOnTrail(color) {
+        this.#trailOn = true;
+        this.#trailColor = color || 'black';
+    }
+    
+    turnOffTrail() {
+        this.#trailOn = false;
+    }
+
+    getTrailColor() {
+        if(this.#trailOn) return this.#trailColor;
+        return null;
     }
 
     notifySaved() {

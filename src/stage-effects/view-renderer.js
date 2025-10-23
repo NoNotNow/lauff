@@ -35,7 +35,11 @@ export function updateAvatar(timeFactor = 1, oldPosition = null) {
     speech.style.transform = "translate(" + (bubbleX - .5)
         + "em, " + (stageState.getPosition().y) + "em)";
     avatar.style.transform = transform;
-    if (oldPosition) trailDrawer.drawLine(oldPosition, stageState.getPosition(), stageState.getStageSize(), designs.isNightMode ? 'yellow' : 'black');
+    if (oldPosition && stageState.getTrailColor()) trailDrawer.drawLine(oldPosition, stageState.getPosition(), stageState.getStageSize(), stageState.getTrailColor());
+}
+
+export function clearTrail(){
+    trailDrawer.init();
 }
 
 export function updateStageView() {

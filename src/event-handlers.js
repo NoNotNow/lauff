@@ -3,7 +3,7 @@ import {go, left, right} from './game-state/movement.js';
 import {start} from './code/code-executor.js';
 import {loadCode, pasteCode, saveCode, saveSelectedMap, downloadEditorCode, uploadEditorCode, copyCode} from './data/save-load.js';
 import {stageState} from './game-state/stage-state.js';
-import {drawGrid, updateAvatar} from './stage-effects/view-renderer.js';
+import {clearTrail, drawGrid, updateAvatar} from './stage-effects/view-renderer.js';
 import {handleRecordedCommand} from './game-state/recorder.js';
 import {editor} from './code/code-editor.js';
 import {designs} from './design/designs.js';
@@ -61,7 +61,7 @@ function handleRightButton() {
 function handleReset() {
     stageState.resetPosition();
     updateAvatar();
-
+    clearTrail();
     // Remove saved code from localStorage
     localStorage.removeItem('savedCode');
 }
