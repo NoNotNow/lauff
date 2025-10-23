@@ -145,7 +145,7 @@ export async function go(input) {
   /** @type {HTMLInputElement|null} */
   const soundCheckbox = document.getElementById('soundCheckbox');
   const soundEnabled = soundCheckbox ? soundCheckbox.checked : true;
-
+  const oldPosition = {...stageState.getPosition()};
   if (soundEnabled) {
     beep(440 * Math.sqrt(steps));
   }
@@ -174,7 +174,7 @@ export async function go(input) {
   if (!stageState.targetWithinBounds()) handleWallCollision();
   if (checkObstacleCollision(stageState)) handleObstacleCollision();
   if (checkTargetReached(stageState)) handleTargetReached();
-  updateAvatar(Math.sqrt(steps));
+  updateAvatar(Math.sqrt(steps), oldPosition);
 }
 
 /**

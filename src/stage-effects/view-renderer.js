@@ -2,6 +2,7 @@
 import {stageState} from '../game-state/stage-state.js';
 import {designs} from '../design/designs.js';
 import {getSelectedSpeed} from "../code/code-executor.js";
+import {trailDrawer} from "./trail-drawer.js";
 
 export function updateFullStage(){
     adjustSize(stageState.getStageSize());
@@ -21,7 +22,7 @@ export function adjustSize(size) {
     stageElement.style.fontSize = em + "em";
 }
 
-export function updateAvatar(timeFactor = 1) {
+export function updateAvatar(timeFactor = 1, oldPosition = null) {
     let avatar = document.getElementById("avatar");
     let speech = document.getElementById("speech-bubble-container");
     avatar.style.transitionDuration = ( getSelectedSpeed() * timeFactor -30) + "ms";
@@ -34,6 +35,7 @@ export function updateAvatar(timeFactor = 1) {
     speech.style.transform = "translate(" + (bubbleX - .5)
         + "em, " + (stageState.getPosition().y) + "em)";
     avatar.style.transform = transform;
+    if (oldPosition) trailDrawer.drawLine(oldPosition, stageState.getPosition(), stageState.getStageSize(), designs.isNightMode ? 'yellow' : 'black');
 }
 
 export function updateStageView() {

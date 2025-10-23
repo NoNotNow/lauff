@@ -133,14 +133,23 @@ class StageState {
         return result;
     }
 
+    /**
+     * @returns {number}
+     */
     getFluidDirection() {
         return this.#fluidDirection;
     }
 
+    /**
+     * @returns {Vec2}
+     */
     getPosition() {
         return this.#state.position;
     }
 
+    /**
+     * @returns {Vec2}
+     */
     getStageSize() {
         return this.#state.stageSize;
     }
