@@ -31,15 +31,17 @@
 }
 
 .instructions li {
-  margin-bottom: 0.3em;
+  margin-bottom: 0.5em;
 }
 
 .instructions code {
+  display: inline-block;
   background-color: #e9ecef;
   padding: 0.2em 0.4em;
   border-radius: 0.3em;
   font-family: 'Courier New', monospace;
   font-size: 0.9em;
+  margin-bottom: .15em;
 }
 
 .instructions pre {

@@ -281,39 +281,74 @@
 
                 </div>
             </div>
-            <div class="instructions">
-                <h3>Anleitung</h3>
-                <h4>Befehle:</h4>
-                <ul>
-                    <li><code>go()</code> - Bewege dich einen Schritt vorwärts</li>
-                    <li><code>go(3)</code> - Bewege dich 3 Schritte vorwärts</li>
-                    <li><code>left()</code> - Drehe dich nach links</li>
-                    <li><code>right()</code> - Drehe dich nach rechts</li>
-                    <li><code>free()</code> - Anzahl freier Felder vor dem Avatar</li>
-                    <li><code>random(6)</code> - Zufallszahl zwischen 1 und 6</li>
-                    <li><code>getNextRight()</code> - Anzahl Schritte bis zur nächsten Rechtskurve</li>
-                    <li><code>free(richtung, x, y)</code> - Freie Felder in Richtung (optional: von Position x,y)</li>
-                </ul>
-                <h4>Ziel:</h4>
-                <p>Erreiche das grüne Ziel, ohne gegen Hindernisse oder Wände zu stoßen!</p>
-                <h4>Beispiel:</h4>
-                <pre><code>go();
+ <div class="instructions">
+    <h3>Anleitung</h3>
+    <h4>Befehle:</h4>
+    <ul>
+        <li><code>go()</code> - Bewege dich einen Schritt vorwärts</li>
+        <li><code>go(3)</code> - Bewege dich 3 Schritte vorwärts</li>
+        <li><code>left()</code> - Drehe dich nach links</li>
+        <li><code>right()</code> - Drehe dich nach rechts</li>
+        <li><code>free()</code> - Anzahl freier Felder vor dem Avatar</li>
+        <li><code>random(6)</code> - Zufallszahl zwischen 1 und 6</li>
+        <li><code>getNextRight()</code> - Anzahl Schritte bis zur nächsten Rechtskurve</li>
+        <li><code>free(directionOffset, inX, inY)</code> - Freie Felder in Richtung (optional: von Position x,y)</li>
+        <li><code>trailOn("red")</code> - Schalte die Spur auf dem Bildschirm ein</li>
+        <li><code>trailOff()</code> - Schalte die Spur auf dem Bildschirm aus</li>
+        <li><code>say("Hallo!", 1000, true)</code> - Lässt den Avatar etwas sagen</li>
+    </ul>
+    <h4>Parameter:</h4>
+    <ul>
+        <li><code>go(schritte)</code>
+            <ul>
+                <li><code>schritte</code>: Anzahl der Schritte, die der Avatar sich vorwärts bewegen soll.</li>
+            </ul>
+        </li>
+        <li><code>random(x)</code>
+            <ul>
+                <li><code>x</code>: Die obere Grenze für die Zufallszahl.</li>
+            </ul>
+        </li>
+        <li><code>free(directionOffset, inX, inY)</code>
+            <ul>
+                <li><code>directionOffset</code>: Die Richtung, in der geprüft werden soll ("rückwärts:-2,"links":-1, "vorwärts:0, "rechts":1).</li>
+                <li><code>inX</code>, <code>inY</code>: Die Position, von der aus geprüft werden soll (optional).</li>
+            </ul>
+        </li>
+        <li><code>trailOn(color)</code>
+            <ul>
+                <li><code>color</code>: Die Farbe der Spur (z.B. "red", "blue", "green").</li>
+            </ul>
+        </li>
+        <li><code>say(text, delay, stop)</code>
+            <ul>
+                <li><code>text</code>: Der Text, den der Avatar sagen soll.</li>
+                <li><code>delay</code>: Die Dauer in Millisekunden.</li>
+                <li><code>stop</code>: (<code>true</code> = wahr oder <code>false</code> = falsch) Ein Boolean, der angibt, ob der Avatar beim Sprechen stoppen soll.</li>
+            </ul>
+        </li>
+    </ul>
+    <h4>Ziel:</h4>
+    <p>Erreiche das Ziel, ohne gegen Hindernisse oder Wände zu stoßen!</p>
+    <h4>Beispiel:</h4>
+    <pre><code>go();
 left();
 go(3);
 right();
-go();</code></pre>
-                <h4>Programmieren:</h4>
-                <p>Du kannst auch echtes JavaScript verwenden! Zum Beispiel Schleifen und Bedingungen:</p>
-                <pre><code>for (let i = 0; i < 3; i++) {
+go();
+trailOn("rot");
+say("Hallo!", 1000, true);</code></pre>
+    <h4>Programmieren:</h4>
+    <p>Du kannst auch echtes JavaScript verwenden! Zum Beispiel Schleifen und Bedingungen:</p>
+    <pre><code>for (let i = 0; i < 3; i++) {
   go();
 }
-
 if (free() > 2) {
   go(2);
 }</code></pre>
-            </div>
-        </div>
-    </div>
+</div>
+
+
     <footer>
         <p>
             <a href="https://github.com/NoNotNow/lauff" target="_blank" style="color: #007bff; text-decoration: none;">
