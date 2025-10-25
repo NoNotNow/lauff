@@ -1,6 +1,7 @@
 // Code execution and program control
 import { free, getNextLeft, getNextRight, go, left, right, say } from '../game-state/movement.js';
 import { resetTimer, startTimer, stopTimer } from '../utility/timer.js';
+import { parseNumber} from '../utility/helpers.js';
 import { analyseRuntimeError, analyseSyntaxError, countStatements } from './code-analyser.js';
 import { editor } from './code-editor.js';
 import { cancelDelay, delay } from '../utility/delay.js';
@@ -53,7 +54,7 @@ async function movementDelay(factor = 1) {
 // Explicit wrapped functions
 /** @param {number|string} input */
 async function wrappedGo(input) {
-  input=parseInt(input, 1);
+  input=parseNumber(input, 1);
   await go(input);
   await movementDelay(Math.sqrt(input));
 }
