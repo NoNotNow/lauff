@@ -86,12 +86,14 @@ async function wrappedSay(text, delay, stop) {
  */
 function transformCode(code) {
   // Replace movement calls with awaited versions.
+  // Allow optional whitespace between the identifier and the opening parenthesis
+  // so both `go(` and `go (` become `await go(` when transformed.
   // The identifiers (go, left, right, say) refer to wrapped functions passed as parameters.
   return code
-    .replace(/\bgo\(/g, 'await go(')
-    .replace(/\bleft\(/g, 'await left(')
-    .replace(/\bright\(/g, 'await right(')
-    .replace(/\bsay\(/g, 'await say(');
+    .replace(/\bgo\b\s*\(/g, 'await go(')
+    .replace(/\bleft\b\s*\(/g, 'await left(')
+    .replace(/\bright\b\s*\(/g, 'await right(')
+    .replace(/\bsay\b\s*\(/g, 'await say(');
 }
 
 // Parse and prepare user code for execution
