@@ -38,6 +38,11 @@ class TrailDrawer{
 
         // Clear canvas
         this.ctx.clearRect(0, 0, this.rect.width, this.rect.height);
+
+        // Set line styles
+        this.ctx.lineCap = 'round';
+        this.ctx.lineJoin = 'round';
+
     }
 
     /**
@@ -58,7 +63,7 @@ class TrailDrawer{
         const toX = endPos.x * this.gridSize;
         const toY = endPos.y * this.gridSize;
         this.ctx.strokeStyle = color;
-        this.ctx.lineWidth = 5;
+        this.ctx.lineWidth = this.gridSize / 4;
 
         this.ctx.beginPath();
         this.ctx.moveTo(fromX, fromY);
