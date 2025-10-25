@@ -53,6 +53,7 @@ async function movementDelay(factor = 1) {
 // Explicit wrapped functions
 /** @param {number|string} input */
 async function wrappedGo(input) {
+  input=parseInt(input, 1);
   await go(input);
   await movementDelay(Math.sqrt(input));
 }
