@@ -292,10 +292,10 @@
         <li><code>free()</code> - Anzahl freier Felder vor dem Avatar</li>
         <li><code>random(6)</code> - Zufallszahl zwischen 1 und 6</li>
         <li><code>getNextRight()</code> - Anzahl Schritte bis zur nächsten Rechtskurve</li>
-        <li><code>free(directionOffset, inX, inY)</code> - Freie Felder in Richtung (optional: von Position x,y)</li>
+        <li><code>free(directionOffset, x, y)</code> - Freie Felder in Richtung (optional: von Position x,y)</li>
         <li><code>trailOn("red")</code> - Schalte die Spur auf dem Bildschirm ein</li>
         <li><code>trailOff()</code> - Schalte die Spur auf dem Bildschirm aus</li>
-        <li><code>say("Hallo!", 1000, true)</code> - Lässt den Avatar etwas sagen</li>
+        <li><code>say("Hallo!", 3, true)</code> - Lässt den Avatar etwas sagen</li>
     </ul>
     <h4>Parameter:</h4>
     <ul>
@@ -309,21 +309,25 @@
                 <li><code>x</code>: Die obere Grenze für die Zufallszahl.</li>
             </ul>
         </li>
-        <li><code>free(directionOffset, inX, inY)</code>
+        <li><code>free(directionOffset, x, y)</code>
             <ul>
                 <li><code>directionOffset</code>: Die Richtung, in der geprüft werden soll ("rückwärts:-2,"links":-1, "vorwärts:0, "rechts":1).</li>
-                <li><code>inX</code>, <code>inY</code>: Die Position, von der aus geprüft werden soll (optional).</li>
+                <li><code>x</code>, <code>y</code>: Die Position, von der aus geprüft werden soll (optional).</li>
             </ul>
         </li>
         <li><code>trailOn(color)</code>
             <ul>
-                <li><code>color</code>: Die Farbe der Spur (z.B. "red", "blue", "green").</li>
+                <li><code>color</code>: Die Farbe der Spur z.B. "red", "blue", "green", "yellow", "purple", "orange", "rgb(255, 0, 0)."<br>
+                rgb bedeutet Rot-Grün-Blau und erlaubt es dir, jede beliebige Farbe zu erstellen, indem du die Intensität der drei Grundfarben von 0 bis 255 angibst.<br>
+                z.B. "rgb(0, 0, 255)" ist reines Blau und "rgb(255, 0, 0)" ist reines Rot, "rgb(0, 255, 0)" ist reines Grün, "rgb(255, 255, 0)" ist reines Gelb.<br>
+                Du kannst so viele Farben mischen, wie du möchtest!
+                </li>
             </ul>
         </li>
         <li><code>say(text, delay, stop)</code>
             <ul>
                 <li><code>text</code>: Der Text, den der Avatar sagen soll.</li>
-                <li><code>delay</code>: Die Dauer in Millisekunden.</li>
+                <li><code>delay</code>: Die Dauer in Sekunden.</li>
                 <li><code>stop</code>: (<code>true</code> = wahr oder <code>false</code> = falsch) Ein Boolean, der angibt, ob der Avatar beim Sprechen stoppen soll.</li>
             </ul>
         </li>
@@ -331,12 +335,12 @@
     <h4>Ziel:</h4>
     <p>Erreiche das Ziel, ohne gegen Hindernisse oder Wände zu stoßen!</p>
     <h4>Beispiel:</h4>
-    <pre><code>go();
+    <pre><code>trailOn("rot");
+go();
 left();
 go(3);
 right();
 go();
-trailOn("rot");
 say("Hallo!", 1000, true);</code></pre>
     <h4>Programmieren:</h4>
     <p>Du kannst auch echtes JavaScript verwenden! Zum Beispiel Schleifen und Bedingungen:</p>
@@ -346,6 +350,15 @@ say("Hallo!", 1000, true);</code></pre>
 if (free() > 2) {
   go(2);
 }</code></pre>
+<p>
+    So zeichnest du ein rotes Viereck:
+    <pre><code>trailOn("red");
+for(let i = 0; i < 4; i++) {
+    go(5);
+    right();
+}
+</code></pre>
+</p>
 </div>
 
 

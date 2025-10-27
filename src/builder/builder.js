@@ -4,6 +4,7 @@
 import {stageState} from '../game-state/stage-state.js';
 import {adjustSize, updateAvatar, updateStageView, drawGrid} from '../stage-effects/view-renderer.js';
 import {loadBluePrint, removeBluePrintEntry, saveBluePrint} from "../data/save-load.js";
+import { trailDrawer } from '../stage-effects/trail-drawer.js';
 
 class Builder {
     constructor() {
@@ -87,7 +88,7 @@ class Builder {
         this.#clampEntitiesToBounds();
         updateStageView();
         updateAvatar();
-        setTimeout(() => drawGrid(), 300);
+        setTimeout(() => {drawGrid(); trailDrawer.init();}, 300);
     }
 
     setBackgroundGradient(partial) {

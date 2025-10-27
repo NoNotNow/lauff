@@ -8,6 +8,7 @@ export function updateFullStage(){
     adjustSize(stageState.getStageSize());
     updateStageView();
     drawGrid();
+    trailDrawer.init();
 }
 
 /**
@@ -91,8 +92,8 @@ export function updateStageView() {
 }
 
 export function drawGrid() {
-    setTimeout(() => { drawGradient(); drawGridImpl(); }, 200);
-    setTimeout(() => { drawGradient(); drawGridImpl(); }, 1000);
+    setTimeout(() => { drawGradient(); drawGridImpl(); trailDrawer.init(); }, 200);
+    setTimeout(() => { drawGradient(); drawGridImpl(); trailDrawer.init(); }, 1000);
 }
 
 export function drawGradient() {

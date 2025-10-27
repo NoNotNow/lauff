@@ -11,6 +11,7 @@ import {builder} from './builder/builder.js';
 import {mode} from './mode.js';
 import {toFileName} from "./utility/helpers.js";
 import {localizer} from "./localizer/localizer.js";
+import { trailDrawer } from './stage-effects/trail-drawer.js';
 
 
 async function handleKeydown(event) {
@@ -137,6 +138,7 @@ export function setupEventListeners() {
         clearTimeout(resizeTimeout);
         resizeTimeout = setTimeout(() => {
             drawGrid();
+            trailDrawer.init();
             console.log("Grid redrawn after resize");
         }, 100);
     });
