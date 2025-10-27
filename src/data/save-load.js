@@ -42,7 +42,7 @@ export function loadCode(mapName = null) {
     console.log("No saved code found in localStorage for map:", currentMapName);
     // Set default code if no saved code exists
     if (!editor.getCode().trim()) {
-      editor.setCode('go();');
+      editor.setCode('');
     }
   }
 }
