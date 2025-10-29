@@ -56,16 +56,23 @@ export function downloadEditorCode() {
     const defaultName = toFileName(getCurrentMapName() || 'program');
     let name = window.prompt('File name for your code (without extension):', defaultName);
     if (name == null) return; // cancel
+
     name = toFileName(String(name).trim() || defaultName);
-    const blob = new Blob([code], { type: 'text/plain;charset=utf-8' });
+
+    // Remove any existing extension the user might have added
+    name = name.replace(/\.lauff$/i, '');
+
+    // Use application/octet-stream to prevent browser interpretation
+    const blob = new Blob([code], { type: 'application/octet-stream' });
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
     a.href = url;
     a.download = `${name}.lauff`;
+    a.style.display = 'none'; // Better practice
     document.body.appendChild(a);
     a.click();
     document.body.removeChild(a);
-    setTimeout(() => URL.revokeObjectURL(url), 0);
+    setTimeout(() => URL.revokeObjectURL(url), 100); // Small delay is safer
   } catch (e) {
     console.error('Code download failed', e);
     alert('Download failed.');
@@ -78,7 +85,7 @@ export function downloadEditorCode() {
 export function uploadEditorCode() {
   const input = document.createElement('input');
   input.type = 'file';
-  input.accept = '.lauff,text/plain';
+  input.accept = '.lauff'; // Focus on .lauff files
   input.style.display = 'none';
   input.addEventListener('change', async () => {
     const file = input.files && input.files[0];
@@ -95,6 +102,58 @@ export function uploadEditorCode() {
   }, { once: true });
   document.body.appendChild(input);
   input.click();
+}
+
+/**
+ *
+ * @param {StageBlueprint} bluePrint
+ * @param {string} name
+ */
+export function downloadMap(bluePrint, name) {
+  try {
+    const fileName = toFileName(name || (bluePrint.getName ? bluePrint.getName() : 'level'));
+    const blob = new Blob([JSON.stringify(bluePrint, null, 2)], { type: 'application/octet-stream' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `${fileName}.lab`;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    setTimeout(() => URL.revokeObjectURL(url), 0);
+  } catch (e) {
+    console.error('Download failed', e);
+  }
+}
+
+export function uploadMap() {
+  return new Promise((resolve, reject) => {
+    const input = document.createElement('input');
+    input.type = 'file';
+    input.accept = '.lab';
+    input.style.display = 'none';
+    input.addEventListener('change', async () => {
+      const file = input.files && input.files[0];
+      if (!file) return;
+      try {
+        const text = await file.text();
+        const data = JSON.parse(text);
+        if (stageState.loadGameState) {
+          stageState.loadGameState(data);
+          stageState.resetPosition && stageState.resetPosition();
+          resolve();
+        }
+      } catch (e) {
+        console.error('Upload failed', e);
+        alert('Invalid level file.');
+        reject(e);
+      } finally {
+        input.remove();
+      }
+    }, { once: true });
+    document.body.appendChild(input);
+    input.click();
+  });
 }
 
 /**

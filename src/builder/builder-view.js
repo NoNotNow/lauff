@@ -1,14 +1,14 @@
 // BuilderView: binds DOM elements and forwards user actions to the Builder API
 // No game-state mutations happen here; all updates go through builder methods.
 
-import {builder} from './builder.js';
-import {getStoredBluePrints} from "../data/save-load.js";
-import {updateFullStage} from "../stage-effects/view-renderer.js";
-import {localizer} from "../localizer/localizer.js";
-import {MessageTokens} from "../localizer/tokens.js";
-import {stageState} from "../game-state/stage-state.js";
-import {parseNumber, toFileName} from "../utility/helpers.js";
-import {backgroundPresets} from "../design/background-manager.js";
+import { builder } from './builder.js';
+import { downloadMap, getStoredBluePrints, uploadMap } from "../data/save-load.js";
+import { updateFullStage } from "../stage-effects/view-renderer.js";
+import { localizer } from "../localizer/localizer.js";
+import { MessageTokens } from "../localizer/tokens.js";
+import { stageState } from "../game-state/stage-state.js";
+import { parseNumber, toFileName } from "../utility/helpers.js";
+import { backgroundPresets } from "../design/background-manager.js";
 
 
 export class BuilderView {
@@ -54,9 +54,9 @@ export class BuilderView {
         const onSizeChange = () => {
             // Parse numbers; let builder validate and clamp
             const wx = parseNumber(this.widthInput?.value ?? '', 10, 0, 200);
-            const hy = parseNumber(this.heightInput?.value ?? '', 10, 0,200);
+            const hy = parseNumber(this.heightInput?.value ?? '', 10, 0, 200);
             console.log("stage size", wx, hy);
-            builder.setStageSize({x: wx, y: hy});
+            builder.setStageSize({ x: wx, y: hy });
             this.updateViewFromSnapshot();
         };
         if (this.widthInput) this.widthInput.addEventListener('change', onSizeChange);
@@ -72,7 +72,7 @@ export class BuilderView {
 
         // Background gradient bindings
         if (this.bgEnabled) {
-            this.bgEnabled.addEventListener('change', () => builder.setBackgroundGradient({enabled: this.bgEnabled.checked}));
+            this.bgEnabled.addEventListener('change', () => builder.setBackgroundGradient({ enabled: this.bgEnabled.checked }));
         }
         if (this.bgPreset) {
             this.bgPreset.addEventListener('change', () => {
@@ -103,14 +103,14 @@ export class BuilderView {
         if (this.bgMidPos) this.bgMidPos.addEventListener('input', applyStopsFromInputs);
         if (this.bgTo) this.bgTo.addEventListener('input', applyStopsFromInputs);
         if (this.bgAngle) {
-            this.bgAngle.addEventListener('input', () => builder.setBackgroundGradient({angle: parseFloat(this.bgAngle.value) || 0}));
+            this.bgAngle.addEventListener('input', () => builder.setBackgroundGradient({ angle: parseFloat(this.bgAngle.value) || 0 }));
         }
         // Obstacle color bindings
         if (this.obFill) {
-            this.obFill.addEventListener('input', () => builder.setObstacleStyle({fill: this.obFill.value}));
+            this.obFill.addEventListener('input', () => builder.setObstacleStyle({ fill: this.obFill.value }));
         }
         if (this.obBorder) {
-            this.obBorder.addEventListener('input', () => builder.setObstacleStyle({border: this.obBorder.value}));
+            this.obBorder.addEventListener('input', () => builder.setObstacleStyle({ border: this.obBorder.value }));
         }
 
         if (this.canvas) {
@@ -128,22 +128,9 @@ export class BuilderView {
         }
         if (this.downloadGridButton) {
             this.downloadGridButton.addEventListener('pointerup', () => {
-                try {
-                    const bp = stageState.getState ? stageState.getState() : null;
-                    if (!bp) return;
-                    const name = toFileName(stageState.getName ? stageState.getName() : 'level');
-                    const blob = new Blob([JSON.stringify(bp, null, 2)], { type: 'application/json' });
-                    const url = URL.createObjectURL(blob);
-                    const a = document.createElement('a');
-                    a.href = url;
-                    a.download = `${name}.lab`;
-                    document.body.appendChild(a);
-                    a.click();
-                    document.body.removeChild(a);
-                    setTimeout(() => URL.revokeObjectURL(url), 0);
-                } catch (e) {
-                    console.error('Download failed', e);
-                }
+                const bp = stageState.getState ? stageState.getState() : null;
+                if (!bp) return;
+                downloadMap(bp, this.nameInput?.value);
             });
         }
         if (this.uploadGridButton) {
@@ -153,47 +140,26 @@ export class BuilderView {
                         return;
                     }
                 }
-                const input = document.createElement('input');
-                input.type = 'file';
-                input.accept = '.lab';
-                input.style.display = 'none';
-                input.addEventListener('change', async () => {
-                    const file = input.files && input.files[0];
-                    if (!file) return;
-                    try {
-                        const text = await file.text();
-                        const data = JSON.parse(text);
-                        if (stageState.loadGameState) {
-                            stageState.loadGameState(data);
-                            stageState.resetPosition && stageState.resetPosition();
-                            updateFullStage();
-                            this.updateViewFromSnapshot();
-                        }
-                    } catch (e) {
-                        console.error('Upload failed', e);
-                        alert('Invalid level file.');
-                    } finally {
-                        input.remove();
-                    }
-                }, { once: true });
-                document.body.appendChild(input);
-                input.click();
+                uploadMap().then(() => {
+                    updateFullStage();
+                    this.updateViewFromSnapshot();
+                });
             });
         }
         if (this.loadButton) {
             this.loadButton.addEventListener('pointerup', () => {
-                    if(builder.isDirty()){
-                        if(!window.confirm(localizer.localizeMessage(MessageTokens.unsavedChanges))){
-                            return;
-                        }
+                if (builder.isDirty()) {
+                    if (!window.confirm(localizer.localizeMessage(MessageTokens.unsavedChanges))) {
+                        return;
                     }
-
-                    builder.setLevel(this.levelSelect.value);
-                    stageState.resetPosition();
-                    updateFullStage();
-                    this.updateViewFromSnapshot();
-                    document.getElementById('level-loader').classList.remove('open');
                 }
+
+                builder.setLevel(this.levelSelect.value);
+                stageState.resetPosition();
+                updateFullStage();
+                this.updateViewFromSnapshot();
+                document.getElementById('level-loader').classList.remove('open');
+            }
             );
         }
         if (this.removeButton) {
@@ -233,11 +199,11 @@ export class BuilderView {
                     { offset: 1, color: bg.to || '#ffffff' }
                 ];
             }
-            stops.sort((a,b) => a.offset - b.offset);
+            stops.sort((a, b) => a.offset - b.offset);
             if (this.bgFrom) this.bgFrom.value = stops[0]?.color || '#ffffff';
-            if (this.bgTo) this.bgTo.value = stops[stops.length-1]?.color || '#ffffff';
+            if (this.bgTo) this.bgTo.value = stops[stops.length - 1]?.color || '#ffffff';
             if (this.bgMid) this.bgMid.value = stops[1] && stops.length >= 3 ? stops[1].color : '';
-            if (this.bgMidPos) this.bgMidPos.value = stops[1] && stops.length >= 3 ? String(Math.round((stops[1].offset || 0.5)*100)) : '50';
+            if (this.bgMidPos) this.bgMidPos.value = stops[1] && stops.length >= 3 ? String(Math.round((stops[1].offset || 0.5) * 100)) : '50';
             // preset selection: try to match current to a preset string
             if (this.bgPreset) {
                 let matched = '';
@@ -247,13 +213,13 @@ export class BuilderView {
                         const p = this.#parseLinearGradient(css);
                         if (!p) continue;
                         const cols = p.colors;
-                        const curCols = [stops[0]?.color, stops[1] && stops.length>=3 ? stops[1].color : undefined, stops[stops.length-1]?.color].filter(Boolean);
-                        if (cols.length === curCols.length && cols.every((c,i)=> c.toLowerCase() === curCols[i].toLowerCase())) {
+                        const curCols = [stops[0]?.color, stops[1] && stops.length >= 3 ? stops[1].color : undefined, stops[stops.length - 1]?.color].filter(Boolean);
+                        if (cols.length === curCols.length && cols.every((c, i) => c.toLowerCase() === curCols[i].toLowerCase())) {
                             matched = css;
                             break;
                         }
                     }
-                } catch(e) {}
+                } catch (e) { }
                 this.bgPreset.value = matched;
             }
             const os = s.obstacleStyle || {};
@@ -341,7 +307,7 @@ export class BuilderView {
         }
         stops.push({ offset: 1, color: to });
         // sort and unique offsets
-        stops.sort((a,b) => a.offset - b.offset);
+        stops.sort((a, b) => a.offset - b.offset);
         return stops;
     }
 }
