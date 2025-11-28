@@ -1,5 +1,6 @@
 // Code execution and program control
 import { free, getNextLeft, getNextRight, go, left, right, say } from '../game-state/movement.js';
+import { Grid } from './user-classes/grid.js';
 import { resetTimer, startTimer, stopTimer } from '../utility/timer.js';
 import { analyseRuntimeError, analyseSyntaxError, countStatements } from './code-analyser.js';
 import { editor } from './code-editor.js';
@@ -23,6 +24,10 @@ function random(x) {
     throw new Error("random() requires a positive number");
   }
   return Math.floor(Math.random() * x) + 1;
+}
+
+function getStageSize(){
+  return stageState.getStageSize();
 }
 
 function trailOn(color){
@@ -79,6 +84,11 @@ async function wrappedSay(text, delay, stop) {
   await say(text, delay, stop);
 }
 
+/** @returns {{x:number,y:number}} */
+function getPosition(){
+  return stageState.getPosition();
+}
+
 // Transform user code to use wrapped functions
 /**
  * @param {string} code
@@ -114,7 +124,8 @@ function parseUserCode(code) {
     // Create an async function from the transformed code
     const AsyncFunction = Object.getPrototypeOf(async function () { }).constructor;
     return new AsyncFunction('go', 'left', 'right', 'free', 'random',
-      'getNextRight', 'getNextLeft', 'say', 'trailOn', 'trailOff',
+      'getNextRight', 'getNextLeft', 'say', 'trailOn', 'trailOff', 'getPosition',
+      'Grid', 'getStageSize',
       `
       // User's transformed code with movement functions available as parameters
       ${transformedCode}
@@ -135,7 +146,8 @@ function parseUserCode(code) {
 async function executeUserProgram(userFunction) {
   try {
     await userFunction(wrappedGo, wrappedLeft, wrappedRight,
-      free, random, getNextRight, getNextLeft, wrappedSay, trailOn, trailOff);
+      free, random, getNextRight, getNextLeft, wrappedSay, 
+      trailOn, trailOff, getPosition, Grid, getStageSize);
   } catch (error) {
     if (error.message === "Execution stopped") {
       throw error; // Re-throw to be caught by start()
